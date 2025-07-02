@@ -734,7 +734,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-12 mb-16">
             <div>
-              <img src="/logo.png" alt="ClipTokk" className="h-8 mb-6 object-contain" />
+              <img src="/logo.png" alt="ClipTokk" className="h-20 mb-6 object-contain" />
               <p className="text-[#0F172A]/70 text-lg font-light">
                 La première plateforme qui rémunère tes TikToks
               </p>
