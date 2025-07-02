@@ -376,7 +376,7 @@ export default function Home() {
             <p className="text-xl text-white/70 font-light">Inspiration réelle de notre communauté</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-8 items-start justify-items-center">
             {[
               { 
                 creator: "MrBeast", 
@@ -408,9 +408,9 @@ export default function Home() {
             ].map((clip, index) => (
               <div key={index} className="group">
                 {/* Mockup TikTok mobile */}
-                <div className="relative mx-auto w-64 h-[500px]">
+                <div className="relative mx-auto w-64 h-[500px] flex-shrink-0">
                   {/* Cadre smartphone */}
-                  <div className="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-[2.5rem] p-1.5 shadow-2xl h-full">
+                  <div className="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-[2.5rem] p-1.5 shadow-2xl w-64 h-[500px]">
                     {/* Écran */}
                     <div className="bg-black rounded-[2rem] overflow-hidden relative h-full">
                       {/* Status bar minimaliste */}
