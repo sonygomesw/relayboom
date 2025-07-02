@@ -206,7 +206,7 @@ export default function Home() {
       </header>
 
       {/* Hero Section avec fond principal */}
-      <section className="min-h-screen bg-[#F9FAFB] flex items-center relative overflow-hidden">
+      <section className="min-h-screen bg-white flex items-center relative overflow-hidden">
         {/* Fond décoratif subtil */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#10B981]/5 to-[#10B981]/10"></div>
         
@@ -501,7 +501,7 @@ export default function Home() {
       </section>
 
       {/* Pourquoi ClipTokk - Retour fond principal */}
-      <section className="py-24 bg-[#F9FAFB]">
+      <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-5xl font-black text-[#0F172A] mb-8">
@@ -546,7 +546,7 @@ export default function Home() {
       </section>
 
       {/* Comment ça marche - Fond principal (MÊME COULEUR) */}
-      <section id="how-it-works" className="py-24 bg-[#F9FAFB]">
+      <section id="how-it-works" className="py-24 bg-white">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-5xl font-black text-[#0F172A] mb-8">
@@ -571,12 +571,6 @@ export default function Home() {
               },
               {
                 number: "3",
-                title: "Publie sur TikTok",
-                description: "Poste ton clip sur tes réseaux sociaux",
-                icon: IconBrandTiktok
-              },
-              {
-                number: "4",
                 title: "Reçois tes gains",
                 description: "0,10€ automatique par 1000 vues",
                 icon: IconCoin
@@ -595,74 +589,60 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Section Démo - Fond secondaire (MÊME COULEUR) */}
-      <section className="py-24 bg-[#0F172A]">
+      {/* Section Témoignages - Preuve sociale pour aérer */}
+      <section className="py-20 bg-[#0F172A]">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-black text-white mb-6">
-              Comment ça marche en 30 secondes
+            <h2 className="text-4xl font-black text-white mb-6">
+              💬 Ils gagnent déjà avec ClipTokk
             </h2>
-            <p className="text-xl text-white/70 font-light">3 étapes simples pour commencer à gagner</p>
+            <p className="text-xl text-white/70 font-light">Témoignages de notre communauté</p>
           </div>
 
-          {/* Démo vidéo simulée */}
-          <div className="relative max-w-4xl mx-auto mb-16">
-            <div className="aspect-video bg-[#0F172A]/80 rounded-3xl overflow-hidden relative group hover:scale-105 transition-all duration-500 border border-white/10">
-              <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-all duration-300">
-                    <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z"/>
-                    </svg>
-                  </div>
-                  <p className="text-white text-xl font-semibold">Voir la démo complète</p>
-                  <p className="text-white/70 text-sm mt-2">0:30 • Comment gagner €50+ par semaine</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Étapes avec animations */}
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                step: "01",
-                title: "Choisis une mission",
-                description: "Sélectionne parmi +50 missions disponibles",
-                icon: "🎯"
+                name: "Lucas M.",
+                role: "Étudiant, 19 ans",
+                earnings: "€847",
+                period: "ce mois",
+                testimonial: "J'ai commencé il y a 3 semaines, je gagne déjà plus qu'avec mon job étudiant !",
+                avatar: "L"
               },
               {
-                step: "02", 
-                title: "Crée ton clip",
-                description: "5 min dans CapCut avec nos templates",
-                icon: "✂️"
+                name: "Sarah K.",
+                role: "Freelance, 24 ans", 
+                earnings: "€1,234",
+                period: "ce mois",
+                testimonial: "ClipTokk m'a permis de diversifier mes revenus. Les paiements sont toujours à l'heure.",
+                avatar: "S"
               },
               {
-                step: "03",
-                title: "Reçois ton paiement",
-                description: "0,10€ automatique par 1000 vues",
-                icon: "💰"
+                name: "Alex R.",
+                role: "Créateur, 21 ans",
+                earnings: "€2,156",
+                period: "ce mois",
+                testimonial: "Meilleure plateforme pour monétiser sa créativité. Interface simple, gains transparents.",
+                avatar: "A"
               }
-            ].map((step, index) => (
-              <div key={index} className="text-center group">
-                <div className="w-20 h-20 bg-[#10B981] rounded-full flex items-center justify-center text-3xl mx-auto mb-6 group-hover:scale-110 transition-all duration-300 shadow-lg">
-                  {step.icon}
+            ].map((testimonial, index) => (
+              <div key={index} className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 bg-[#10B981] rounded-full flex items-center justify-center">
+                    <span className="text-white font-bold">{testimonial.avatar}</span>
+                  </div>
+                  <div>
+                    <div className="text-white font-bold">{testimonial.name}</div>
+                    <div className="text-white/60 text-sm">{testimonial.role}</div>
+                  </div>
                 </div>
-                <div className="text-white/60 text-sm font-bold mb-2">ÉTAPE {step.step}</div>
-                <h3 className="text-2xl font-bold text-white mb-4">{step.title}</h3>
-                <p className="text-white/70 leading-relaxed">{step.description}</p>
+                <p className="text-white/80 mb-4 italic">"{testimonial.testimonial}"</p>
+                <div className="text-center bg-[#10B981]/20 rounded-lg p-3">
+                  <div className="text-[#10B981] font-bold text-xl">{testimonial.earnings}</div>
+                  <div className="text-white/60 text-sm">gagnés {testimonial.period}</div>
+                </div>
               </div>
             ))}
-          </div>
-
-          <div className="text-center mt-16">
-            <button 
-              onClick={() => setAuthModal({isOpen: true, mode: 'clipper-signup'})}
-              className="bg-[#10B981] text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-[#10B981]/90 transition-all duration-300 hover:scale-105"
-            >
-              Commencer maintenant
-            </button>
-            <p className="text-white/60 text-sm mt-4">Gratuit • Aucun engagement • Paiement immédiat</p>
           </div>
         </div>
       </section>
@@ -691,7 +671,7 @@ export default function Home() {
           <h2 className="text-5xl font-black text-[#0F172A] mb-12">
             💰 D'où vient l'argent ?
           </h2>
-          <div className="bg-[#F9FAFB] rounded-3xl p-16 shadow-sm border border-[#0F172A]/10">
+          <div className="bg-white rounded-3xl p-16 shadow-sm border border-[#0F172A]/10">
             <p className="text-2xl text-[#0F172A]/80 leading-relaxed font-light">
               Les streamers, artistes et marques déposent un budget pour faire clipper leur contenu. 
               À chaque vue que tu génères, tu touches automatiquement ta part. 
@@ -730,7 +710,7 @@ export default function Home() {
       </section>
 
       {/* Footer - Fond principal pour finir en douceur */}
-      <footer className="bg-[#F9FAFB] py-20">
+      <footer className="bg-white py-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-12 mb-16">
             <div>
