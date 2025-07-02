@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test API Stripe Connect</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: 0 auto; }
+        button { background: #00ff88; color: black; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-size: 16px; margin: 10px 5px; }
+        button:hover { background: #00cc66; }
+        .result { background: #f5f5f5; padding: 15px; border-radius: 6px; margin: 10px 0; font-family: monospace; }
+        .error { background: #ffebee; color: #c62828; }
+        .success { background: #e8f5e8; color: #2e7d32; }
+        input { width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ddd; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test API Stripe Connect</h1>
+    
+    <div>
+        <h3>1. D'abord, connectez-vous sur votre site</h3>
+        <p>Allez sur <a href="http://localhost:3001" target="_blank">http://localhost:3001</a> et connectez-vous</p>
+    </div>
+
+    <div>
+        <h3>2. Testez l'API</h3>
+        <label>Token d'authentification (Bearer token) :</label>
+        <input type="text" id="authToken" placeholder="Collez votre token ici..." />
+        <button onclick="testCreateAccount()">Créer un compte Stripe Connect</button>
+    </div>
+
+    <div id="result" class="result" style="display: none;"></div>
+
+    <script>
+        async function testCreateAccount() {
+            const token = document.getElementById('authToken').value;
+            const resultDiv = document.getElementById('result');
+            
+            if (!token) {
+                showResult('❌ Veuillez entrer un token d\'authentification', 'error');
+                return;
+            }
+
+            try {
+                showResult('⏳ Création du compte Stripe...', '');
+                
+                const response = await fetch('http://localhost:3001/api/stripe/create-account', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showResult(`✅ Succès !
+Account ID: ${data.accountId}
+Onboarding URL: ${data.onboardingUrl}
+
+Cliquez ici pour continuer l'onboarding :
+<a href="${data.onboardingUrl}" target="_blank">Compléter l'onboarding Stripe</a>`, 'success');
+                } else {
+                    showResult(`❌ Erreur: ${data.error}
+Détails: ${data.details || 'N/A'}`, 'error');
+                }
+            } catch (error) {
+                showResult(`❌ Erreur réseau: ${error.message}`, 'error');
+            }
+        }
+
+        function showResult(message, type) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = message;
+            resultDiv.className = `result ${type}`;
+            resultDiv.style.display = 'block';
+        }
+
+        // Instructions pour récupérer le token
+        document.addEventListener('DOMContentLoaded', function() {
+            const instructions = `
+            <h3>📝 Comment récupérer votre token :</h3>
+            <ol>
+                <li>Ouvrez votre site en localhost:3001</li>
+                <li>Connectez-vous</li>
+                <li>Ouvrez les DevTools (F12)</li>
+                <li>Allez dans l'onglet "Application" ou "Storage"</li>
+                <li>Cherchez dans "Local Storage" la clé qui contient "auth-token"</li>
+                <li>Copiez la valeur du "access_token"</li>
+            </ol>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', instructions);
+        });
+    </script>
+</body>
+</html> 

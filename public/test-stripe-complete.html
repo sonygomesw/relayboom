@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Stripe Elements - RelayBoom</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f7f9fc;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .card-element {
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            margin: 15px 0;
+            background: white;
+        }
+        .card-element:focus {
+            border-color: #24b47e;
+            outline: none;
+        }
+        button {
+            background: #24b47e;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+        button:hover {
+            background: #1ea76d;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .error {
+            color: #e25950;
+            margin-top: 10px;
+        }
+        .success {
+            color: #24b47e;
+            margin-top: 10px;
+        }
+        .info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border-left: 4px solid #24b47e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test Stripe Elements - RelayBoom</h1>
+        
+        <div class="info">
+            <strong>Test de l'intégration complète :</strong><br>
+            • Montant de test : 25€ (+ 10% commission = 27.50€)<br>
+            • Utiliser la carte test : <code>4242 4242 4242 4242</code><br>
+            • Date d'expiration : toute date future<br>
+            • CVC : tout code à 3 chiffres
+        </div>
+
+        <form id="payment-form">
+            <div>
+                <label for="card-element">Carte bancaire :</label>
+                <div id="card-element" class="card-element">
+                    <!-- Stripe Elements sera inséré ici -->
+                </div>
+            </div>
+
+            <div id="card-errors" class="error"></div>
+            <div id="payment-result"></div>
+
+            <button type="submit" id="submit-button">
+                💳 Payer 27.50€ (25€ + commission 10%)
+            </button>
+        </form>
+
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
+            <h3>Logs en temps réel :</h3>
+            <div id="logs" style="background: #1a1a1a; color: #00ff00; padding: 15px; border-radius: 6px; font-family: monospace; max-height: 300px; overflow-y: auto;">
+                <div>🚀 Initialisation Stripe...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const PUBLISHABLE_KEY = 'pk_test_51RfcuAAYcRmzU8J8aHy8JTDOsvBHo13KuAhHQuWyw3trjc5pcWQxcOVboT20gLpquhv3c3oFanKAMtA9Mc1gmHai007EYZXZdO';
+        const API_BASE = 'http://localhost:3001';
+        const TEST_AMOUNT = 25; // euros
+
+        // Elements DOM
+        const form = document.getElementById('payment-form');
+        const submitButton = document.getElementById('submit-button');
+        const cardErrors = document.getElementById('card-errors');
+        const paymentResult = document.getElementById('payment-result');
+        const logsDiv = document.getElementById('logs');
+
+        // Logs
+        function addLog(message, type = 'info') {
+            const colors = {
+                info: '#00ff00',
+                success: '#00ffaa',
+                error: '#ff4444',
+                warning: '#ffaa00'
+            };
+            
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.style.color = colors[type];
+            logEntry.innerHTML = `[${timestamp}] ${message}`;
+            logsDiv.appendChild(logEntry);
+            logsDiv.scrollTop = logsDiv.scrollHeight;
+        }
+
+        // Initialisation Stripe
+        const stripe = Stripe(PUBLISHABLE_KEY);
+        const elements = stripe.elements();
+
+        // Créer et monter Card Element
+        const cardElement = elements.create('card', {
+            style: {
+                base: {
+                    fontSize: '16px',
+                    color: '#424770',
+                    '::placeholder': {
+                        color: '#aab7c4',
+                    },
+                },
+            },
+        });
+
+        cardElement.mount('#card-element');
+        addLog('✅ Stripe Elements initialisé');
+
+        // Gestion des erreurs en temps réel
+        cardElement.on('change', ({error}) => {
+            if (error) {
+                cardErrors.textContent = error.message;
+                addLog(`❌ Erreur carte: ${error.message}`, 'error');
+            } else {
+                cardErrors.textContent = '';
+            }
+        });
+
+        // Gestion du formulaire
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            
+            submitButton.disabled = true;
+            submitButton.textContent = '⏳ Traitement...';
+            cardErrors.textContent = '';
+            paymentResult.innerHTML = '';
+            
+            addLog(`🔄 Création Payment Intent pour ${TEST_AMOUNT}€...`);
+
+            try {
+                // 1. Créer Payment Intent via l'API
+                const response = await fetch(`${API_BASE}/api/test-stripe`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // Pas besoin d'authentification pour l'API de test
+                    },
+                    body: JSON.stringify({ amount: TEST_AMOUNT })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Erreur API');
+                }
+
+                const { client_secret, payment_intent_id, commission, net_amount } = await response.json();
+                
+                addLog(`✅ Payment Intent créé: ${payment_intent_id}`, 'success');
+                addLog(`💰 Montant brut: ${TEST_AMOUNT}€, Commission: ${commission}€, Net: ${net_amount}€`);
+
+                // 2. Confirmer le paiement avec Stripe
+                addLog('🔐 Confirmation du paiement...');
+                
+                const {error} = await stripe.confirmCardPayment(client_secret, {
+                    payment_method: {
+                        card: cardElement,
+                    }
+                });
+
+                if (error) {
+                    throw new Error(error.message);
+                }
+
+                // 3. Succès !
+                addLog('🎉 Paiement réussi ! Webhook sera déclenché automatiquement.', 'success');
+                paymentResult.innerHTML = '<div class="success">✅ Paiement réussi ! Le wallet sera mis à jour via webhook.</div>';
+                
+                // Attendre et vérifier le webhook
+                addLog('⏳ Attente du webhook payment_intent.succeeded...', 'warning');
+                setTimeout(() => {
+                    addLog('ℹ️ Vérifiez les logs du serveur pour confirmer la réception du webhook.', 'warning');
+                }, 2000);
+
+            } catch (error) {
+                addLog(`❌ Erreur: ${error.message}`, 'error');
+                cardErrors.textContent = error.message;
+                paymentResult.innerHTML = `<div class="error">❌ Erreur: ${error.message}</div>`;
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = '💳 Payer 27.50€ (25€ + commission 10%)';
+            }
+        });
+
+        addLog('🎯 Prêt pour le test ! Utilisez la carte 4242 4242 4242 4242');
+    </script>
+</body>
+</html> 

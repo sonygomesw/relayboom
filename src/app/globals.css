@@ -1,15 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,7 +13,69 @@
 }
 
 body {
-  background: var(--background);
   color: var(--foreground);
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
   font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
 }
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Amélioration de la lisibilité de la police */
+.font-satoshi {
+  font-family: "Satoshi", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Animation pour les cards */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Scrollbar personnalisée */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4a5568;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #718096;
+}
+
+/* Poids de police par défaut plus épais */
+body {
+  font-weight: 500; /* Medium par défaut au lieu de 400 */
+  letter-spacing: -0.01em; /* Légère compression pour un look moderne */
+}
+
+/* Amélioration des titres */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600; /* Semi-bold pour les titres */
+  letter-spacing: -0.02em;
+}
+
+/* Boutons avec texte plus épais */
+button {
+  font-weight: 600;
+}
+
+/* Liens plus visibles */
+a {
+  font-weight: 500;
+} 
