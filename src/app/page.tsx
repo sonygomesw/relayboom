@@ -366,102 +366,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Pourquoi ClipTokk - Fond principal (MÊME COULEUR) */}
-      <section className="py-24 bg-[#F9FAFB]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl font-black text-[#0F172A] mb-8">
-              Pourquoi ClipTokk
-            </h2>
-            <p className="text-2xl text-[#0F172A]/70 max-w-3xl mx-auto font-light">
-              La première plateforme qui rémunère vraiment tes créations
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-10">
-            {[
-              {
-                icon: IconCoin,
-                title: "Rémunération garantie",
-                description: "0,10€ automatique pour chaque 1000 vues sur tes clips",
-                color: "bg-[#10B981]"
-              },
-              {
-                icon: IconTarget,
-                title: "Missions chaque semaine",
-                description: "Nouveau contenu à clipper régulièrement par des créateurs populaires",
-                color: "bg-[#10B981]"
-              },
-              {
-                icon: IconCheck,
-                title: "100% gratuit",
-                description: "Aucun abonnement, aucun frais cachés. Tu gagnes, on gagne",
-                color: "bg-[#10B981]"
-              }
-            ].map((feature, index) => (
-              <div key={index} className="group bg-white rounded-3xl p-10 shadow-sm hover:shadow-xl transition-all duration-500 border border-[#0F172A]/10 hover:border-[#0F172A]/20">
-                <div className={`w-20 h-20 ${feature.color} rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-300`}>
-                  <feature.icon className="w-10 h-10 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-[#0F172A] mb-6">{feature.title}</h3>
-                <p className="text-[#0F172A]/70 leading-relaxed text-lg">{feature.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Comment ça marche - Fond principal (MÊME COULEUR) */}
-      <section id="how-it-works" className="py-24 bg-[#F9FAFB]">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl font-black text-[#0F172A] mb-8">
-              Comment ça marche
-            </h2>
-            <p className="text-2xl text-[#0F172A]/70 font-light">Simple, rapide, efficace</p>
-          </div>
-
-          <div className="grid md:grid-cols-4 gap-12">
-            {[
-              {
-                number: "1",
-                title: "Choisis une mission",
-                description: "Browse et sélectionne la mission qui te plaît",
-                icon: IconTarget
-              },
-              {
-                number: "2",
-                title: "Crée ton clip",
-                description: "Clip la vidéo avec nos outils intégrés",
-                icon: IconVideo
-              },
-              {
-                number: "3",
-                title: "Publie sur TikTok",
-                description: "Poste ton clip sur tes réseaux sociaux",
-                icon: IconBrandTiktok
-              },
-              {
-                number: "4",
-                title: "Reçois tes gains",
-                description: "0,10€ automatique par 1000 vues",
-                icon: IconCoin
-              }
-            ].map((step, index) => (
-              <div key={index} className="text-center group">
-                <div className="w-20 h-20 bg-[#10B981] rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-all duration-300 shadow-lg">
-                  <step.icon className="w-10 h-10 text-white" />
-                </div>
-                <div className="text-[#0F172A]/60 text-sm font-bold mb-2">ÉTAPE {step.number}</div>
-                <h3 className="text-2xl font-bold text-[#0F172A] mb-4">{step.title}</h3>
-                <p className="text-[#0F172A]/70 leading-relaxed">{step.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Clips qui cartonnent - TRANSITION vers fond secondaire */}
+      {/* Clips qui cartonnent - 2ème section après Hero */}
       <section className="py-20 bg-[#0F172A]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -591,6 +496,101 @@ export default function Home() {
             >
               Rejoindre ces clippeurs
             </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Pourquoi ClipTokk - Retour fond principal */}
+      <section className="py-24 bg-[#F9FAFB]">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl font-black text-[#0F172A] mb-8">
+              Pourquoi ClipTokk
+            </h2>
+            <p className="text-2xl text-[#0F172A]/70 max-w-3xl mx-auto font-light">
+              La première plateforme qui rémunère vraiment tes créations
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-10">
+            {[
+              {
+                icon: IconCoin,
+                title: "Rémunération garantie",
+                description: "0,10€ automatique pour chaque 1000 vues sur tes clips",
+                color: "bg-[#10B981]"
+              },
+              {
+                icon: IconTarget,
+                title: "Missions chaque semaine",
+                description: "Nouveau contenu à clipper régulièrement par des créateurs populaires",
+                color: "bg-[#10B981]"
+              },
+              {
+                icon: IconCheck,
+                title: "100% gratuit",
+                description: "Aucun abonnement, aucun frais cachés. Tu gagnes, on gagne",
+                color: "bg-[#10B981]"
+              }
+            ].map((feature, index) => (
+              <div key={index} className="group bg-white rounded-3xl p-10 shadow-sm hover:shadow-xl transition-all duration-500 border border-[#0F172A]/10 hover:border-[#0F172A]/20">
+                <div className={`w-20 h-20 ${feature.color} rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-300`}>
+                  <feature.icon className="w-10 h-10 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-[#0F172A] mb-6">{feature.title}</h3>
+                <p className="text-[#0F172A]/70 leading-relaxed text-lg">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Comment ça marche - Fond principal (MÊME COULEUR) */}
+      <section id="how-it-works" className="py-24 bg-[#F9FAFB]">
+        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl font-black text-[#0F172A] mb-8">
+              Comment ça marche
+            </h2>
+            <p className="text-2xl text-[#0F172A]/70 font-light">Simple, rapide, efficace</p>
+          </div>
+
+          <div className="grid md:grid-cols-4 gap-12">
+            {[
+              {
+                number: "1",
+                title: "Choisis une mission",
+                description: "Browse et sélectionne la mission qui te plaît",
+                icon: IconTarget
+              },
+              {
+                number: "2",
+                title: "Crée ton clip",
+                description: "Clip la vidéo avec nos outils intégrés",
+                icon: IconVideo
+              },
+              {
+                number: "3",
+                title: "Publie sur TikTok",
+                description: "Poste ton clip sur tes réseaux sociaux",
+                icon: IconBrandTiktok
+              },
+              {
+                number: "4",
+                title: "Reçois tes gains",
+                description: "0,10€ automatique par 1000 vues",
+                icon: IconCoin
+              }
+            ].map((step, index) => (
+              <div key={index} className="text-center group">
+                <div className="w-20 h-20 bg-[#10B981] rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                  <step.icon className="w-10 h-10 text-white" />
+                </div>
+                <div className="text-[#0F172A]/60 text-sm font-bold mb-2">ÉTAPE {step.number}</div>
+                <h3 className="text-2xl font-bold text-[#0F172A] mb-4">{step.title}</h3>
+                <p className="text-[#0F172A]/70 leading-relaxed">{step.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
