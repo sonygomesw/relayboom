@@ -410,7 +410,7 @@ export default function Home() {
                 {/* Mockup TikTok mobile */}
                 <div className="relative mx-auto w-64 h-[500px]">
                   {/* Cadre smartphone */}
-                  <div className="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-[2.5rem] p-1.5 shadow-2xl">
+                  <div className="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-[2.5rem] p-1.5 shadow-2xl h-full">
                     {/* Écran */}
                     <div className="bg-black rounded-[2rem] overflow-hidden relative h-full">
                       {/* Status bar minimaliste */}
