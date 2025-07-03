@@ -392,18 +392,35 @@ export default function Home() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
-                  <div className="text-3xl font-bold text-[#10B981] mb-2">10€</div>
-                  <div className="text-[#0F172A]/70">Pour 100K vues</div>
-                </div>
-                <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
-                  <div className="text-3xl font-bold text-[#10B981] mb-2">50€</div>
-                  <div className="text-[#0F172A]/70">Pour 500K vues</div>
-                </div>
-                <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
-                  <div className="text-3xl font-bold text-[#10B981] mb-2">100€</div>
-                  <div className="text-[#0F172A]/70">Pour 1M vues</div>
-                </div>
+                {[
+                  {
+                    amount: "10€",
+                    views: "100K",
+                    description: "Pour 100K vues"
+                  },
+                  {
+                    amount: "50€",
+                    views: "500K",
+                    description: "Pour 500K vues"
+                  },
+                  {
+                    amount: "100€",
+                    views: "1M",
+                    description: "Pour 1M vues"
+                  }
+                ].map((tier, index) => (
+                  <div
+                    key={index}
+                    className="relative bg-white rounded-2xl p-8 shadow-lg border border-gray-100 flex flex-col items-center justify-center text-center h-48"
+                  >
+                    <div className="text-4xl font-bold text-[#10B981] mb-4">
+                      {tier.amount}
+                    </div>
+                    <div className="text-[#0F172A]/80 text-lg">
+                      {tier.description}
+                    </div>
+                  </div>
+                ))}
               </div>
 
               <div className="text-center mt-8 text-[#0F172A]/70">
