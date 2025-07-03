@@ -217,25 +217,25 @@ export default function Home() {
       </div>
 
       {/* 1. Hero Section */}
-      <section className="pt-32 pb-24 bg-[#1E293B]">
+      <section className="pt-32 pb-24 bg-[#F1F5F9]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Column - Text */}
             <div>
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 bg-[#10B981]/20 text-[#10B981] px-4 py-2 rounded-full text-sm font-medium mb-8">
+              <div className="inline-flex items-center gap-2 bg-[#E5F9EE] text-[#10B981] px-4 py-2 rounded-full text-sm font-medium mb-8">
                 <span className="w-2 h-2 bg-[#10B981] rounded-full"></span>
                 500+ clippeurs actifs cette semaine
               </div>
 
               {/* Title */}
-              <h1 className="text-6xl font-black text-white mb-6 leading-tight">
+              <h1 className="text-6xl font-black text-[#0F172A] mb-6 leading-tight">
                 Gagne de l'argent en postant des{' '}
                 <span className="text-[#10B981]">TikToks viraux</span>
               </h1>
 
               {/* Description */}
-              <p className="text-xl text-white/70 mb-8">
+              <p className="text-xl text-[#0F172A]/70 mb-8">
                 Tu postes des clips ? On te paie pour chaque vue. Rejoins des missions, publie sur TikTok, gagne de l'argent à la performance.
               </p>
 
@@ -265,11 +265,11 @@ export default function Home() {
               <div className="flex items-center gap-8 mt-12">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-[#10B981] rounded-full"></div>
-                  <span className="text-white/70">500+ clippeurs actifs</span>
+                  <span className="text-[#0F172A]/70">500+ clippeurs actifs</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-[#10B981] rounded-full"></div>
-                  <span className="text-white/70">2,3M vues générées</span>
+                  <span className="text-[#0F172A]/70">2,3M vues générées</span>
                 </div>
               </div>
             </div>
