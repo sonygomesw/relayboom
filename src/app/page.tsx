@@ -222,17 +222,8 @@ export default function Home() {
       </div>
 
       {/* 1. Hero Section */}
-      <section className="pt-48 pb-24 bg-white relative overflow-hidden">
-        {/* Image de fond stylisée */}
-        <div className="absolute inset-0 opacity-5">
-          <img
-            src="https://images.unsplash.com/photo-1611162616475-46b635cb6868?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
-            alt="Background pattern"
-            className="w-full h-full object-cover"
-          />
-        </div>
-
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center relative">
+      <section className="pt-48 pb-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
           {/* Badges de preuve sociale */}
           <div className="flex flex-wrap justify-center gap-4 mb-8">
             <div className="bg-[#E5F9EE] px-4 py-2 rounded-full flex items-center gap-2">
@@ -272,16 +263,6 @@ export default function Home() {
               Devenir clippeur →
             </button>
           </div>
-
-          {/* Image d'illustration */}
-          <div className="mt-16 relative">
-            <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent z-10"></div>
-            <img
-              src="https://images.unsplash.com/photo-1598550476439-6847785fcea6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
-              alt="Créateurs de contenu"
-              className="w-full max-w-4xl mx-auto rounded-2xl shadow-2xl"
-            />
-          </div>
         </div>
       </section>
 
@@ -300,8 +281,7 @@ export default function Home() {
                 views: "2.3M",
                 likes: "125K",
                 earnings: "230€",
-                category: "Challenge",
-                thumbnail: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=600"
+                category: "Challenge"
               },
               {
                 creator: "Speed",
@@ -309,8 +289,7 @@ export default function Home() {
                 views: "1.8M",
                 likes: "98K",
                 earnings: "180€",
-                category: "Gaming",
-                thumbnail: "https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=600"
+                category: "Gaming"
               },
               {
                 creator: "Kai Cenat",
@@ -318,17 +297,20 @@ export default function Home() {
                 views: "1.5M",
                 likes: "82K",
                 earnings: "150€",
-                category: "IRL",
-                thumbnail: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=600"
+                category: "IRL"
               }
             ].map((clip, index) => (
               <div key={index} className="relative">
                 <div className="aspect-[9/16] rounded-2xl overflow-hidden bg-[#0F172A] relative">
-                  <img
-                    src={clip.thumbnail}
-                    alt={`${clip.creator} clip`}
+                  <video
                     className="w-full h-full object-cover"
-                  />
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                  >
+                    <source src={clip.video} type="video/mp4" />
+                  </video>
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60"></div>
                   <div className="absolute bottom-4 left-4 right-4">
                     <div className="flex items-center gap-3 mb-2">
@@ -433,14 +415,14 @@ export default function Home() {
                 role: "Freelance",
                 text: "Paiements toujours à l'heure, je diversifie mes revenus",
                 earnings: "1 234€",
-                avatar: "/hormozifan.jpg"
+                avatar: "/kaicenatfan.jpg"
               },
               {
                 name: "Alex R.",
                 role: "Créateur",
                 text: "Interface simple, gains transparents",
                 earnings: "2 156€",
-                avatar: "/drakefan.jpg"
+                avatar: "/mrbeast.jpg"
               }
             ].map((testimonial, index) => (
               <div key={index} className="bg-[#F9FAFB] rounded-2xl p-8 border border-[#0F172A]/5">
@@ -528,43 +510,28 @@ export default function Home() {
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div className="text-center relative">
+            <div className="text-center">
               <div className="w-16 h-16 bg-[#E5F9EE] rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-[#10B981] text-2xl">1</span>
               </div>
               <h3 className="text-xl font-bold text-[#0F172A] mb-3">Choisis une mission</h3>
-              <p className="text-[#0F172A]/70 mb-6">Browse et sélectionne une mission qui te plaît</p>
-              <img
-                src="https://images.unsplash.com/photo-1512314889357-e157c22f938d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300"
-                alt="Choix de mission"
-                className="rounded-xl shadow-lg mx-auto"
-              />
+              <p className="text-[#0F172A]/70">Browse et sélectionne une mission qui te plaît</p>
             </div>
 
-            <div className="text-center relative">
+            <div className="text-center">
               <div className="w-16 h-16 bg-[#E5F9EE] rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-[#10B981] text-2xl">2</span>
               </div>
               <h3 className="text-xl font-bold text-[#0F172A] mb-3">Crée ton clip</h3>
-              <p className="text-[#0F172A]/70 mb-6">Clip la vidéo avec nos outils intégrés</p>
-              <img
-                src="https://images.unsplash.com/photo-1616469829581-73993eb86b02?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300"
-                alt="Création de clip"
-                className="rounded-xl shadow-lg mx-auto"
-              />
+              <p className="text-[#0F172A]/70">Clip la vidéo avec nos outils intégrés</p>
             </div>
 
-            <div className="text-center relative">
+            <div className="text-center">
               <div className="w-16 h-16 bg-[#E5F9EE] rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-[#10B981] text-2xl">3</span>
               </div>
               <h3 className="text-xl font-bold text-[#0F172A] mb-3">Reçois tes gains</h3>
-              <p className="text-[#0F172A]/70 mb-6">0,10€ automatique par 1000 vues</p>
-              <img
-                src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300"
-                alt="Paiement des gains"
-                className="rounded-xl shadow-lg mx-auto"
-              />
+              <p className="text-[#0F172A]/70">0,10€ automatique par 1000 vues</p>
             </div>
           </div>
         </div>
