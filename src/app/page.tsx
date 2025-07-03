@@ -451,7 +451,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="relative aspect-[9/16] max-w-xl mx-auto w-full rounded-2xl overflow-hidden">
+            <div className="relative aspect-[9/16] w-[350px] mx-auto rounded-2xl overflow-hidden">
               <video
                 className="w-full h-full object-cover"
                 autoPlay
