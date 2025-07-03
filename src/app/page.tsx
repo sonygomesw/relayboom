@@ -467,69 +467,6 @@ export default function Home() {
                 </div>
               </div>
             </div>
-
-            {/* Clips viraux */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div className="relative aspect-[9/16] w-full rounded-2xl overflow-hidden">
-                <video
-                  className="w-full h-full object-cover"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                >
-                  <source src="/video/kaicenat.mp4" type="video/mp4" />
-                </video>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <div className="absolute bottom-4 left-4 right-4">
-                  <div className="bg-black/40 backdrop-blur-sm rounded-xl p-4 border border-white/10">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-10 h-10 rounded-full bg-[#10B981] flex items-center justify-center text-white font-bold text-lg">
-                        K
-                      </div>
-                      <div>
-                        <h4 className="text-white font-medium">Kai Cenat</h4>
-                        <p className="text-gray-400 text-sm">3.1M vues</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-white">Gains</span>
-                      <span className="text-[#10B981] font-bold">310€</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="relative aspect-[9/16] w-full rounded-2xl overflow-hidden">
-                <video
-                  className="w-full h-full object-cover"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                >
-                  <source src="/video/mrbeast.mp4" type="video/mp4" />
-                </video>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <div className="absolute bottom-4 left-4 right-4">
-                  <div className="bg-black/40 backdrop-blur-sm rounded-xl p-4 border border-white/10">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-10 h-10 rounded-full bg-[#10B981] flex items-center justify-center text-white font-bold text-lg">
-                        M
-                      </div>
-                      <div>
-                        <h4 className="text-white font-medium">MrBeast</h4>
-                        <p className="text-gray-400 text-sm">2.3M vues</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-white">Gains</span>
-                      <span className="text-[#10B981] font-bold">230€</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
