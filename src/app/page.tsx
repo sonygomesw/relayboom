@@ -590,17 +590,17 @@ export default function Home() {
           </p>
 
           <div className="max-w-2xl mx-auto space-y-4">
-            <div className="flex items-center justify-between p-6 rounded-xl bg-gray-100">
+            <div className="flex items-center justify-between p-6 rounded-xl bg-gray-200">
               <div className="flex items-center gap-3">
-                <svg viewBox="0 0 24 24" className="w-6 h-6 text-gray-600" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg viewBox="0 0 24 24" className="w-6 h-6 text-gray-700" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M2.42012 12.7132C2.28394 12.4975 2.21584 12.3897 2.17772 12.2234C2.14909 12.0985 2.14909 11.9015 2.17772 11.7766C2.21584 11.6103 2.28394 11.5025 2.42012 11.2868C3.54553 9.50484 8.02723 4 12 4C15.9728 4 20.4545 9.50484 21.5799 11.2868C21.7161 11.5025 21.7842 11.6103 21.8223 11.7766C21.8509 11.9015 21.8509 12.0985 21.8223 12.2234C21.7842 12.3897 21.7161 12.4975 21.5799 12.7132C20.4545 14.4952 15.9728 20 12 20C8.02723 20 3.54553 14.4952 2.42012 12.7132Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   <path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-                <span className="text-lg font-medium">10K vues</span>
+                <span className="text-lg font-medium text-gray-700">10K vues</span>
               </div>
               <div className="flex items-center gap-3">
-                <span className="text-lg font-medium text-[#10B981]">1€</span>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-gray-400">
+                <span className="text-lg font-medium text-gray-700">1€</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-gray-500">
                   <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
