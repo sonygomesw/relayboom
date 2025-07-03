@@ -579,6 +579,84 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Potentiel de gains */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <h2 className="text-4xl font-bold text-[#0F172A] text-center mb-4">
+            Potentiel de gains
+          </h2>
+          <p className="text-[#0F172A]/70 text-center mb-16">
+            Calcul basé sur 0,10€ par 1000 vues
+          </p>
+
+          <div className="max-w-2xl mx-auto space-y-4">
+            <div className="flex items-center justify-between p-6 rounded-xl bg-gray-50">
+              <div className="flex items-center gap-3">
+                <svg viewBox="0 0 24 24" className="w-6 h-6 text-gray-600" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2.42012 12.7132C2.28394 12.4975 2.21584 12.3897 2.17772 12.2234C2.14909 12.0985 2.14909 11.9015 2.17772 11.7766C2.21584 11.6103 2.28394 11.5025 2.42012 11.2868C3.54553 9.50484 8.02723 4 12 4C15.9728 4 20.4545 9.50484 21.5799 11.2868C21.7161 11.5025 21.7842 11.6103 21.8223 11.7766C21.8509 11.9015 21.8509 12.0985 21.8223 12.2234C21.7842 12.3897 21.7161 12.4975 21.5799 12.7132C20.4545 14.4952 15.9728 20 12 20C8.02723 20 3.54553 14.4952 2.42012 12.7132Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <span className="text-lg font-medium">10K vues</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-lg font-medium text-[#10B981]">1€</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-gray-400">
+                  <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between p-6 rounded-xl bg-[#10B981]/10">
+              <div className="flex items-center gap-3">
+                <svg viewBox="0 0 24 24" className="w-6 h-6 text-[#10B981]" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2.42012 12.7132C2.28394 12.4975 2.21584 12.3897 2.17772 12.2234C2.14909 12.0985 2.14909 11.9015 2.17772 11.7766C2.21584 11.6103 2.28394 11.5025 2.42012 11.2868C3.54553 9.50484 8.02723 4 12 4C15.9728 4 20.4545 9.50484 21.5799 11.2868C21.7161 11.5025 21.7842 11.6103 21.8223 11.7766C21.8509 11.9015 21.8509 12.0985 21.8223 12.2234C21.7842 12.3897 21.7161 12.4975 21.5799 12.7132C20.4545 14.4952 15.9728 20 12 20C8.02723 20 3.54553 14.4952 2.42012 12.7132Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <span className="text-lg font-medium text-[#10B981]">100K vues</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-lg font-medium text-[#10B981]">10€</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-[#10B981]">
+                  <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between p-6 rounded-xl bg-[#10B981]/20">
+              <div className="flex items-center gap-3">
+                <svg viewBox="0 0 24 24" className="w-6 h-6 text-[#10B981]" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2.42012 12.7132C2.28394 12.4975 2.21584 12.3897 2.17772 12.2234C2.14909 12.0985 2.14909 11.9015 2.17772 11.7766C2.21584 11.6103 2.28394 11.5025 2.42012 11.2868C3.54553 9.50484 8.02723 4 12 4C15.9728 4 20.4545 9.50484 21.5799 11.2868C21.7161 11.5025 21.7842 11.6103 21.8223 11.7766C21.8509 11.9015 21.8509 12.0985 21.8223 12.2234C21.7842 12.3897 21.7161 12.4975 21.5799 12.7132C20.4545 14.4952 15.9728 20 12 20C8.02723 20 3.54553 14.4952 2.42012 12.7132Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <span className="text-lg font-medium text-[#10B981]">1M vues</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-lg font-medium text-[#10B981]">100€</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-[#10B981]">
+                  <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between p-6 rounded-xl bg-[#10B981]/30">
+              <div className="flex items-center gap-3">
+                <svg viewBox="0 0 24 24" className="w-6 h-6 text-[#10B981]" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2.42012 12.7132C2.28394 12.4975 2.21584 12.3897 2.17772 12.2234C2.14909 12.0985 2.14909 11.9015 2.17772 11.7766C2.21584 11.6103 2.28394 11.5025 2.42012 11.2868C3.54553 9.50484 8.02723 4 12 4C15.9728 4 20.4545 9.50484 21.5799 11.2868C21.7161 11.5025 21.7842 11.6103 21.8223 11.7766C21.8509 11.9015 21.8509 12.0985 21.8223 12.2234C21.7842 12.3897 21.7161 12.4975 21.5799 12.7132C20.4545 14.4952 15.9728 20 12 20C8.02723 20 3.54553 14.4952 2.42012 12.7132Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <span className="text-lg font-medium text-[#10B981]">10M vues</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-lg font-medium text-[#10B981]">1000€</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-[#10B981]">
+                  <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 5. FAQ */}
       <section className="py-24 bg-[#F8FAFC]">
         <div className="max-w-3xl mx-auto px-6 lg:px-8">
