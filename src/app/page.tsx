@@ -160,9 +160,9 @@ export default function Home() {
     <main className="relative">
       {/* Navbar */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#0F172A]/5">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 h-28 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 h-32 flex items-center justify-between">
           <Link href="/" className="flex items-center">
-            <img src="/logo.png" alt="ClipTokk" className="h-20" />
+            <img src="/logo.png" alt="ClipTokk" className="h-24" />
           </Link>
           <nav className="hidden md:flex items-center gap-8">
             <Link href="#how-it-works" className="text-[#0F172A]/70 hover:text-[#0F172A]">
@@ -644,7 +644,87 @@ export default function Home() {
         </div>
       </div>
 
-      <AuthModal 
+      {/* Footer */}
+      <footer className="bg-[#0F172A] text-white py-16">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+            {/* Logo et Description */}
+            <div className="col-span-1 md:col-span-2">
+              <img src="/logo.png" alt="ClipTokk" className="h-12 mb-6" />
+              <p className="text-white/70 mb-6">
+                ClipTokk est la première plateforme qui te permet de gagner de l'argent en postant des TikToks viraux.
+                Rejoins une communauté de créateurs passionnés et monétise ton contenu.
+              </p>
+              <div className="flex items-center gap-4">
+                <a href="#" className="text-white/70 hover:text-white">
+                  <IconBrandTiktok className="w-6 h-6" />
+                </a>
+                <a href="#" className="text-white/70 hover:text-white">
+                  <IconMail className="w-6 h-6" />
+                </a>
+              </div>
+            </div>
+
+            {/* Navigation */}
+            <div>
+              <h3 className="font-bold text-lg mb-4">Navigation</h3>
+              <ul className="space-y-3">
+                <li>
+                  <Link href="/missions" className="text-white/70 hover:text-white">
+                    Voir les missions
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#how-it-works" className="text-white/70 hover:text-white">
+                    Comment ça marche
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#faq" className="text-white/70 hover:text-white">
+                    FAQ
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Légal */}
+            <div>
+              <h3 className="font-bold text-lg mb-4">Légal</h3>
+              <ul className="space-y-3">
+                <li>
+                  <Link href="/privacy" className="text-white/70 hover:text-white">
+                    Politique de confidentialité
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/terms" className="text-white/70 hover:text-white">
+                    Conditions d'utilisation
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/cookies" className="text-white/70 hover:text-white">
+                    Politique des cookies
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Copyright */}
+          <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-white/70 text-sm">
+              © 2024 ClipTokk. Tous droits réservés.
+            </p>
+            <div className="flex items-center gap-6">
+              <IconShield className="w-5 h-5 text-[#10B981]" />
+              <span className="text-white/70 text-sm">Paiements sécurisés par Stripe</span>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      {/* Auth Modal */}
+      <AuthModal
         isOpen={authModal.isOpen}
         mode={authModal.mode}
         onClose={() => setAuthModal({...authModal, isOpen: false})}
