@@ -199,16 +199,16 @@ export default function Home() {
       </header>
 
       {/* FOMO Banner Sticky */}
-      <div className="sticky top-20 z-40 w-full bg-white py-2 border-b border-[#0F172A]/5">
+      <div className="sticky top-20 z-40 w-full bg-white py-2">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="bg-[#FFF1F2] rounded-2xl p-4 flex items-center justify-between">
+          <div className="bg-[#FEE2E2] rounded-2xl p-4 flex items-center justify-between border border-[#EF4444]/20">
             <div className="flex items-center gap-4">
               <div className="bg-[#EF4444] rounded-full p-2">
-                <span className="text-white text-xl">🔥</span>
+                <span className="text-white">⏰</span>
               </div>
               <div>
-                <div className="font-bold text-[#0F172A]">Challenge en cours : 2 340€ déjà gagnés</div>
-                <div className="text-sm text-[#0F172A]/60">512 clippeurs actifs • Clôture dans 48h ⏰</div>
+                <div className="font-bold text-[#991B1B]">Challenge en cours : 2 340€ déjà gagnés</div>
+                <div className="text-sm text-[#991B1B]/80">512 clippeurs actifs • Clôture dans 48h</div>
               </div>
             </div>
             <Link 
@@ -266,77 +266,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. Les clips qui cartonnent */}
-      <section className="py-24 bg-[#F9FAFB] border-t border-[#0F172A]/5">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <h2 className="text-4xl font-black text-[#0F172A] mb-16 text-center">
-            Les clips qui cartonnent cette semaine
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                creator: "MrBeast",
-                video: "/video/mrbeast.mp4",
-                views: "2.3M",
-                likes: "125K",
-                earnings: "230€",
-                category: "Challenge"
-              },
-              {
-                creator: "Speed",
-                video: "/video/speed.mp4",
-                views: "1.8M",
-                likes: "98K",
-                earnings: "180€",
-                category: "Gaming"
-              },
-              {
-                creator: "Kai Cenat",
-                video: "/video/kaicenat.mp4",
-                views: "1.5M",
-                likes: "82K",
-                earnings: "150€",
-                category: "IRL"
-              }
-            ].map((clip, index) => (
-              <div key={index} className="relative">
-                <div className="aspect-[9/16] rounded-2xl overflow-hidden bg-[#0F172A] relative">
-                  <video
-                    className="w-full h-full object-cover"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                  >
-                    <source src={clip.video} type="video/mp4" />
-                  </video>
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60"></div>
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
-                        <span className="text-white font-bold">{clip.creator[0]}</span>
-                      </div>
-                      <div className="text-white">
-                        <div className="font-bold">{clip.creator}</div>
-                        <div className="text-sm text-white/70">{clip.category}</div>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between text-white/90 text-sm">
-                      <span>👁 {clip.views}</span>
-                      <span>❤️ {clip.likes}</span>
-                      <span className="text-[#10B981] font-bold">{clip.earnings}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 3. Statistiques */}
-      <section className="py-16 bg-white border-t border-[#0F172A]/5">
+      {/* 2. Statistiques */}
+      <section className="py-16 bg-[#F9FAFB] border-t border-[#0F172A]/5">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex flex-wrap justify-center gap-8 text-center">
             <div>
@@ -357,38 +288,87 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. Pourquoi ClipTokk */}
+      {/* 3. Comment ça marche */}
+      <section id="how-it-works" className="py-24 bg-white border-t border-[#0F172A]/5">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+          <h2 className="text-4xl font-black text-[#0F172A] mb-16 text-center">
+            3 étapes simples pour commencer
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-[#E5F9EE] rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="text-[#10B981] text-2xl">1</span>
+              </div>
+              <h3 className="text-xl font-bold text-[#0F172A] mb-3">Choisis une mission</h3>
+              <p className="text-[#0F172A]/70">Browse et sélectionne une mission qui te plaît</p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 bg-[#E5F9EE] rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="text-[#10B981] text-2xl">2</span>
+              </div>
+              <h3 className="text-xl font-bold text-[#0F172A] mb-3">Crée ton clip</h3>
+              <p className="text-[#0F172A]/70">Clip la vidéo avec nos outils intégrés</p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 bg-[#E5F9EE] rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="text-[#10B981] text-2xl">3</span>
+              </div>
+              <h3 className="text-xl font-bold text-[#0F172A] mb-3">Reçois tes gains</h3>
+              <p className="text-[#0F172A]/70">Chaque vue compte. Littéralement.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Simulateur de gains */}
       <section className="py-24 bg-[#F9FAFB] border-t border-[#0F172A]/5">
-        <div className="max-w-3xl mx-auto px-6 lg:px-8">
-          <div className="space-y-12">
-            <div className="flex items-start gap-6">
-              <div className="w-12 h-12 rounded-full bg-[#E5F9EE] flex items-center justify-center flex-shrink-0">
-                <span className="text-[#10B981] text-2xl">💰</span>
+        <div className="max-w-4xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-black text-[#0F172A] mb-4">
+              Calcule tes gains potentiels
+            </h2>
+            <p className="text-[#0F172A]/70 text-xl">
+              0,10€ pour chaque 1000 vues. Simple, transparent, automatique.
+            </p>
+          </div>
+
+          <div className="bg-white rounded-3xl p-12 shadow-sm border border-[#0F172A]/5">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center mb-8">
+              <div className="text-center">
+                <div className="text-[#0F172A]/60 text-sm font-bold mb-2">TU FAIS</div>
+                <div className="text-6xl font-black text-[#0F172A] mb-2">3</div>
+                <div className="text-[#0F172A]/70">clips par jour</div>
               </div>
-              <div>
-                <h3 className="text-xl font-bold text-[#0F172A] mb-2">Rémunération garantie</h3>
-                <p className="text-[#0F172A]/70">0,10€ pour chaque 1000 vues générées. Paiement automatique dès le premier euro.</p>
+              
+              <div className="text-center">
+                <div className="text-[#0F172A]/60 text-sm font-bold mb-2">≈ VUES GÉNÉRÉES</div>
+                <div className="text-4xl font-black text-[#0F172A] mb-2">12 000</div>
+                <div className="text-[#0F172A]/70">vues/jour</div>
+              </div>
+              
+              <div className="text-center">
+                <div className="text-[#0F172A]/60 text-sm font-bold mb-2">TU GAGNES</div>
+                <div className="text-6xl font-black text-[#10B981] mb-2">1.20€</div>
+                <div className="text-[#0F172A]/70">par jour</div>
               </div>
             </div>
-            
-            <div className="flex items-start gap-6">
-              <div className="w-12 h-12 rounded-full bg-[#E5F9EE] flex items-center justify-center flex-shrink-0">
-                <span className="text-[#10B981] text-2xl">🎯</span>
+
+            <div className="text-center p-6 bg-[#F9FAFB] rounded-2xl">
+              <div className="text-[#0F172A] font-bold text-lg mb-4">
+                💰 Soit <span className="text-[#10B981] text-2xl">36€/mois</span> en postant 3 clips par jour
               </div>
-              <div>
-                <h3 className="text-xl font-bold text-[#0F172A] mb-2">Nouvelles missions chaque semaine</h3>
-                <p className="text-[#0F172A]/70">Des dizaines de missions disponibles. Choisis celles qui te correspondent.</p>
+              <div className="text-[#0F172A]/60 text-sm mb-8">
+                Certains clippeurs gagnent plus de 200€/mois 🚀
               </div>
-            </div>
-            
-            <div className="flex items-start gap-6">
-              <div className="w-12 h-12 rounded-full bg-[#E5F9EE] flex items-center justify-center flex-shrink-0">
-                <span className="text-[#10B981] text-2xl">✨</span>
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-[#0F172A] mb-2">100% gratuit</h3>
-                <p className="text-[#0F172A]/70">Aucun abonnement, aucun piège. Tu gagnes dès ta première vue.</p>
-              </div>
+              <Link
+                href="/onboarding/role"
+                className="bg-[#10B981] text-white px-8 py-4 rounded-full font-bold hover:bg-[#10B981]/90 transition-all duration-300 inline-block"
+              >
+                Rejoindre ClipTokk
+              </Link>
             </div>
           </div>
         </div>
@@ -451,93 +431,82 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. Simulateur de gains */}
-      <section className="py-24 bg-[#F9FAFB] border-t border-[#0F172A]/5">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-black text-[#0F172A] mb-4">
-              Calcule tes gains potentiels
-            </h2>
-            <p className="text-[#0F172A]/70 text-xl">
-              Simule rapidement ce que tu peux gagner avec ClipTokk
-            </p>
-          </div>
-
-          <div className="bg-white rounded-3xl p-12 shadow-sm border border-[#0F172A]/5">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center mb-8">
-              <div className="text-center">
-                <div className="text-[#0F172A]/60 text-sm font-bold mb-2">TU FAIS</div>
-                <div className="text-6xl font-black text-[#0F172A] mb-2">3</div>
-                <div className="text-[#0F172A]/70">clips par jour</div>
-              </div>
-              
-              <div className="text-center">
-                <div className="text-[#0F172A]/60 text-sm font-bold mb-2">≈ VUES GÉNÉRÉES</div>
-                <div className="text-4xl font-black text-[#0F172A] mb-2">12 000</div>
-                <div className="text-[#0F172A]/70">vues/jour</div>
-              </div>
-              
-              <div className="text-center">
-                <div className="text-[#0F172A]/60 text-sm font-bold mb-2">TU GAGNES</div>
-                <div className="text-6xl font-black text-[#10B981] mb-2">1.20€</div>
-                <div className="text-[#0F172A]/70">par jour</div>
-              </div>
-            </div>
-
-            <div className="text-center p-6 bg-[#F9FAFB] rounded-2xl">
-              <div className="text-[#0F172A] font-bold text-lg mb-4">
-                💰 Soit <span className="text-[#10B981] text-2xl">36€/mois</span> en postant 3 clips par jour
-              </div>
-              <div className="text-[#0F172A]/60 text-sm mb-8">
-                Certains clippeurs gagnent plus de 200€/mois 🚀
-              </div>
-              <Link
-                href="/onboarding/role"
-                className="bg-[#10B981] text-white px-8 py-4 rounded-full font-bold hover:bg-[#10B981]/90 transition-all duration-300 inline-block"
-              >
-                Rejoindre ClipTokk
-              </Link>
+      {/* 6. Les clips qui cartonnent */}
+      <section className="py-24 bg-[#0F172A] border-t border-[#0F172A]/5">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex items-center justify-center gap-4 mb-16">
+            <div className="bg-[#EF4444] px-4 py-2 rounded-full text-white text-sm font-medium">
+              🔥 Tendance cette semaine
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* 7. Comment ça marche */}
-      <section className="py-24 bg-white border-t border-[#0F172A]/5">
-        <div className="max-w-5xl mx-auto px-6 lg:px-8">
-          <h2 className="text-4xl font-black text-[#0F172A] mb-16 text-center">
-            3 étapes simples pour commencer
+          
+          <h2 className="text-4xl font-black text-white mb-16 text-center">
+            Les clips qui cartonnent
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-[#E5F9EE] rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-[#10B981] text-2xl">1</span>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                creator: "MrBeast",
+                video: "/video/mrbeast.mp4",
+                views: "2.3M",
+                likes: "125K",
+                earnings: "230€",
+                category: "Challenge"
+              },
+              {
+                creator: "Speed",
+                video: "/video/speed.mp4",
+                views: "1.8M",
+                likes: "98K",
+                earnings: "180€",
+                category: "Gaming"
+              },
+              {
+                creator: "Kai Cenat",
+                video: "/video/kaicenat.mp4",
+                views: "1.5M",
+                likes: "82K",
+                earnings: "150€",
+                category: "IRL"
+              }
+            ].map((clip, index) => (
+              <div key={index} className="relative">
+                <div className="aspect-[9/16] rounded-2xl overflow-hidden bg-[#1E293B] relative">
+                  <video
+                    className="w-full h-full object-cover"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                  >
+                    <source src={clip.video} type="video/mp4" />
+                  </video>
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60"></div>
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                        <span className="text-white font-bold">{clip.creator[0]}</span>
+                      </div>
+                      <div className="text-white">
+                        <div className="font-bold">{clip.creator}</div>
+                        <div className="text-sm text-white/70">{clip.category}</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between text-white/90 text-sm">
+                      <span>👁 {clip.views}</span>
+                      <span>❤️ {clip.likes}</span>
+                      <span className="text-[#10B981] font-bold">{clip.earnings}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-[#0F172A] mb-3">Choisis une mission</h3>
-              <p className="text-[#0F172A]/70">Browse et sélectionne une mission qui te plaît</p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 bg-[#E5F9EE] rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-[#10B981] text-2xl">2</span>
-              </div>
-              <h3 className="text-xl font-bold text-[#0F172A] mb-3">Crée ton clip</h3>
-              <p className="text-[#0F172A]/70">Clip la vidéo avec nos outils intégrés</p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 bg-[#E5F9EE] rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-[#10B981] text-2xl">3</span>
-              </div>
-              <h3 className="text-xl font-bold text-[#0F172A] mb-3">Reçois tes gains</h3>
-              <p className="text-[#0F172A]/70">0,10€ automatique par 1000 vues</p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* 8. FAQ */}
+      {/* 7. FAQ */}
       <section className="py-24 bg-[#F9FAFB] border-t border-[#0F172A]/5">
         <div className="max-w-3xl mx-auto px-6 lg:px-8">
           <h2 className="text-4xl font-black text-[#0F172A] mb-16 text-center">
@@ -560,7 +529,7 @@ export default function Home() {
               },
               {
                 question: "Puis-je retirer mes gains quand je veux ?",
-                answer: "Oui, tu peux retirer tes gains dès que tu atteins 10€. Les paiements sont traités sous 24-48h via Stripe."
+                answer: "Oui ! Tu peux te faire plaisir quand tu veux dès que tu atteins 10€. Les retraits sont rapides et sécurisés via Stripe."
               },
               {
                 question: "Combien de temps pour être payé ?",
@@ -576,7 +545,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 9. CTA Final */}
+      {/* 8. CTA Final */}
       <section className="py-32 bg-[#0F172A]">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <h2 className="text-5xl font-black text-white mb-6">
@@ -588,9 +557,12 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             <Link
               href="/onboarding/role"
-              className="bg-[#10B981] text-white px-8 py-4 rounded-full font-bold hover:bg-[#10B981]/90 transition-all duration-300 text-lg"
+              className="bg-[#10B981] text-white px-8 py-4 rounded-full font-bold hover:bg-[#10B981]/90 transition-all duration-300 text-lg group relative"
             >
-              Devenir clippeur
+              <span>Devenir clippeur</span>
+              <span className="absolute -bottom-8 left-0 right-0 text-white/60 text-xs">
+                Pas besoin d'expérience • Paiement dès 10€ • Aucun abonnement
+              </span>
             </Link>
             <Link
               href="/missions"
