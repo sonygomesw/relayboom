@@ -205,7 +205,7 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero Section avec fond principal */}
+      {/* Hero Section - #FFFFFF (blanc) */}
       <section className="min-h-screen bg-white flex items-center relative overflow-hidden">
         {/* Fond décoratif subtil */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#10B981]/5 to-[#10B981]/10"></div>
@@ -366,7 +366,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Clips qui cartonnent - 2ème section après Hero */}
+      {/* Clips qui cartonnent - #0F172A (bleu nuit) */}
       <section className="py-20 bg-[#0F172A]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -500,7 +500,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Pourquoi ClipTokk - Retour fond principal */}
+      {/* Pourquoi ClipTokk - #FFFFFF (blanc) */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-20">
@@ -545,8 +545,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Comment ça marche - Fond principal (MÊME COULEUR) */}
-      <section id="how-it-works" className="py-24 bg-white">
+      {/* Comment ça marche - #F9FAFB (gris clair) */}
+      <section id="how-it-works" className="py-24 bg-[#F9FAFB]">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-5xl font-black text-[#0F172A] mb-8">
@@ -589,7 +589,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Section Témoignages - Preuve sociale pour aérer */}
+      {/* Section Témoignages - #0F172A (bleu nuit) */}
       <section className="py-20 bg-[#0F172A]">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -647,14 +647,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Modèle économique - Juste avant FAQ */}
-      <section className="py-24 bg-[#0F172A]">
+      {/* Modèle économique - #FFFFFF (blanc) */}
+      <section className="py-24 bg-white">
         <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center">
-          <h2 className="text-5xl font-black text-white mb-12">
+          <h2 className="text-5xl font-black text-[#0F172A] mb-12">
             💰 D'où vient l'argent ?
           </h2>
-          <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-16 shadow-sm border border-white/20">
-            <p className="text-2xl text-white/80 leading-relaxed font-light">
+          <div className="bg-[#F9FAFB] rounded-3xl p-16 shadow-sm border border-[#0F172A]/10">
+            <p className="text-2xl text-[#0F172A]/80 leading-relaxed font-light">
               Les streamers, artistes et marques déposent un budget pour faire clipper leur contenu. 
               À chaque vue que tu génères, tu touches automatiquement ta part. 
               <span className="font-bold text-[#10B981]"> Plus de vues = plus de gains.</span>
@@ -663,7 +663,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FAQ - Fond secondaire (MÊME COULEUR) */}
+      {/* FAQ - #0F172A (bleu nuit) */}
       <section className="py-24 bg-[#0F172A]">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -681,7 +681,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Final - Retour fond secondaire */}
+      {/* CTA Final - #0F172A (bleu nuit) */}
       <section className="py-32 bg-[#0F172A]">
         <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center">
           <h2 className="text-6xl font-black text-white mb-12 leading-tight">
@@ -709,51 +709,51 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer - Fond principal pour finir en douceur */}
-      <footer className="bg-white py-20">
+      {/* Footer - #0F172A (bleu nuit) */}
+      <footer className="bg-[#0F172A] py-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-12 mb-16">
             <div>
-              <img src="/logo.png" alt="ClipTokk" className="h-20 mb-6 object-contain" />
-              <p className="text-[#0F172A]/70 text-lg font-light">
+              <img src="/logo.png" alt="ClipTokk" className="h-20 mb-6 object-contain brightness-0 invert" />
+              <p className="text-white/70 text-lg font-light">
                 La première plateforme qui rémunère tes TikToks
               </p>
             </div>
             
             <div>
-              <h4 className="font-bold text-[#0F172A] mb-6 text-lg">Produit</h4>
-              <ul className="space-y-4 text-[#0F172A]/70">
-                <li><Link href="/missions" className="hover:text-[#0F172A] transition-colors text-[15px]">Missions</Link></li>
-                <li><button onClick={() => setAuthModal({isOpen: true, mode: 'signup'})} className="hover:text-[#0F172A] transition-colors text-[15px]">Dashboard</button></li>
-                <li><a href="#how-it-works" className="hover:text-[#0F172A] transition-colors text-[15px]">Comment ça marche</a></li>
+              <h4 className="font-bold text-white mb-6 text-lg">Produit</h4>
+              <ul className="space-y-4 text-white/70">
+                <li><Link href="/missions" className="hover:text-white transition-colors text-[15px]">Missions</Link></li>
+                <li><button onClick={() => setAuthModal({isOpen: true, mode: 'signup'})} className="hover:text-white transition-colors text-[15px]">Dashboard</button></li>
+                <li><a href="#how-it-works" className="hover:text-white transition-colors text-[15px]">Comment ça marche</a></li>
               </ul>
             </div>
             
             <div>
-              <h4 className="font-bold text-[#0F172A] mb-6 text-lg">Support</h4>
-              <ul className="space-y-4 text-[#0F172A]/70">
-                <li><a href="mailto:hello@cliptokk.com" className="hover:text-[#0F172A] transition-colors text-[15px]">Contact</a></li>
-                <li><a href="#" className="hover:text-[#0F172A] transition-colors text-[15px]">FAQ</a></li>
-                <li><a href="#" className="hover:text-[#0F172A] transition-colors text-[15px]">Aide</a></li>
+              <h4 className="font-bold text-white mb-6 text-lg">Support</h4>
+              <ul className="space-y-4 text-white/70">
+                <li><a href="mailto:hello@cliptokk.com" className="hover:text-white transition-colors text-[15px]">Contact</a></li>
+                <li><a href="#" className="hover:text-white transition-colors text-[15px]">FAQ</a></li>
+                <li><a href="#" className="hover:text-white transition-colors text-[15px]">Aide</a></li>
               </ul>
             </div>
             
             <div>
-              <h4 className="font-bold text-[#0F172A] mb-6 text-lg">Légal</h4>
-              <ul className="space-y-4 text-[#0F172A]/70">
-                <li><a href="#" className="hover:text-[#0F172A] transition-colors text-[15px]">Conditions</a></li>
-                <li><a href="#" className="hover:text-[#0F172A] transition-colors text-[15px]">Confidentialité</a></li>
-                <li><a href="#" className="hover:text-[#0F172A] transition-colors text-[15px]">Mentions légales</a></li>
+              <h4 className="font-bold text-white mb-6 text-lg">Légal</h4>
+              <ul className="space-y-4 text-white/70">
+                <li><a href="#" className="hover:text-white transition-colors text-[15px]">Conditions</a></li>
+                <li><a href="#" className="hover:text-white transition-colors text-[15px]">Confidentialité</a></li>
+                <li><a href="#" className="hover:text-white transition-colors text-[15px]">Mentions légales</a></li>
               </ul>
             </div>
           </div>
           
-          <div className="border-t border-[#0F172A]/20 pt-12">
+          <div className="border-t border-white/20 pt-12">
             <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-              <p className="text-[#0F172A]/70 text-[15px]">
+              <p className="text-white/70 text-[15px]">
                 © 2025 ClipTokk. Tous droits réservés.
               </p>
-              <div className="flex items-center gap-6 text-xs text-[#0F172A]/50">
+              <div className="flex items-center gap-6 text-xs text-white/50">
                 <div className="flex items-center gap-2">
                   <IconShield className="w-4 h-4 text-[#10B981]" />
                   <span>Paiements sécurisés par Stripe</span>
