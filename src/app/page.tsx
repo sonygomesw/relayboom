@@ -468,31 +468,41 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="relative aspect-[9/16] rounded-2xl overflow-hidden">
-              <video
-                className="w-full h-full object-cover"
-                autoPlay
-                muted
-                loop
-                playsInline
-              >
-                <source src="/video/kaicenat.mp4" type="video/mp4" />
-              </video>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-              <div className="absolute bottom-8 left-8 right-8">
-                <div className="bg-black/40 backdrop-blur-sm rounded-xl p-4 border border-white/10">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 rounded-full bg-[#10B981] flex items-center justify-center text-white font-bold text-xl">
-                      K
+            {/* iPhone mockup for video */}
+            <div className="relative mx-auto" style={{ maxWidth: '375px' }}>
+              <div className="relative bg-black rounded-[60px] p-3 shadow-xl mx-auto">
+                {/* iPhone notch */}
+                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 h-6 w-40 bg-black rounded-b-3xl z-50"></div>
+                {/* Dynamic Island */}
+                <div className="absolute top-2 left-1/2 transform -translate-x-1/2 h-7 w-28 bg-black rounded-full z-40"></div>
+                {/* Screen content */}
+                <div className="relative bg-white rounded-[48px] overflow-hidden aspect-[9/16]">
+                  <video
+                    className="w-full h-full object-cover"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                  >
+                    <source src="/video/kaicenat.mp4" type="video/mp4" />
+                  </video>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                  <div className="absolute bottom-8 left-4 right-4">
+                    <div className="bg-black/40 backdrop-blur-sm rounded-xl p-4 border border-white/10">
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className="w-12 h-12 rounded-full bg-[#10B981] flex items-center justify-center text-white font-bold text-xl">
+                          K
+                        </div>
+                        <div>
+                          <h4 className="text-white font-medium">Kai Cenat Gaming</h4>
+                          <p className="text-gray-400">Clip viral - 3.1M vues</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-white">Gains générés</span>
+                        <span className="text-[#10B981] font-bold">310€</span>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="text-white font-medium">Kai Cenat Gaming</h4>
-                      <p className="text-gray-400">Clip viral - 3.1M vues</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-white">Gains générés</span>
-                    <span className="text-[#10B981] font-bold">310€</span>
                   </div>
                 </div>
               </div>
