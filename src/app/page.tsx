@@ -394,7 +394,16 @@ export default function Home() {
               <div className="absolute -left-4 -top-4 bg-[#10B981]/20 w-24 h-24 rounded-full blur-2xl"></div>
               <div className="absolute -right-4 -bottom-4 bg-blue-500/20 w-24 h-24 rounded-full blur-2xl"></div>
               
-              <div className="relative bg-white rounded-2xl p-6 shadow-lg border border-gray-200 max-w-lg mx-auto">
+              {/* iPhone mockup container */}
+              <div className="relative mx-auto" style={{ maxWidth: '375px' }}>
+                <div className="relative bg-black rounded-[60px] p-3 shadow-xl mx-auto">
+                  {/* iPhone notch */}
+                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 h-6 w-40 bg-black rounded-b-3xl z-50"></div>
+                  {/* Dynamic Island */}
+                  <div className="absolute top-2 left-1/2 transform -translate-x-1/2 h-7 w-28 bg-black rounded-full z-40"></div>
+                  {/* Screen content */}
+                  <div className="relative bg-white rounded-[48px] overflow-hidden">
+                    <div className="relative bg-white p-6 shadow-inner min-h-[600px]">
                 <div className="flex items-center justify-between mb-6">
                   <div>
                     <h3 className="text-xl font-bold text-[#0F172A] mb-1">Statistiques du mois</h3>
@@ -451,6 +460,9 @@ export default function Home() {
                       </div>
                     </div>
                     <span className="text-xl font-bold text-[#0F172A]">5 min</span>
+                  </div>
+                </div>
+                    </div>
                   </div>
                 </div>
               </div>
