@@ -426,21 +426,21 @@ export default function Home() {
                 role: "Étudiant, 19 ans",
                 text: "Je gagne plus qu'avec mon job étudiant",
                 earnings: "847€",
-                avatar: "https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=200"
+                avatar: "/speedfan.jpg"
               },
               {
                 name: "Sarah K.",
                 role: "Freelance",
                 text: "Paiements toujours à l'heure, je diversifie mes revenus",
                 earnings: "1 234€",
-                avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=200"
+                avatar: "/hormozifan.jpg"
               },
               {
                 name: "Alex R.",
                 role: "Créateur",
                 text: "Interface simple, gains transparents",
                 earnings: "2 156€",
-                avatar: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=200"
+                avatar: "/drakefan.jpg"
               }
             ].map((testimonial, index) => (
               <div key={index} className="bg-[#F9FAFB] rounded-2xl p-8 border border-[#0F172A]/5">
