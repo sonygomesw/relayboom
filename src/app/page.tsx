@@ -647,14 +647,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Modèle économique - #FFFFFF (blanc) */}
-      <section className="py-24 bg-white">
+      {/* Modèle économique - #0F172A (bleu nuit) */}
+      <section className="py-24 bg-[#0F172A]">
         <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center">
-          <h2 className="text-5xl font-black text-[#0F172A] mb-12">
+          <h2 className="text-5xl font-black text-white mb-12">
             💰 D'où vient l'argent ?
           </h2>
-          <div className="bg-[#F9FAFB] rounded-3xl p-16 shadow-sm border border-[#0F172A]/10">
-            <p className="text-2xl text-[#0F172A]/80 leading-relaxed font-light">
+          <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-16 shadow-sm border border-white/20">
+            <p className="text-2xl text-white/80 leading-relaxed font-light">
               Les streamers, artistes et marques déposent un budget pour faire clipper leur contenu. 
               À chaque vue que tu génères, tu touches automatiquement ta part. 
               <span className="font-bold text-[#10B981]"> Plus de vues = plus de gains.</span>
