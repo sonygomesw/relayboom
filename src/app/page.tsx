@@ -160,9 +160,9 @@ export default function Home() {
     <main className="relative">
       {/* Navbar */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#0F172A]/5">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 h-32 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 h-40 flex items-center justify-between">
           <Link href="/" className="flex items-center">
-            <img src="/logo.png" alt="ClipTokk" className="h-24" />
+            <img src="/logo.png" alt="ClipTokk" className="h-40" />
           </Link>
           <nav className="hidden md:flex items-center gap-8">
             <Link href="#how-it-works" className="text-[#0F172A]/70 hover:text-[#0F172A]">
@@ -217,7 +217,7 @@ export default function Home() {
       </div>
 
       {/* 1. Hero Section */}
-      <section className="pt-32 pb-24 bg-white">
+      <section className="pt-40 pb-24 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Column - Text */}
@@ -772,7 +772,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
             {/* Logo et Description */}
             <div className="col-span-1 md:col-span-2">
-              <img src="/logo.png" alt="ClipTokk" className="h-12 mb-6" />
+              <img src="/logo.png" alt="ClipTokk" className="h-20 mb-6" />
               <p className="text-white/70 mb-6">
                 ClipTokk est la première plateforme qui te permet de gagner de l'argent en postant des TikToks viraux.
                 Rejoins une communauté de créateurs passionnés et monétise ton contenu.
