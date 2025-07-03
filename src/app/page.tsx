@@ -217,7 +217,7 @@ export default function Home() {
       </div>
 
       {/* 1. Hero Section */}
-      <section className="pt-32 pb-24 bg-[#F1F5F9]">
+      <section className="pt-32 pb-24 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Column - Text */}
