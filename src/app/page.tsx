@@ -380,12 +380,12 @@ export default function Home() {
       </section>
 
       {/* Statistiques de revenus */}
-      <section className="py-24 bg-[#0F172A] overflow-hidden">
+      <section className="py-24 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-white mb-4">
+          <h2 className="text-4xl font-bold text-[#0F172A] mb-4">
             Nos Clippeurs Cartonnent
           </h2>
-          <p className="text-gray-400 mb-16 text-lg">
+          <p className="text-[#0F172A]/70 mb-16 text-lg">
             Découvrez les revenus réels générés par nos meilleurs clippeurs
           </p>
 
@@ -394,11 +394,11 @@ export default function Home() {
               <div className="absolute -left-4 -top-4 bg-[#10B981]/20 w-24 h-24 rounded-full blur-2xl"></div>
               <div className="absolute -right-4 -bottom-4 bg-blue-500/20 w-24 h-24 rounded-full blur-2xl"></div>
               
-              <div className="relative bg-[#1E293B] rounded-2xl p-8 backdrop-blur-sm border border-white/10">
+              <div className="relative bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
                 <div className="flex items-center justify-between mb-8">
                   <div>
-                    <h3 className="text-2xl font-bold text-white mb-2">Statistiques du mois</h3>
-                    <p className="text-gray-400">Moyenne par clippeur actif</p>
+                    <h3 className="text-2xl font-bold text-[#0F172A] mb-2">Statistiques du mois</h3>
+                    <p className="text-[#0F172A]/70">Moyenne par clippeur actif</p>
                   </div>
                   <div className="bg-[#10B981]/20 px-4 py-2 rounded-full">
                     <span className="text-[#10B981] font-medium">+32% vs mois dernier</span>
@@ -406,7 +406,7 @@ export default function Home() {
                 </div>
 
                 <div className="space-y-6">
-                  <div className="flex items-center justify-between p-4 bg-black/20 rounded-xl">
+                  <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100">
                     <div className="flex items-center gap-3">
                       <div className="w-12 h-12 rounded-full bg-[#10B981]/20 flex items-center justify-center">
                         <svg className="w-6 h-6 text-[#10B981]" viewBox="0 0 24 24" fill="none">
@@ -414,14 +414,14 @@ export default function Home() {
                         </svg>
                       </div>
                       <div>
-                        <p className="text-white font-medium">Revenus totaux</p>
-                        <p className="text-gray-400 text-sm">Sur tous les réseaux</p>
+                        <p className="text-[#0F172A] font-medium">Revenus totaux</p>
+                        <p className="text-[#0F172A]/70 text-sm">Sur tous les réseaux</p>
                       </div>
                     </div>
                     <span className="text-2xl font-bold text-[#10B981]">347,20€</span>
                   </div>
 
-                  <div className="flex items-center justify-between p-4 bg-black/20 rounded-xl">
+                  <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100">
                     <div className="flex items-center gap-3">
                       <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
                         <svg className="w-6 h-6 text-blue-500" viewBox="0 0 24 24" fill="none">
@@ -430,14 +430,14 @@ export default function Home() {
                         </svg>
                       </div>
                       <div>
-                        <p className="text-white font-medium">Clips postés</p>
-                        <p className="text-gray-400 text-sm">Ce mois-ci</p>
+                        <p className="text-[#0F172A] font-medium">Clips postés</p>
+                        <p className="text-[#0F172A]/70 text-sm">Ce mois-ci</p>
                       </div>
                     </div>
-                    <span className="text-2xl font-bold text-white">24</span>
+                    <span className="text-2xl font-bold text-[#0F172A]">24</span>
                   </div>
 
-                  <div className="flex items-center justify-between p-4 bg-black/20 rounded-xl">
+                  <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100">
                     <div className="flex items-center gap-3">
                       <div className="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
                         <svg className="w-6 h-6 text-purple-500" viewBox="0 0 24 24" fill="none">
@@ -446,11 +446,11 @@ export default function Home() {
                         </svg>
                       </div>
                       <div>
-                        <p className="text-white font-medium">Temps moyen</p>
-                        <p className="text-gray-400 text-sm">Par clip</p>
+                        <p className="text-[#0F172A] font-medium">Temps moyen</p>
+                        <p className="text-[#0F172A]/70 text-sm">Par clip</p>
                       </div>
                     </div>
-                    <span className="text-2xl font-bold text-white">5 min</span>
+                    <span className="text-2xl font-bold text-[#0F172A]">5 min</span>
                   </div>
                 </div>
               </div>
