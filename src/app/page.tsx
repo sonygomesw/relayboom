@@ -217,7 +217,7 @@ export default function Home() {
       </div>
 
       {/* 1. Hero Section */}
-      <section className="pt-32 pb-24 bg-gradient-to-b from-[#E5F9EE]/20 to-white">
+      <section className="pt-32 pb-24 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Column - Text */}
@@ -417,74 +417,69 @@ export default function Home() {
       {/* 4. Success Stories */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-[#0F172A] mb-4">Ils cartonnent déjà</h2>
-            <p className="text-xl text-[#0F172A]/70">Découvre les success stories de nos clippeurs</p>
-          </div>
-
+          <h2 className="text-4xl font-bold text-center text-[#0F172A] mb-4">Ils cartonnent déjà</h2>
+          <p className="text-xl text-center text-[#0F172A]/70 mb-16">Découvre les success stories de nos clippeurs</p>
+          
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Story 1 */}
-            <div className="bg-[#F8FAFC] rounded-2xl p-6">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="w-12 h-12 bg-[#10B981] rounded-full flex items-center justify-center text-white font-bold">
-                  L
-                </div>
+            {/* Testimonial 1 */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+              <div className="flex items-center gap-4 mb-6">
+                <img 
+                  src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&auto=format&fit=crop&q=60" 
+                  alt="Lucas M."
+                  className="w-16 h-16 rounded-full object-cover"
+                />
                 <div>
                   <h3 className="font-bold text-[#0F172A]">Lucas M.</h3>
-                  <p className="text-[#0F172A]/70 text-sm">Étudiant</p>
+                  <p className="text-[#0F172A]/60">Étudiant</p>
                 </div>
               </div>
-              <div className="mb-4">
-                <img src="/images/dashboard-example.png" alt="Dashboard Lucas" className="rounded-lg w-full" />
-              </div>
-              <p className="text-[#0F172A]/70 mb-4">
+              <p className="text-[#0F172A]/80 mb-6">
                 "J'ai atteint 847€ avec seulement 9 clips ce mois-ci. C'est devenu une source de revenus stable !"
               </p>
-              <div className="text-sm text-[#10B981] font-semibold">
+              <div className="text-[#10B981] font-semibold">
                 847€ gagnés en Mars 2024
               </div>
             </div>
 
-            {/* Story 2 */}
-            <div className="bg-[#F8FAFC] rounded-2xl p-6">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="w-12 h-12 bg-[#10B981] rounded-full flex items-center justify-center text-white font-bold">
-                  S
-                </div>
+            {/* Testimonial 2 */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+              <div className="flex items-center gap-4 mb-6">
+                <img 
+                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&auto=format&fit=crop&q=60" 
+                  alt="Sarah K."
+                  className="w-16 h-16 rounded-full object-cover"
+                />
                 <div>
                   <h3 className="font-bold text-[#0F172A]">Sarah K.</h3>
-                  <p className="text-[#0F172A]/70 text-sm">Freelance</p>
+                  <p className="text-[#0F172A]/60">Freelance</p>
                 </div>
               </div>
-              <div className="mb-4">
-                <img src="/images/tiktok-stats.png" alt="Stats TikTok Sarah" className="rounded-lg w-full" />
-              </div>
-              <p className="text-[#0F172A]/70 mb-4">
+              <p className="text-[#0F172A]/80 mb-6">
                 "1.2M de vues en 3 semaines ! Je ne m'attendais pas à un tel succès sur mes premiers clips."
               </p>
-              <div className="text-sm text-[#10B981] font-semibold">
+              <div className="text-[#10B981] font-semibold">
                 1.2M vues en 3 semaines
               </div>
             </div>
 
-            {/* Story 3 */}
-            <div className="bg-[#F8FAFC] rounded-2xl p-6">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="w-12 h-12 bg-[#10B981] rounded-full flex items-center justify-center text-white font-bold">
-                  T
-                </div>
+            {/* Testimonial 3 */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+              <div className="flex items-center gap-4 mb-6">
+                <img 
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=60" 
+                  alt="Thomas R."
+                  className="w-16 h-16 rounded-full object-cover"
+                />
                 <div>
                   <h3 className="font-bold text-[#0F172A]">Thomas R.</h3>
-                  <p className="text-[#0F172A]/70 text-sm">Créateur</p>
+                  <p className="text-[#0F172A]/60">Créateur</p>
                 </div>
               </div>
-              <div className="mb-4">
-                <img src="/images/earnings-graph.png" alt="Graphique gains Thomas" className="rounded-lg w-full" />
-              </div>
-              <p className="text-[#0F172A]/70 mb-4">
+              <p className="text-[#0F172A]/80 mb-6">
                 "Je gagne maintenant plus avec ClipTokk qu'avec mon ancien job ! Les missions sont variées et bien payées."
               </p>
-              <div className="text-sm text-[#10B981] font-semibold">
+              <div className="text-[#10B981] font-semibold">
                 2 340€ depuis janvier
               </div>
             </div>
