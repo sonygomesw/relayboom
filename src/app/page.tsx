@@ -206,7 +206,7 @@ export default function Home() {
           </div>
         </header>
 
-        {/* Hero Section - Blanc pur */}
+        {/* Hero Section - Blanc */}
         <section className="min-h-screen bg-white flex items-center relative overflow-hidden">
           {/* Fond décoratif subtil */}
           <div className="absolute inset-0 bg-gradient-to-br from-[#10B981]/5 to-[#10B981]/10"></div>
@@ -382,7 +382,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Clips qui cartonnent - Blanc pur */}
+        {/* Clips qui cartonnent - Blanc */}
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <div className="text-center mb-16">
@@ -516,7 +516,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Pourquoi ClipTokk - Blanc pur */}
+        {/* Pourquoi ClipTokk - Blanc */}
         <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <div className="text-center mb-20">
@@ -561,8 +561,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Comment ça marche - Gris très clair */}
-        <section id="how-it-works" className="py-24 bg-[#F9FAFB]">
+        {/* Comment ça marche - Blanc */}
+        <section id="how-it-works" className="py-24 bg-white">
           <div className="max-w-6xl mx-auto px-6 lg:px-8">
             <div className="text-center mb-20">
               <h2 className="text-5xl font-black text-[#0F172A] mb-8">
@@ -646,17 +646,46 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Section Témoignages - Bleu nuit */}
-        <section className="py-20 bg-[#0F172A]">
+        {/* FOMO Badge - Intégré dans la section blanche */}
+        <section className="py-12 bg-white">
+          <div className="max-w-6xl mx-auto px-6 lg:px-8">
+            <div className="rounded-2xl border border-[#EF4444]/20 bg-[#FEF2F2] p-8">
+              <div className="flex flex-col items-center text-center">
+                <div className="inline-flex items-center gap-3 bg-[#EF4444] rounded-full px-6 py-2 mb-6">
+                  <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+                  <span className="text-white font-bold text-sm">🔥 CHALLENGE EN COURS</span>
+                </div>
+                
+                <h3 className="text-3xl font-black text-[#0F172A] mb-4">
+                  Challenge de la semaine : 2 340€ déjà gagnés
+                </h3>
+                <p className="text-[#0F172A]/70 mb-8">
+                  512 clippeurs actifs • Clôture dans 48h ⏰
+                </p>
+                
+                <Link 
+                  href="/missions"
+                  className="bg-[#EF4444] text-white px-8 py-4 rounded-full font-bold hover:bg-[#EF4444]/90 transition-all duration-300 shadow-lg text-lg inline-flex items-center gap-2"
+                >
+                  🎯 Voir les missions urgentes
+                  <span className="text-sm ml-2">→</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Témoignages - Blanc */}
+        <section className="py-20 bg-white">
           <div className="max-w-6xl mx-auto px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-black text-white mb-6">
+              <h2 className="text-4xl font-black text-[#0F172A] mb-6">
                 💬 Des clippeurs déjà payés cette semaine
               </h2>
-              <p className="text-xl text-white/70 font-light">Témoignages de notre communauté</p>
+              <p className="text-[#0F172A]/70 text-xl font-light">Témoignages de notre communauté</p>
             </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
                 {
                   name: "Lucas M.",
@@ -683,59 +712,23 @@ export default function Home() {
                   avatar: "A"
                 }
               ].map((testimonial, index) => (
-                <div key={index} className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 bg-[#10B981] rounded-full flex items-center justify-center">
-                      <span className="text-white font-bold">{testimonial.avatar}</span>
-                    </div>
+                <div key={index} className="bg-[#F9FAFB] rounded-2xl p-8 shadow-sm border border-[#0F172A]/10">
+                  <div className="flex items-center gap-4 mb-6">
+                    <img src={testimonial.avatar} alt={testimonial.name} className="w-12 h-12 rounded-full" />
                     <div>
-                      <div className="text-white font-bold">{testimonial.name}</div>
-                      <div className="text-white/60 text-sm">{testimonial.role}</div>
+                      <div className="font-bold text-[#0F172A]">{testimonial.name}</div>
+                      <div className="text-[#0F172A]/60 text-sm">{testimonial.role}</div>
                     </div>
                   </div>
-                  <p className="text-white/80 mb-4 italic">"{testimonial.testimonial}"</p>
-                  <div className="text-center bg-[#10B981]/20 rounded-lg p-3">
-                    <div className="text-[#10B981] font-bold text-xl">{testimonial.earnings}</div>
-                    <div className="text-white/60 text-sm">gagnés {testimonial.period}</div>
-                  </div>
+                  <p className="text-[#0F172A]/80 mb-4">{testimonial.testimonial}</p>
+                  <div className="text-[#10B981] font-bold text-xl">{testimonial.earnings}</div>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Section FOMO - Challenge urgent */}
-        <section className="py-16 bg-[#EF4444]">
-          <div className="max-w-6xl mx-auto px-6 lg:px-8">
-            <div className="text-center">
-              <div className="inline-flex items-center gap-3 bg-black/20 backdrop-blur-sm rounded-full px-6 py-3 mb-6">
-                <span className="w-3 h-3 bg-white rounded-full animate-pulse"></span>
-                <span className="text-white font-bold text-sm">🔥 CHALLENGE EN COURS</span>
-              </div>
-              
-              <h2 className="text-4xl font-black text-white mb-4">
-                Challenge de la semaine : 2 340€ déjà gagnés
-              </h2>
-              <p className="text-xl text-white/90 mb-8 font-light">
-                512 clippeurs actifs • Clôture dans 48h ⏰
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <Link 
-                  href="/missions"
-                  className="bg-white text-[#EF4444] px-8 py-4 rounded-full font-bold hover:bg-white/90 transition-all duration-300 shadow-lg text-lg"
-                >
-                  🎯 Voir les missions urgentes
-                </Link>
-                <div className="text-white/80 text-sm">
-                  💸 Moyenne: 47€/clippeur cette semaine
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Modèle économique - Blanc pur */}
+        {/* Modèle économique - Blanc */}
         <section className="py-24 bg-white">
           <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center">
             <h2 className="text-5xl font-black text-[#0F172A] mb-12">
@@ -751,7 +744,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* FAQ - Blanc pur */}
+        {/* FAQ - Blanc */}
         <section className="py-24 bg-white">
           <div className="max-w-4xl mx-auto px-6 lg:px-8">
             <div className="text-center mb-16">
