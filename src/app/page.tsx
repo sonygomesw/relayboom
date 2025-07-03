@@ -488,7 +488,7 @@ export default function Home() {
       </section>
 
       {/* Les clips qui cartonnent - AFTER Success Stories */}
-      <section className="py-24 bg-[#0F172A]">
+      <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-center gap-4 mb-16">
             <div className="bg-[#EF4444] px-4 py-2 rounded-full text-white text-sm font-medium">
@@ -496,7 +496,7 @@ export default function Home() {
             </div>
           </div>
 
-          <h2 className="text-4xl font-bold text-white mb-16 text-center">
+          <h2 className="text-4xl font-bold text-[#0F172A] mb-16 text-center">
             Les clips qui cartonnent
           </h2>
 
