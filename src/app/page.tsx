@@ -825,6 +825,116 @@ export default function Home() {
         onClose={() => setAuthModal({...authModal, isOpen: false})}
         onModeChange={(mode) => setAuthModal({...authModal, mode})}
       />
+
+      {/* Statistiques de revenus */}
+      <section className="py-24 bg-[#0F172A] overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <h2 className="text-4xl font-bold text-white mb-4">
+            Nos Clippeurs Cartonnent
+          </h2>
+          <p className="text-gray-400 mb-16 text-lg">
+            Découvrez les revenus réels générés par nos meilleurs clippeurs
+          </p>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="relative">
+              <div className="absolute -left-4 -top-4 bg-[#10B981]/20 w-24 h-24 rounded-full blur-2xl"></div>
+              <div className="absolute -right-4 -bottom-4 bg-blue-500/20 w-24 h-24 rounded-full blur-2xl"></div>
+              
+              <div className="relative bg-[#1E293B] rounded-2xl p-8 backdrop-blur-sm border border-white/10">
+                <div className="flex items-center justify-between mb-8">
+                  <div>
+                    <h3 className="text-2xl font-bold text-white mb-2">Statistiques du mois</h3>
+                    <p className="text-gray-400">Moyenne par clippeur actif</p>
+                  </div>
+                  <div className="bg-[#10B981]/20 px-4 py-2 rounded-full">
+                    <span className="text-[#10B981] font-medium">+32% vs mois dernier</span>
+                  </div>
+                </div>
+
+                <div className="space-y-6">
+                  <div className="flex items-center justify-between p-4 bg-black/20 rounded-xl">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 rounded-full bg-[#10B981]/20 flex items-center justify-center">
+                        <svg className="w-6 h-6 text-[#10B981]" viewBox="0 0 24 24" fill="none">
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" fill="currentColor"/>
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-white font-medium">Revenus totaux</p>
+                        <p className="text-gray-400 text-sm">Sur tous les réseaux</p>
+                      </div>
+                    </div>
+                    <span className="text-2xl font-bold text-[#10B981]">347,20€</span>
+                  </div>
+
+                  <div className="flex items-center justify-between p-4 bg-black/20 rounded-xl">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
+                        <svg className="w-6 h-6 text-blue-500" viewBox="0 0 24 24" fill="none">
+                          <path d="M21 7v10c0 3-1.5 5-5 5H8c-3.5 0-5-2-5-5V7c0-3 1.5-5 5-5h8c3.5 0 5 2 5 5Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+                          <path d="M14.5 4.5v2c0 1.1.9 2 2 2h2M8 13h4M8 17h8" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-white font-medium">Clips postés</p>
+                        <p className="text-gray-400 text-sm">Ce mois-ci</p>
+                      </div>
+                    </div>
+                    <span className="text-2xl font-bold text-white">24</span>
+                  </div>
+
+                  <div className="flex items-center justify-between p-4 bg-black/20 rounded-xl">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
+                        <svg className="w-6 h-6 text-purple-500" viewBox="0 0 24 24" fill="none">
+                          <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-white font-medium">Temps moyen</p>
+                        <p className="text-gray-400 text-sm">Par clip</p>
+                      </div>
+                    </div>
+                    <span className="text-2xl font-bold text-white">5 min</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative aspect-[9/16] rounded-2xl overflow-hidden">
+              <video
+                className="w-full h-full object-cover"
+                autoPlay
+                muted
+                loop
+                playsInline
+              >
+                <source src="/video/kaicenat.mp4" type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+              <div className="absolute bottom-8 left-8 right-8">
+                <div className="bg-black/40 backdrop-blur-sm rounded-xl p-4 border border-white/10">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 rounded-full bg-[#10B981] flex items-center justify-center text-white font-bold text-xl">
+                      K
+                    </div>
+                    <div>
+                      <h4 className="text-white font-medium">Kai Cenat Gaming</h4>
+                      <p className="text-gray-400">Clip viral - 3.1M vues</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-white">Gains générés</span>
+                    <span className="text-[#10B981] font-bold">310€</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
