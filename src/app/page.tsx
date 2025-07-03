@@ -217,84 +217,118 @@ export default function Home() {
       </div>
 
       {/* 1. Hero Section */}
-      <section className="pt-32 pb-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
-          {/* Social Proof Badge */}
-          <div className="inline-flex items-center gap-2 bg-[#10B981]/10 text-[#10B981] px-4 py-2 rounded-full text-sm font-semibold mb-8 border border-[#10B981]/20">
-            <span className="w-2 h-2 bg-[#10B981] rounded-full animate-pulse"></span>
-            +500 clippeurs déjà inscrits
-          </div>
-
-          {/* Stats Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
-            <div className="bg-[#F8FAFC] p-6 rounded-2xl">
-              <div className="text-3xl font-bold text-[#10B981] mb-2">2.3M+</div>
-              <div className="text-[#0F172A]/70">Vues générées</div>
-            </div>
-            <div className="bg-[#F8FAFC] p-6 rounded-2xl">
-              <div className="text-3xl font-bold text-[#10B981] mb-2">500+</div>
-              <div className="text-[#0F172A]/70">Clippeurs actifs</div>
-            </div>
-            <div className="bg-[#F8FAFC] p-6 rounded-2xl">
-              <div className="text-3xl font-bold text-[#10B981] mb-2">10€</div>
-              <div className="text-[#0F172A]/70">Retrait minimum</div>
-            </div>
-          </div>
-
-          {/* Hero Content */}
-          <h1 className="text-6xl font-black text-[#0F172A] mb-6 leading-tight max-w-4xl mx-auto">
-            Gagne de l'argent en postant des TikToks viraux
-          </h1>
-          <p className="text-xl text-[#0F172A]/70 mb-12 max-w-2xl mx-auto">
-            Tu postes des clips ? On te paie pour chaque vue. Rejoins des missions, publie sur TikTok, et sois payé à la performance.
-          </p>
-
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
-            <Link
-              href="/missions"
-              className="bg-[#10B981] text-white px-8 py-4 rounded-full font-bold hover:bg-[#10B981]/90 transition-all duration-300 text-lg"
-            >
-              Voir les missions disponibles
-            </Link>
-            <button
-              onClick={() => setAuthModal({isOpen: true, mode: 'clipper-signup'})}
-              className="text-[#0F172A] hover:text-[#0F172A]/70 transition-all duration-300"
-            >
-              Devenir clippeur →
-            </button>
-          </div>
-
-          {/* Trust Badges */}
-          <div className="flex flex-col items-center justify-center gap-6 pt-8 border-t border-[#0F172A]/5">
-            <div className="flex flex-wrap justify-center items-center gap-8">
-              <div className="flex items-center gap-3 text-[#0F172A]/60 text-sm">
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
-                  <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                <span>Pas d'abonnement</span>
+      <section className="pt-32 pb-24 bg-gradient-to-b from-[#E5F9EE]/20 to-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left Column - Text */}
+            <div>
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 bg-[#E5F9EE] text-[#10B981] px-4 py-2 rounded-full text-sm font-medium mb-8">
+                <span className="w-2 h-2 bg-[#10B981] rounded-full"></span>
+                500+ clippeurs actifs cette semaine
               </div>
-              <div className="flex items-center gap-3 text-[#0F172A]/60 text-sm">
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
-                  <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                <span>Paiement à la performance</span>
+
+              {/* Title */}
+              <h1 className="text-6xl font-black text-[#0F172A] mb-6 leading-tight">
+                Gagne de l'argent en postant des{' '}
+                <span className="text-[#10B981]">TikToks viraux</span>
+              </h1>
+
+              {/* Description */}
+              <p className="text-xl text-[#0F172A]/70 mb-8">
+                Tu postes des clips ? On te paie pour chaque vue. Rejoins des missions, publie sur TikTok, gagne de l'argent à la performance.
+              </p>
+
+              {/* CTAs */}
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link
+                  href="/missions"
+                  className="inline-flex items-center justify-center bg-[#10B981] text-white px-8 py-4 rounded-full font-bold hover:bg-[#10B981]/90 transition-all duration-300 text-lg"
+                >
+                  <span>Voir les missions disponibles</span>
+                  <svg className="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </Link>
+                <button
+                  onClick={() => setAuthModal({isOpen: true, mode: 'clipper-signup'})}
+                  className="inline-flex items-center justify-center text-[#0F172A] hover:text-[#0F172A]/70 transition-all duration-300 px-8 py-4"
+                >
+                  <span>Devenir clippeur</span>
+                  <svg className="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
               </div>
-              <div className="flex items-center gap-3 text-[#0F172A]/60 text-sm">
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
-                  <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                <span>Retrait dès 10€</span>
+
+              {/* Stats */}
+              <div className="flex items-center gap-8 mt-12">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-[#10B981] rounded-full"></div>
+                  <span className="text-[#0F172A]/70">500+ clippeurs actifs</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-[#10B981] rounded-full"></div>
+                  <span className="text-[#0F172A]/70">2,3M vues générées</span>
+                </div>
               </div>
             </div>
-            <div className="flex items-center gap-2 text-[#0F172A]/60 text-sm">
-              <span>Paiements sécurisés via</span>
-              <svg className="h-6" viewBox="0 0 60 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fillRule="evenodd" clipRule="evenodd" d="M59.1 25h-58C.5 25 0 24.5 0 24V1C0 .5.5 0 1.1 0h58c.6 0 1.1.5 1.1 1v23c0 .5-.5 1-1.1 1z" fill="#635BFF"/>
-                <path d="M8.3 7.5c0-.3.3-.4.4-.2l1.1 1.4c.3.3.6.4 1 .4h1.3c.5 0 .8.3.8.7v.1c0 .4-.3.7-.8.7h-1.2c-.4 0-.7.3-.7.7v.1c0 .4.3.7.7.7h1.2c.5 0 .8.3.8.7v.1c0 .4-.3.7-.8.7h-1.3c-.4 0-.8.2-1 .4l-1.1 1.4c-.1.2-.4.1-.4-.2V7.5z" fill="#fff"/>
-                <path d="M13.9 7.5c0-.3.3-.4.4-.2l1.1 1.4c.3.3.6.4 1 .4h1.3c.5 0 .8.3.8.7v.1c0 .4-.3.7-.8.7h-1.2c-.4 0-.7.3-.7.7v.1c0 .4.3.7.7.7h1.2c.5 0 .8.3.8.7v.1c0 .4-.3.7-.8.7h-1.3c-.4 0-.8.2-1 .4l-1.1 1.4c-.1.2-.4.1-.4-.2V7.5z" fill="#fff"/>
-                <path d="M19.5 7.5c0-.3.3-.4.4-.2l1.1 1.4c.3.3.6.4 1 .4h1.3c.5 0 .8.3.8.7v.1c0 .4-.3.7-.8.7h-1.2c-.4 0-.7.3-.7.7v.1c0 .4.3.7.7.7h1.2c.5 0 .8.3.8.7v.1c0 .4-.3.7-.8.7h-1.3c-.4 0-.8.2-1 .4l-1.1 1.4c-.1.2-.4.1-.4-.2V7.5z" fill="#fff"/>
-              </svg>
+
+            {/* Right Column - iPhone Mockup */}
+            <div className="relative">
+              <div className="relative mx-auto w-[320px] h-[650px]">
+                {/* iPhone Frame */}
+                <div className="absolute inset-0 bg-black rounded-[3rem] shadow-xl">
+                  {/* Notch */}
+                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[40%] h-7 bg-black rounded-b-3xl"></div>
+                  
+                  {/* Status Bar */}
+                  <div className="absolute top-1 left-6 right-6 flex justify-between items-center text-white text-xs">
+                    <span>9:41</span>
+                    <div className="flex items-center gap-1">
+                      <span className="block w-4 h-1 bg-white rounded-sm"></span>
+                      <span className="block w-4 h-1 bg-white rounded-sm"></span>
+                      <span className="block w-4 h-1 bg-white rounded-sm"></span>
+                      <span>100%</span>
+                    </div>
+                  </div>
+
+                  {/* TikTok Video */}
+                  <div className="absolute top-0 left-0 right-0 bottom-0 rounded-[2.8rem] overflow-hidden">
+                    <video
+                      className="w-full h-full object-cover"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                    >
+                      <source src="/video/mrbeast.mp4" type="video/mp4" />
+                    </video>
+
+                    {/* TikTok UI Overlay */}
+                    <div className="absolute top-12 left-4 right-4">
+                      <div className="bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2 inline-flex items-center">
+                        <span className="text-white text-sm">Tes gains</span>
+                        <span className="ml-2 text-[#10B981] font-bold">230€</span>
+                        <span className="text-white/60 text-xs ml-2">pour 2.3M vues</span>
+                      </div>
+                    </div>
+
+                    {/* TikTok Bottom UI */}
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <div className="flex items-start gap-2">
+                        <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                          <span className="text-white font-bold">M</span>
+                        </div>
+                        <div className="flex-1">
+                          <div className="text-white font-semibold">@mrbeast</div>
+                          <div className="text-white/80 text-sm">Je donne 100,000$ à celui qui reste le plus longtemps dans ce cercle ! 🔥</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
