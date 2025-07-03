@@ -358,6 +358,128 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Aperçu de la plateforme */}
+      <section className="py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-[#0F172A] mb-4">
+              Voici à quoi ressemble ton espace clippeur
+            </h2>
+            <p className="text-xl text-[#0F172A]/70 max-w-3xl mx-auto">
+              Découvre un aperçu de la plateforme avant de te lancer. Missions, statistiques, retraits… tout est pensé pour te simplifier la vie.
+            </p>
+          </div>
+
+          {/* Galerie scrollable */}
+          <div className="relative">
+            {/* Gradient de fondu gauche */}
+            <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-gray-50 to-transparent z-10"></div>
+            
+            {/* Gradient de fondu droite */}
+            <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-gray-50 to-transparent z-10"></div>
+
+            <div className="flex gap-8 overflow-x-auto pb-8 px-8 -mx-8 scrollbar-hide snap-x snap-mandatory">
+              {/* Carte 1 : Mission */}
+              <div className="flex-none w-[400px] snap-center">
+                <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-6">
+                  <div className="aspect-[4/3] relative">
+                    <img 
+                      src="/images/platform/mission-preview.png" 
+                      alt="Interface de mission"
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="flex items-center justify-center gap-2 text-[#10B981] font-medium mb-2">
+                    <span className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center">1</span>
+                    <span>Choix de mission</span>
+                  </div>
+                  <p className="text-[#0F172A]/70">Choisis une mission selon ton style et ton audience</p>
+                </div>
+              </div>
+
+              {/* Carte 2 : Dashboard */}
+              <div className="flex-none w-[400px] snap-center">
+                <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-6">
+                  <div className="aspect-[4/3] relative">
+                    <img 
+                      src="/images/platform/dashboard-preview.png" 
+                      alt="Dashboard clippeur"
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="flex items-center justify-center gap-2 text-[#10B981] font-medium mb-2">
+                    <span className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center">2</span>
+                    <span>Suivi des performances</span>
+                  </div>
+                  <p className="text-[#0F172A]/70">Suis tes gains, clips postés et vues en temps réel</p>
+                </div>
+              </div>
+
+              {/* Carte 3 : Upload */}
+              <div className="flex-none w-[400px] snap-center">
+                <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-6">
+                  <div className="aspect-[4/3] relative">
+                    <img 
+                      src="/images/platform/upload-preview.png" 
+                      alt="Interface d'upload"
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="flex items-center justify-center gap-2 text-[#10B981] font-medium mb-2">
+                    <span className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center">3</span>
+                    <span>Soumission simple</span>
+                  </div>
+                  <p className="text-[#0F172A]/70">Colle ton lien TikTok, tout est détecté automatiquement</p>
+                </div>
+              </div>
+
+              {/* Carte 4 : Paiement */}
+              <div className="flex-none w-[400px] snap-center">
+                <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-6">
+                  <div className="aspect-[4/3] relative">
+                    <img 
+                      src="/images/platform/payment-preview.png" 
+                      alt="Interface de paiement"
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="flex items-center justify-center gap-2 text-[#10B981] font-medium mb-2">
+                    <span className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center">4</span>
+                    <span>Retrait facile</span>
+                  </div>
+                  <p className="text-[#0F172A]/70">Retire tes gains en 1 clic dès 10€, via Stripe sécurisé</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="text-center mt-16">
+            <button
+              onClick={() => setAuthModal({isOpen: true, mode: 'clipper-signup'})}
+              className="inline-flex items-center justify-center bg-[#10B981] text-white px-8 py-4 rounded-full font-bold hover:bg-[#10B981]/90 transition-all duration-300 text-lg"
+            >
+              Je veux essayer la plateforme
+              <svg className="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
       {/* Résultats des clippeurs */}
       <section className="py-24 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
