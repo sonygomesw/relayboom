@@ -528,7 +528,7 @@ export default function Home() {
               }
             ].map((clip, index) => (
               <div key={index} className="relative">
-                <div className="aspect-[9/16] rounded-2xl overflow-hidden bg-[#1E293B] relative">
+                <div className="aspect-[9/16] rounded-2xl overflow-hidden bg-white shadow-lg border border-gray-100 relative">
                   <video
                     className="w-full h-full object-cover"
                     autoPlay
@@ -544,15 +544,15 @@ export default function Home() {
                       <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
                         <span className="text-white font-bold">{clip.creator[0]}</span>
                       </div>
-                      <div className="text-white">
-                        <div className="font-bold">{clip.creator}</div>
-                        <div className="text-sm text-white/70">{clip.category}</div>
+                      <div>
+                        <div className="font-bold text-white">{clip.creator}</div>
+                        <div className="text-sm text-white/90">{clip.category}</div>
                       </div>
                     </div>
-                    <div className="flex items-center justify-between text-white/90 text-sm">
-                      <span>👁 {clip.views}</span>
-                      <span>❤️ {clip.likes}</span>
-                      <span className="text-[#10B981] font-bold">{clip.earnings}</span>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-white">👁 {clip.views}</span>
+                      <span className="text-white">❤️ {clip.likes}</span>
+                      <span className="text-[#10B981] font-bold bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full">{clip.earnings}</span>
                     </div>
                   </div>
                 </div>
