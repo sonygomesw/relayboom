@@ -335,7 +335,7 @@ export default function Home() {
       </section>
 
       {/* Comment ça marche */}
-      <section className="py-24 bg-[#0F172A]">
+      <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-[#0F172A] mb-4">Comment ça marche ?</h2>
