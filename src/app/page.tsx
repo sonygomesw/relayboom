@@ -392,17 +392,17 @@ export default function Home() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div className="bg-[#F8FAFC] p-6 rounded-xl text-center">
-                  <div className="text-4xl font-bold text-[#10B981] mb-2">50€</div>
-                  <div className="text-sm text-[#0F172A]/70">Pour 100K vues</div>
+                <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                  <div className="text-3xl font-bold text-[#10B981] mb-2">10€</div>
+                  <div className="text-[#0F172A]/70">Pour 100K vues</div>
                 </div>
-                <div className="bg-[#F8FAFC] p-6 rounded-xl text-center">
-                  <div className="text-4xl font-bold text-[#10B981] mb-2">250€</div>
-                  <div className="text-sm text-[#0F172A]/70">Pour 500K vues</div>
+                <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                  <div className="text-3xl font-bold text-[#10B981] mb-2">50€</div>
+                  <div className="text-[#0F172A]/70">Pour 500K vues</div>
                 </div>
-                <div className="bg-[#F8FAFC] p-6 rounded-xl text-center">
-                  <div className="text-4xl font-bold text-[#10B981] mb-2">500€</div>
-                  <div className="text-sm text-[#0F172A]/70">Pour 1M vues</div>
+                <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                  <div className="text-3xl font-bold text-[#10B981] mb-2">100€</div>
+                  <div className="text-[#0F172A]/70">Pour 1M vues</div>
                 </div>
               </div>
 
@@ -574,7 +574,7 @@ export default function Home() {
             {[
               {
                 question: "🤔 Comment sont calculés les gains ?",
-                answer: "Tes gains sont calculés en fonction du nombre de vues que génèrent tes clips. Plus tu as de vues, plus tu gagnes ! Le taux varie selon les missions, mais commence généralement à 50€ pour 100K vues."
+                answer: "Tes gains sont calculés en fonction du nombre de vues que génèrent tes clips. Plus tu as de vues, plus tu gagnes ! Le taux est de 100€ pour 1 million de vues."
               },
               {
                 question: "💳 Quand suis-je payé ?",
