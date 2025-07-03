@@ -647,6 +647,22 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Modèle économique - Juste avant FAQ */}
+      <section className="py-24 bg-[#0F172A]">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center">
+          <h2 className="text-5xl font-black text-white mb-12">
+            💰 D'où vient l'argent ?
+          </h2>
+          <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-16 shadow-sm border border-white/20">
+            <p className="text-2xl text-white/80 leading-relaxed font-light">
+              Les streamers, artistes et marques déposent un budget pour faire clipper leur contenu. 
+              À chaque vue que tu génères, tu touches automatiquement ta part. 
+              <span className="font-bold text-[#10B981]"> Plus de vues = plus de gains.</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ - Fond secondaire (MÊME COULEUR) */}
       <section className="py-24 bg-[#0F172A]">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
@@ -661,22 +677,6 @@ export default function Home() {
             {faqData.map((faq, index) => (
               <FAQItem key={index} question={faq.question} answer={faq.answer} />
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Modèle économique - Même fond que CTA Final */}
-      <section className="py-24 bg-[#0F172A]">
-        <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center">
-          <h2 className="text-5xl font-black text-white mb-12">
-            💰 D'où vient l'argent ?
-          </h2>
-          <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-16 shadow-sm border border-white/20">
-            <p className="text-2xl text-white/80 leading-relaxed font-light">
-              Les streamers, artistes et marques déposent un budget pour faire clipper leur contenu. 
-              À chaque vue que tu génères, tu touches automatiquement ta part. 
-              <span className="font-bold text-[#10B981]"> Plus de vues = plus de gains.</span>
-            </p>
           </div>
         </div>
       </section>
