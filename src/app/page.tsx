@@ -402,12 +402,12 @@ export default function Home() {
                   {/* Dynamic Island */}
                   <div className="absolute top-2 left-1/2 transform -translate-x-1/2 h-7 w-28 bg-black rounded-full z-40"></div>
                   {/* Screen content */}
-                  <div className="relative bg-white rounded-[48px] overflow-hidden">
-                    <div className="relative bg-white p-6 shadow-inner min-h-[600px]">
+                  <div className="relative bg-[#1E293B] rounded-[48px] overflow-hidden">
+                    <div className="relative bg-[#1E293B] p-6 shadow-inner min-h-[600px]">
                 <div className="flex items-center justify-between mb-6">
                   <div>
-                    <h3 className="text-xl font-bold text-[#0F172A] mb-1">Statistiques du mois</h3>
-                    <p className="text-[#0F172A]/70 text-sm">Moyenne par clippeur actif</p>
+                    <h3 className="text-xl font-bold text-white mb-1">Statistiques du mois</h3>
+                    <p className="text-gray-400 text-sm">Moyenne par clippeur actif</p>
                   </div>
                   <div className="bg-[#10B981]/20 px-3 py-1 rounded-full">
                     <span className="text-[#10B981] font-medium text-sm">+32% vs mois dernier</span>
@@ -415,7 +415,7 @@ export default function Home() {
                 </div>
 
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-100">
+                  <div className="flex items-center justify-between p-4 bg-[#0F172A] rounded-xl">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full bg-[#10B981]/20 flex items-center justify-center">
                         <svg className="w-5 h-5 text-[#10B981]" viewBox="0 0 24 24" fill="none">
@@ -423,43 +423,43 @@ export default function Home() {
                         </svg>
                       </div>
                       <div>
-                        <p className="text-[#0F172A] font-medium text-sm">Revenus totaux</p>
-                        <p className="text-[#0F172A]/70 text-xs">Sur tous les réseaux</p>
+                        <p className="text-white font-medium text-base">Revenus totaux</p>
+                        <p className="text-gray-400 text-sm">Sur tous les réseaux</p>
                       </div>
                     </div>
-                    <span className="text-xl font-bold text-[#10B981]">347,20€</span>
+                    <span className="text-2xl font-bold text-[#10B981]">347,20€</span>
                   </div>
 
-                  <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-100">
+                  <div className="flex items-center justify-between p-4 bg-[#0F172A] rounded-xl">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
-                        <svg className="w-5 h-5 text-blue-500" viewBox="0 0 24 24" fill="none">
+                      <div className="w-10 h-10 rounded-full bg-[#3B82F6]/20 flex items-center justify-center">
+                        <svg className="w-5 h-5 text-[#3B82F6]" viewBox="0 0 24 24" fill="none">
                           <path d="M21 7v10c0 3-1.5 5-5 5H8c-3.5 0-5-2-5-5V7c0-3 1.5-5 5-5h8c3.5 0 5 2 5 5Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
                           <path d="M14.5 4.5v2c0 1.1.9 2 2 2h2M8 13h4M8 17h8" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                       </div>
                       <div>
-                        <p className="text-[#0F172A] font-medium text-sm">Clips postés</p>
-                        <p className="text-[#0F172A]/70 text-xs">Ce mois-ci</p>
+                        <p className="text-white font-medium text-base">Clips postés</p>
+                        <p className="text-gray-400 text-sm">Ce mois-ci</p>
                       </div>
                     </div>
-                    <span className="text-xl font-bold text-[#0F172A]">24</span>
+                    <span className="text-2xl font-bold text-white">24</span>
                   </div>
 
-                  <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-100">
+                  <div className="flex items-center justify-between p-4 bg-[#0F172A] rounded-xl">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center">
-                        <svg className="w-5 h-5 text-purple-500" viewBox="0 0 24 24" fill="none">
+                      <div className="w-10 h-10 rounded-full bg-[#A855F7]/20 flex items-center justify-center">
+                        <svg className="w-5 h-5 text-[#A855F7]" viewBox="0 0 24 24" fill="none">
                           <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                           <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                       </div>
                       <div>
-                        <p className="text-[#0F172A] font-medium text-sm">Temps moyen</p>
-                        <p className="text-[#0F172A]/70 text-xs">Par clip</p>
+                        <p className="text-white font-medium text-base">Temps moyen</p>
+                        <p className="text-gray-400 text-sm">Par clip</p>
                       </div>
                     </div>
-                    <span className="text-xl font-bold text-[#0F172A]">5 min</span>
+                    <span className="text-2xl font-bold text-white">5 min</span>
                   </div>
                 </div>
                     </div>
