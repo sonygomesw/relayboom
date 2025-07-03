@@ -196,36 +196,24 @@ export default function Home() {
       </div>
 
       {/* Hero Section - New Version */}
-      <section className="bg-white pt-24 pb-20">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex flex-col items-center justify-center text-center">
-            <h1 className="text-5xl md:text-6xl font-extrabold leading-tight mb-6">
-              Tu veux <span className="text-green-600">gagner de l'argent</span> ou{' '}
-              <span className="text-black">faire la promo de ton contenu</span> ?
-            </h1>
-            
-            <p className="text-xl text-gray-600 mb-10 max-w-2xl">
-              Cliptokk te permet soit de <strong>poster des TikToks et être payé à la vue</strong>, soit de <strong>créer une mission pour que d'autres parlent de toi</strong>. Choisis ce que tu veux faire.
-            </p>
-
-            <div className="flex flex-col md:flex-row gap-6 mb-10">
-              <Link 
-                href="/dashboard/clipper"
-                className="bg-black text-white px-8 py-5 rounded-xl text-lg font-semibold hover:opacity-90 transition-all duration-300"
-              >
-                Je veux poster des TikToks et gagner
-              </Link>
-              <Link 
-                href="/dashboard/creator"
-                className="bg-gray-100 text-black px-8 py-5 rounded-xl text-lg font-semibold hover:bg-gray-200 transition-all duration-300"
-              >
-                Je veux que des gens postent sur moi
-              </Link>
-            </div>
-
-            <p className="text-sm text-gray-400">
-              +500 clippeurs actifs · 2,3M vues générées · Paiements sécurisés par Stripe
-            </p>
+      <section className="py-20 px-4 text-center bg-white">
+        <div className="max-w-5xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
+            Tu veux <span className="text-green-600">gagner de l'argent</span> ou <span className="text-black">faire la promo de ton contenu</span> ?
+          </h1>
+          <p className="text-lg text-gray-700 mb-10">
+            Cliptokk te permet soit de <strong>poster des TikToks et être payé à la vue</strong>, soit de <strong>créer une mission pour que d'autres parlent de toi</strong>. Choisis ce que tu veux faire.
+          </p>
+          <div className="flex flex-col md:flex-row justify-center gap-6">
+            <Link href="/dashboard/clipper" className="bg-black text-white px-8 py-5 rounded-xl text-lg font-semibold hover:opacity-90 transition">
+              Je veux poster des TikToks et gagner
+            </Link>
+            <Link href="/dashboard/creator" className="bg-gray-200 text-black px-8 py-5 rounded-xl text-lg font-semibold hover:bg-gray-300 transition">
+              Je veux que des gens postent sur moi
+            </Link>
+          </div>
+          <div className="mt-8 text-sm text-gray-500">
+            +500 clippeurs actifs • 2,3M vues générées • Paiements sécurisés par Stripe
           </div>
         </div>
       </section>
