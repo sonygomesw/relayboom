@@ -158,6 +158,29 @@ export default function Home() {
 
   return (
     <main className="relative">
+      {/* Navbar */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#0F172A]/5">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between">
+          <Link href="/" className="flex items-center">
+            <img src="/logo.png" alt="ClipTokk" className="h-8" />
+          </Link>
+          <nav className="hidden md:flex items-center gap-8">
+            <Link href="#how-it-works" className="text-[#0F172A]/70 hover:text-[#0F172A]">
+              Comment ça marche
+            </Link>
+            <Link href="/missions" className="text-[#0F172A]/70 hover:text-[#0F172A]">
+              Voir les missions
+            </Link>
+            <button
+              onClick={() => setAuthModal({isOpen: true, mode: 'clipper-signup'})}
+              className="bg-[#10B981] text-white px-6 py-2 rounded-full font-bold hover:bg-[#10B981]/90 transition-all duration-300"
+            >
+              Devenir clippeur
+            </button>
+          </nav>
+        </div>
+      </header>
+
       {/* Sticky CTA */}
       {isSticky && (
         <div className="fixed top-0 left-0 right-0 bg-white shadow-lg z-50 py-4 transform translate-y-0 transition-transform duration-300">
@@ -435,6 +458,81 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Les clips qui cartonnent - AFTER Success Stories */}
+      <section className="py-24 bg-[#0F172A]">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex items-center justify-center gap-4 mb-16">
+            <div className="bg-[#EF4444] px-4 py-2 rounded-full text-white text-sm font-medium">
+              🔥 Tendance cette semaine
+            </div>
+          </div>
+
+          <h2 className="text-4xl font-bold text-white mb-16 text-center">
+            Les clips qui cartonnent
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                creator: "MrBeast",
+                video: "/video/mrbeast.mp4",
+                views: "2.3M",
+                likes: "125K",
+                earnings: "230€",
+                category: "Challenge"
+              },
+              {
+                creator: "Speed",
+                video: "/video/speed.mp4",
+                views: "1.8M",
+                likes: "98K",
+                earnings: "180€",
+                category: "Gaming"
+              },
+              {
+                creator: "Kai Cenat",
+                video: "/video/kaicenat.mp4",
+                views: "1.5M",
+                likes: "82K",
+                earnings: "150€",
+                category: "IRL"
+              }
+            ].map((clip, index) => (
+              <div key={index} className="relative">
+                <div className="aspect-[9/16] rounded-2xl overflow-hidden bg-[#1E293B] relative">
+                  <video
+                    className="w-full h-full object-cover"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                  >
+                    <source src={clip.video} type="video/mp4" />
+                  </video>
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60"></div>
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                        <span className="text-white font-bold">{clip.creator[0]}</span>
+                      </div>
+                      <div className="text-white">
+                        <div className="font-bold">{clip.creator}</div>
+                        <div className="text-sm text-white/70">{clip.category}</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between text-white/90 text-sm">
+                      <span>👁 {clip.views}</span>
+                      <span>❤️ {clip.likes}</span>
+                      <span className="text-[#10B981] font-bold">{clip.earnings}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* 5. FAQ */}
       <section className="py-24 bg-[#F8FAFC]">
         <div className="max-w-3xl mx-auto px-6 lg:px-8">
@@ -500,6 +598,22 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* CTA Sticky Mobile */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 bg-[#10B981] p-4 shadow-2xl border-t border-[#10B981]/20 md:hidden">
+        <div className="flex items-center justify-between">
+          <div className="flex-1">
+            <div className="text-white font-bold text-sm">🎁 Bonus 5€ de bienvenue</div>
+            <div className="text-white/80 text-xs">Pour tes 3 premiers clips</div>
+          </div>
+          <button
+            onClick={() => setAuthModal({isOpen: true, mode: 'clipper-signup'})}
+            className="bg-white text-[#10B981] px-6 py-3 rounded-full font-bold hover:bg-white/90 transition-all duration-300 shadow-lg text-sm whitespace-nowrap"
+          >
+            Commencer 🚀
+          </button>
+        </div>
+      </div>
 
       <AuthModal 
         isOpen={authModal.isOpen}
