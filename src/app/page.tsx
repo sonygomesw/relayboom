@@ -390,119 +390,92 @@ export default function Home() {
           </p>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="relative">
-              <div className="absolute -left-4 -top-4 bg-[#10B981]/20 w-24 h-24 rounded-full blur-2xl"></div>
-              <div className="absolute -right-4 -bottom-4 bg-blue-500/20 w-24 h-24 rounded-full blur-2xl"></div>
-              
-              {/* iPhone mockup container */}
-              <div className="relative mx-auto" style={{ maxWidth: '375px' }}>
-                <div className="relative bg-black rounded-[60px] p-3 shadow-xl mx-auto">
-                  {/* iPhone notch */}
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 h-6 w-40 bg-black rounded-b-3xl z-50"></div>
-                  {/* Dynamic Island */}
-                  <div className="absolute top-2 left-1/2 transform -translate-x-1/2 h-7 w-28 bg-black rounded-full z-40"></div>
-                  {/* Screen content */}
-                  <div className="relative bg-[#1E293B] rounded-[48px] overflow-hidden">
-                    <div className="relative bg-[#1E293B] p-6 shadow-inner min-h-[600px]">
-                <div className="flex items-center justify-between mb-6">
-                  <div>
-                    <h3 className="text-xl font-bold text-white mb-1">Statistiques du mois</h3>
-                    <p className="text-gray-400 text-sm">Moyenne par clippeur actif</p>
+            <div className="relative bg-[#1E293B] rounded-2xl p-8 max-w-xl mx-auto w-full">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-1">Statistiques du mois</h3>
+                  <p className="text-gray-400 text-sm">Moyenne par clippeur actif</p>
+                </div>
+                <div className="bg-[#10B981]/20 px-3 py-1 rounded-full">
+                  <span className="text-[#10B981] font-medium text-sm">+32% vs mois dernier</span>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div className="flex items-center justify-between p-4 bg-[#0F172A] rounded-xl">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-[#10B981]/20 flex items-center justify-center">
+                      <svg className="w-5 h-5 text-[#10B981]" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" fill="currentColor"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-white font-medium text-base">Revenus totaux</p>
+                      <p className="text-gray-400 text-sm">Sur tous les réseaux</p>
+                    </div>
                   </div>
-                  <div className="bg-[#10B981]/20 px-3 py-1 rounded-full">
-                    <span className="text-[#10B981] font-medium text-sm">+32% vs mois dernier</span>
-                  </div>
+                  <span className="text-2xl font-bold text-[#10B981]">347,20€</span>
                 </div>
 
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between p-4 bg-[#0F172A] rounded-xl">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-[#10B981]/20 flex items-center justify-center">
-                        <svg className="w-5 h-5 text-[#10B981]" viewBox="0 0 24 24" fill="none">
-                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" fill="currentColor"/>
-                        </svg>
-                      </div>
-                      <div>
-                        <p className="text-white font-medium text-base">Revenus totaux</p>
-                        <p className="text-gray-400 text-sm">Sur tous les réseaux</p>
-                      </div>
+                <div className="flex items-center justify-between p-4 bg-[#0F172A] rounded-xl">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-[#3B82F6]/20 flex items-center justify-center">
+                      <svg className="w-5 h-5 text-[#3B82F6]" viewBox="0 0 24 24" fill="none">
+                        <path d="M21 7v10c0 3-1.5 5-5 5H8c-3.5 0-5-2-5-5V7c0-3 1.5-5 5-5h8c3.5 0 5 2 5 5Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M14.5 4.5v2c0 1.1.9 2 2 2h2M8 13h4M8 17h8" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
                     </div>
-                    <span className="text-2xl font-bold text-[#10B981]">347,20€</span>
-                  </div>
-
-                  <div className="flex items-center justify-between p-4 bg-[#0F172A] rounded-xl">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-[#3B82F6]/20 flex items-center justify-center">
-                        <svg className="w-5 h-5 text-[#3B82F6]" viewBox="0 0 24 24" fill="none">
-                          <path d="M21 7v10c0 3-1.5 5-5 5H8c-3.5 0-5-2-5-5V7c0-3 1.5-5 5-5h8c3.5 0 5 2 5 5Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
-                          <path d="M14.5 4.5v2c0 1.1.9 2 2 2h2M8 13h4M8 17h8" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </div>
-                      <div>
-                        <p className="text-white font-medium text-base">Clips postés</p>
-                        <p className="text-gray-400 text-sm">Ce mois-ci</p>
-                      </div>
+                    <div>
+                      <p className="text-white font-medium text-base">Clips postés</p>
+                      <p className="text-gray-400 text-sm">Ce mois-ci</p>
                     </div>
-                    <span className="text-2xl font-bold text-white">24</span>
                   </div>
-
-                  <div className="flex items-center justify-between p-4 bg-[#0F172A] rounded-xl">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-[#A855F7]/20 flex items-center justify-center">
-                        <svg className="w-5 h-5 text-[#A855F7]" viewBox="0 0 24 24" fill="none">
-                          <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                          <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </div>
-                      <div>
-                        <p className="text-white font-medium text-base">Temps moyen</p>
-                        <p className="text-gray-400 text-sm">Par clip</p>
-                      </div>
-                    </div>
-                    <span className="text-2xl font-bold text-white">5 min</span>
-                  </div>
+                  <span className="text-2xl font-bold text-white">24</span>
                 </div>
+
+                <div className="flex items-center justify-between p-4 bg-[#0F172A] rounded-xl">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-[#A855F7]/20 flex items-center justify-center">
+                      <svg className="w-5 h-5 text-[#A855F7]" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-white font-medium text-base">Temps moyen</p>
+                      <p className="text-gray-400 text-sm">Par clip</p>
                     </div>
                   </div>
+                  <span className="text-2xl font-bold text-white">5 min</span>
                 </div>
               </div>
             </div>
 
-            {/* iPhone mockup for video */}
-            <div className="relative mx-auto" style={{ maxWidth: '375px' }}>
-              <div className="relative bg-black rounded-[60px] p-3 shadow-xl mx-auto">
-                {/* iPhone notch */}
-                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 h-6 w-40 bg-black rounded-b-3xl z-50"></div>
-                {/* Dynamic Island */}
-                <div className="absolute top-2 left-1/2 transform -translate-x-1/2 h-7 w-28 bg-black rounded-full z-40"></div>
-                {/* Screen content */}
-                <div className="relative bg-white rounded-[48px] overflow-hidden aspect-[9/16]">
-                  <video
-                    className="w-full h-full object-cover"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                  >
-                    <source src="/video/kaicenat.mp4" type="video/mp4" />
-                  </video>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                  <div className="absolute bottom-8 left-4 right-4">
-                    <div className="bg-black/40 backdrop-blur-sm rounded-xl p-4 border border-white/10">
-                      <div className="flex items-center gap-4 mb-4">
-                        <div className="w-12 h-12 rounded-full bg-[#10B981] flex items-center justify-center text-white font-bold text-xl">
-                          K
-                        </div>
-                        <div>
-                          <h4 className="text-white font-medium">Kai Cenat Gaming</h4>
-                          <p className="text-gray-400">Clip viral - 3.1M vues</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-white">Gains générés</span>
-                        <span className="text-[#10B981] font-bold">310€</span>
-                      </div>
+            <div className="relative aspect-[9/16] max-w-xl mx-auto w-full rounded-2xl overflow-hidden">
+              <video
+                className="w-full h-full object-cover"
+                autoPlay
+                muted
+                loop
+                playsInline
+              >
+                <source src="/video/kaicenat.mp4" type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+              <div className="absolute bottom-8 left-4 right-4">
+                <div className="bg-black/40 backdrop-blur-sm rounded-xl p-4 border border-white/10">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 rounded-full bg-[#10B981] flex items-center justify-center text-white font-bold text-xl">
+                      K
                     </div>
+                    <div>
+                      <h4 className="text-white font-medium">Kai Cenat Gaming</h4>
+                      <p className="text-gray-400">Clip viral - 3.1M vues</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-white">Gains générés</span>
+                    <span className="text-[#10B981] font-bold">310€</span>
                   </div>
                 </div>
               </div>
