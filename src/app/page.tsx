@@ -555,7 +555,7 @@ export default function Home() {
             <p className="text-2xl text-[#0F172A]/70 font-light">Simple, rapide, efficace</p>
           </div>
 
-          <div className="grid md:grid-cols-4 gap-12">
+          <div className="grid md:grid-cols-3 gap-12">
             {[
               {
                 number: "1",
@@ -576,13 +576,13 @@ export default function Home() {
                 icon: IconCoin
               }
             ].map((step, index) => (
-              <div key={index} className="text-center group">
-                <div className="w-20 h-20 bg-[#10B981] rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-all duration-300 shadow-lg">
+              <div key={index} className="text-center group flex flex-col items-center">
+                <div className="w-20 h-20 bg-[#10B981] rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-300 shadow-lg">
                   <step.icon className="w-10 h-10 text-white" />
                 </div>
-                <div className="text-[#0F172A]/60 text-sm font-bold mb-2">ÉTAPE {step.number}</div>
-                <h3 className="text-2xl font-bold text-[#0F172A] mb-4">{step.title}</h3>
-                <p className="text-[#0F172A]/70 leading-relaxed">{step.description}</p>
+                <div className="text-[#0F172A]/60 text-sm font-bold mb-3 tracking-wider">ÉTAPE {step.number}</div>
+                <h3 className="text-2xl font-bold text-[#0F172A] mb-4 text-center">{step.title}</h3>
+                <p className="text-[#0F172A]/70 leading-relaxed text-center max-w-xs">{step.description}</p>
               </div>
             ))}
           </div>
