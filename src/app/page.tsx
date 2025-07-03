@@ -160,9 +160,9 @@ export default function Home() {
     <main className="relative">
       {/* Navbar */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#0F172A]/5">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 h-24 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 h-28 flex items-center justify-between">
           <Link href="/" className="flex items-center">
-            <img src="/logo.png" alt="ClipTokk" className="h-16" />
+            <img src="/logo.png" alt="ClipTokk" className="h-20" />
           </Link>
           <nav className="hidden md:flex items-center gap-8">
             <Link href="#how-it-works" className="text-[#0F172A]/70 hover:text-[#0F172A]">
