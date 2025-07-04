@@ -251,6 +251,28 @@ td {
   font-weight: 500 !important;
 }
 
+/* Amélioration des boutons avec texte blanc */
+.text-white {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Amélioration spécifique pour les boutons de navigation */
+nav button.text-white,
+nav a.text-white {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Amélioration des boutons avec gradient */
+.bg-gradient-to-r {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+}
+
 /* Amélioration des alertes et notifications */
 .alert {
   font-weight: 500 !important;
