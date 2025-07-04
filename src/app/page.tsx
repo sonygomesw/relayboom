@@ -416,7 +416,7 @@ export default function Home() {
                   <span className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center">1</span>
                   <span>Choix de mission</span>
                 </div>
-                <p className="text-[#0F172A]/70">Choisis une mission selon ton style et ton audience</p>
+                <p className="text-gray-600">Choisis une mission selon ton style et ton audience</p>
               </div>
             </div>
 
@@ -480,7 +480,7 @@ export default function Home() {
                   <span className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center">2</span>
                   <span>Suivi des performances</span>
                 </div>
-                <p className="text-[#0F172A]/70">Suis tes gains, clips postés et vues en temps réel</p>
+                <p className="text-gray-600">Suis tes gains, clips postés et vues en temps réel</p>
               </div>
             </div>
 
@@ -525,7 +525,7 @@ export default function Home() {
                   <span className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center">3</span>
                   <span>Soumission simple</span>
                 </div>
-                <p className="text-[#0F172A]/70">Colle ton lien TikTok, tout est détecté automatiquement</p>
+                <p className="text-gray-600">Colle ton lien TikTok, tout est détecté automatiquement</p>
               </div>
             </div>
 
@@ -577,7 +577,7 @@ export default function Home() {
                   <span className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center">4</span>
                   <span>Retrait facile</span>
                 </div>
-                <p className="text-[#0F172A]/70">Retire tes gains dès 10€ via Stripe Connect</p>
+                <p className="text-gray-600">Retire tes gains dès 10€ via Stripe Connect</p>
               </div>
             </div>
           </div>
