@@ -29,7 +29,7 @@ export default function ClipperDashboard() {
   const { user, profile } = useAuth()
   const router = useRouter()
   const { language } = useLanguage()
-  const t = translations[language as Language] || translations.en
+  const t = translations[language as Language]
   
   // États pour les filtres (uniquement Produit maintenant)
   const [selectedProduct, setSelectedProduct] = useState('all')
@@ -64,19 +64,31 @@ export default function ClipperDashboard() {
 
   // Options pour le filtre Produit uniquement
   const productOptions = [
-    { value: 'all', label: 'Tous les produits' },
-    { value: 'Divertissement', label: 'Divertissement' },
-    { value: 'Musique', label: 'Musique' },
-    { value: 'Marque', label: 'Marque' },
-    { value: 'Produits', label: 'Produits' }
+    { value: 'all', label: t?.missions?.filters?.allProducts ?? 'Tous les produits' },
+    { value: 'Divertissement', label: t?.missions?.filters?.entertainment ?? 'Divertissement' },
+    { value: 'Musique', label: t?.missions?.filters?.music ?? 'Musique' },
+    { value: 'Marque', label: t?.missions?.filters?.brand ?? 'Marque' },
+    { value: 'Produits', label: t?.missions?.filters?.products ?? 'Produits' }
   ]
+
+  // Debug optimisé
+  if (process.env.NODE_ENV === 'development') {
+    console.log('🔍 Clipper Dashboard (optimisé):', {
+      userId: user?.id,
+      statsLoaded: !!userStats,
+      missionsCount: missions?.length || 0,
+      filteredCount: dashboardData.missionCount,
+      filters: { selectedProduct },
+      isLoading
+    })
+  }
 
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Chargement du tableau de bord...</p>
+          <p className="text-gray-600">{t?.platformPreviews?.dashboard?.common?.loadingDashboard ?? 'Chargement du tableau de bord...'}</p>
         </div>
       </div>
     )
@@ -103,64 +115,79 @@ export default function ClipperDashboard() {
                     <span className="text-3xl">🎉</span>
                   </div>
                   <h1 className="text-4xl font-bold text-gray-900 mb-4">
-                    Bienvenue {profile.pseudo || 'Clippeur'} !
+                    {t?.platformPreviews?.dashboard?.clipper?.welcome?.title ?? 'Bienvenue'} {profile.pseudo || 'Clippeur'} !
                   </h1>
                   <p className="text-xl text-gray-600 mb-8">
-                    Commencez avec ClipTokk et gagnez de l'argent en créant des clips !
+                    {t?.platformPreviews?.dashboard?.clipper?.welcome?.description ?? 'Commencez avec ClipTokk et gagnez de l\'argent en créant des clips !'}
                   </p>
                   
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                     <div className="p-6 bg-blue-50 rounded-xl">
                       <IconPlayerPlay className="w-8 h-8 text-blue-500 mx-auto mb-3" />
-                      <h3 className="font-semibold text-gray-900 mb-2">Trouver des Missions</h3>
-                      <p className="text-sm text-gray-600">Parcourez les missions disponibles des créateurs</p>
+                      <h3 className="font-semibold text-gray-900 mb-2">
+                        {t?.platformPreviews?.dashboard?.clipper?.welcome?.steps?.findMissions?.title ?? 'Trouver des Missions'}
+                      </h3>
+                      <p className="text-sm text-gray-600">
+                        {t?.platformPreviews?.dashboard?.clipper?.welcome?.steps?.findMissions?.description ?? 'Parcourez les missions disponibles des créateurs'}
+                      </p>
                     </div>
                     <div className="p-6 bg-purple-50 rounded-xl">
                       <IconBolt className="w-8 h-8 text-purple-500 mx-auto mb-3" />
-                      <h3 className="font-semibold text-gray-900 mb-2">Créer des Clips</h3>
-                      <p className="text-sm text-gray-600">Créez des clips engageants qui suivent les directives de la mission</p>
+                      <h3 className="font-semibold text-gray-900 mb-2">
+                        {t?.platformPreviews?.dashboard?.clipper?.welcome?.steps?.createClips?.title ?? 'Créer des Clips'}
+                      </h3>
+                      <p className="text-sm text-gray-600">
+                        {t?.platformPreviews?.dashboard?.clipper?.welcome?.steps?.createClips?.description ?? 'Créez des clips engageants qui suivent les directives de la mission'}
+                      </p>
                     </div>
                     <div className="p-6 bg-green-50 rounded-xl">
                       <IconCoin className="w-8 h-8 text-green-500 mx-auto mb-3" />
-                      <h3 className="font-semibold text-gray-900 mb-2">Gagner de l'argent</h3>
-                      <p className="text-sm text-gray-600">Soyez payé pour vos vues et vos clips réussis</p>
+                      <h3 className="font-semibold text-gray-900 mb-2">
+                        {t?.platformPreviews?.dashboard?.clipper?.welcome?.steps?.earnMoney?.title ?? 'Gagner de l\'argent'}
+                      </h3>
+                      <p className="text-sm text-gray-600">
+                        {t?.platformPreviews?.dashboard?.clipper?.welcome?.steps?.earnMoney?.description ?? 'Soyez payé pour vos vues et vos clips réussis'}
+                      </p>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
                     <div className="bg-white p-6 rounded-xl border border-gray-200">
                       <div className="flex items-center justify-between mb-3">
-                        <h3 className="font-medium text-gray-600">Gains totaux</h3>
+                        <h3 className="font-medium text-gray-600">
+                          {t?.platformPreviews?.dashboard?.stats?.totalEarnings ?? 'Gains totaux'}
+                        </h3>
                         <IconCoin className="w-5 h-5 text-green-500" />
                       </div>
                       <p className="text-2xl font-bold text-gray-900">0€</p>
-                      <p className="text-sm text-gray-500 mt-1">Vos gains totaux sur tous les clips</p>
+                      <p className="text-sm text-gray-500 mt-1">
+                        {t?.platformPreviews?.dashboard?.stats?.totalEarnings ?? 'Gains totaux'}
+                      </p>
                     </div>
                     <div className="bg-white p-6 rounded-xl border border-gray-200">
                       <div className="flex items-center justify-between mb-3">
-                        <h3 className="font-medium text-gray-600">Vues générées</h3>
+                        <h3 className="font-medium text-gray-600">
+                          {t?.platformPreviews?.dashboard?.stats?.totalViews ?? 'Vues générées'}
+                        </h3>
                         <IconEye className="w-5 h-5 text-blue-500" />
                       </div>
                       <p className="text-2xl font-bold text-gray-900">0</p>
-                      <p className="text-sm text-gray-500 mt-1">Nombre total de vues sur vos clips</p>
+                      <p className="text-sm text-gray-500 mt-1">
+                        {t?.platformPreviews?.dashboard?.stats?.totalViews ?? 'Vues générées'}
+                      </p>
                     </div>
                     <div className="bg-white p-6 rounded-xl border border-gray-200">
                       <div className="flex items-center justify-between mb-3">
-                        <h3 className="font-medium text-gray-600">Clips créés</h3>
+                        <h3 className="font-medium text-gray-600">
+                          {t?.platformPreviews?.dashboard?.stats?.postedClips ?? 'Clips créés'}
+                        </h3>
                         <IconPlayerPlay className="w-5 h-5 text-purple-500" />
                       </div>
                       <p className="text-2xl font-bold text-gray-900">0</p>
-                      <p className="text-sm text-gray-500 mt-1">Nombre de clips que vous avez créés</p>
+                      <p className="text-sm text-gray-500 mt-1">
+                        {t?.platformPreviews?.dashboard?.stats?.postedClips ?? 'Clips créés'}
+                      </p>
                     </div>
-                  </div>
-
-                  <div className="mt-8">
-                    <button
-                      onClick={() => router.push('/missions')}
-                      className="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-xl font-medium transition-colors"
-                    >
-                      Voir les missions disponibles
-                    </button>
                   </div>
                 </div>
               </div>
@@ -189,16 +216,18 @@ export default function ClipperDashboard() {
                   </div>
                   <div className="flex-1">
                     <h1 className="text-5xl font-bold text-gray-900 leading-tight">
-                      Missions disponibles
+                      {t?.platformPreviews?.mission?.title ?? 'Missions disponibles'}
                     </h1>
                     <p className="text-xl text-gray-600 mt-2">
-                      Parcourez et acceptez des missions de créateurs
+                      {t?.platformPreviews?.mission?.description ?? 'Parcourez et acceptez des missions de créateurs'}
                     </p>
                   </div>
                 </div>
                 
                 <div className="text-xl text-gray-600 mb-8">
-                  {dashboardData.missionCount} {dashboardData.missionCount > 1 ? 'missions actives' : 'mission active'}
+                  {dashboardData.missionCount} {dashboardData.missionCount > 1 
+                    ? (t?.platformPreviews?.mission?.activeMissionsCount?.plural ?? 'missions actives')
+                    : (t?.platformPreviews?.mission?.activeMissionsCount?.singular ?? 'mission active')}
                 </div>
 
                 {/* Filtres */}
