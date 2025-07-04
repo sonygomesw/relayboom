@@ -294,15 +294,15 @@ export default function HomePage() {
           
           {/* Mini Earnings Simulator */}
           <div className="mt-20 max-w-2xl mx-auto">
-            <div className="bg-gradient-to-r from-green-600 to-blue-600 rounded-3xl p-8 text-white">
+            <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl p-8 text-white">
               <div className="text-center mb-8">
                 <h3 className="text-2xl font-bold mb-2">💰 Simulateur de gains</h3>
-                <p className="text-green-100">Découvre combien tu peux gagner avec tes vues !</p>
+                <p className="text-purple-100">Découvre combien tu peux gagner avec tes vues !</p>
               </div>
               
               <div className="space-y-6">
                 <div>
-                  <label className="block text-sm font-medium text-green-100 mb-2">
+                  <label className="block text-sm font-medium text-purple-100 mb-2">
                     Nombre de vues de ton clip
                   </label>
                   <input
@@ -314,7 +314,7 @@ export default function HomePage() {
                     onChange={(e) => setViewsCount(parseInt(e.target.value))}
                     className="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
                   />
-                  <div className="flex justify-between text-xs text-green-100 mt-2">
+                  <div className="flex justify-between text-xs text-purple-100 mt-2">
                     <span>10K</span>
                     <span>5M</span>
                   </div>
@@ -327,7 +327,7 @@ export default function HomePage() {
                   <div className="text-2xl font-semibold text-yellow-300">
                     = {Math.round(viewsCount * 0.0001)}€ gagnés
                   </div>
-                  <p className="text-sm text-green-100 mt-2">
+                  <p className="text-sm text-purple-100 mt-2">
                     Basé sur 0,10€ pour 1000 vues
                   </p>
                 </div>
@@ -347,7 +347,7 @@ export default function HomePage() {
                       setAuthModalMode('clipper-signup')
                       setIsAuthModalOpen(true)
                     }}
-                    className="bg-white text-green-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
+                    className="bg-white text-purple-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
                   >
                     Je veux gagner ça ! 🚀
                   </button>
