@@ -19,10 +19,10 @@ export default function HomePage() {
       {/* Navigation */}
       <nav className="bg-white border-b border-gray-100 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
+          <div className="flex justify-between h-24">
             <div className="flex">
               <div className="flex-shrink-0 flex items-center">
-                <img src="/logo.png" alt="ClipTokk" className="h-8 w-auto" />
+                <img src="/logo.png" alt="ClipTokk" className="h-20 w-auto" />
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                 <a href="#comment-ca-marche" className="border-transparent text-gray-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
@@ -452,7 +452,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center">
-                <img src="/logo.png" alt="ClipTokk" className="h-8 w-auto" />
+                <img src="/logo.png" alt="ClipTokk" className="h-20 w-auto" />
               </div>
               <p className="mt-4 text-gray-400 text-sm">
                 ClipTokk est la première plateforme qui te permet de gagner de l'argent en postant des TikToks viraux. Rejoins une communauté de créateurs passionnés et monétise ton contenu.
