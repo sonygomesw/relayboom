@@ -5,6 +5,8 @@ import { supabase } from '@/lib/supabase'
 import RoleProtectionOptimized from '@/components/RoleProtectionOptimized'
 import { useAuth } from '@/components/AuthContext'
 import ClipperSidebar from '@/components/ClipperSidebar'
+import { useLanguage } from '@/components/LanguageContext'
+import { clipperTranslations } from '@/lib/clipper-translations'
 import { 
   IconVideo,
   IconEye,
@@ -70,6 +72,8 @@ export default function ClipperClips() {
     palier: '',
     views_declared: ''
   })
+  const { language } = useLanguage()
+  const t = clipperTranslations[language]
 
   useEffect(() => {
     if (user && profile) {
@@ -445,8 +449,6 @@ export default function ClipperClips() {
                 </div>
               </div>
 
-
-
               <div className="bg-white rounded-xl border border-gray-200 p-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -729,39 +731,39 @@ export default function ClipperClips() {
 
             <div className="mb-6">
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Nombre de vues exactes (optionnel)
+                {t.clipper.views.exact}
               </label>
               <input
                 type="number"
                 value={palierForm.views_declared}
                 onChange={(e) => setPalierForm(prev => ({ ...prev, views_declared: e.target.value }))}
-                placeholder={`Ou indiquez le nombre exact (minimum ${parseInt(palierForm.palier || '0').toLocaleString()})`}
+                placeholder={t.clipper.views.placeholder.replace('{count}', parseInt(palierForm.palier || '0').toLocaleString())}
                 className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
               <p className="text-xs text-gray-500 mt-1">
-                Si vide, nous utiliserons {parseInt(palierForm.palier || '0').toLocaleString()} vues
+                {t.clipper.views.default.replace('{count}', parseInt(palierForm.palier || '0').toLocaleString())}
               </p>
             </div>
 
             <div className="flex gap-3">
-              <button
-                onClick={() => {
-                  setShowPalierModal(false)
-                  setSelectedClip(null)
-                  setPalierForm({ palier: '', views_declared: '' })
-                }}
-                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors"
-              >
-                Annuler
-              </button>
-              <button
-                onClick={handlePalierSubmit}
-                disabled={!palierForm.palier}
-                className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
-              >
-                <IconCheck className="w-4 h-4" />
-                Confirmer le palier
-              </button>
+                              <button
+                  onClick={() => {
+                    setShowPalierModal(false)
+                    setSelectedClip(null)
+                    setPalierForm({ palier: '', views_declared: '' })
+                  }}
+                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+                >
+                  {t.clipper.actions.cancel}
+                </button>
+                <button
+                  onClick={handlePalierSubmit}
+                  disabled={!palierForm.palier}
+                  className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
+                >
+                  <IconCheck className="w-4 h-4" />
+                  {t.clipper.actions.confirmPalier}
+                </button>
             </div>
           </div>
         </div>

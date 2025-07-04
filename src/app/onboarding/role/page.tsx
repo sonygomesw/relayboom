@@ -3,12 +3,16 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
+import { useLanguage } from '@/components/LanguageContext'
+import { translations } from '@/lib/translations.new'
 
 export default function RoleSelectionPage() {
   const [selectedRole, setSelectedRole] = useState<'creator' | 'clipper' | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [user, setUser] = useState<any>(null)
   const router = useRouter()
+  const { language } = useLanguage()
+  const t = translations[language]
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -51,6 +55,7 @@ export default function RoleSelectionPage() {
   const handleRoleSelection = async () => {
     if (!selectedRole || !user) {
       console.log('❌ Pas de rôle sélectionné ou pas d\'utilisateur:', { selectedRole, user: !!user })
+      alert(t.onboarding.errors.noRole)
       return
     }
 
@@ -74,7 +79,7 @@ export default function RoleSelectionPage() {
 
       if (error) {
         console.error('❌ Erreur lors de l\'upsert du rôle:', error)
-        alert('Erreur lors de la sélection du rôle: ' + error.message)
+        alert(t.onboarding.errors.updateFailed + error.message)
         return
       }
 
@@ -88,7 +93,7 @@ export default function RoleSelectionPage() {
       router.push(selectedRole === 'creator' ? '/dashboard/creator' : '/dashboard/clipper')
     } catch (error) {
       console.error('❌ Exception lors de la sélection du rôle:', error)
-      alert('Erreur lors de la sélection du rôle: ' + (error as Error).message)
+      alert(t.onboarding.errors.updateFailed + (error as Error).message)
     } finally {
       setIsLoading(false)
     }
@@ -102,8 +107,8 @@ export default function RoleSelectionPage() {
           <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="text-2xl font-bold text-white">R</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Bienvenue sur ClipTokk !</h1>
-          <p className="text-gray-600">Quel est ton objectif ?</p>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">{t.onboarding.welcome.title}</h1>
+          <p className="text-gray-600">{t.onboarding.welcome.subtitle}</p>
         </div>
 
         {/* Options de rôle */}
@@ -121,8 +126,8 @@ export default function RoleSelectionPage() {
               <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-3xl">🎥</span>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Je suis créateur / influenceur</h3>
-              <p className="text-sm text-gray-600 mb-4">Je veux être payé pour mes vues et faire clipper mon contenu</p>
+              <h3 className="font-semibold text-gray-900 mb-2">{t.onboarding.roles.creator.title}</h3>
+              <p className="text-sm text-gray-600 mb-4">{t.onboarding.roles.creator.description}</p>
               <div className={`w-6 h-6 rounded-full border-2 mx-auto ${
                 selectedRole === 'creator' 
                   ? 'border-green-500 bg-green-500' 
@@ -148,8 +153,8 @@ export default function RoleSelectionPage() {
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-3xl">✂️</span>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Je suis clippeur</h3>
-              <p className="text-sm text-gray-600 mb-4">Je veux faire des clips pour les créateurs et gagner de l'argent</p>
+              <h3 className="font-semibold text-gray-900 mb-2">{t.onboarding.roles.clipper.title}</h3>
+              <p className="text-sm text-gray-600 mb-4">{t.onboarding.roles.clipper.description}</p>
               <div className={`w-6 h-6 rounded-full border-2 mx-auto ${
                 selectedRole === 'clipper' 
                   ? 'border-green-500 bg-green-500' 
@@ -176,16 +181,16 @@ export default function RoleSelectionPage() {
           {isLoading ? (
             <div className="flex items-center justify-center space-x-2">
               <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-              <span>Configuration...</span>
+              <span>{t.onboarding.configuring}</span>
             </div>
           ) : (
-            'Continuer'
+            t.common.continue
           )}
         </button>
 
         {/* Note */}
         <p className="text-xs text-gray-500 text-center mt-4">
-          Tu pourras modifier ce choix plus tard dans tes paramètres
+          {t.onboarding.roleChangeNote}
         </p>
       </div>
     </div>

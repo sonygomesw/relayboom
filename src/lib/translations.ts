@@ -2,6 +2,29 @@ export type Language = 'en' | 'fr' | 'es' | 'it';
 
 export const translations = {
   en: {
+    clipper: {
+      views: {
+        exact: 'Exact view count (optional)',
+        placeholder: 'Or enter exact number (minimum {count})',
+        default: 'If empty, we will use {count} views'
+      },
+      actions: {
+        cancel: 'Cancel',
+        confirmPalier: 'Confirm milestone'
+      }
+    },
+  en: {
+    clipper: {
+      views: {
+        exact: 'Exact view count (optional)',
+        placeholder: 'Or enter exact number (minimum {count})',
+        default: 'If empty, we will use {count} views'
+      },
+      actions: {
+        cancel: 'Cancel',
+        confirmPalier: 'Confirm milestone'
+      }
+    },
     nav: {
       howItWorks: 'How it works',
       faq: 'FAQ',
@@ -308,11 +331,102 @@ export const translations = {
             brand: 'Brand',
             products: 'Products'
           }
+        },
+        views: {
+          exact: 'Exact view count (optional)',
+          placeholder: 'Or enter exact number (minimum {count})',
+          default: 'If empty, we will use {count} views'
+        },
+        actions: {
+          cancel: 'Cancel',
+          confirmPalier: 'Confirm milestone'
+        },
+        payments: {
+          title: 'How do payments work?',
+          commission: {
+            title: 'Commission',
+            description: '10% taken during creator recharge'
+          },
+          share: {
+            title: 'Your share',
+            description: '100% of calculated amount (commission already deducted)'
+          },
+          calculation: {
+            title: 'Calculation',
+            description: '(Number of views ÷ 1000) × Price per 1k views'
+          },
+          method: {
+            title: 'Payment',
+            description: 'SEPA transfer within 2-3 business days'
+          },
+          minimum: {
+            title: 'Minimum threshold',
+            description: 'No minimum threshold'
+          }
+        }
+      },
+      admin: {
+        dashboard: {
+          title: 'Admin Dashboard (Debug)',
+          overview: 'Overview of your ClipTokk platform',
+          status: {
+            connected: 'Connected',
+            notConnected: 'Not connected',
+            exists: 'Exists',
+            notExists: 'Does not exist',
+            adminConnected: 'Connected as admin (bypass)',
+            logout: 'Logout'
+          }
+        },
+        paliers: {
+          clipLink: 'Clip link',
+          missing: 'Missing',
+          noLink: 'No TikTok link provided by clipper'
+        }
+      },
+      onboarding: {
+        role: {
+          configuring: 'Configuring...',
+          continue: 'Continue',
+          changeNote: 'You can change this choice later in your settings'
+        }
+      },
+      platform: {
+        preview: {
+          keyPoints: {
+            title: 'Key points to include',
+            description: 'Gameplay, graphics, fun factor'
+          },
+          duration: {
+            title: 'Recommended duration',
+            description: '30-60 seconds'
+          },
+          actions: {
+            accept: 'Accept mission'
+          },
+          detection: {
+            title: 'Automatic detection',
+            duration: 'Duration: 45 seconds',
+            hashtags: 'Required hashtags present',
+            mention: 'Creator mention included',
+            submit: 'Validate and submit'
+          }
         }
       }
     }
   },
   fr: {
+    clipper: {
+      views: {
+        exact: 'Nombre de vues exactes (optionnel)',
+        placeholder: 'Ou indiquez le nombre exact (minimum {count})',
+        default: 'Si vide, nous utiliserons {count} vues'
+      },
+      actions: {
+        cancel: 'Annuler',
+        confirmPalier: 'Confirmer le palier'
+      }
+    },
     nav: {
       howItWorks: 'Comment ça marche',
       faq: 'FAQ',
@@ -587,7 +701,7 @@ export const translations = {
             },
             createClips: {
               title: '2. Créez vos clips',
-              description: 'Utilisez votre créativité pour faire des clips viraux à partir du contenu des créateurs'
+              description: 'Usa votre créativité pour faire des clips viraux a partir du contenu des créateurs'
             },
             earnMoney: {
               title: '3. Gagnez de l\'argent',
@@ -615,15 +729,106 @@ export const translations = {
           filters: {
             allProducts: 'Tous les produits',
             entertainment: 'Intrattenimento',
-            music: 'Música',
+            music: 'Musica',
             brand: 'Marca',
             products: 'Produtos'
+          }
+        },
+        views: {
+          exact: 'Nombre de vues exactes (optionnel)',
+          placeholder: 'Ou indiquez le nombre exact (minimum {count})',
+          default: 'Si vide, nous utiliserons {count} vues'
+        },
+        actions: {
+          cancel: 'Annuler',
+          confirmPalier: 'Confirmer le palier'
+        },
+        payments: {
+          title: 'Comment fonctionnent les paiements ?',
+          commission: {
+            title: 'Commission',
+            description: '10% prélevés lors de la recharge du créateur'
+          },
+          share: {
+            title: 'Votre part',
+            description: '100% du montant calculé (commission déjà déduite)'
+          },
+          calculation: {
+            title: 'Calcul',
+            description: '(Nombre de vues ÷ 1000) × Prix par 1k vues'
+          },
+          method: {
+            title: 'Paiement',
+            description: 'Virement SEPA sous 2-3 jours ouvrés'
+          },
+          minimum: {
+            title: 'Seuil minimum',
+            description: 'Aucun seuil minimum'
+          }
+        }
+      },
+      admin: {
+        dashboard: {
+          title: 'Dashboard Admin (Debug)',
+          overview: 'Vue d\'ensemble de votre plateforme ClipTokk',
+          status: {
+            connected: 'Connecté',
+            notConnected: 'Non connecté',
+            exists: 'Existe',
+            notExists: 'Inexistant',
+            adminConnected: 'Connecté en tant qu\'admin (bypass)',
+            logout: 'Déconnexion'
+          }
+        },
+        paliers: {
+          clipLink: 'Lien du clip',
+          missing: 'Manquant',
+          noLink: 'Aucun lien TikTok fourni par le clippeur'
+        }
+      },
+      onboarding: {
+        role: {
+          configuring: 'Configuration...',
+          continue: 'Continuer',
+          changeNote: 'Tu pourras modifier ce choix plus tard dans tes paramètres'
+        }
+      },
+      platform: {
+        preview: {
+          keyPoints: {
+            title: 'Points clés à inclure',
+            description: 'Gameplay, graphismes, fun factor'
+          },
+          duration: {
+            title: 'Durée recommandée',
+            description: '30-60 secondes'
+          },
+          actions: {
+            accept: 'Accepter la mission'
+          },
+          detection: {
+            title: 'Détection automatique',
+            duration: 'Durée : 45 secondes',
+            hashtags: 'Hashtags requis présents',
+            mention: 'Mention du créateur incluse',
+            submit: 'Valider et soumettre'
           }
         }
       }
     }
   },
   es: {
+    clipper: {
+      views: {
+        exact: 'Número exacto de vistas (opcional)',
+        placeholder: 'O indica el número exacto (mínimo {count})',
+        default: 'Si está vacío, usaremos {count} vistas'
+      },
+      actions: {
+        cancel: 'Cancelar',
+        confirmPalier: 'Confirmar hito'
+      }
+    },
     nav: {
       howItWorks: 'Cómo funciona',
       faq: 'FAQ',
@@ -869,7 +1074,7 @@ export const translations = {
               placeholder: 'Ej: colores, tono, logo...'
             },
             creatorImage: {
-              label: 'Imagen del creador',
+              label: 'Imágen del creador',
               upload: 'Subir imagen'
             },
             durationMin: {
@@ -930,11 +1135,102 @@ export const translations = {
             brand: 'Marca',
             products: 'Produtos'
           }
+        },
+        views: {
+          exact: 'Número exacto de vistas (opcional)',
+          placeholder: 'O indica el número exacto (mínimo {count})',
+          default: 'Si está vacío, usaremos {count} vistas'
+        },
+        actions: {
+          cancel: 'Cancelar',
+          confirmPalier: 'Confirmar hito'
+        },
+        payments: {
+          title: '¿Cómo funcionan los pagos?',
+          commission: {
+            title: 'Comisión',
+            description: '10% tomado durante la recarga del creador'
+          },
+          share: {
+            title: 'Tu parte',
+            description: '100% del monto calculado (commissione già dedotta)'
+          },
+          calculation: {
+            title: 'Cálculo',
+            description: '(Número de vistas ÷ 1000) × Precio por 1k vistas'
+          },
+          method: {
+            title: 'Pago',
+            description: 'Transferencia SEPA en 2-3 días hábiles'
+          },
+          minimum: {
+            title: 'Umbral mínimo',
+            description: 'Sin umbral mínimo'
+          }
+        }
+      },
+      admin: {
+        dashboard: {
+          title: 'Panel de Administración (Debug)',
+          overview: 'Vista general de tu plataforma ClipTokk',
+          status: {
+            connected: 'Conectado',
+            notConnected: 'No conectado',
+            exists: 'Existe',
+            notExists: 'No existe',
+            adminConnected: 'Connecté en tant qu\'admin (bypass)',
+            logout: 'Cerrar sesión'
+          }
+        },
+        paliers: {
+          clipLink: 'Enlace del clip',
+          missing: 'Faltante',
+          noLink: 'Nessun link TikTok fornito'
+        }
+      },
+      onboarding: {
+        role: {
+          configuring: 'Configurando...',
+          continue: 'Continuar',
+          changeNote: 'Podrás cambiar esta elección más tarde en tu configuración'
+        }
+      },
+      platform: {
+        preview: {
+          keyPoints: {
+            title: 'Puntos clave a incluir',
+            description: 'Gameplay, gráficos, factor diversión'
+          },
+          duration: {
+            title: 'Duración recomendada',
+            description: '30-60 segundos'
+          },
+          actions: {
+            accept: 'Aceptar misión'
+          },
+          detection: {
+            title: 'Detección automática',
+            duration: 'Duración: 45 segundos',
+            hashtags: 'Hashtags requeridos presentes',
+            mention: 'Mención del creador incluida',
+            submit: 'Validar y enviar'
+          }
         }
       }
     }
   },
   it: {
+    clipper: {
+      views: {
+        exact: 'Numero esatto di visualizzazioni (opzionale)',
+        placeholder: 'O indica il numero esatto (minimo {count})',
+        default: 'Se vuoto, useremo {count} visualizzazioni'
+      },
+      actions: {
+        cancel: 'Annulla',
+        confirmPalier: 'Conferma milestone'
+      }
+    },
     nav: {
       howItWorks: 'Come funziona',
       faq: 'FAQ',
@@ -1240,6 +1536,86 @@ export const translations = {
             music: 'Musica',
             brand: 'Marca',
             products: 'Prodotti'
+          }
+        },
+        views: {
+          exact: 'Numero esatto di visualizzazioni (opzionale)',
+          placeholder: 'O indica il numero esatto (mínimo {count})',
+          default: 'Se vuoto, useremo {count} visualizzazioni'
+        },
+        actions: {
+          cancel: 'Annulla',
+          confirmPalier: 'Conferma milestone'
+        },
+        payments: {
+          title: 'Come funzionano i pagamenti?',
+          commission: {
+            title: 'Commissione',
+            description: '10% prelevato durante la ricarica del creatore'
+          },
+          share: {
+            title: 'La tua parte',
+            description: '100% dell\'importo calcolato (commissione già dedotta)'
+          },
+          calculation: {
+            title: 'Calcolo',
+            description: '(Numero di visualizzazioni ÷ 1000) × Prezzo per 1k visualizzazioni'
+          },
+          method: {
+            title: 'Pagamento',
+            description: 'Bonifico SEPA entro 2-3 giorni lavorativi'
+          },
+          minimum: {
+            title: 'Soglia minima',
+            description: 'Nessuna soglia minima'
+          }
+        }
+      },
+      admin: {
+        dashboard: {
+          title: 'Dashboard Admin (Debug)',
+          overview: 'Panoramica della tua piattaforma ClipTokk',
+          status: {
+            connected: 'Connesso',
+            notConnected: 'Non connesso',
+            exists: 'Esiste',
+            notExists: 'Non esiste',
+            adminConnected: 'Connecté en tant qu\'admin (bypass)',
+            logout: 'Disconnetti'
+          }
+        },
+        paliers: {
+          clipLink: 'Link del clip',
+          missing: 'Mancante',
+          noLink: 'Nessun link TikTok fornito'
+        }
+      },
+      onboarding: {
+        role: {
+          configuring: 'Configurazione in corso...',
+          continue: 'Continua',
+          changeNote: 'Potrai modificare questa scelta più tardi nelle impostazioni'
+        }
+      },
+      platform: {
+        preview: {
+          keyPoints: {
+            title: 'Punti chiave da includere',
+            description: 'Gameplay, grafica, fattore divertimento'
+          },
+          duration: {
+            title: 'Durata consigliata',
+            description: '30-60 secondi'
+          },
+          actions: {
+            accept: 'Accetta missione'
+          },
+          detection: {
+            title: 'Rilevamento automatico',
+            duration: 'Durata: 45 secondi',
+            hashtags: 'Hashtag richiesti presenti',
+            mention: 'Menzione del creatore inclusa',
+            submit: 'Valida e invia'
           }
         }
       }

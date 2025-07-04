@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import RoleProtectionOptimized from '@/components/RoleProtectionOptimized'
 import { useAuth } from '@/components/AuthContext'
+import { useLanguage } from '@/components/LanguageContext'
+import { clipperTranslations } from '@/lib/clipper-translations'
 import { 
   IconShield, 
   IconCheck, 
@@ -49,6 +51,8 @@ export default function AdminPaliers() {
   const [isLoading, setIsLoading] = useState(true)
   const [activeTab, setActiveTab] = useState<'pending' | 'approved' | 'rejected'>('pending')
   const [isProcessing, setIsProcessing] = useState<string | null>(null)
+  const { language } = useLanguage()
+  const t = clipperTranslations[language]
 
   useEffect(() => {
     if (profile) {

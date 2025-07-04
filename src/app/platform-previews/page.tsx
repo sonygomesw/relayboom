@@ -1,15 +1,23 @@
+'use client'
+
+import { useLanguage } from '@/components/LanguageContext'
+import { translations } from '@/lib/translations.new'
+
 export default function PlatformPreviews() {
+  const { language } = useLanguage()
+  const t = translations[language].platformPreviews
+
   return (
     <div className="p-8 space-y-8">
       {/* Mission Preview */}
       <div className="w-[800px] h-[600px] bg-white rounded-xl shadow-lg p-6">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">Mission disponible</h2>
-            <p className="text-gray-600">Expire dans 3 jours</p>
+            <h2 className="text-2xl font-bold text-gray-900">{t.mission.title}</h2>
+            <p className="text-gray-600">{t.mission.expiresIn.replace('{days}', '3')}</p>
           </div>
           <div className="bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium">
-            Récompense : 0,10€ / 1000 vues
+            {t.mission.reward.replace('{amount}', '0,10')}
           </div>
         </div>
 
@@ -22,7 +30,7 @@ export default function PlatformPreviews() {
             />
             <div>
               <h3 className="text-xl font-semibold text-gray-900">MrBeast Gaming</h3>
-              <p className="text-gray-600">12.5M abonnés</p>
+              <p className="text-gray-600">{t.mission.subscribers.replace('{count}', '12.5')}</p>
             </div>
           </div>
           <div className="mt-4">
@@ -40,8 +48,8 @@ export default function PlatformPreviews() {
               </svg>
             </div>
             <div>
-              <h4 className="font-medium text-gray-900">Points clés à inclure</h4>
-              <p className="text-gray-600">Gameplay, graphismes, fun factor</p>
+              <h4 className="font-medium text-gray-900">{t.mission.keyPoints.title}</h4>
+              <p className="text-gray-600">{t.mission.keyPoints.content}</p>
             </div>
           </div>
 
@@ -52,15 +60,15 @@ export default function PlatformPreviews() {
               </svg>
             </div>
             <div>
-              <h4 className="font-medium text-gray-900">Durée recommandée</h4>
-              <p className="text-gray-600">30-60 secondes</p>
+              <h4 className="font-medium text-gray-900">{t.mission.duration.title}</h4>
+              <p className="text-gray-600">{t.mission.duration.content}</p>
             </div>
           </div>
         </div>
 
         <div className="mt-8">
           <button className="w-full bg-[#10B981] text-white py-4 rounded-xl font-medium text-lg hover:bg-[#10B981]/90 transition-colors">
-            Accepter la mission
+            {t.mission.acceptButton}
           </button>
         </div>
       </div>
@@ -68,9 +76,9 @@ export default function PlatformPreviews() {
       {/* Dashboard Preview */}
       <div className="w-[800px] h-[600px] bg-white rounded-xl shadow-lg p-6">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl font-bold text-gray-900">Dashboard Clippeur</h2>
+          <h2 className="text-2xl font-bold text-gray-900">{t.dashboard.title}</h2>
           <div className="bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium">
-            Niveau : Expert 🏆
+            {t.dashboard.level}
           </div>
         </div>
 
@@ -83,7 +91,7 @@ export default function PlatformPreviews() {
                 </svg>
               </div>
               <div>
-                <p className="text-gray-600 text-sm">Gains totaux</p>
+                <p className="text-gray-600 text-sm">{t.dashboard.stats.totalEarnings}</p>
                 <p className="text-2xl font-bold text-gray-900">347,20 €</p>
               </div>
             </div>
@@ -98,7 +106,7 @@ export default function PlatformPreviews() {
                 </svg>
               </div>
               <div>
-                <p className="text-gray-600 text-sm">Vues totales</p>
+                <p className="text-gray-600 text-sm">{t.dashboard.stats.totalViews}</p>
                 <p className="text-2xl font-bold text-gray-900">2.3M</p>
               </div>
             </div>
@@ -112,7 +120,7 @@ export default function PlatformPreviews() {
                 </svg>
               </div>
               <div>
-                <p className="text-gray-600 text-sm">Clips postés</p>
+                <p className="text-gray-600 text-sm">{t.dashboard.stats.postedClips}</p>
                 <p className="text-2xl font-bold text-gray-900">24</p>
               </div>
             </div>
@@ -120,14 +128,14 @@ export default function PlatformPreviews() {
         </div>
 
         <div className="bg-gray-50 rounded-xl p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Derniers clips</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">{t.dashboard.recentClips.title}</h3>
           <div className="space-y-4">
             <div className="flex items-center justify-between p-4 bg-white rounded-lg">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-gray-200 rounded-lg"></div>
                 <div>
                   <p className="font-medium text-gray-900">MrBeast Challenge</p>
-                  <p className="text-gray-600 text-sm">Il y a 2 jours</p>
+                  <p className="text-gray-600 text-sm">{t.dashboard.recentClips.timeAgo.replace('{days}', '2')}</p>
                 </div>
               </div>
               <div className="text-right">
@@ -141,7 +149,7 @@ export default function PlatformPreviews() {
                 <div className="w-12 h-12 bg-gray-200 rounded-lg"></div>
                 <div>
                   <p className="font-medium text-gray-900">Speed IRL Stream</p>
-                  <p className="text-gray-600 text-sm">Il y a 4 jours</p>
+                  <p className="text-gray-600 text-sm">{t.dashboard.recentClips.timeAgo.replace('{days}', '4')}</p>
                 </div>
               </div>
               <div className="text-right">
@@ -156,14 +164,14 @@ export default function PlatformPreviews() {
       {/* Upload Preview */}
       <div className="w-[800px] h-[600px] bg-white rounded-xl shadow-lg p-6">
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Soumettre ton clip</h2>
-          <p className="text-gray-600">Colle simplement ton lien TikTok, on s'occupe du reste</p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">{t.upload.title}</h2>
+          <p className="text-gray-600">{t.upload.description}</p>
         </div>
 
         <div className="space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Lien TikTok
+              {t.upload.tiktokLink}
             </label>
             <div className="mt-1 flex rounded-md shadow-sm">
               <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
@@ -172,13 +180,13 @@ export default function PlatformPreviews() {
               <input
                 type="text"
                 className="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md border border-gray-300 focus:ring-[#10B981] focus:border-[#10B981]"
-                placeholder="@username/video/1234567890"
+                placeholder={t.upload.placeholder}
               />
             </div>
           </div>
 
           <div className="bg-gray-50 rounded-xl p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Détection automatique</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">{t.upload.autoDetection.title}</h3>
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
@@ -186,7 +194,7 @@ export default function PlatformPreviews() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <p className="text-gray-700">Durée : 45 secondes</p>
+                <p className="text-gray-700">{t.upload.autoDetection.duration.replace('{seconds}', '45')}</p>
               </div>
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
@@ -194,7 +202,7 @@ export default function PlatformPreviews() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <p className="text-gray-700">Hashtags requis présents</p>
+                <p className="text-gray-700">{t.upload.autoDetection.hashtags}</p>
               </div>
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
@@ -202,13 +210,13 @@ export default function PlatformPreviews() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <p className="text-gray-700">Mention du créateur incluse</p>
+                <p className="text-gray-700">{t.upload.autoDetection.mention}</p>
               </div>
             </div>
           </div>
 
           <button className="w-full bg-[#10B981] text-white py-4 rounded-xl font-medium text-lg hover:bg-[#10B981]/90 transition-colors">
-            Valider et soumettre
+            {t.upload.submitButton}
           </button>
         </div>
       </div>
@@ -216,20 +224,20 @@ export default function PlatformPreviews() {
       {/* Payment Preview */}
       <div className="w-[800px] h-[600px] bg-white rounded-xl shadow-lg p-6">
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Retirer tes gains</h2>
-          <p className="text-gray-600">Choisis le montant à retirer (minimum 10€)</p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">{t.withdraw.title}</h2>
+          <p className="text-gray-600">{t.withdraw.description}</p>
         </div>
 
         <div className="grid grid-cols-2 gap-6">
           <div className="bg-gray-50 rounded-xl p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-900">Solde disponible</h3>
+              <h3 className="text-lg font-semibold text-gray-900">{t.withdraw.availableBalance}</h3>
               <span className="text-2xl font-bold text-[#10B981]">347,20 €</span>
             </div>
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Montant à retirer
+                  {t.withdraw.amount.label}
                 </label>
                 <div className="mt-1 relative rounded-md shadow-sm">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -238,11 +246,11 @@ export default function PlatformPreviews() {
                   <input
                     type="text"
                     className="block w-full pl-7 pr-12 py-2 rounded-md border border-gray-300 focus:ring-[#10B981] focus:border-[#10B981]"
-                    placeholder="0.00"
+                    placeholder={t.withdraw.amount.placeholder}
                   />
                   <div className="absolute inset-y-0 right-0 flex items-center">
                     <button className="h-full px-3 text-sm text-[#10B981] font-medium hover:text-[#10B981]/80">
-                      MAX
+                      {t.withdraw.amount.max}
                     </button>
                   </div>
                 </div>
