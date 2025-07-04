@@ -129,22 +129,24 @@ export default function HomePage() {
                 />
                 
                 {/* Overlay Content */}
-                <div className="absolute inset-0 bg-black/40 flex flex-col justify-between p-4 text-white">
-                  {/* Top Section - User Info */}
-                  <div className="flex items-center space-x-2">
-                    <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center text-sm font-bold">
-                      M
-                    </div>
-                    <div>
-                      <div className="font-semibold">@mrbeast</div>
-                      <div className="text-xs text-gray-300">Je donne 100 000$ à celui qui reste le plus longtemps dans ce cercle !</div>
+                <div className="absolute inset-0 flex flex-col justify-between p-3 text-white">
+                  {/* Top Section - Earnings */}
+                  <div className="flex justify-end">
+                    <div className="bg-black/60 rounded-lg px-3 py-1 text-right">
+                      <div className="text-green-400 font-bold text-sm">Tes gains: 50€</div>
+                      <div className="text-xs text-gray-300">pour 2.3M vues</div>
                     </div>
                   </div>
                   
-                  {/* Bottom Section - Earnings */}
-                  <div className="text-right">
-                    <div className="text-green-400 font-bold text-lg">Tes gains: 50€</div>
-                    <div className="text-xs text-gray-300">pour 2.3M vues</div>
+                  {/* Bottom Section - User Info */}
+                  <div className="flex items-end space-x-2">
+                    <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center text-sm font-bold">
+                      M
+                    </div>
+                    <div className="flex-1">
+                      <div className="font-semibold text-sm">@mrbeast</div>
+                      <div className="text-xs text-gray-300 leading-tight">Je donne 100 000$ à celui qui reste le plus longtemps dans ce cercle !</div>
+                    </div>
                   </div>
                 </div>
               </div>
