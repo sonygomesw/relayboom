@@ -212,7 +212,7 @@ export const translations: Record<string, Translation> = {
       subtitle: "Clips en action"
     },
     testimonials: {
-      title: "Ils cartonnent déjà",
+      title: "Ils génèrent déjà",
       subtitle: "Découvre les success stories de nos clippeurs",
       reviews: {
         lucas: {
@@ -345,7 +345,7 @@ export const translations: Record<string, Translation> = {
       subtitle: "Clips in action"
     },
     testimonials: {
-      title: "They're already crushing it",
+      title: "They're already generating",
       subtitle: "Discover our clippers' success stories",
       reviews: {
         lucas: {
@@ -478,7 +478,7 @@ export const translations: Record<string, Translation> = {
       subtitle: "Clips en acción"
     },
     testimonials: {
-      title: "Ya están triunfando",
+      title: "Ya están generando",
       subtitle: "Descubre las historias de éxito de nuestros clippers",
       reviews: {
         lucas: {
@@ -611,7 +611,7 @@ export const translations: Record<string, Translation> = {
       subtitle: "Clip in azione"
     },
     testimonials: {
-      title: "Stanno già spacando",
+      title: "Stanno già generando",
       subtitle: "Scopri le storie di successo dei nostri clipper",
       reviews: {
         lucas: {
