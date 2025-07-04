@@ -206,8 +206,20 @@ export const translations = {
             },
             creatorImage: {
               label: 'Creator Image',
-              upload: 'Upload Image'
+              upload: 'Upload image'
+            },
+            durationMin: {
+              label: 'Minimum Duration (seconds)',
+              placeholder: 'Ex: 30'
+            },
+            durationMax: {
+              label: 'Maximum Duration (seconds)',
+              placeholder: 'Ex: 60'
             }
+          },
+          actions: {
+            publish: 'Publish Mission',
+            draft: 'Save as Draft'
           }
         }
       },
@@ -464,7 +476,19 @@ export const translations = {
             creatorImage: {
               label: 'Image du créateur',
               upload: 'Télécharger une image'
+            },
+            durationMin: {
+              label: 'Durée minimum (secondes)',
+              placeholder: 'Ex: 30'
+            },
+            durationMax: {
+              label: 'Durée maximum (secondes)',
+              placeholder: 'Ex: 60'
             }
+          },
+          actions: {
+            publish: 'Publier la mission',
+            draft: 'Sauvegarder comme brouillon'
           }
         }
       },
@@ -721,7 +745,19 @@ export const translations = {
             creatorImage: {
               label: 'Imagen del creador',
               upload: 'Subir imagen'
+            },
+            durationMin: {
+              label: 'Duración mínima (segundos)',
+              placeholder: 'Ej: 30'
+            },
+            durationMax: {
+              label: 'Duración máxima (segundos)',
+              placeholder: 'Ej: 60'
             }
+          },
+          actions: {
+            publish: 'Publicar misión',
+            draft: 'Guardar como borrador'
           }
         }
       },
@@ -978,7 +1014,19 @@ export const translations = {
             creatorImage: {
               label: 'Immagine del creatore',
               upload: 'Carica immagine'
+            },
+            durationMin: {
+              label: 'Durata minima (secondi)',
+              placeholder: 'Es: 30'
+            },
+            durationMax: {
+              label: 'Durata massima (secondi)',
+              placeholder: 'Es: 60'
             }
+          },
+          actions: {
+            publish: 'Pubblica missione',
+            draft: 'Salva come bozza'
           }
         }
       },
