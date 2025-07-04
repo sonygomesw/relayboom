@@ -537,7 +537,7 @@ export default function Home() {
                   <span className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center">4</span>
                   <span>Retrait facile</span>
                 </div>
-                <p className="text-gray-600">Retire tes gains dès 10€ via Stripe Connect</p>
+                <p className="text-gray-600">Retire tes gains</p>
               </div>
               <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-6 p-6 h-[300px]">
                 <div className="flex items-center justify-between mb-6">
