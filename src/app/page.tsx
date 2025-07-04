@@ -184,19 +184,18 @@ export default function Home() {
               {t('nav.faq')}
             </Link>
             <div className="relative group">
-              <button className="flex items-center gap-2 text-[#0F172A]/70 hover:text-[#0F172A]">
-                <span>{t('nav.language')}</span>
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
+              <button className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#0F172A]/10 hover:border-[#0F172A]/20 transition-all duration-300">
+                <IconGlobe className="w-5 h-5 text-[#0F172A]/70" />
+                <span className="text-[#0F172A]/70">{languages.find(l => l.code === language)?.label}</span>
+                <IconChevronDown className="w-4 h-4 text-[#0F172A]/70" />
               </button>
               <div className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 border border-gray-100">
                 {languages.map((lang) => (
                   <button
                     key={lang.code}
                     onClick={() => setLanguage(lang.code)}
-                    className={`w-full px-4 py-2 text-left hover:bg-gray-50 ${
-                      language === lang.code ? 'text-[#0F172A] font-medium' : 'text-[#0F172A]/70'
+                    className={`w-full px-4 py-2 text-left hover:bg-gray-50 transition-all duration-300 ${
+                      language === lang.code ? 'text-[#10B981] font-medium' : 'text-[#0F172A]/70'
                     }`}
                   >
                     {lang.label}
