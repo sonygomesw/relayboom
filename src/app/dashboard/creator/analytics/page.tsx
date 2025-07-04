@@ -5,7 +5,8 @@ import { useAuth } from '@/components/AuthContext'
 import { supabase } from '@/lib/supabase'
 import RoleProtectionOptimized from '@/components/RoleProtectionOptimized'
 import { useLanguage } from '@/components/LanguageContext'
-import { translations } from '@/lib/translations'
+import { dashboardTranslations } from '@/lib/dashboard-translations'
+import { Language } from '@/lib/clipper-translations'
 import useSWR from 'swr'
 import {
   IconArrowUp,
@@ -181,7 +182,7 @@ const formatCurrency = (amount: number) => {
 export default function CreatorAnalytics() {
   const { user } = useAuth()
   const { language } = useLanguage()
-  const t = translations[language].dashboard
+  const t = dashboardTranslations[language].dashboard
 
   const { data, error, isLoading } = useSWR(
     user?.id ? user.id : null,
