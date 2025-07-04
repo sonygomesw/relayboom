@@ -198,7 +198,11 @@ export const translations = {
             },
             videoUrl: {
               label: 'Reference Video URL',
-              placeholder: 'https://...'
+              placeholder: 'Link to your video'
+            },
+            brandGuidelines: {
+              label: 'Brand Guidelines',
+              placeholder: 'Ex: colors, tone, logo...'
             },
             creatorImage: {
               label: 'Creator Image',
@@ -451,7 +455,11 @@ export const translations = {
             },
             videoUrl: {
               label: 'URL de la vidéo de référence',
-              placeholder: 'https://...'
+              placeholder: 'Lien vers votre vidéo'
+            },
+            brandGuidelines: {
+              label: 'Instructions de marque',
+              placeholder: 'Ex: couleurs, ton, logo...'
             },
             creatorImage: {
               label: 'Image du créateur',
@@ -704,7 +712,11 @@ export const translations = {
             },
             videoUrl: {
               label: 'URL del video de referencia',
-              placeholder: 'https://...'
+              placeholder: 'Enlace a tu video'
+            },
+            brandGuidelines: {
+              label: 'Pautas de marca',
+              placeholder: 'Ej: colores, tono, logo...'
             },
             creatorImage: {
               label: 'Imagen del creador',
@@ -957,7 +969,11 @@ export const translations = {
             },
             videoUrl: {
               label: 'URL del video di riferimento',
-              placeholder: 'https://...'
+              placeholder: 'Link al tuo video'
+            },
+            brandGuidelines: {
+              label: 'Linee guida del marchio',
+              placeholder: 'Es: colori, tono, logo...'
             },
             creatorImage: {
               label: 'Immagine del creatore',
