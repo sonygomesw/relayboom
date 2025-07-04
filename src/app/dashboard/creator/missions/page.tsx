@@ -6,7 +6,7 @@ import { getMissionsWithStatsOptimized } from '@/lib/supabase-optimized'
 import RoleProtectionOptimized from '@/components/RoleProtectionOptimized'
 import { useAuth } from '@/components/AuthContext'
 import { useLanguage } from '@/components/LanguageContext'
-import { translations } from '@/lib/translations'
+import { translations } from '@/lib/translations.new'
 import useSWR from 'swr'
 import { 
   IconTarget, 
@@ -168,11 +168,11 @@ export default function CreatorMissions() {
             <div className="bg-white rounded-xl border border-gray-200 p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 font-medium">{t.creator.stats.pending}</p>
+                  <p className="text-sm text-gray-600 font-medium">{t.creator.missions.stats.pending}</p>
                   <p className="text-2xl font-bold text-gray-900">{stats.pendingValidations}</p>
                   <p className="text-xs text-purple-600 flex items-center gap-1 mt-1">
                     <IconClock className="w-3 h-3" />
-                    {t.creator.stats.pendingValidations}
+                    {t.creator.missions.stats.pendingValidations}
                   </p>
                 </div>
                 <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
@@ -184,11 +184,11 @@ export default function CreatorMissions() {
             <div className="bg-white rounded-xl border border-gray-200 p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 font-medium">{t.creator.stats.totalViews}</p>
+                  <p className="text-sm text-gray-600 font-medium">{t.creator.missions.stats.totalViews}</p>
                   <p className="text-2xl font-bold text-gray-900">{stats.totalSubmissions}</p>
                   <p className="text-xs text-blue-600 flex items-center gap-1 mt-1">
                     <IconEye className="w-3 h-3" />
-                    {t.creator.stats.avgViews}
+                    {t.creator.missions.stats.avgViews}
                   </p>
                 </div>
                 <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
@@ -227,32 +227,32 @@ export default function CreatorMissions() {
                         <div className="flex items-center gap-4 text-sm text-gray-500">
                           <span className="flex items-center gap-1">
                             <IconCoin className="w-4 h-4" />
-                            {mission.price_per_1k_views}€/1k vues
+                            {mission.price_per_1k_views}{t.creator.missions.missionCard.viewsRate}
                           </span>
                           <span className="flex items-center gap-1">
                             <IconEye className="w-4 h-4" />
-                            {mission.total_views || 0} vues
+                            {mission.total_views || 0} {t.creator.missions.missionCard.views}
                           </span>
                           <span className="flex items-center gap-1">
                             <IconVideo className="w-4 h-4" />
-                            {mission.total_submissions || 0} clips
+                            {mission.total_submissions || 0} {t.creator.missions.missionCard.clips}
                           </span>
                           <span className="flex items-center gap-1">
                             <IconClock className="w-4 h-4" />
-                            {mission.pending_validations || 0} en attente
+                            {mission.pending_validations || 0} {t.creator.missions.missionCard.pending}
                           </span>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
                         <button
                           className="p-2 text-gray-400 hover:text-gray-600 transition-colors"
-                          title="Modifier"
+                          title={t.creator.missions.missionCard.edit}
                         >
                           <IconEdit className="w-5 h-5" />
                         </button>
                         <button
                           className="p-2 text-gray-400 hover:text-red-600 transition-colors"
-                          title="Supprimer"
+                          title={t.creator.missions.missionCard.delete}
                         >
                           <IconTrash className="w-5 h-5" />
                         </button>
@@ -263,15 +263,16 @@ export default function CreatorMissions() {
               </div>
             ) : (
               <div className="text-center py-12">
-                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <IconVideo className="w-8 h-8 text-gray-400" />
-                </div>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">
-                  Aucune mission
-                </h3>
-                <p className="text-gray-500">
-                  Vous n'avez pas encore créé de missions.
-                </p>
+                <IconAlertCircle className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-gray-900 mb-2">{t.creator.missions.noMissions.title}</h3>
+                <p className="text-gray-600 mb-6">{t.creator.missions.noMissions.description}</p>
+                <a
+                  href="/dashboard/creator/nouvelle-mission"
+                  className="bg-green-600 text-white px-4 py-2 rounded-lg font-medium inline-flex items-center gap-2 hover:bg-green-700 transition-colors"
+                >
+                  <IconPlus className="w-4 h-4" />
+                  {t.creator.missions.noMissions.createButton}
+                </a>
               </div>
             )}
           </div>

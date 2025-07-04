@@ -8,6 +8,7 @@ import { useDashboardDataParallel, useMissionsCache } from '@/hooks/useOptimized
 import ClipperSidebar from '@/components/ClipperSidebar'
 import { useLanguage } from '@/components/LanguageContext'
 import { translations } from '@/lib/translations.new'
+import { Language } from '@/lib/clipper-translations'
 import { 
   IconEye,
   IconTrendingUp,
@@ -28,7 +29,7 @@ export default function ClipperDashboard() {
   const { user, profile } = useAuth()
   const router = useRouter()
   const { language } = useLanguage()
-  const t = translations[language].dashboard
+  const t = translations[language as Language]
   
   // États pour les filtres (uniquement Produit maintenant)
   const [selectedProduct, setSelectedProduct] = useState('all')
