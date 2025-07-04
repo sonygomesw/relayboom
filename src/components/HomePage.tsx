@@ -24,22 +24,22 @@ export default function HomePage() {
               <div className="flex-shrink-0 flex items-center">
                 <img src="/logo.png" alt="ClipTokk" className="h-20 w-auto" />
               </div>
-              <div className="hidden md:flex items-center space-x-2">
-                <a href="#comment-ca-marche" className="border-transparent text-gray-700 hover:text-gray-900 inline-flex items-center px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 hover:bg-gray-50">
+              <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+                <a href="#comment-ca-marche" className="border-transparent text-gray-500 hover:text-gray-700 inline-flex items-center px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 hover:bg-gray-50">
                   Comment ça marche
                 </a>
-                <a href="#missions" className="border-transparent text-gray-700 hover:text-gray-900 inline-flex items-center px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 hover:bg-gray-50">
-                  Missions
+                <a href="#missions" className="border-transparent text-gray-500 hover:text-gray-700 inline-flex items-center px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 hover:bg-gray-50">
+                  Voir les missions
                 </a>
               </div>
             </div>
-            <div className="hidden md:flex items-center space-x-4">
+            <div className="flex items-center space-x-4">
               <button
                 onClick={() => {
                   setAuthModalMode('login')
                   setIsAuthModalOpen(true)
                 }}
-                className="text-gray-700 hover:text-gray-900 px-6 py-3 text-sm font-medium rounded-full transition-all duration-300 hover:bg-gray-50"
+                className="text-gray-500 hover:text-gray-700 px-6 py-3 text-sm font-medium rounded-full transition-all duration-300 hover:bg-gray-50"
               >
                 Se connecter
               </button>
@@ -48,7 +48,7 @@ export default function HomePage() {
                   setAuthModalMode('clipper-signup')
                   setIsAuthModalOpen(true)
                 }}
-                className="inline-flex items-center px-8 py-4 border-2 border-gray-300 text-sm font-bold rounded-full text-gray-900 bg-white hover:bg-gray-50 hover:border-gray-400 shadow-lg transition-all duration-300 transform hover:scale-105"
+                className="inline-flex items-center px-8 py-4 border border-transparent text-sm font-semibold rounded-full text-white bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 shadow-lg shadow-green-500/25 transition-all duration-300 transform hover:scale-105"
               >
                 Devenir clippeur
               </button>
@@ -294,7 +294,7 @@ export default function HomePage() {
             <h2 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
               Ils cartonnent déjà
             </h2>
-            <p className="mt-6 max-w-2xl text-xl text-gray-700 lg:mx-auto">
+            <p className="mt-6 max-w-2xl text-xl text-gray-500 lg:mx-auto">
               Découvre les success stories de nos clippeurs
             </p>
           </div>
@@ -308,7 +308,7 @@ export default function HomePage() {
                   </div>
                   <div className="ml-6">
                     <div className="font-bold text-lg">Lucas M.</div>
-                    <div className="text-sm text-gray-700">Étudiant</div>
+                    <div className="text-sm text-gray-500">Étudiant</div>
                   </div>
                 </div>
                 <p className="text-gray-600 mb-6 leading-relaxed">
@@ -324,7 +324,7 @@ export default function HomePage() {
                   </div>
                   <div className="ml-6">
                     <div className="font-bold text-lg">Sarah K.</div>
-                    <div className="text-sm text-gray-700">Freelance</div>
+                    <div className="text-sm text-gray-500">Freelance</div>
                   </div>
                 </div>
                 <p className="text-gray-600 mb-6 leading-relaxed">
@@ -340,7 +340,7 @@ export default function HomePage() {
                   </div>
                   <div className="ml-6">
                     <div className="font-bold text-lg">Thomas R.</div>
-                    <div className="text-sm text-gray-700">Créateur</div>
+                    <div className="text-sm text-gray-500">Créateur</div>
                   </div>
                 </div>
                 <p className="text-gray-600 mb-6 leading-relaxed">
@@ -379,7 +379,7 @@ export default function HomePage() {
             <h2 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
               Questions fréquentes
             </h2>
-            <p className="mt-6 max-w-2xl text-xl text-gray-700 lg:mx-auto font-medium">
+            <p className="mt-6 max-w-2xl text-xl text-gray-500 lg:mx-auto">
               Tout ce que tu dois savoir pour commencer
             </p>
           </div>
@@ -461,22 +461,22 @@ export default function HomePage() {
                 ClipTokk est la première plateforme qui te permet de gagner de l'argent en postant des TikToks viraux. Rejoins une communauté de créateurs passionnés et monétise ton contenu.
               </p>
               <div className="mt-8 flex space-x-6">
-                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-300">
+                <a href="#" className="text-gray-500 hover:text-gray-700 transition-colors duration-300">
                   <span className="sr-only">Facebook</span>
                   <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
                     <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
                   </svg>
                 </a>
-                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-300">
+                <a href="#" className="text-gray-500 hover:text-gray-700 transition-colors duration-300">
                   <span className="sr-only">Instagram</span>
                   <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
                     <path fillRule="evenodd" d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987c6.62 0 11.987-5.367 11.987-11.987C24.014 5.367 18.637.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.49-3.323-1.297C4.198 14.895 3.5 13.559 3.5 12.017s.698-2.878 1.626-3.674c.875-.807 2.026-1.297 3.323-1.297s2.448.49 3.323 1.297c.928.796 1.626 2.132 1.626 3.674s-.698 2.878-1.626 3.674c-.875.807-2.026 1.297-3.323 1.297zm7.83 0c-1.297 0-2.448-.49-3.323-1.297-.928-.796-1.626-2.132-1.626-3.674s.698-2.878 1.626-3.674c.875-.807 2.026-1.297 3.323-1.297s2.448.49 3.323 1.297c.928.796 1.626 2.132 1.626 3.674s-.698 2.878-1.626 3.674c-.875.807-2.026 1.297-3.323 1.297z" clipRule="evenodd" />
                   </svg>
                 </a>
-                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-300">
+                <a href="#" className="text-gray-500 hover:text-gray-700 transition-colors duration-300">
                   <span className="sr-only">TikTok</span>
                   <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.10z"/>
+                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
                   </svg>
                 </a>
               </div>
@@ -501,7 +501,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="mt-12 pt-8 border-t border-gray-200">
-            <p className="text-center text-gray-600 text-sm">
+            <p className="text-center text-gray-500 text-sm">
               © 2024 ClipTokk. Tous droits réservés. Fait avec ❤️ en France.
             </p>
           </div>
