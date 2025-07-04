@@ -40,41 +40,62 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50/30">
       {/* Navigation */}
-      <nav className="bg-white/80 backdrop-blur-xl border-b border-gray-100/50 sticky top-0 z-50 shadow-lg shadow-gray-900/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-24">
-            <div className="flex">
-              <div className="flex-shrink-0 flex items-center">
-                <img src="/logo.png" alt="ClipTokk" className="h-20 w-auto" />
-              </div>
-              <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-                <a href="#comment-ca-marche" className="border-transparent text-gray-500 hover:text-gray-700 inline-flex items-center px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 hover:bg-gray-50">
-                  {t.nav.howItWorks}
-                </a>
-                <a href="#missions" className="border-transparent text-gray-500 hover:text-gray-700 inline-flex items-center px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 hover:bg-gray-50">
-                  {t.nav.missions}
-                </a>
-              </div>
+      <nav className="bg-white/95 backdrop-blur-xl border-b border-gray-200/50 sticky top-0 z-50 shadow-sm">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="flex justify-between items-center h-20">
+            {/* Logo */}
+            <div className="flex-shrink-0">
+              <img src="/logo.png" alt="ClipTokk" className="h-16 w-auto" />
             </div>
-            <div className="flex items-center space-x-4">
-              <LanguageSelector />
+
+            {/* Navigation Links (Desktop) */}
+            <div className="hidden md:flex items-center space-x-1">
+              <a 
+                href="#comment-ca-marche" 
+                className="group relative px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 rounded-lg transition-all duration-200 hover:bg-gray-50"
+              >
+                {t.nav.howItWorks}
+                <span className="absolute inset-x-0 bottom-0 h-0.5 bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-center"></span>
+              </a>
+              <a 
+                href="#missions" 
+                className="group relative px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 rounded-lg transition-all duration-200 hover:bg-gray-50"
+              >
+                {t.nav.missions}
+                <span className="absolute inset-x-0 bottom-0 h-0.5 bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-center"></span>
+              </a>
+            </div>
+
+            {/* Actions */}
+            <div className="flex items-center space-x-3">
+              {/* Language Selector */}
+              <div className="hidden sm:block">
+                <LanguageSelector />
+              </div>
+
+              {/* Login Button */}
               <button
                 onClick={() => {
                   setAuthModalMode('login')
                   setIsAuthModalOpen(true)
                 }}
-                className="text-gray-700 hover:text-gray-900 px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 hover:bg-gray-50"
+                className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 rounded-lg transition-all duration-200 hover:bg-gray-50"
               >
                 {t.nav.login}
               </button>
+
+              {/* CTA Button */}
               <button
                 onClick={() => {
                   setAuthModalMode('clipper-signup')
                   setIsAuthModalOpen(true)
                 }}
-                className="inline-flex items-center px-8 py-4 border-2 border-gray-200 text-sm font-semibold rounded-full text-gray-800 bg-white hover:bg-gray-50 hover:border-gray-300 shadow-lg transition-all duration-300 transform hover:scale-105"
+                className="group inline-flex items-center px-6 py-2.5 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               >
                 {t.nav.becomeClipper}
+                <svg className="ml-2 w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
               </button>
             </div>
           </div>
@@ -82,68 +103,84 @@ export default function HomePage() {
       </nav>
 
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-b from-white to-gray-50/50 overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          <div className="relative z-10 pb-8 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
-            <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+      <div className="relative bg-gradient-to-b from-white via-gray-50/30 to-white overflow-hidden">
+        {/* Subtle background pattern */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(59,130,246,0.15)_1px,transparent_0)] bg-[length:24px_24px] opacity-30"></div>
+        
+        <div className="relative max-w-7xl mx-auto">
+          <div className="relative z-10 pb-16 sm:pb-20 md:pb-24 lg:max-w-2xl lg:w-full lg:pb-32 xl:pb-40">
+            <main className="mt-16 mx-auto max-w-7xl px-6 sm:mt-20 sm:px-8 md:mt-24 lg:mt-28 lg:px-12 xl:mt-36">
               <div className="sm:text-center lg:text-left">
-                <div className="mb-6">
-                  <span className="inline-flex items-center px-6 py-3 rounded-full text-sm font-semibold bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 shadow-lg shadow-green-500/10">
+                {/* Badge avec design Apple-style */}
+                <div className="mb-8 animate-fade-in">
+                  <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-white/80 backdrop-blur-sm text-blue-700 border border-blue-200/50 shadow-sm">
+                    <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
                     {t.hero.badge}
                   </span>
                 </div>
-                <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-                  <span className="block xl:inline text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-700">{t.hero.title}</span>
+
+                {/* Titre avec typographie Apple-style */}
+                <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold text-gray-900 leading-[0.9] tracking-tight animate-fade-in">
+                  <span className="block">{t.hero.title}</span>
                 </h1>
-                <p className="mt-6 text-xl text-gray-700 sm:text-2xl max-w-3xl font-medium leading-relaxed">
+
+                {/* Sous-titre avec espacement Apple-style */}
+                <p className="mt-8 text-xl sm:text-2xl text-gray-600 max-w-2xl font-normal leading-relaxed animate-fade-in">
                   {t.hero.subtitle}
                 </p>
-                <div className="mt-10 sm:mt-12 sm:flex sm:justify-center lg:justify-start gap-4">
-                  <div className="rounded-full shadow-lg shadow-green-500/25">
-                    <button
-                      onClick={() => {
-                        setAuthModalMode('signup')
-                        setIsAuthModalOpen(true)
-                      }}
-                      className="w-full flex items-center justify-center px-8 py-4 border border-transparent text-base font-semibold rounded-full text-white bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 md:py-4 md:text-lg md:px-10 transition-all duration-300 transform hover:scale-105"
-                    >
-                      {t.hero.ctaPrimary}
-                    </button>
-                  </div>
-                  <div className="mt-3 sm:mt-0 sm:ml-3">
-                    <button
-                      onClick={() => {
-                        setAuthModalMode('clipper-signup')
-                        setIsAuthModalOpen(true)
-                      }}
-                      className="w-full flex items-center justify-center px-8 py-4 border-2 border-gray-200 text-base font-semibold rounded-full text-gray-800 bg-white hover:bg-gray-50 hover:border-gray-300 md:py-4 md:text-lg md:px-10 shadow-lg transition-all duration-300 transform hover:scale-105"
-                    >
-                      {t.hero.ctaSecondary}
-                    </button>
-                  </div>
+
+                {/* Boutons avec design Apple-style */}
+                <div className="mt-12 sm:mt-16 flex flex-col sm:flex-row sm:justify-center lg:justify-start gap-4 animate-fade-in">
+                  <button
+                    onClick={() => {
+                      setAuthModalMode('signup')
+                      setIsAuthModalOpen(true)
+                    }}
+                    className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  >
+                    <span className="relative z-10">{t.hero.ctaPrimary}</span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+                  </button>
+                  
+                  <button
+                    onClick={() => {
+                      setAuthModalMode('clipper-signup')
+                      setIsAuthModalOpen(true)
+                    }}
+                    className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-gray-700 bg-white hover:bg-gray-50 border border-gray-200 hover:border-gray-300 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+                  >
+                    {t.hero.ctaSecondary}
+                    <svg className="ml-2 w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
                 </div>
-                <div className="mt-8 flex items-center justify-center lg:justify-start space-x-8 text-sm text-gray-600">
-                  <div className="flex items-center">
-                    <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
-                    {t.hero.stats.activeClippers}
+
+                {/* Stats avec design Apple-style */}
+                <div className="mt-12 flex items-center justify-center lg:justify-start space-x-8 animate-fade-in">
+                  <div className="flex items-center text-sm text-gray-500">
+                    <div className="w-2 h-2 bg-green-500 rounded-full mr-3 animate-pulse"></div>
+                    <span className="font-medium">{t.hero.stats.activeClippers}</span>
                   </div>
-                  <div className="flex items-center">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-2"></div>
-                    {t.hero.stats.viewsGenerated}
+                  <div className="flex items-center text-sm text-gray-500">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-3 animate-pulse"></div>
+                    <span className="font-medium">{t.hero.stats.viewsGenerated}</span>
                   </div>
                 </div>
                 
-                {/* Link to platform preview */}
-                <div className="mt-6 flex justify-center lg:justify-start">
+                {/* Link avec design Apple-style */}
+                <div className="mt-8 flex justify-center lg:justify-start animate-fade-in">
                   <a
                     href="/platform-previews"
-                    className="inline-flex items-center text-sm font-medium text-green-600 hover:text-green-700 transition-colors"
+                    className="group inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors duration-200"
                   >
-                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                     </svg>
-                    Voir un aperçu des missions
+                    <span className="border-b border-blue-200 group-hover:border-blue-400 transition-colors duration-200">
+                      Voir un aperçu des missions
+                    </span>
                   </a>
                 </div>
               </div>
@@ -151,11 +188,20 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* iPhone Mockup */}
+        {/* iPhone Mockup avec design Apple-style amélioré */}
         <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 flex items-center justify-center p-8">
-          <div className="relative">
-            <div className="relative w-80 h-[600px] bg-black rounded-[4rem] p-3 shadow-2xl shadow-black/25">
-              <div className="w-full h-full bg-white rounded-[3.5rem] overflow-hidden relative">
+          <div className="relative animate-fade-in">
+            {/* Glow effect */}
+            <div className="absolute inset-0 bg-blue-500/20 rounded-[4rem] blur-3xl scale-110 opacity-30"></div>
+            
+            {/* iPhone mockup */}
+            <div className="relative w-80 h-[600px] bg-gray-900 rounded-[4rem] p-2 shadow-2xl shadow-gray-900/30">
+              {/* Screen */}
+              <div className="w-full h-full bg-black rounded-[3.5rem] overflow-hidden relative">
+                {/* Notch */}
+                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-20"></div>
+                
+                {/* Video */}
                 <video
                   autoPlay
                   loop
@@ -166,33 +212,56 @@ export default function HomePage() {
                   <source src="/video/mrbeast.mp4" type="video/mp4" />
                 </video>
                 
-                {/* TikTok UI Overlay */}
-                <div className="absolute inset-0 flex flex-col justify-between p-4 bg-gradient-to-t from-black/20 to-transparent">
+                {/* TikTok UI Overlay avec design amélioré */}
+                <div className="absolute inset-0 flex flex-col justify-between p-6 bg-gradient-to-t from-black/40 via-transparent to-black/20">
                   {/* Top UI */}
-                  <div className="flex justify-between items-center pt-12">
-                    <div className="text-white text-sm font-medium">Pour toi</div>
-                    <div className="text-white text-sm font-medium">Abonnements</div>
+                  <div className="flex justify-center items-center pt-8 relative z-10">
+                    <div className="flex space-x-8">
+                      <div className="text-white text-sm font-medium opacity-60">Abonnements</div>
+                      <div className="text-white text-sm font-semibold border-b-2 border-white pb-1">Pour toi</div>
+                      <div className="text-white text-sm font-medium opacity-60">En direct</div>
+                    </div>
                   </div>
                   
                   {/* Bottom UI */}
                   <div className="flex justify-between items-end">
-                    <div className="flex-1 text-white">
-                      <div className="mb-4 bg-green-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+                    <div className="flex-1 text-white max-w-[250px]">
+                      {/* Earnings badge */}
+                      <div className="mb-4 inline-flex items-center bg-green-500/90 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg">
+                        <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"/>
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.51-1.31c-.562-.649-1.413-1.076-2.353-1.253V5z" clipRule="evenodd"/>
+                        </svg>
                         {t.hero.stats.viewsGenerated}
                       </div>
-                      <div className="text-sm font-medium mb-1">@mrbeast</div>
-                      <div className="text-xs opacity-90">Incroyable défi à 100K$ ! 🔥</div>
+                      
+                      {/* Creator info */}
+                      <div className="text-sm font-semibold mb-1">@mrbeast</div>
+                      <div className="text-xs opacity-90 leading-relaxed">Incroyable défi à 100K$ ! 🔥 #challenge #money</div>
+                      
+                      {/* Hashtags */}
+                      <div className="mt-2 flex flex-wrap gap-1">
+                        <span className="text-xs text-blue-300">#viral</span>
+                        <span className="text-xs text-blue-300">#money</span>
+                      </div>
                     </div>
+                    
+                    {/* Action buttons */}
                     <div className="flex flex-col items-center space-y-4 ml-4">
-                      <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
-                        <span className="text-2xl">❤️</span>
+                      <div className="w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-200">
+                        <span className="text-xl">❤️</span>
                       </div>
-                      <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
-                        <span className="text-2xl">💬</span>
+                      <div className="text-white text-xs font-medium">2.1M</div>
+                      
+                      <div className="w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-200">
+                        <span className="text-xl">💬</span>
                       </div>
-                      <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
-                        <span className="text-2xl">📤</span>
+                      <div className="text-white text-xs font-medium">45K</div>
+                      
+                      <div className="w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-200">
+                        <span className="text-xl">📤</span>
                       </div>
+                      <div className="text-white text-xs font-medium">12K</div>
                     </div>
                   </div>
                 </div>
@@ -203,49 +272,120 @@ export default function HomePage() {
       </div>
 
       {/* Comment ça marche Section */}
-      <div id="comment-ca-marche" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="lg:text-center">
-            <h2 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+      <div id="comment-ca-marche" className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          {/* Header avec design Apple-style */}
+          <div className="text-center mb-20">
+            <h2 className="text-5xl sm:text-6xl font-bold text-gray-900 mb-6 tracking-tight">
               {t.howItWorks.title}
             </h2>
-            <p className="mt-6 max-w-2xl text-xl text-gray-700 lg:mx-auto font-medium">
+            <p className="max-w-3xl mx-auto text-xl sm:text-2xl text-gray-600 font-normal leading-relaxed">
               {t.howItWorks.subtitle}
             </p>
           </div>
 
-          <div className="mt-20">
-            <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3">
-              <div className="text-center group">
-                <div className="mx-auto h-20 w-20 bg-gradient-to-br from-red-500 to-red-600 rounded-3xl flex items-center justify-center mb-6 shadow-xl shadow-red-500/20 group-hover:scale-110 transition-transform duration-300">
-                  <svg className="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          {/* Steps avec design Apple-style */}
+          <div className="grid grid-cols-1 gap-16 lg:grid-cols-3">
+            {/* Step 1 */}
+            <div className="group text-center">
+              <div className="relative mb-8">
+                {/* Numéro de step */}
+                <div className="absolute -top-4 -left-4 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-semibold shadow-lg">
+                  1
+                </div>
+                
+                {/* Icône avec design amélioré */}
+                <div className="mx-auto w-24 h-24 bg-gradient-to-br from-blue-500 to-blue-600 rounded-3xl flex items-center justify-center shadow-xl shadow-blue-500/25 group-hover:shadow-2xl group-hover:shadow-blue-500/30 transition-all duration-300 group-hover:scale-105">
+                  <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">{t.howItWorks.steps.step1.title}</h3>
-                <p className="text-gray-700 text-lg leading-relaxed">{t.howItWorks.steps.step1.description}</p>
               </div>
-
-              <div className="text-center group">
-                <div className="mx-auto h-20 w-20 bg-gradient-to-br from-red-500 to-red-600 rounded-3xl flex items-center justify-center mb-6 shadow-xl shadow-red-500/20 group-hover:scale-110 transition-transform duration-300">
-                  <svg className="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                  </svg>
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">{t.howItWorks.steps.step2.title}</h3>
-                <p className="text-gray-700 text-lg leading-relaxed">{t.howItWorks.steps.step2.description}</p>
-              </div>
-
-              <div className="text-center group">
-                <div className="mx-auto h-20 w-20 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-3xl flex items-center justify-center mb-6 shadow-xl shadow-yellow-500/20 group-hover:scale-110 transition-transform duration-300">
-                  <svg className="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
-                  </svg>
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">{t.howItWorks.steps.step3.title}</h3>
-                <p className="text-gray-700 text-lg leading-relaxed">{t.howItWorks.steps.step3.description}</p>
-              </div>
+              
+              <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 tracking-tight">
+                {t.howItWorks.steps.step1.title}
+              </h3>
+              <p className="text-lg text-gray-600 leading-relaxed max-w-sm mx-auto">
+                {t.howItWorks.steps.step1.description}
+              </p>
             </div>
+
+            {/* Step 2 */}
+            <div className="group text-center">
+              <div className="relative mb-8">
+                {/* Numéro de step */}
+                <div className="absolute -top-4 -left-4 w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center text-sm font-semibold shadow-lg">
+                  2
+                </div>
+                
+                {/* Icône avec design amélioré */}
+                <div className="mx-auto w-24 h-24 bg-gradient-to-br from-purple-500 to-purple-600 rounded-3xl flex items-center justify-center shadow-xl shadow-purple-500/25 group-hover:shadow-2xl group-hover:shadow-purple-500/30 transition-all duration-300 group-hover:scale-105">
+                  <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                  </svg>
+                </div>
+              </div>
+              
+              <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 tracking-tight">
+                {t.howItWorks.steps.step2.title}
+              </h3>
+              <p className="text-lg text-gray-600 leading-relaxed max-w-sm mx-auto">
+                {t.howItWorks.steps.step2.description}
+              </p>
+            </div>
+
+            {/* Step 3 */}
+            <div className="group text-center">
+              <div className="relative mb-8">
+                {/* Numéro de step */}
+                <div className="absolute -top-4 -left-4 w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center text-sm font-semibold shadow-lg">
+                  3
+                </div>
+                
+                {/* Icône avec design amélioré */}
+                <div className="mx-auto w-24 h-24 bg-gradient-to-br from-green-500 to-green-600 rounded-3xl flex items-center justify-center shadow-xl shadow-green-500/25 group-hover:shadow-2xl group-hover:shadow-green-500/30 transition-all duration-300 group-hover:scale-105">
+                  <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+              </div>
+              
+              <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 tracking-tight">
+                {t.howItWorks.steps.step3.title}
+              </h3>
+              <p className="text-lg text-gray-600 leading-relaxed max-w-sm mx-auto">
+                {t.howItWorks.steps.step3.description}
+              </p>
+            </div>
+          </div>
+
+          {/* Ligne de connexion entre les steps (desktop only) */}
+          <div className="hidden lg:block relative -mt-32 mb-16">
+            <div className="absolute top-1/2 left-1/3 w-1/3 h-0.5 bg-gradient-to-r from-blue-200 to-purple-200 transform -translate-y-1/2"></div>
+            <div className="absolute top-1/2 left-2/3 w-1/3 h-0.5 bg-gradient-to-r from-purple-200 to-green-200 transform -translate-y-1/2"></div>
+          </div>
+
+          {/* CTA Section */}
+          <div className="text-center mt-20">
+            <div className="inline-flex items-center px-6 py-3 bg-gray-50 rounded-full text-sm font-medium text-gray-600 mb-8">
+              <svg className="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              </svg>
+              Commencez en moins de 2 minutes
+            </div>
+            
+            <button
+              onClick={() => {
+                setAuthModalMode('clipper-signup')
+                setIsAuthModalOpen(true)
+              }}
+              className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            >
+              Commencer maintenant
+              <svg className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
           </div>
         </div>
       </div>
@@ -394,214 +534,212 @@ export default function HomePage() {
       </div>
 
       {/* Aperçu des missions disponibles Section */}
-      <div className="py-20 bg-gradient-to-b from-gray-50/50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-extrabold text-gray-900 sm:text-5xl mb-6">
+      <div id="missions" className="py-24 bg-gradient-to-b from-gray-50/30 to-white">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          {/* Header avec design Apple-style */}
+          <div className="text-center mb-20">
+            <h2 className="text-5xl sm:text-6xl font-bold text-gray-900 mb-6 tracking-tight leading-tight">
               Aperçu des missions disponibles
             </h2>
-            <p className="text-xl text-gray-700 font-medium mb-4">
+            <p className="max-w-3xl mx-auto text-xl sm:text-2xl text-gray-600 font-normal leading-relaxed mb-6">
               Découvre les missions que tu peux réaliser dès maintenant
             </p>
-            <p className="text-sm text-gray-600">
-              🔓 Aperçu gratuit • Aucune inscription requise
-            </p>
+            <div className="inline-flex items-center px-4 py-2 bg-green-50 rounded-full text-sm font-medium text-green-700 border border-green-200/50">
+              <svg className="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+              </svg>
+              Aperçu gratuit • Aucune inscription requise
+            </div>
           </div>
           
-          {/* Missions Preview Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          {/* Missions Preview Grid avec design Apple-style */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             {/* Mission 1 - MrBeast */}
-            <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-300">
-              <div className="bg-gradient-to-r from-orange-500 to-red-500 p-4">
+            <div className="group bg-white rounded-2xl shadow-sm border border-gray-200/50 overflow-hidden hover:shadow-xl hover:border-gray-300/50 transition-all duration-300 hover:scale-[1.02]">
+              {/* Header */}
+              <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-6">
                 <div className="flex items-center justify-between">
-                  <span className="bg-white/20 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                  <span className="inline-flex items-center px-3 py-1.5 bg-white/20 backdrop-blur-sm text-white rounded-full text-xs font-semibold">
                     🔥 Populaire
                   </span>
                   <span className="text-white font-bold text-lg">12€/1000 vues</span>
                 </div>
               </div>
+              
+              {/* Content */}
               <div className="p-6">
-                <div className="flex items-center mb-4">
+                <div className="flex items-center mb-6">
                   <img 
                     src="/mrbeast.jpg" 
                     alt="MrBeast" 
-                    className="w-12 h-12 rounded-full object-cover mr-3"
+                    className="w-14 h-14 rounded-xl object-cover mr-4 shadow-sm"
                   />
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900">MrBeast Challenge</h3>
-                    <p className="text-sm text-gray-600">Défis Extrêmes</p>
+                    <h3 className="text-xl font-bold text-gray-900 mb-1">MrBeast Challenge</h3>
+                    <p className="text-sm text-gray-500 font-medium">Défis Extrêmes</p>
                   </div>
                 </div>
-                <p className="text-gray-600 text-sm mb-4">Clippe les moments les plus fous des challenges MrBeast ! Focus sur les réactions authentiques, les twists inattendus.</p>
                 
-                <div className="space-y-3 mb-4">
-                  <div className="flex items-center text-sm text-gray-700">
-                    <svg className="w-4 h-4 text-orange-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
+                <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                  Clippe les moments les plus fous des challenges MrBeast ! Focus sur les réactions authentiques, les twists inattendus.
+                </p>
+                
+                <div className="space-y-3 mb-6">
+                  <div className="flex items-center text-sm text-gray-600">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
                     <span>200M+ abonnés • 5.2M vues/mois</span>
                   </div>
-                  <div className="flex items-center text-sm text-gray-700">
-                    <svg className="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"/>
-                    </svg>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <div className="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
                     <span>Budget: 5000€ • Taux premium</span>
                   </div>
-                  <div className="flex items-center text-sm text-gray-700">
-                    <svg className="w-4 h-4 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd"/>
-                    </svg>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <div className="w-2 h-2 bg-orange-500 rounded-full mr-3"></div>
                     <span>Durée: 30-60s • 8 jours restants</span>
                   </div>
                 </div>
                 
-                <div className="border-t pt-4">
-                  <button 
-                    onClick={() => {
-                      setAuthModalMode('clipper-signup')
-                      setIsAuthModalOpen(true)
-                    }}
-                    className="w-full bg-orange-500 text-white py-2 px-4 rounded-lg font-semibold hover:bg-orange-600 transition-colors"
-                  >
-                    Accepter cette mission
-                  </button>
-                </div>
+                <button 
+                  onClick={() => {
+                    setAuthModalMode('clipper-signup')
+                    setIsAuthModalOpen(true)
+                  }}
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-xl font-semibold transition-all duration-200 group-hover:shadow-md"
+                >
+                  Accepter cette mission
+                </button>
               </div>
             </div>
             
             {/* Mission 2 - Speed Gaming */}
-            <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-300">
-              <div className="bg-gradient-to-r from-purple-500 to-blue-500 p-4">
+            <div className="group bg-white rounded-2xl shadow-sm border border-gray-200/50 overflow-hidden hover:shadow-xl hover:border-gray-300/50 transition-all duration-300 hover:scale-[1.02]">
+              {/* Header */}
+              <div className="bg-gradient-to-r from-slate-500 to-slate-600 p-6">
                 <div className="flex items-center justify-between">
-                  <span className="bg-white/20 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                  <span className="inline-flex items-center px-3 py-1.5 bg-white/20 backdrop-blur-sm text-white rounded-full text-xs font-semibold">
                     🎮 Gaming
                   </span>
                   <span className="text-white font-bold text-lg">10€/1000 vues</span>
                 </div>
               </div>
+              
+              {/* Content */}
               <div className="p-6">
-                <div className="flex items-center mb-4">
+                <div className="flex items-center mb-6">
                   <img 
                     src="/speedfan.jpg" 
                     alt="Speed" 
-                    className="w-12 h-12 rounded-full object-cover mr-3"
+                    className="w-14 h-14 rounded-xl object-cover mr-4 shadow-sm"
                   />
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900">Speed Gaming</h3>
-                    <p className="text-sm text-gray-600">Réactions Epic</p>
+                    <h3 className="text-xl font-bold text-gray-900 mb-1">Speed Gaming</h3>
+                    <p className="text-sm text-gray-500 font-medium">Réactions Epic</p>
                   </div>
                 </div>
-                <p className="text-gray-600 text-sm mb-4">Capture les meilleures réactions gaming de Speed ! Ses explosions de joie, de rage, ses moments de skill intense.</p>
                 
-                <div className="space-y-3 mb-4">
-                  <div className="flex items-center text-sm text-gray-700">
-                    <svg className="w-4 h-4 text-purple-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
+                <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                  Capture les meilleures réactions gaming de Speed ! Ses explosions de joie, de rage, ses moments de skill intense.
+                </p>
+                
+                <div className="space-y-3 mb-6">
+                  <div className="flex items-center text-sm text-gray-600">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
                     <span>25M+ abonnés • 3.8M vues/mois</span>
                   </div>
-                  <div className="flex items-center text-sm text-gray-700">
-                    <svg className="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"/>
-                    </svg>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <div className="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
                     <span>Budget: 3000€ • Engagement élevé</span>
                   </div>
-                  <div className="flex items-center text-sm text-gray-700">
-                    <svg className="w-4 h-4 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd"/>
-                    </svg>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <div className="w-2 h-2 bg-orange-500 rounded-full mr-3"></div>
                     <span>Durée: 15-45s • 12 jours restants</span>
                   </div>
                 </div>
                 
-                <div className="border-t pt-4">
-                  <button 
-                    onClick={() => {
-                      setAuthModalMode('clipper-signup')
-                      setIsAuthModalOpen(true)
-                    }}
-                    className="w-full bg-purple-500 text-white py-2 px-4 rounded-lg font-semibold hover:bg-purple-600 transition-colors"
-                  >
-                    Accepter cette mission
-                  </button>
-                </div>
+                <button 
+                  onClick={() => {
+                    setAuthModalMode('clipper-signup')
+                    setIsAuthModalOpen(true)
+                  }}
+                  className="w-full bg-slate-600 hover:bg-slate-700 text-white py-3 px-4 rounded-xl font-semibold transition-all duration-200 group-hover:shadow-md"
+                >
+                  Accepter cette mission
+                </button>
               </div>
             </div>
             
             {/* Mission 3 - Kai Cenat */}
-            <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-300">
-              <div className="bg-gradient-to-r from-green-500 to-teal-500 p-4">
+            <div className="group bg-white rounded-2xl shadow-sm border border-gray-200/50 overflow-hidden hover:shadow-xl hover:border-gray-300/50 transition-all duration-300 hover:scale-[1.02]">
+              {/* Header */}
+              <div className="bg-gradient-to-r from-gray-500 to-gray-600 p-6">
                 <div className="flex items-center justify-between">
-                  <span className="bg-white/20 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                  <span className="inline-flex items-center px-3 py-1.5 bg-white/20 backdrop-blur-sm text-white rounded-full text-xs font-semibold">
                     🎬 Streaming
                   </span>
                   <span className="text-white font-bold text-lg">9€/1000 vues</span>
                 </div>
               </div>
+              
+              {/* Content */}
               <div className="p-6">
-                <div className="flex items-center mb-4">
+                <div className="flex items-center mb-6">
                   <img 
                     src="/kaicenatfan.jpg" 
                     alt="Kai Cenat" 
-                    className="w-12 h-12 rounded-full object-cover mr-3"
+                    className="w-14 h-14 rounded-xl object-cover mr-4 shadow-sm"
                   />
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900">Kai Cenat</h3>
-                    <p className="text-sm text-gray-600">Best Moments</p>
+                    <h3 className="text-xl font-bold text-gray-900 mb-1">Kai Cenat</h3>
+                    <p className="text-sm text-gray-500 font-medium">Best Moments</p>
                   </div>
                 </div>
-                <p className="text-gray-600 text-sm mb-4">Filme les moments les plus épiques de Kai Cenat ! Ses réactions face au contenu viral, interactions avec le chat.</p>
                 
-                <div className="space-y-3 mb-4">
-                  <div className="flex items-center text-sm text-gray-700">
-                    <svg className="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
+                <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                  Filme les moments les plus épiques de Kai Cenat ! Ses réactions face au contenu viral, interactions avec le chat.
+                </p>
+                
+                <div className="space-y-3 mb-6">
+                  <div className="flex items-center text-sm text-gray-600">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
                     <span>12M+ abonnés • 2.5M vues/mois</span>
                   </div>
-                  <div className="flex items-center text-sm text-gray-700">
-                    <svg className="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"/>
-                    </svg>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <div className="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
                     <span>Budget: 2500€ • Roi de Twitch</span>
                   </div>
-                  <div className="flex items-center text-sm text-gray-700">
-                    <svg className="w-4 h-4 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd"/>
-                    </svg>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <div className="w-2 h-2 bg-orange-500 rounded-full mr-3"></div>
                     <span>Durée: 20-60s • 15 jours restants</span>
                   </div>
                 </div>
                 
-                <div className="border-t pt-4">
-                  <button 
-                    onClick={() => {
-                      setAuthModalMode('clipper-signup')
-                      setIsAuthModalOpen(true)
-                    }}
-                    className="w-full bg-green-500 text-white py-2 px-4 rounded-lg font-semibold hover:bg-green-600 transition-colors"
-                  >
-                    Accepter cette mission
-                  </button>
-                </div>
+                <button 
+                  onClick={() => {
+                    setAuthModalMode('clipper-signup')
+                    setIsAuthModalOpen(true)
+                  }}
+                  className="w-full bg-gray-600 hover:bg-gray-700 text-white py-3 px-4 rounded-xl font-semibold transition-all duration-200 group-hover:shadow-md"
+                >
+                  Accepter cette mission
+                </button>
               </div>
             </div>
           </div>
           
           {/* Section avec plus de créateurs */}
-          <div className="text-center mb-8">
-            <p className="text-lg text-gray-600 mb-6">
+          <div className="text-center mb-12">
+            <p className="text-lg text-gray-600 mb-8 font-medium">
               Et bien d'autres créateurs disponibles...
             </p>
           </div>
           
-          {/* Grille supplémentaire avec plus de créateurs */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+          {/* Grille supplémentaire avec plus de créateurs - Design Apple-style */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
             {/* Drake */}
-            <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300">
-              <div className="bg-gradient-to-r from-yellow-500 to-orange-500 p-3">
+            <div className="group bg-white rounded-xl shadow-sm border border-gray-200/50 overflow-hidden hover:shadow-lg hover:border-gray-300/50 transition-all duration-300 hover:scale-[1.02]">
+              <div className="bg-gradient-to-r from-gray-600 to-gray-700 p-4">
                 <div className="flex items-center justify-between">
-                  <span className="bg-white/20 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                  <span className="inline-flex items-center px-2 py-1 bg-white/20 backdrop-blur-sm text-white rounded-full text-xs font-medium">
                     🎵 Musique
                   </span>
                   <span className="text-white font-bold text-sm">15€/1000 vues</span>
@@ -612,15 +750,15 @@ export default function HomePage() {
                   <img 
                     src="/drakefan.jpg" 
                     alt="Drake" 
-                    className="w-10 h-10 rounded-full object-cover mr-3"
+                    className="w-10 h-10 rounded-lg object-cover mr-3 shadow-sm"
                   />
                   <div>
                     <h4 className="text-lg font-bold text-gray-900">Drake</h4>
-                    <p className="text-xs text-gray-600">Moments Iconiques</p>
+                    <p className="text-xs text-gray-500">Moments Iconiques</p>
                   </div>
                 </div>
-                <p className="text-gray-600 text-xs mb-3">Concerts, interviews, réactions spontanées. Contenu premium pour audience massive.</p>
-                <div className="text-xs text-gray-700 mb-3">
+                <p className="text-gray-600 text-xs mb-3 leading-relaxed">Concerts, interviews, réactions spontanées. Contenu premium pour audience massive.</p>
+                <div className="text-xs text-gray-500 mb-3 font-medium">
                   <span>140M+ abonnés • 4000€ budget</span>
                 </div>
                 <button 
@@ -628,7 +766,7 @@ export default function HomePage() {
                     setAuthModalMode('clipper-signup')
                     setIsAuthModalOpen(true)
                   }}
-                  className="w-full bg-yellow-500 text-white py-2 px-3 rounded-lg text-sm font-semibold hover:bg-yellow-600 transition-colors"
+                  className="w-full bg-gray-600 hover:bg-gray-700 text-white py-2 px-3 rounded-lg text-sm font-semibold transition-all duration-200"
                 >
                   Voir mission
                 </button>
@@ -636,10 +774,10 @@ export default function HomePage() {
             </div>
             
             {/* Travis Scott */}
-            <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300">
-              <div className="bg-gradient-to-r from-red-500 to-pink-500 p-3">
+            <div className="group bg-white rounded-xl shadow-sm border border-gray-200/50 overflow-hidden hover:shadow-lg hover:border-gray-300/50 transition-all duration-300 hover:scale-[1.02]">
+              <div className="bg-gradient-to-r from-gray-600 to-gray-700 p-4">
                 <div className="flex items-center justify-between">
-                  <span className="bg-white/20 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                  <span className="inline-flex items-center px-2 py-1 bg-white/20 backdrop-blur-sm text-white rounded-full text-xs font-medium">
                     🎤 Rap
                   </span>
                   <span className="text-white font-bold text-sm">13€/1000 vues</span>
@@ -650,15 +788,15 @@ export default function HomePage() {
                   <img 
                     src="/traviscottfan.jpg" 
                     alt="Travis Scott" 
-                    className="w-10 h-10 rounded-full object-cover mr-3"
+                    className="w-10 h-10 rounded-lg object-cover mr-3 shadow-sm"
                   />
                   <div>
                     <h4 className="text-lg font-bold text-gray-900">Travis Scott</h4>
-                    <p className="text-xs text-gray-600">Astroworld Vibes</p>
+                    <p className="text-xs text-gray-500">Astroworld Vibes</p>
                   </div>
                 </div>
-                <p className="text-gray-600 text-xs mb-3">Concerts épiques, studio sessions, lifestyle. L'énergie Travis Scott en clips.</p>
-                <div className="text-xs text-gray-700 mb-3">
+                <p className="text-gray-600 text-xs mb-3 leading-relaxed">Concerts épiques, studio sessions, lifestyle. L'énergie Travis Scott en clips.</p>
+                <div className="text-xs text-gray-500 mb-3 font-medium">
                   <span>50M+ abonnés • 3500€ budget</span>
                 </div>
                 <button 
@@ -666,7 +804,7 @@ export default function HomePage() {
                     setAuthModalMode('clipper-signup')
                     setIsAuthModalOpen(true)
                   }}
-                  className="w-full bg-red-500 text-white py-2 px-3 rounded-lg text-sm font-semibold hover:bg-red-600 transition-colors"
+                  className="w-full bg-gray-600 hover:bg-gray-700 text-white py-2 px-3 rounded-lg text-sm font-semibold transition-all duration-200"
                 >
                   Voir mission
                 </button>
@@ -674,10 +812,10 @@ export default function HomePage() {
             </div>
             
             {/* Central Cee */}
-            <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300">
-              <div className="bg-gradient-to-r from-indigo-500 to-purple-500 p-3">
+            <div className="group bg-white rounded-xl shadow-sm border border-gray-200/50 overflow-hidden hover:shadow-lg hover:border-gray-300/50 transition-all duration-300 hover:scale-[1.02]">
+              <div className="bg-gradient-to-r from-gray-600 to-gray-700 p-4">
                 <div className="flex items-center justify-between">
-                  <span className="bg-white/20 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                  <span className="inline-flex items-center px-2 py-1 bg-white/20 backdrop-blur-sm text-white rounded-full text-xs font-medium">
                     🇬🇧 UK Drill
                   </span>
                   <span className="text-white font-bold text-sm">11€/1000 vues</span>
@@ -688,15 +826,15 @@ export default function HomePage() {
                   <img 
                     src="/centralfan.jpg" 
                     alt="Central Cee" 
-                    className="w-10 h-10 rounded-full object-cover mr-3"
+                    className="w-10 h-10 rounded-lg object-cover mr-3 shadow-sm"
                   />
                   <div>
                     <h4 className="text-lg font-bold text-gray-900">Central Cee</h4>
-                    <p className="text-xs text-gray-600">UK Drill King</p>
+                    <p className="text-xs text-gray-500">UK Drill King</p>
                   </div>
                 </div>
-                <p className="text-gray-600 text-xs mb-3">Clips drill UK, freestyles, lifestyle Londres. Contenu authentique UK.</p>
-                <div className="text-xs text-gray-700 mb-3">
+                <p className="text-gray-600 text-xs mb-3 leading-relaxed">Clips drill UK, freestyles, lifestyle Londres. Contenu authentique UK.</p>
+                <div className="text-xs text-gray-500 mb-3 font-medium">
                   <span>8M+ abonnés • 2800€ budget</span>
                 </div>
                 <button 
@@ -704,7 +842,7 @@ export default function HomePage() {
                     setAuthModalMode('clipper-signup')
                     setIsAuthModalOpen(true)
                   }}
-                  className="w-full bg-indigo-500 text-white py-2 px-3 rounded-lg text-sm font-semibold hover:bg-indigo-600 transition-colors"
+                  className="w-full bg-gray-600 hover:bg-gray-700 text-white py-2 px-3 rounded-lg text-sm font-semibold transition-all duration-200"
                 >
                   Voir mission
                 </button>
@@ -712,10 +850,10 @@ export default function HomePage() {
             </div>
             
             {/* Keine Musik */}
-            <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300">
-              <div className="bg-gradient-to-r from-cyan-500 to-blue-500 p-3">
+            <div className="group bg-white rounded-xl shadow-sm border border-gray-200/50 overflow-hidden hover:shadow-lg hover:border-gray-300/50 transition-all duration-300 hover:scale-[1.02]">
+              <div className="bg-gradient-to-r from-gray-600 to-gray-700 p-4">
                 <div className="flex items-center justify-between">
-                  <span className="bg-white/20 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                  <span className="inline-flex items-center px-2 py-1 bg-white/20 backdrop-blur-sm text-white rounded-full text-xs font-medium">
                     🇩🇪 Électro
                   </span>
                   <span className="text-white font-bold text-sm">8€/1000 vues</span>
@@ -726,15 +864,15 @@ export default function HomePage() {
                   <img 
                     src="/keinemusikfan.jpg" 
                     alt="Keine Musik" 
-                    className="w-10 h-10 rounded-full object-cover mr-3"
+                    className="w-10 h-10 rounded-lg object-cover mr-3 shadow-sm"
                   />
                   <div>
                     <h4 className="text-lg font-bold text-gray-900">Keine Musik</h4>
-                    <p className="text-xs text-gray-600">Électro Berlin</p>
+                    <p className="text-xs text-gray-500">Électro Berlin</p>
                   </div>
                 </div>
-                <p className="text-gray-600 text-xs mb-3">Sets électro, festivals, ambiance Berlin. Musique électronique premium.</p>
-                <div className="text-xs text-gray-700 mb-3">
+                <p className="text-gray-600 text-xs mb-3 leading-relaxed">Sets électro, festivals, ambiance Berlin. Musique électronique premium.</p>
+                <div className="text-xs text-gray-500 mb-3 font-medium">
                   <span>2M+ abonnés • 1800€ budget</span>
                 </div>
                 <button 
@@ -742,7 +880,7 @@ export default function HomePage() {
                     setAuthModalMode('clipper-signup')
                     setIsAuthModalOpen(true)
                   }}
-                  className="w-full bg-cyan-500 text-white py-2 px-3 rounded-lg text-sm font-semibold hover:bg-cyan-600 transition-colors"
+                  className="w-full bg-gray-600 hover:bg-gray-700 text-white py-2 px-3 rounded-lg text-sm font-semibold transition-all duration-200"
                 >
                   Voir mission
                 </button>
@@ -750,15 +888,19 @@ export default function HomePage() {
             </div>
           </div>
           
+          {/* CTA Final */}
           <div className="text-center">
             <button
               onClick={() => {
                 setAuthModalMode('clipper-signup')
                 setIsAuthModalOpen(true)
               }}
-              className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-4 rounded-full font-semibold text-lg hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-xl"
+              className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
-              Voir toutes les missions disponibles →
+              Voir toutes les missions disponibles
+              <svg className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
             </button>
           </div>
         </div>
