@@ -5,7 +5,8 @@ export const dashboardTranslations = {
     common: {
       loading: "Loading...",
       loadingDashboard: "Loading your dashboard...",
-      loadingAnalytics: "Loading analytics..."
+      loadingAnalytics: "Loading analytics...",
+      error: "Error:"
     },
     filters: {
       allProducts: "All Products",
@@ -32,6 +33,31 @@ export const dashboardTranslations = {
           recentActivity: "Recent Activity",
           viewsGrowth: "Views Growth",
           earningsGrowth: "Earnings Growth"
+        }
+      },
+      missions: {
+        stats: {
+          totalMissions: "Total Missions",
+          active: "active",
+          totalBudget: "Total Budget",
+          investment: "Total investment",
+          pending: "Pending",
+          pendingValidations: "Pending validations",
+          totalViews: "Total Views",
+          avgViews: "Average views"
+        },
+        missionCard: {
+          viewsRate: "€/1k views",
+          views: "views",
+          clips: "clips",
+          pending: "pending",
+          edit: "Edit",
+          delete: "Delete"
+        },
+        noMissions: {
+          title: "No missions",
+          description: "You haven't created any missions yet.",
+          createButton: "Create a mission"
         }
       }
     },
@@ -82,7 +108,8 @@ export const dashboardTranslations = {
     common: {
       loading: "Chargement...",
       loadingDashboard: "Chargement de votre tableau de bord...",
-      loadingAnalytics: "Chargement des analyses..."
+      loadingAnalytics: "Chargement des analyses...",
+      error: "Erreur :"
     },
     filters: {
       allProducts: "Tous les produits",
@@ -109,6 +136,31 @@ export const dashboardTranslations = {
           recentActivity: "Activité récente",
           viewsGrowth: "Croissance des vues",
           earningsGrowth: "Croissance des gains"
+        }
+      },
+      missions: {
+        stats: {
+          totalMissions: "Missions totales",
+          active: "actives",
+          totalBudget: "Budget total",
+          investment: "Investissement total",
+          pending: "En attente",
+          pendingValidations: "Validations en attente",
+          totalViews: "Vues totales",
+          avgViews: "Vues moyennes"
+        },
+        missionCard: {
+          viewsRate: "€/1k vues",
+          views: "vues",
+          clips: "clips",
+          pending: "en attente",
+          edit: "Modifier",
+          delete: "Supprimer"
+        },
+        noMissions: {
+          title: "Aucune mission",
+          description: "Vous n'avez pas encore créé de missions.",
+          createButton: "Créer une mission"
         }
       }
     },
