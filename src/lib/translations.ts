@@ -782,8 +782,8 @@ export const translations = {
         },
         paliers: {
           clipLink: 'Lien du clip',
-          missing: 'Manquant',
-          noLink: 'Aucun lien TikTok fourni par le clippeur'
+          missing: 'Mancante',
+          noLink: 'Nessun link TikTok fornito'
         }
       },
       onboarding: {
@@ -807,11 +807,11 @@ export const translations = {
             accept: 'Accepter la mission'
           },
           detection: {
-            title: 'Détection automatique',
-            duration: 'Durée : 45 secondes',
-            hashtags: 'Hashtags requis présents',
-            mention: 'Mention du créateur incluse',
-            submit: 'Valider et soumettre'
+            title: 'Rilevamento automatico',
+            duration: 'Durata: 45 secondi',
+            hashtags: 'Hashtag richiesti presenti',
+            mention: 'Menzione del creatore inclusa',
+            submit: 'Valida e invia'
           }
         }
       }
@@ -1129,11 +1129,11 @@ export const translations = {
           title: 'Misiones de contenido',
           description: 'Pubblica contenuti sui social media e guadagna in base alle visualizzazioni che generi. Se vuoi lanciare una campagna, clicca qui.',
           filters: {
-            allProducts: 'Todos los productos',
+            allProducts: 'Tutti i prodotti',
             entertainment: 'Intrattenimento',
             music: 'Musica',
             brand: 'Marca',
-            products: 'Produtos'
+            products: 'Prodotti'
           }
         },
         views: {
@@ -1209,11 +1209,11 @@ export const translations = {
             accept: 'Aceptar misión'
           },
           detection: {
-            title: 'Detección automática',
-            duration: 'Duración: 45 segundos',
-            hashtags: 'Hashtags requeridos presentes',
-            mention: 'Mención del creador incluida',
-            submit: 'Validar y enviar'
+            title: 'Rilevamento automatico',
+            duration: 'Durata: 45 segundos',
+            hashtags: 'Hashtag richiesti presenti',
+            mention: 'Menzione del creatore inclusa',
+            submit: 'Valida e invia'
           }
         }
       }
@@ -1621,4 +1621,4 @@ export const translations = {
       }
     }
   }
-}; 
+} 
