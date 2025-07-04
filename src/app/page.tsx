@@ -384,7 +384,7 @@ export default function Home() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900">MrBeast Gaming</h3>
-                      <p className="text-sm text-gray-500">12.5M abonnés</p>
+                      <p className="text-sm text-gray-600">12.5M abonnés</p>
                     </div>
                   </div>
                   <span className="bg-[#10B981]/10 text-[#10B981] text-sm font-medium px-3 py-1 rounded-full">
@@ -407,7 +407,7 @@ export default function Home() {
                     <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
-                    <span>Expire dans 3j</span>
+                    <span className="text-sm text-gray-600">Expire dans 3j</span>
                   </div>
                 </div>
               </div>
@@ -458,7 +458,7 @@ export default function Home() {
                       <div className="w-10 h-10 bg-gray-200 rounded"></div>
                       <div>
                         <p className="text-sm font-medium text-gray-800">MrBeast Challenge</p>
-                        <p className="text-xs text-gray-500">425K vues</p>
+                        <p className="text-xs text-gray-600">425K vues</p>
                       </div>
                     </div>
                     <span className="text-[#10B981] font-medium">+42€</span>
@@ -468,7 +468,7 @@ export default function Home() {
                       <div className="w-10 h-10 bg-gray-200 rounded"></div>
                       <div>
                         <p className="text-sm font-medium text-gray-800">Speed IRL</p>
-                        <p className="text-xs text-gray-500">283K vues</p>
+                        <p className="text-xs text-gray-600">283K vues</p>
                       </div>
                     </div>
                     <span className="text-[#10B981] font-medium">+28€</span>
@@ -553,7 +553,7 @@ export default function Home() {
                       </div>
                       <div>
                         <p className="text-sm font-medium text-gray-800">Stripe Connect</p>
-                        <p className="text-xs text-gray-500">Paiement sécurisé</p>
+                        <p className="text-sm text-gray-600">Paiement sécurisé</p>
                       </div>
                     </div>
                   </div>
@@ -566,7 +566,7 @@ export default function Home() {
                       </div>
                       <div>
                         <p className="text-sm font-medium text-gray-700">24-48h</p>
-                        <p className="text-xs text-gray-500">Délai de virement</p>
+                        <p className="text-sm text-gray-600">Délai de virement</p>
                       </div>
                     </div>
                   </div>
