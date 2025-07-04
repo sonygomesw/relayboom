@@ -374,6 +374,13 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Carte 1 : Mission */}
             <div className="flex flex-col">
+              <div className="text-center mb-4">
+                <div className="flex items-center justify-center gap-2 text-[#10B981] font-medium mb-2">
+                  <span className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center">1</span>
+                  <span>Choix de mission</span>
+                </div>
+                <p className="text-gray-600">Choisis une mission selon ton style et ton audience</p>
+              </div>
               <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-6 p-6 h-[300px]">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
@@ -411,17 +418,17 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div className="text-center">
-                <div className="flex items-center justify-center gap-2 text-[#10B981] font-medium mb-2">
-                  <span className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center">1</span>
-                  <span>Choix de mission</span>
-                </div>
-                <p className="text-gray-600">Choisis une mission selon ton style et ton audience</p>
-              </div>
             </div>
 
             {/* Carte 2 : Dashboard */}
             <div className="flex flex-col">
+              <div className="text-center mb-4">
+                <div className="flex items-center justify-center gap-2 text-[#10B981] font-medium mb-2">
+                  <span className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center">2</span>
+                  <span>Suivi des performances</span>
+                </div>
+                <p className="text-gray-600">Suis tes gains, clips postés et vues en temps réel</p>
+              </div>
               <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-6 p-6 h-[300px]">
                 <div className="grid grid-cols-2 gap-4 mb-6">
                   <div className="bg-gray-50 rounded-xl p-4">
@@ -475,17 +482,17 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div className="text-center">
-                <div className="flex items-center justify-center gap-2 text-[#10B981] font-medium mb-2">
-                  <span className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center">2</span>
-                  <span>Suivi des performances</span>
-                </div>
-                <p className="text-gray-600">Suis tes gains, clips postés et vues en temps réel</p>
-              </div>
             </div>
 
             {/* Carte 3 : Upload */}
             <div className="flex flex-col">
+              <div className="text-center mb-4">
+                <div className="flex items-center justify-center gap-2 text-[#10B981] font-medium mb-2">
+                  <span className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center">3</span>
+                  <span>Soumission simple</span>
+                </div>
+                <p className="text-gray-600">Colle ton lien TikTok, tout est détecté automatiquement</p>
+              </div>
               <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-6 p-6 h-[300px]">
                 <div className="mb-6">
                   <div className="flex items-center gap-2 mb-2">
@@ -520,17 +527,17 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div className="text-center">
-                <div className="flex items-center justify-center gap-2 text-[#10B981] font-medium mb-2">
-                  <span className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center">3</span>
-                  <span>Soumission simple</span>
-                </div>
-                <p className="text-gray-600">Colle ton lien TikTok, tout est détecté automatiquement</p>
-              </div>
             </div>
 
             {/* Carte 4 : Paiement */}
             <div className="flex flex-col">
+              <div className="text-center mb-4">
+                <div className="flex items-center justify-center gap-2 text-[#10B981] font-medium mb-2">
+                  <span className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center">4</span>
+                  <span>Retrait facile</span>
+                </div>
+                <p className="text-gray-600">Retire tes gains dès 10€ via Stripe Connect</p>
+              </div>
               <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-6 p-6 h-[300px]">
                 <div className="flex items-center justify-between mb-6">
                   <h3 className="font-semibold text-gray-800">Solde disponible</h3>
@@ -572,13 +579,6 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div className="text-center">
-                <div className="flex items-center justify-center gap-2 text-[#10B981] font-medium mb-2">
-                  <span className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center">4</span>
-                  <span>Retrait facile</span>
-                </div>
-                <p className="text-gray-600">Retire tes gains dès 10€ via Stripe Connect</p>
-              </div>
             </div>
           </div>
 
@@ -593,119 +593,6 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
             </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Résultats des clippeurs */}
-      <section className="py-24 bg-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-[#0F172A] mb-4">
-            Résultats des clippeurs
-          </h2>
-          <p className="text-[#0F172A]/70 mb-16 text-lg">
-            Découvrez les performances et revenus réels de notre communauté
-          </p>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-            {/* Statistiques */}
-            <div className="relative bg-[#1E293B] rounded-2xl p-8 max-w-xl mx-auto w-full">
-              <div className="flex items-center justify-between mb-6">
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-1">Statistiques du mois</h3>
-                  <p className="text-gray-400 text-sm">Moyenne par clippeur actif</p>
-                </div>
-                <div className="bg-[#10B981]/20 px-3 py-1 rounded-full">
-                  <span className="text-[#10B981] font-medium text-sm">+32% vs mois dernier</span>
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                <div className="flex items-center justify-between p-4 bg-[#0F172A] rounded-xl">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-[#10B981]/20 flex items-center justify-center">
-                      <svg className="w-5 h-5 text-[#10B981]" viewBox="0 0 24 24" fill="none">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" fill="currentColor"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <p className="text-white font-medium text-base">Revenus totaux</p>
-                      <p className="text-gray-400 text-sm">Sur tous les réseaux</p>
-                    </div>
-                  </div>
-                  <span className="text-2xl font-bold text-[#10B981]">347,20€</span>
-                </div>
-
-                <div className="flex items-center justify-between p-4 bg-[#0F172A] rounded-xl">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-[#3B82F6]/20 flex items-center justify-center">
-                      <svg className="w-5 h-5 text-[#3B82F6]" viewBox="0 0 24 24" fill="none">
-                        <path d="M21 7v10c0 3-1.5 5-5 5H8c-3.5 0-5-2-5-5V7c0-3 1.5-5 5-5h8c3.5 0 5 2 5 5Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
-                        <path d="M14.5 4.5v2c0 1.1.9 2 2 2h2M8 13h4M8 17h8" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <p className="text-white font-medium text-base">Clips postés</p>
-                      <p className="text-gray-400 text-sm">Ce mois-ci</p>
-                    </div>
-                  </div>
-                  <span className="text-2xl font-bold text-white">24</span>
-                </div>
-
-                <div className="flex items-center justify-between p-4 bg-[#0F172A] rounded-xl">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-[#A855F7]/20 flex items-center justify-center">
-                      <svg className="w-5 h-5 text-[#A855F7]" viewBox="0 0 24 24" fill="none">
-                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <p className="text-white font-medium text-base">Temps moyen</p>
-                      <p className="text-gray-400 text-sm">Par clip</p>
-                    </div>
-                  </div>
-                  <span className="text-2xl font-bold text-white">5 min</span>
-                </div>
-              </div>
-
-              {/* Témoignages */}
-              <div className="mt-8 space-y-4">
-                <div className="bg-[#0F172A] rounded-xl p-4">
-                  <div className="flex items-center gap-3 mb-2">
-                    <img 
-                      src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&auto=format&fit=crop&q=60" 
-                      alt="Lucas M."
-                      className="w-10 h-10 rounded-full object-cover"
-                    />
-                    <div>
-                      <h4 className="text-white font-medium">Lucas M.</h4>
-                      <p className="text-gray-400 text-sm">847€ en Mars 2024</p>
-                    </div>
-                  </div>
-                  <p className="text-gray-300 text-sm">
-                    "J'ai atteint 847€ avec seulement 9 clips ce mois-ci. C'est devenu une source de revenus stable !"
-                  </p>
-                </div>
-
-                <div className="bg-[#0F172A] rounded-xl p-4">
-                  <div className="flex items-center gap-3 mb-2">
-                    <img 
-                      src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&auto=format&fit=crop&q=60" 
-                      alt="Sarah K."
-                      className="w-10 h-10 rounded-full object-cover"
-                    />
-                    <div>
-                      <h4 className="text-white font-medium">Sarah K.</h4>
-                      <p className="text-gray-400 text-sm">1.2M vues en 3 semaines</p>
-                    </div>
-                  </div>
-                  <p className="text-gray-300 text-sm">
-                    "1.2M de vues en 3 semaines ! Je ne m'attendais pas à un tel succès sur mes premiers clips."
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
