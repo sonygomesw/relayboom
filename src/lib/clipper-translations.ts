@@ -1,4 +1,4 @@
-export type Language = 'en' | 'fr';
+export type Language = 'en' | 'fr' | 'es';
 
 export const clipperTranslations = {
   en: {
@@ -60,5 +60,6 @@ export const clipperTranslations = {
       instructions: "Instructions",
       preview: "Aperçu"
     }
-  }
+  },
+  es: {} // Empty Spanish translations object
 } as const;

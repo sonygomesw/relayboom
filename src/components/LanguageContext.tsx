@@ -17,11 +17,11 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem('language') as Language;
-    if (savedLanguage && ['en', 'fr'].includes(savedLanguage)) {
+    if (savedLanguage && ['en', 'fr', 'es'].includes(savedLanguage)) {
       setLanguage(savedLanguage);
     } else {
       const browserLang = navigator.language.split('-')[0] as Language;
-      if (['en', 'fr'].includes(browserLang)) {
+      if (['en', 'fr', 'es'].includes(browserLang)) {
         setLanguage(browserLang);
       }
     }
@@ -34,14 +34,23 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   const t = (key: string) => {
     const keys = key.split('.');
-    let value: Record<string, any> = dashboardTranslations[language];
+    let value = (dashboardTranslations[language as keyof typeof dashboardTranslations] || dashboardTranslations['en']) as Record<string, any>;
     
     for (const k of keys) {
       if (value && typeof value === 'object' && k in value) {
         value = value[k];
       } else {
-        console.warn(`Translation key not found: ${key}`);
-        return key;
+        // Try English as fallback
+        let fallbackValue = dashboardTranslations['en'] as Record<string, any>;
+        for (const fallbackKey of keys) {
+          if (fallbackValue && typeof fallbackValue === 'object' && fallbackKey in fallbackValue) {
+            fallbackValue = fallbackValue[fallbackKey];
+          } else {
+            console.warn(`Translation key not found: ${key}`);
+            return key;
+          }
+        }
+        return fallbackValue;
       }
     }
     
