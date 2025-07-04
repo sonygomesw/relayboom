@@ -372,15 +372,9 @@ export default function Home() {
 
           {/* Galerie scrollable */}
           <div className="relative">
-            {/* Gradient de fondu gauche */}
-            <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-gray-50 to-transparent z-10"></div>
-            
-            {/* Gradient de fondu droite */}
-            <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-gray-50 to-transparent z-10"></div>
-
-            <div className="flex gap-8 overflow-x-auto pb-8 px-8 -mx-8 scrollbar-hide snap-x snap-mandatory">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
               {/* Carte 1 : Mission */}
-              <div className="flex-none w-[400px] snap-center">
+              <div>
                 <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-6 p-6 h-[300px]">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">
@@ -428,7 +422,7 @@ export default function Home() {
               </div>
 
               {/* Carte 2 : Dashboard */}
-              <div className="flex-none w-[400px] snap-center">
+              <div>
                 <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-6 p-6 h-[300px]">
                   <div className="grid grid-cols-2 gap-4 mb-6">
                     <div className="bg-gray-50 rounded-xl p-4">
@@ -492,7 +486,7 @@ export default function Home() {
               </div>
 
               {/* Carte 3 : Upload */}
-              <div className="flex-none w-[400px] snap-center">
+              <div>
                 <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-6 p-6 h-[300px]">
                   <div className="mb-6">
                     <div className="flex items-center gap-2 mb-2">
@@ -537,7 +531,7 @@ export default function Home() {
               </div>
 
               {/* Carte 4 : Paiement */}
-              <div className="flex-none w-[400px] snap-center">
+              <div>
                 <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-6 p-6 h-[300px]">
                   <div className="flex items-center justify-between mb-6">
                     <h3 className="font-semibold text-gray-900">Solde disponible</h3>
