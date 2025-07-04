@@ -457,7 +457,7 @@ export default function Home() {
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-200 rounded"></div>
                       <div>
-                        <p className="text-sm font-medium">MrBeast Challenge</p>
+                        <p className="text-sm font-medium text-gray-800">MrBeast Challenge</p>
                         <p className="text-xs text-gray-500">425K vues</p>
                       </div>
                     </div>
@@ -467,7 +467,7 @@ export default function Home() {
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-200 rounded"></div>
                       <div>
-                        <p className="text-sm font-medium">Speed IRL</p>
+                        <p className="text-sm font-medium text-gray-800">Speed IRL</p>
                         <p className="text-xs text-gray-500">283K vues</p>
                       </div>
                     </div>
@@ -533,7 +533,7 @@ export default function Home() {
             <div className="flex flex-col">
               <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-6 p-6 h-[300px]">
                 <div className="flex items-center justify-between mb-6">
-                  <h3 className="font-semibold text-gray-900">Solde disponible</h3>
+                  <h3 className="font-semibold text-gray-800">Solde disponible</h3>
                   <span className="text-2xl font-bold text-[#10B981]">347,20 €</span>
                 </div>
                 <div className="bg-gray-50 rounded-xl p-4 mb-6">
@@ -552,7 +552,7 @@ export default function Home() {
                         </svg>
                       </div>
                       <div>
-                        <p className="text-sm font-medium">Stripe Connect</p>
+                        <p className="text-sm font-medium text-gray-800">Stripe Connect</p>
                         <p className="text-xs text-gray-500">Paiement sécurisé</p>
                       </div>
                     </div>
@@ -565,7 +565,7 @@ export default function Home() {
                         </svg>
                       </div>
                       <div>
-                        <p className="text-sm font-medium">24-48h</p>
+                        <p className="text-sm font-medium text-gray-700">24-48h</p>
                         <p className="text-xs text-gray-500">Délai de virement</p>
                       </div>
                     </div>
