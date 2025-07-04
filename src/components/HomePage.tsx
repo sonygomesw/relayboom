@@ -202,8 +202,10 @@ export default function HomePage() {
           <div className="mt-16">
             <div className="space-y-10 md:space-y-0 md:grid md:grid-cols-3 md:gap-x-8 md:gap-y-10">
               <div className="relative">
-                <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-green-500 text-white">
-                  <span className="text-xl font-bold">1</span>
+                <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-red-500 text-white">
+                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                  </svg>
                 </div>
                 <div className="ml-16">
                   <h3 className="text-lg leading-6 font-medium text-gray-900">1. Choisis une mission</h3>
@@ -214,8 +216,10 @@ export default function HomePage() {
               </div>
 
               <div className="relative">
-                <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-green-500 text-white">
-                  <span className="text-xl font-bold">2</span>
+                <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-red-500 text-white">
+                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M9.64 7.64c.23-.5.36-1.05.36-1.64 0-2.21-1.79-4-4-4S2 3.79 2 6s1.79 4 4 4c.59 0 1.14-.13 1.64-.36L10 12l-2.36 2.36C7.14 14.13 6.59 14 6 14c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4c0-.59-.13-1.14-.36-1.64L12 14l7 7h3v-1L9.64 7.64zM6 8c-1.1 0-2-.89-2-2s.89-2 2-2 2 .89 2 2-.89 2-2 2zm0 12c-1.1 0-2-.89-2-2s.89-2 2-2 2 .89 2 2-.89 2-2 2zm6-7.5c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5zM19 3l-6 6 2 2 7-7V3z"/>
+                  </svg>
                 </div>
                 <div className="ml-16">
                   <h3 className="text-lg leading-6 font-medium text-gray-900">2. Crée ton clip</h3>
@@ -226,8 +230,10 @@ export default function HomePage() {
               </div>
 
               <div className="relative">
-                <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-green-500 text-white">
-                  <span className="text-xl font-bold">3</span>
+                <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-yellow-500 text-white">
+                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V16h-2.67v2.09c-2.84-.48-5.09-2.73-5.57-5.57H7v-2.67H4.91c.48-2.84 2.73-5.09 5.57-5.57V6h2.67v2.09c2.84.48 5.09 2.73 5.57 5.57H17v2.67h2.09c-.48 2.84-2.73 5.09-5.57 5.57zM12 15c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z"/>
+                  </svg>
                 </div>
                 <div className="ml-16">
                   <h3 className="text-lg leading-6 font-medium text-gray-900">3. Reçois tes gains</h3>
