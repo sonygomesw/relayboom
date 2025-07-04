@@ -1,4 +1,4 @@
-export type Language = 'en' | 'fr' | 'es' | 'it';
+import { Language } from './clipper-translations';
 
 export const translations = {
   en: {
