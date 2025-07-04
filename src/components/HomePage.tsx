@@ -48,7 +48,7 @@ export default function HomePage() {
                   setAuthModalMode('clipper-signup')
                   setIsAuthModalOpen(true)
                 }}
-                className="inline-flex items-center px-8 py-4 border border-transparent text-sm font-bold rounded-full text-white bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 shadow-lg shadow-green-500/25 transition-all duration-300 transform hover:scale-105"
+                className="inline-flex items-center px-8 py-4 border-2 border-gray-300 text-sm font-bold rounded-full text-gray-900 bg-white hover:bg-gray-50 hover:border-gray-400 shadow-lg transition-all duration-300 transform hover:scale-105"
               >
                 Devenir clippeur
               </button>
