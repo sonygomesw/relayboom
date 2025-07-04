@@ -1,21 +1,21 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  --background: #ffffff;
+  --foreground: #1f2937;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff;
+    --foreground: #1f2937;
   }
 }
 
 body {
   color: var(--foreground);
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   min-height: 100vh;
 }
 
@@ -46,16 +46,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1a1a;
+  background: #f1f5f9;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #4a5568;
+  background: #94a3b8;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #718096;
+  background: #64748b;
 }
 
 /* Poids de police par défaut plus épais */
@@ -68,6 +68,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600; /* Semi-bold pour les titres */
   letter-spacing: -0.02em;
+  color: #111827; /* Texte plus foncé pour les titres */
 }
 
 /* Boutons avec texte plus épais */
@@ -78,4 +79,203 @@ button {
 /* Liens plus visibles */
 a {
   font-weight: 500;
+  color: #374151;
+}
+
+/* Amélioration des champs de saisie */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="url"],
+textarea,
+select {
+  background-color: #ffffff !important;
+  color: #111827 !important;
+  border: 2px solid #d1d5db !important;
+  font-weight: 500 !important;
+  font-size: 16px !important;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="url"]:focus,
+textarea:focus,
+select:focus {
+  border-color: #10b981 !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
+  outline: none !important;
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder,
+input[type="number"]::placeholder,
+input[type="url"]::placeholder,
+textarea::placeholder {
+  color: #6b7280 !important;
+  font-weight: 400 !important;
+}
+
+/* Amélioration des labels */
+label {
+  color: #374151 !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+}
+
+/* Amélioration du contraste pour le texte de description */
+.text-gray-500 {
+  color: #6b7280 !important;
+  font-weight: 500 !important;
+}
+
+.text-gray-600 {
+  color: #4b5563 !important;
+  font-weight: 500 !important;
+}
+
+.text-gray-700 {
+  color: #374151 !important;
+  font-weight: 500 !important;
+}
+
+/* Amélioration des boutons de formulaire */
+button[type="submit"],
+button[type="button"] {
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+}
+
+/* Amélioration des cartes et modales */
+.bg-white {
+  background-color: #ffffff !important;
+  color: #111827 !important;
+}
+
+/* Amélioration des éléments Stripe */
+.StripeElement {
+  background-color: #ffffff !important;
+  color: #111827 !important;
+  border: 2px solid #d1d5db !important;
+  border-radius: 0.5rem !important;
+  padding: 12px 16px !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+}
+
+.StripeElement:focus {
+  border-color: #10b981 !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
+}
+
+.StripeElement--invalid {
+  border-color: #ef4444 !important;
+}
+
+/* Amélioration des messages d'erreur */
+.error-message {
+  color: #dc2626 !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+}
+
+/* Amélioration des messages de succès */
+.success-message {
+  color: #059669 !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+}
+
+/* Amélioration des tooltips et petits textes */
+.text-xs {
+  color: #6b7280 !important;
+  font-weight: 500 !important;
+}
+
+.text-sm {
+  color: #4b5563 !important;
+  font-weight: 500 !important;
+}
+
+/* Amélioration des liens dans les formulaires */
+a:hover {
+  color: #10b981 !important;
+  text-decoration: underline !important;
+}
+
+/* Amélioration des éléments de navigation */
+nav a {
+  color: #374151 !important;
+  font-weight: 500 !important;
+}
+
+nav a:hover {
+  color: #111827 !important;
+}
+
+/* Amélioration des modales */
+.modal-content {
+  background-color: #ffffff !important;
+  color: #111827 !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+/* Amélioration des dropdown et select */
+option {
+  background-color: #ffffff !important;
+  color: #111827 !important;
+}
+
+/* Amélioration des checkboxes et radio buttons */
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: #10b981 !important;
+}
+
+/* Amélioration des progress bars */
+progress {
+  accent-color: #10b981 !important;
+}
+
+/* Amélioration des tables */
+th {
+  color: #111827 !important;
+  font-weight: 600 !important;
+}
+
+td {
+  color: #374151 !important;
+  font-weight: 500 !important;
+}
+
+/* Amélioration des alertes et notifications */
+.alert {
+  font-weight: 500 !important;
+}
+
+.alert-success {
+  background-color: #f0fdf4 !important;
+  color: #166534 !important;
+  border-color: #bbf7d0 !important;
+}
+
+.alert-error {
+  background-color: #fef2f2 !important;
+  color: #dc2626 !important;
+  border-color: #fecaca !important;
+}
+
+.alert-warning {
+  background-color: #fffbeb !important;
+  color: #d97706 !important;
+  border-color: #fed7aa !important;
+}
+
+.alert-info {
+  background-color: #eff6ff !important;
+  color: #2563eb !important;
+  border-color: #bfdbfe !important;
 } 

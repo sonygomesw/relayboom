@@ -73,7 +73,7 @@ export default function HomePage() {
                   <span className="block xl:inline">postant des </span>
                   <span className="block text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600 xl:inline">TikToks viraux</span>
                 </h1>
-                <p className="mt-6 text-base text-gray-500 sm:mt-8 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-8 md:text-xl lg:mx-0">
+                <p className="mt-6 text-base text-gray-700 sm:mt-8 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-8 md:text-xl lg:mx-0 font-medium">
                   Tu postes des clips ? On te paie pour chaque vue. Rejoins des missions, publie sur TikTok, gagne de l'argent à la performance.
                 </p>
                 <div className="mt-8 sm:mt-12 sm:flex sm:justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-6">
@@ -94,20 +94,20 @@ export default function HomePage() {
                         setAuthModalMode('clipper-signup')
                         setIsAuthModalOpen(true)
                       }}
-                      className="w-full flex items-center justify-center px-10 py-5 border-2 border-gray-200 text-base font-semibold rounded-full text-gray-700 bg-white/80 backdrop-blur-sm hover:bg-gray-50 md:py-6 md:text-lg md:px-12 transition-all duration-300 transform hover:scale-105"
+                      className="w-full flex items-center justify-center px-10 py-5 border-2 border-gray-300 text-base font-semibold rounded-full text-gray-800 bg-white/90 backdrop-blur-sm hover:bg-gray-50 hover:border-gray-400 md:py-6 md:text-lg md:px-12 transition-all duration-300 transform hover:scale-105"
                     >
                       Devenir clippeur →
                     </button>
                   </div>
                 </div>
-                <div className="mt-10 flex items-center space-x-8 text-sm text-gray-500">
-                  <div className="flex items-center bg-white/60 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
-                    <span className="text-green-600 mr-2">●</span>
-                    500+ clippeurs actifs
+                <div className="mt-10 flex items-center space-x-8 text-sm text-gray-700">
+                  <div className="flex items-center bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-gray-100">
+                    <span className="text-green-600 mr-2 font-bold">●</span>
+                    <span className="font-medium">500+ clippeurs actifs</span>
                   </div>
-                  <div className="flex items-center bg-white/60 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
-                    <span className="text-green-600 mr-2">●</span>
-                    2,3M vues générées
+                  <div className="flex items-center bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-gray-100">
+                    <span className="text-green-600 mr-2 font-bold">●</span>
+                    <span className="font-medium">2,3M vues générées</span>
                   </div>
                 </div>
               </div>
@@ -140,25 +140,25 @@ export default function HomePage() {
                     <div className="absolute inset-0 flex flex-col justify-between p-4 text-white">
                       {/* Top Section - Earnings */}
                       <div className="flex justify-end pt-10">
-                        <div className="bg-black/70 backdrop-blur-md rounded-2xl px-4 py-2 text-right shadow-xl">
+                        <div className="bg-black/80 backdrop-blur-md rounded-2xl px-4 py-2 text-right shadow-xl border border-white/10">
                           <div className="text-green-400 font-bold text-xs">Tes gains: 50€</div>
-                          <div className="text-[10px] text-gray-300">pour 2.3M vues</div>
+                          <div className="text-[10px] text-gray-200">pour 2.3M vues</div>
                         </div>
                       </div>
                       
                       {/* Right Side - TikTok Actions */}
                       <div className="absolute right-3 bottom-24 flex flex-col space-y-6">
-                        <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center shadow-xl">
+                        <div className="w-12 h-12 bg-white/25 backdrop-blur-md rounded-full flex items-center justify-center shadow-xl border border-white/20">
                           <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                           </svg>
                         </div>
-                        <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center shadow-xl">
+                        <div className="w-12 h-12 bg-white/25 backdrop-blur-md rounded-full flex items-center justify-center shadow-xl border border-white/20">
                           <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92S19.61 16.08 18 16.08z"/>
                           </svg>
                         </div>
-                        <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center shadow-xl">
+                        <div className="w-12 h-12 bg-white/25 backdrop-blur-md rounded-full flex items-center justify-center shadow-xl border border-white/20">
                           <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                           </svg>
@@ -167,12 +167,12 @@ export default function HomePage() {
                       
                       {/* Bottom Section - User Info */}
                       <div className="flex items-end space-x-3 pb-6">
-                        <div className="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center text-sm font-bold shadow-xl">
+                        <div className="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center text-sm font-bold shadow-xl border border-white/20">
                           M
                         </div>
                         <div className="flex-1">
-                          <div className="font-semibold text-sm">@mrbeast</div>
-                          <div className="text-xs text-gray-300 leading-tight">Je donne 100 000$ à celui qui reste le plus longtemps dans ce cercle !</div>
+                          <div className="font-semibold text-sm text-white">@mrbeast</div>
+                          <div className="text-xs text-gray-200 leading-tight">Je donne 100 000$ à celui qui reste le plus longtemps dans ce cercle !</div>
                         </div>
                       </div>
                     </div>
@@ -194,7 +194,7 @@ export default function HomePage() {
             <h2 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
               Comment ça marche ?
             </h2>
-            <p className="mt-6 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+            <p className="mt-6 max-w-2xl text-xl text-gray-700 lg:mx-auto font-medium">
               3 étapes simples pour commencer à gagner
             </p>
           </div>
@@ -209,7 +209,7 @@ export default function HomePage() {
                 </div>
                 <div className="ml-20">
                   <h3 className="text-xl leading-6 font-bold text-gray-900">1. Choisis une mission</h3>
-                  <p className="mt-4 text-base text-gray-500 leading-relaxed">
+                  <p className="mt-4 text-base text-gray-700 leading-relaxed font-medium">
                     Parcours les missions disponibles et sélectionne celles qui t'intéressent. Chaque mission précise le thème et la rémunération.
                   </p>
                 </div>
@@ -223,7 +223,7 @@ export default function HomePage() {
                 </div>
                 <div className="ml-20">
                   <h3 className="text-xl leading-6 font-bold text-gray-900">2. Crée ton clip</h3>
-                  <p className="mt-4 text-base text-gray-500 leading-relaxed">
+                  <p className="mt-4 text-base text-gray-700 leading-relaxed font-medium">
                     Réalise et publie ton TikTok en suivant les consignes de la mission. Notre système détecte automatiquement tes vues.
                   </p>
                 </div>
@@ -237,7 +237,7 @@ export default function HomePage() {
                 </div>
                 <div className="ml-20">
                   <h3 className="text-xl leading-6 font-bold text-gray-900">3. Reçois tes gains</h3>
-                  <p className="mt-4 text-base text-gray-500 leading-relaxed">
+                  <p className="mt-4 text-base text-gray-700 leading-relaxed font-medium">
                     Suis tes revenus en temps réel et retire ton argent dès 10€. Paiements rapides et sécurisés via Stripe.
                   </p>
                 </div>
@@ -254,31 +254,31 @@ export default function HomePage() {
             <h2 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
               Combien peux-tu gagner ?
             </h2>
-            <p className="mt-6 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+            <p className="mt-6 max-w-2xl text-xl text-gray-700 lg:mx-auto font-medium">
               La rémunération dépend du nombre de vues. Voici un exemple :
             </p>
           </div>
 
           <div className="mt-20">
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl shadow-gray-900/5 p-8 text-center border border-gray-100/50 transition-all duration-300 hover:transform hover:scale-105">
+              <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl shadow-gray-900/5 p-8 text-center border border-gray-200/50 transition-all duration-300 hover:transform hover:scale-105">
                 <div className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600 mb-4">10€</div>
-                <div className="text-gray-600 mb-6 font-semibold">Pour 100K vues</div>
-                <div className="text-sm text-gray-500 leading-relaxed">
+                <div className="text-gray-800 mb-6 font-semibold text-lg">Pour 100K vues</div>
+                <div className="text-sm text-gray-700 leading-relaxed font-medium">
                   Plus tu génères de vues, plus tu gagnes ! Commence avec un objectif réaliste et progresse !
                 </div>
               </div>
               <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl shadow-2xl shadow-green-500/10 p-8 text-center border-2 border-green-200 transition-all duration-300 hover:transform hover:scale-105">
                 <div className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600 mb-4">50€</div>
-                <div className="text-gray-600 mb-6 font-semibold">Pour 500K vues</div>
-                <div className="text-sm text-gray-500 leading-relaxed">
+                <div className="text-gray-800 mb-6 font-semibold text-lg">Pour 500K vues</div>
+                <div className="text-sm text-gray-700 leading-relaxed font-medium">
                   Plus tu génères de vues, plus tu gagnes ! Commence avec un objectif réaliste et progresse !
                 </div>
               </div>
-              <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl shadow-gray-900/5 p-8 text-center border border-gray-100/50 transition-all duration-300 hover:transform hover:scale-105">
+              <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl shadow-gray-900/5 p-8 text-center border border-gray-200/50 transition-all duration-300 hover:transform hover:scale-105">
                 <div className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600 mb-4">100€</div>
-                <div className="text-gray-600 mb-6 font-semibold">Pour 1M vues</div>
-                <div className="text-sm text-gray-500 leading-relaxed">
+                <div className="text-gray-800 mb-6 font-semibold text-lg">Pour 1M vues</div>
+                <div className="text-sm text-gray-700 leading-relaxed font-medium">
                   Plus tu génères de vues, plus tu gagnes ! Commence avec un objectif réaliste et progresse !
                 </div>
               </div>
