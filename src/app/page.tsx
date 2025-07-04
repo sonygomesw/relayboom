@@ -546,9 +546,7 @@ export default function Home() {
                 </div>
                 <div className="bg-gray-50 rounded-xl p-4 mb-6">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-sm text-gray-500">€</span>
-                    <div className="flex-1 h-10 bg-white rounded-lg border border-gray-200"></div>
-                    <button className="px-3 text-[#10B981] font-medium">MAX</button>
+                    <span className="text-sm text-gray-500">Montant du retrait</span>
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
