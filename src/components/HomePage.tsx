@@ -13,9 +13,23 @@ export default function HomePage() {
   const [authModalMode, setAuthModalMode] = useState<'login' | 'signup' | 'clipper-signup'>('login');
   const [mounted, setMounted] = useState(false);
   const [viewsCount, setViewsCount] = useState(100000); // Default value for the simulator
+  const [showStickyCTA, setShowStickyCTA] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    
+    // Show sticky CTA on scroll (mobile only)
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const isMobile = window.innerWidth < 768;
+      
+      // Show after scrolling 1 viewport height on mobile
+      setShowStickyCTA(scrollY > windowHeight && isMobile);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   if (!mounted) {
@@ -557,6 +571,24 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
+
+      {/* Sticky CTA Button for Mobile */}
+      {showStickyCTA && (
+        <div className="fixed bottom-4 left-4 right-4 z-50 md:hidden">
+          <button
+            onClick={() => {
+              setAuthModalMode('clipper-signup')
+              setIsAuthModalOpen(true)
+            }}
+            className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-4 px-6 rounded-full font-semibold text-lg shadow-2xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
+          >
+            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+            </svg>
+            {t.cta.button}
+          </button>
+        </div>
+      )}
 
       <AuthModal
         isOpen={isAuthModalOpen}
