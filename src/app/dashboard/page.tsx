@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { useLanguage } from '@/components/LanguageContext';
 import { dashboardTranslations } from '@/lib/dashboard-translations';
-import { Language } from '@/lib/clipper-translations';
+import { Language } from '@/lib/types/translations';
 import { useAuth } from '@/components/AuthContext';
 
 export default function DashboardRedirect() {
@@ -13,7 +13,7 @@ export default function DashboardRedirect() {
   const router = useRouter();
   const { user, profile } = useAuth();
   const { language } = useLanguage();
-  const t = dashboardTranslations[language as Language];
+  const t = dashboardTranslations[language as Language] || dashboardTranslations.en;
 
   useEffect(() => {
     const redirectToCorrectDashboard = async () => {
@@ -64,7 +64,7 @@ export default function DashboardRedirect() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">{t.common.loading}</p>
+          <p className="text-gray-600">{t.dashboard.common.loading}</p>
         </div>
       </div>
     );

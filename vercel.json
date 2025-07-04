@@ -7,5 +7,15 @@
   "regions": ["cdg1"],
   "rewrites": [
     { "source": "/(.*)", "destination": "/" }
-  ]
+  ],
+  "env": {
+    "NEXT_PUBLIC_FORCE_DYNAMIC": "true",
+    "NEXT_RUNTIME": "nodejs"
+  },
+  "build": {
+    "env": {
+      "NEXT_PUBLIC_FORCE_DYNAMIC": "true",
+      "NEXT_RUNTIME": "nodejs"
+    }
+  }
 } 
