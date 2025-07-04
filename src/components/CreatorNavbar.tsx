@@ -2,9 +2,11 @@
 
 import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { IconDashboard, IconVideo, IconTrendingUp, IconCoin, IconPlus, IconWallet, IconLogout } from '@tabler/icons-react'
+import { IconDashboard, IconVideo, IconTrendingUp, IconCoin, IconPlus, IconWallet, IconLogout, IconLanguage } from '@tabler/icons-react'
 import { useLanguage } from '@/components/LanguageContext'
 import { translations } from '@/lib/translations'
+import { Language } from '@/lib/translations'
+import { useState } from 'react'
 
 interface SidebarLink {
   href: string
@@ -16,8 +18,16 @@ interface SidebarLink {
 export default function CreatorNavbar() {
   const pathname = usePathname()
   const router = useRouter()
-  const { language } = useLanguage()
+  const { language, setLanguage } = useLanguage()
   const t = translations[language].dashboard.creator.navigation
+  const [showLanguageDropdown, setShowLanguageDropdown] = useState(false)
+
+  const languages: { code: Language; label: string }[] = [
+    { code: 'en', label: 'English' },
+    { code: 'fr', label: 'Français' },
+    { code: 'es', label: 'Español' },
+    { code: 'it', label: 'Italiano' }
+  ]
 
   const handleLogout = async () => {
     // Logique de déconnexion
@@ -93,6 +103,36 @@ export default function CreatorNavbar() {
               )
             })}
           </div>
+        </div>
+
+        {/* Language Selector */}
+        <div className="relative mt-4 border-t border-gray-200 pt-4">
+          <button
+            onClick={() => setShowLanguageDropdown(!showLanguageDropdown)}
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors"
+          >
+            <IconLanguage className="w-5 h-5" />
+            <span className="font-medium">{translations[language].nav.language}</span>
+          </button>
+          
+          {showLanguageDropdown && (
+            <div className="absolute bottom-full left-0 mb-2 w-full bg-white rounded-lg border border-gray-200 shadow-lg">
+              {languages.map((lang) => (
+                <button
+                  key={lang.code}
+                  onClick={() => {
+                    setLanguage(lang.code)
+                    setShowLanguageDropdown(false)
+                  }}
+                  className={`w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors ${
+                    language === lang.code ? 'text-green-600 font-medium' : 'text-gray-700'
+                  }`}
+                >
+                  {lang.label}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </nav>
