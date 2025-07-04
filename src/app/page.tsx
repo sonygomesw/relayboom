@@ -176,13 +176,16 @@ export default function Home() {
           <Link href="/" className="flex items-center">
             <img src="/logo.png" alt="ClipTokk" className="h-40" />
           </Link>
-          <nav className="hidden md:flex items-center gap-8">
-            <Link href="#how-it-works" className="text-[#0F172A]/70 hover:text-[#0F172A]">
-              {t('nav.howItWorks')}
-            </Link>
-            <Link href="#faq" className="text-[#0F172A]/70 hover:text-[#0F172A]">
-              {t('nav.faq')}
-            </Link>
+          <div className="flex items-center gap-4">
+            <nav className="hidden md:flex items-center gap-8">
+              <Link href="#how-it-works" className="text-[#0F172A]/70 hover:text-[#0F172A]">
+                {t('nav.howItWorks')}
+              </Link>
+              <Link href="#faq" className="text-[#0F172A]/70 hover:text-[#0F172A]">
+                {t('nav.faq')}
+              </Link>
+            </nav>
+            
             <div className="relative group">
               <button className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#0F172A]/10 hover:border-[#0F172A]/20 transition-all duration-300">
                 <IconGlobe className="w-5 h-5 text-[#0F172A]/70" />
@@ -203,13 +206,14 @@ export default function Home() {
                 ))}
               </div>
             </div>
+
             <button
               onClick={() => setAuthModal({isOpen: true, mode: 'login'})}
               className="px-4 py-2 rounded-full bg-[#0F172A] text-white hover:bg-[#0F172A]/90 transition-all duration-300"
             >
               {t('nav.signIn')}
             </button>
-          </nav>
+          </div>
         </div>
       </header>
 
