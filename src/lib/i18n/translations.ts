@@ -258,9 +258,9 @@ export const translations: Record<string, Translation> = {
       }
     },
     cta: {
-      title: "Tu veux commencer à gagner dès ce soir ?",
+      title: "Tu veux commencer à gagner tes premiers euros dès ce soir ?",
       subtitle: "Rejoins ClipTokk maintenant et commence à monétiser tes TikToks. C'est gratuit et sans engagement.",
-      button: "Je deviens clippeur maintenant"
+      button: "Je commence à gagner avec mes TikToks"
     },
     footer: {
       description: "ClipTokk est la première plateforme qui te permet de gagner de l'argent en postant des TikToks viraux. Rejoins une communauté de créateurs passionnés et monétise ton contenu.",
@@ -391,9 +391,9 @@ export const translations: Record<string, Translation> = {
       }
     },
     cta: {
-      title: "Want to start earning tonight?",
+      title: "Want to start earning your first euros tonight?",
       subtitle: "Join ClipTokk now and start monetizing your TikToks. It's free and without commitment.",
-      button: "I become a clipper now"
+      button: "I start earning with my TikToks"
     },
     footer: {
       description: "ClipTokk is the first platform that allows you to earn money by posting viral TikToks. Join a community of passionate creators and monetize your content.",
@@ -524,9 +524,9 @@ export const translations: Record<string, Translation> = {
       }
     },
     cta: {
-      title: "¿Quieres empezar a ganar esta noche?",
+      title: "¿Quieres empezar a ganar tus primeros euros esta noche?",
       subtitle: "Únete a ClipTokk ahora y comienza a monetizar tus TikToks. Es gratis y sin compromiso.",
-      button: "Me convierto en clipper ahora"
+      button: "Empiezo a ganar con mis TikToks"
     },
     footer: {
       description: "ClipTokk es la primera plataforma que te permite ganar dinero publicando TikToks virales. Únete a una comunidad de creadores apasionados y monetiza tu contenido.",
@@ -657,9 +657,9 @@ export const translations: Record<string, Translation> = {
       }
     },
     cta: {
-      title: "Vuoi iniziare a guadagnare stasera?",
+      title: "Vuoi iniziare a guadagnare i tuoi primi euro stasera?",
       subtitle: "Unisciti a ClipTokk ora e inizia a monetizzare i tuoi TikTok. È gratis e senza impegno.",
-      button: "Divento clipper ora"
+      button: "Inizio a guadagnare con i miei TikTok"
     },
     footer: {
       description: "ClipTokk è la prima piattaforma che ti permette di guadagnare pubblicando TikTok virali. Unisciti a una comunità di creatori appassionati e monetizza i tuoi contenuti.",
