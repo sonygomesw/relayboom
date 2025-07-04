@@ -157,14 +157,14 @@ export const translations: Record<string, Translation> = {
       becomeClipper: "Devenir clippeur"
     },
     hero: {
-      badge: "● 500+ clippeurs actifs cette semaine",
-      title: "Gagne de l'argent en postant des TikToks viraux",
-      subtitle: "Tu postes des clips ? On te paie pour chaque vue. Rejoins des missions, publie sur TikTok, gagne de l'argent à la performance.",
-      ctaPrimary: "Voir les missions disponibles →",
-      ctaSecondary: "Devenir clippeur →",
+      badge: "● 500+ clippeurs actifs • 2,3M vues générées ce mois-ci",
+      title: "T'as déjà passé des heures sur TikTok ? Et si t'étais payé pour ça ?",
+      subtitle: "Gagne de l'argent en publiant des extraits viraux de vidéos YouTube, podcasts, Twitch... Pas besoin de followers. Tu postes. Tu gagnes. Sans engagement.",
+      ctaPrimary: "Commencer à gagner →",
+      ctaSecondary: "Voir les missions sans inscription →",
       stats: {
         activeClippers: "500+ clippeurs actifs",
-        viewsGenerated: "2,3M vues générées"
+        viewsGenerated: "2,3M vues générées ce mois-ci"
       }
     },
     howItWorks: {
@@ -287,17 +287,17 @@ export const translations: Record<string, Translation> = {
       howItWorks: "How it works",
       missions: "View missions",
       login: "Login",
-      becomeClipper: "Become a clipper"
+      becomeClipper: "Become clipper"
     },
     hero: {
-      badge: "● 500+ active clippers this week",
-      title: "Earn money by posting viral TikToks",
-      subtitle: "You post clips? We pay you for every view. Join missions, publish on TikTok, earn money based on performance.",
-      ctaPrimary: "View available missions →",
-      ctaSecondary: "Become a clipper →",
+      badge: "● 500+ active clippers • 2.3M views generated this month",
+      title: "Ever spent hours on TikTok? What if you got paid for it?",
+      subtitle: "Earn money by posting viral clips from YouTube videos, podcasts, Twitch... No followers needed. You post. You earn. No commitment.",
+      ctaPrimary: "Start earning →",
+      ctaSecondary: "View missions without signup →",
       stats: {
         activeClippers: "500+ active clippers",
-        viewsGenerated: "2.3M views generated"
+        viewsGenerated: "2.3M views generated this month"
       }
     },
     howItWorks: {
@@ -423,14 +423,14 @@ export const translations: Record<string, Translation> = {
       becomeClipper: "Ser clipper"
     },
     hero: {
-      badge: "● 500+ clippers activos esta semana",
-      title: "Gana dinero publicando TikToks virales",
-      subtitle: "¿Publicas clips? Te pagamos por cada visualización. Únete a misiones, publica en TikTok, gana dinero por rendimiento.",
-      ctaPrimary: "Ver misiones disponibles →",
-      ctaSecondary: "Ser clipper →",
+      badge: "● 500+ clippers activos • 2,3M visualizaciones generadas este mes",
+      title: "¿Has pasado horas en TikTok? ¿Y si te pagaran por eso?",
+      subtitle: "Gana dinero publicando clips virales de videos de YouTube, podcasts, Twitch... No necesitas seguidores. Publicas. Ganas. Sin compromiso.",
+      ctaPrimary: "Empezar a ganar →",
+      ctaSecondary: "Ver misiones sin registro →",
       stats: {
         activeClippers: "500+ clippers activos",
-        viewsGenerated: "2,3M visualizaciones generadas"
+        viewsGenerated: "2,3M visualizaciones generadas este mes"
       }
     },
     howItWorks: {
@@ -556,14 +556,14 @@ export const translations: Record<string, Translation> = {
       becomeClipper: "Diventa clipper"
     },
     hero: {
-      badge: "● 500+ clipper attivi questa settimana",
-      title: "Guadagna pubblicando TikTok virali",
-      subtitle: "Pubblichi clip? Ti paghiamo per ogni visualizzazione. Unisciti alle missioni, pubblica su TikTok, guadagna in base alle performance.",
-      ctaPrimary: "Vedi missioni disponibili →",
-      ctaSecondary: "Diventa clipper →",
+      badge: "● 500+ clipper attivi • 2,3M visualizzazioni generate questo mese",
+      title: "Hai mai passato ore su TikTok? E se venissi pagato per questo?",
+      subtitle: "Guadagna pubblicando clip virali da video YouTube, podcast, Twitch... Non servono follower. Pubblichi. Guadagni. Senza impegno.",
+      ctaPrimary: "Inizia a guadagnare →",
+      ctaSecondary: "Vedi missioni senza registrazione →",
       stats: {
         activeClippers: "500+ clipper attivi",
-        viewsGenerated: "2,3M visualizzazioni generate"
+        viewsGenerated: "2,3M visualizzazioni generate questo mese"
       }
     },
     howItWorks: {

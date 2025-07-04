@@ -328,7 +328,7 @@ export default function HomePage() {
                     = {Math.round(viewsCount * 0.0001)}€ gagnés
                   </div>
                   <p className="text-sm text-blue-100 mt-2">
-                    Basé sur 0,10€ pour 1000 vues
+                    Basé sur 0,10€ pour 1000 vues • Moyennes réelles de la plateforme
                   </p>
                 </div>
                 
@@ -338,6 +338,14 @@ export default function HomePage() {
                     <span className="font-bold text-yellow-300">
                       {Math.round(viewsCount * 0.0001 * (viewsCount / 100000))}€/mois
                     </span>
+                  </div>
+                  <div className="text-center mt-3 pt-3 border-t border-white/20">
+                    <div className="flex items-center justify-center gap-2 text-xs text-blue-100">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                      <span>Clippers payés chaque semaine via Stripe</span>
+                    </div>
                   </div>
                 </div>
                 
@@ -358,8 +366,169 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Les clips qui cartonnent Section */}
+      {/* Aperçu des missions disponibles Section */}
       <div className="py-20 bg-gradient-to-b from-gray-50/50 to-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-extrabold text-gray-900 sm:text-5xl mb-6">
+              Aperçu des missions disponibles
+            </h2>
+            <p className="text-xl text-gray-700 font-medium mb-4">
+              Découvre les missions que tu peux réaliser dès maintenant
+            </p>
+            <p className="text-sm text-gray-600">
+              🔓 Aperçu gratuit • Aucune inscription requise
+            </p>
+          </div>
+          
+          {/* Missions Preview Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            {/* Mission 1 - MrBeast */}
+            <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-300">
+              <div className="bg-gradient-to-r from-orange-500 to-red-500 p-4">
+                <div className="flex items-center justify-between">
+                  <span className="bg-white/20 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                    🔥 Populaire
+                  </span>
+                  <span className="text-white font-bold text-lg">15€</span>
+                </div>
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Clip MrBeast Challenge</h3>
+                <p className="text-gray-600 text-sm mb-4">Crée un clip viral de 30-60s à partir d'une vidéo MrBeast récente</p>
+                
+                <div className="space-y-3 mb-4">
+                  <div className="flex items-center text-sm text-gray-700">
+                    <svg className="w-4 h-4 text-orange-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span>100K+ followers • 2.3M vues/mois</span>
+                  </div>
+                  <div className="flex items-center text-sm text-gray-700">
+                    <svg className="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"/>
+                    </svg>
+                    <span>0,15€ pour 1000 vues</span>
+                  </div>
+                  <div className="flex items-center text-sm text-gray-700">
+                    <svg className="w-4 h-4 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd"/>
+                    </svg>
+                    <span>6 jours restants</span>
+                  </div>
+                </div>
+                
+                <div className="border-t pt-4">
+                  <button className="w-full bg-orange-500 text-white py-2 px-4 rounded-lg font-semibold hover:bg-orange-600 transition-colors">
+                    Voir les détails
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            {/* Mission 2 - Dance Challenge */}
+            <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-300">
+              <div className="bg-gradient-to-r from-pink-500 to-purple-500 p-4">
+                <div className="flex items-center justify-between">
+                  <span className="bg-white/20 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                    💃 Facile
+                  </span>
+                  <span className="text-white font-bold text-lg">12€</span>
+                </div>
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Dance Challenge Viral</h3>
+                <p className="text-gray-600 text-sm mb-4">Reproduis une chorégraphie tendance avec ta propre créativité</p>
+                
+                <div className="space-y-3 mb-4">
+                  <div className="flex items-center text-sm text-gray-700">
+                    <svg className="w-4 h-4 text-pink-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span>Tous niveaux • 1.8M vues/mois</span>
+                  </div>
+                  <div className="flex items-center text-sm text-gray-700">
+                    <svg className="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"/>
+                    </svg>
+                    <span>0,12€ pour 1000 vues</span>
+                  </div>
+                  <div className="flex items-center text-sm text-gray-700">
+                    <svg className="w-4 h-4 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd"/>
+                    </svg>
+                    <span>12 jours restants</span>
+                  </div>
+                </div>
+                
+                <div className="border-t pt-4">
+                  <button className="w-full bg-pink-500 text-white py-2 px-4 rounded-lg font-semibold hover:bg-pink-600 transition-colors">
+                    Voir les détails
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            {/* Mission 3 - Gaming Reaction */}
+            <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-300">
+              <div className="bg-gradient-to-r from-blue-500 to-cyan-500 p-4">
+                <div className="flex items-center justify-between">
+                  <span className="bg-white/20 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                    🎮 Expert
+                  </span>
+                  <span className="text-white font-bold text-lg">20€</span>
+                </div>
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Gaming Reaction Clip</h3>
+                <p className="text-gray-600 text-sm mb-4">Réagis à un moment fort d'un stream gaming populaire</p>
+                
+                <div className="space-y-3 mb-4">
+                  <div className="flex items-center text-sm text-gray-700">
+                    <svg className="w-4 h-4 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span>Gaming créateurs • 3.1M vues/mois</span>
+                  </div>
+                  <div className="flex items-center text-sm text-gray-700">
+                    <svg className="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"/>
+                    </svg>
+                    <span>0,20€ pour 1000 vues</span>
+                  </div>
+                  <div className="flex items-center text-sm text-gray-700">
+                    <svg className="w-4 h-4 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd"/>
+                    </svg>
+                    <span>4 jours restants</span>
+                  </div>
+                </div>
+                
+                <div className="border-t pt-4">
+                  <button className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-600 transition-colors">
+                    Voir les détails
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="text-center">
+            <button
+              onClick={() => {
+                setAuthModalMode('clipper-signup')
+                setIsAuthModalOpen(true)
+              }}
+              className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-4 rounded-full font-semibold text-lg hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-xl"
+            >
+              Voir toutes les missions disponibles →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Les clips qui cartonnent Section */}
+      <div className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-extrabold text-gray-900 sm:text-5xl mb-6">
