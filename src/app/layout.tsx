@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/components/AuthContext";
 import { SWRProvider } from "@/components/SWRProvider";
+import { LanguageProvider } from '@/components/LanguageContext'
 
 // Police Inter optimisée avec poids plus épais pour une meilleure lisibilité
 const inter = Inter({
@@ -48,7 +49,9 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased font-medium`} suppressHydrationWarning>
         <SWRProvider>
           <AuthProvider>
-            {children}
+            <LanguageProvider>
+              {children}
+            </LanguageProvider>
           </AuthProvider>
         </SWRProvider>
       </body>

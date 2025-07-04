@@ -1,0 +1,956 @@
+export type Language = 'en' | 'fr' | 'es' | 'it';
+
+export const translations = {
+  en: {
+    nav: {
+      howItWorks: 'How it works',
+      faq: 'FAQ',
+      signIn: 'Sign in',
+      language: 'English'
+    },
+    hero: {
+      challenge: {
+        ongoing: 'Ongoing challenge',
+        earned: 'already earned!',
+        joinNow: 'Join now'
+      },
+      badge: '500+ active clippers this week',
+      title: {
+        part1: 'Make money by posting',
+        part2: 'viral TikToks'
+      },
+      description: 'You post clips? We pay you for every view. Join missions, publish on TikTok, earn money based on performance.',
+      cta: {
+        missions: 'See available missions',
+        becomeClipper: 'Become a clipper'
+      },
+      stats: {
+        clippers: '500+ active clippers',
+        views: '2.3M views generated'
+      }
+    },
+    howItWorks: {
+      title: 'How it works?',
+      subtitle: '3 simple steps to start earning',
+      steps: {
+        mission: {
+          title: '1. Choose a mission',
+          description: 'Browse available missions and select the ones that interest you. Each mission specifies the theme and compensation.'
+        },
+        create: {
+          title: '2. Create your clip',
+          description: 'Create and publish your TikTok following the mission guidelines. Our system automatically tracks your views.'
+        },
+        paid: {
+          title: '3. Get paid',
+          description: 'Track your earnings in real-time and withdraw your money from $10. Fast and secure payments via Stripe.'
+        }
+      }
+    },
+    platform: {
+      title: "Here's what your clipper dashboard looks like",
+      subtitle: 'Get a preview of the platform before you start. Missions, statistics, withdrawals... everything is designed to make your life easier.',
+      sections: {
+        mission: {
+          title: 'Mission Selection',
+          subtitle: 'Choose a mission based on your style and audience',
+          rate: '$0.10 / 1K views',
+          followers: 'followers',
+          duration: '30-60s',
+          expires: 'Expires in 3d'
+        },
+        performance: {
+          title: 'Performance Tracking',
+          subtitle: 'Track your earnings, posted clips and views in real-time',
+          stats: {
+            earnings: 'Earnings',
+            views: 'Views'
+          }
+        },
+        submission: {
+          title: 'Easy Submission',
+          subtitle: 'Paste your TikTok link, everything is detected automatically',
+          checks: {
+            duration: 'Duration: 45 seconds',
+            hashtags: 'Required hashtags present',
+            mention: 'Creator mention included'
+          }
+        },
+        withdrawal: {
+          title: 'Easy Withdrawal',
+          subtitle: 'Get your earnings',
+          balance: 'Available balance',
+          stripe: {
+            title: 'Stripe Connect',
+            subtitle: 'Secure payment'
+          },
+          transfer: {
+            time: '24-48h',
+            subtitle: 'Transfer time'
+          }
+        }
+      },
+      cta: 'I want to try the platform'
+    },
+    dashboard: {
+      common: {
+        loading: 'Loading...',
+        error: 'Error:',
+        loginRequired: 'Login required',
+        loginMessage: 'Please log in to access your dashboard.',
+        profileSetup: 'Profile Setup',
+        profileMessage: 'Your profile is not configured yet.',
+        setupProfile: 'Set up my profile',
+        loadingDashboard: 'Loading your dashboard...',
+        loadingAnalytics: 'Loading your analytics...',
+        loadingSettings: 'Loading your settings...',
+      },
+      creator: {
+        title: 'Creator Dashboard',
+        welcome: 'Welcome',
+        overview: 'Here\'s an overview of your performance.',
+        stats: {
+          totalViews: 'Total Views',
+          avgViews: 'average views',
+          totalRevenue: 'Total Revenue',
+          paidMissions: 'paid missions',
+          activeMissions: 'Active Missions',
+          createdMissions: 'Missions created by you',
+          pending: 'Pending',
+          pendingValidations: 'Pending validations'
+        },
+        missions: {
+          title: 'Content Missions',
+          description: 'Post content on social media and get paid for the views you generate. If you want to launch a campaign, click here.',
+          activeMissionsCount: {
+            singular: 'live content mission',
+            plural: 'live content missions'
+          },
+          gridView: 'Grid view',
+          stats: {
+            totalMissions: 'Total Missions',
+            active: 'active',
+            totalBudget: 'Total Budget',
+            investment: 'Investment'
+          }
+        },
+        analytics: {
+          title: 'Analytics',
+          description: 'Track your missions\' performance and audience engagement.',
+          kpis: {
+            totalViews: 'Total Views',
+            thisMonth: 'this month',
+            totalEarnings: 'Total Earnings',
+            monthlyViews: 'Monthly Views',
+            monthlyEarnings: 'Monthly Earnings',
+            avgViews: 'Average Views',
+            topMission: 'Top Mission'
+          }
+        },
+        navigation: {
+          dashboard: 'Dashboard',
+          missions: 'Missions',
+          newMission: 'New Mission',
+          analytics: 'Analytics',
+          wallet: 'Wallet',
+          payments: 'Payments',
+          logout: 'Logout'
+        },
+        newMission: {
+          title: 'Create a new mission',
+          description: 'Set up your mission parameters and start receiving clips',
+          sections: {
+            basicInfo: 'Basic Information',
+            pricing: 'Pricing',
+            platforms: 'Platforms',
+            additionalInfo: 'Additional Information'
+          },
+          fields: {
+            title: {
+              label: 'Mission Title',
+              placeholder: 'Ex: Clip my best gaming moments'
+            },
+            description: {
+              label: 'Detailed Description',
+              placeholder: 'Describe what you expect from clippers, desired style, etc.'
+            },
+            category: {
+              label: 'Category',
+              placeholder: 'Select a category',
+              options: {
+                entertainment: 'Entertainment',
+                music: 'Music',
+                brand: 'Brand',
+                products: 'Products'
+              }
+            },
+            pricePerView: {
+              label: 'Price per 1k views',
+              placeholder: 'Ex: 5.00'
+            },
+            minViews: {
+              label: 'Minimum Views',
+              placeholder: '1000'
+            },
+            maxViews: {
+              label: 'Maximum Views',
+              placeholder: '100000'
+            },
+            platforms: {
+              label: 'Target Platforms',
+              options: {
+                tiktok: 'TikTok',
+                youtube: 'YouTube',
+                instagram: 'Instagram',
+                facebook: 'Facebook',
+                twitter: 'X/Twitter'
+              }
+            },
+            targetAudience: {
+              label: 'Target Audience',
+              placeholder: 'Describe your target audience'
+            },
+            requirements: {
+              label: 'Requirements',
+              placeholder: 'List any specific requirements for clippers'
+            },
+            thumbnail: {
+              label: 'Mission Thumbnail',
+              upload: 'Upload a thumbnail',
+              dragDrop: 'or drag and drop',
+              formats: 'PNG, JPG up to 5MB'
+            }
+          },
+          actions: {
+            saveDraft: 'Save as Draft',
+            publish: 'Publish Mission'
+          }
+        }
+      },
+      clipper: {
+        welcome: {
+          title: 'Welcome to ClipTokk,',
+          description: 'You\'re now ready to start your clipping journey and earn money with your creations!',
+          steps: {
+            findMissions: {
+              title: '1. Find missions',
+              description: 'Browse available missions and choose the ones that interest you'
+            },
+            createClips: {
+              title: '2. Create your clips',
+              description: 'Use your creativity to make viral clips from creators\' content'
+            },
+            earnMoney: {
+              title: '3. Earn money',
+              description: 'Get paid based on the views your clips generate on TikTok'
+            }
+          }
+        },
+        stats: {
+          totalEarnings: {
+            title: 'Total Earnings',
+            description: 'Your first earnings are coming soon!'
+          },
+          generatedViews: {
+            title: 'Generated Views',
+            description: 'Ready to make it viral?'
+          },
+          createdClips: {
+            title: 'Created Clips',
+            description: 'Your creativity is waiting for you!'
+          }
+        },
+        missions: {
+          title: 'Content Missions',
+          description: 'Post content on social media and get paid for the views you generate. If you want to launch a campaign, click here.',
+          filters: {
+            allProducts: 'All products',
+            entertainment: 'Entertainment',
+            music: 'Music',
+            brand: 'Brand',
+            products: 'Products'
+          }
+        }
+      }
+    }
+  },
+  fr: {
+    nav: {
+      howItWorks: 'Comment ça marche',
+      faq: 'FAQ',
+      signIn: 'Se connecter',
+      language: 'Français'
+    },
+    hero: {
+      challenge: {
+        ongoing: 'Challenge en cours',
+        earned: 'déjà gagnés !',
+        joinNow: 'Participer maintenant'
+      },
+      badge: '500+ clippeurs actifs cette semaine',
+      title: {
+        part1: 'Gagne de l\'argent en postant des',
+        part2: 'TikToks viraux'
+      },
+      description: 'Tu postes des clips ? On te paie pour chaque vue. Rejoins des missions, publie sur TikTok, gagne de l\'argent à la performance.',
+      cta: {
+        missions: 'Voir les missions disponibles',
+        becomeClipper: 'Devenir clippeur'
+      },
+      stats: {
+        clippers: '500+ clippeurs actifs',
+        views: '2,3M vues générées'
+      }
+    },
+    howItWorks: {
+      title: 'Comment ça marche ?',
+      subtitle: '3 étapes simples pour commencer à gagner',
+      steps: {
+        mission: {
+          title: '1. Choisis une mission',
+          description: 'Parcours les missions disponibles et sélectionne celles qui t\'intéressent. Chaque mission précise le thème et la rémunération.'
+        },
+        create: {
+          title: '2. Crée ton clip',
+          description: 'Réalise et publie ton TikTok en suivant les consignes de la mission. Notre système détecte automatiquement tes vues.'
+        },
+        paid: {
+          title: '3. Reçois tes gains',
+          description: 'Suis tes revenus en temps réel et retire ton argent dès 10€. Paiements rapides et sécurisés via Stripe.'
+        }
+      }
+    },
+    platform: {
+      title: 'Voici à quoi ressemble ton espace clippeur',
+      subtitle: 'Découvre un aperçu de la plateforme avant de te lancer. Missions, statistiques, retraits… tout est pensé pour te simplifier la vie.',
+      sections: {
+        mission: {
+          title: 'Choix de mission',
+          subtitle: 'Choisis une mission selon ton style et ton audience',
+          rate: '0,10€ / 1K vues',
+          followers: 'abonnés',
+          duration: '30-60s',
+          expires: 'Expire dans 3j'
+        },
+        performance: {
+          title: 'Suivi des performances',
+          subtitle: 'Suis tes gains, clips postés et vues en temps réel',
+          stats: {
+            earnings: 'Gains',
+            views: 'Vues'
+          }
+        },
+        submission: {
+          title: 'Soumission simple',
+          subtitle: 'Colle ton lien TikTok, tout est détecté automatiquement',
+          checks: {
+            duration: 'Durée : 45 secondes',
+            hashtags: 'Hashtags requis présents',
+            mention: 'Mention du créateur incluse'
+          }
+        },
+        withdrawal: {
+          title: 'Retrait facile',
+          subtitle: 'Retire tes gains',
+          balance: 'Solde disponible',
+          stripe: {
+            title: 'Stripe Connect',
+            subtitle: 'Paiement sécurisé'
+          },
+          transfer: {
+            time: '24-48h',
+            subtitle: 'Délai de virement'
+          }
+        }
+      },
+      cta: 'Je veux essayer la plateforme'
+    },
+    dashboard: {
+      common: {
+        loading: 'Chargement...',
+        error: 'Erreur :',
+        loginRequired: 'Connexion requise',
+        loginMessage: 'Veuillez vous connecter pour accéder à votre dashboard.',
+        profileSetup: 'Configuration du profil',
+        profileMessage: 'Votre profil n\'est pas encore configuré.',
+        setupProfile: 'Configurer mon profil',
+        loadingDashboard: 'Chargement de votre dashboard...',
+        loadingAnalytics: 'Chargement de vos analytics...',
+        loadingSettings: 'Chargement de vos paramètres...',
+      },
+      creator: {
+        title: 'Tableau de bord créateur',
+        welcome: 'Bienvenue',
+        overview: 'Voici un aperçu de vos performances.',
+        stats: {
+          totalViews: 'Vues totales',
+          avgViews: 'vues en moyenne',
+          totalRevenue: 'Revenus totaux',
+          paidMissions: 'missions payées',
+          activeMissions: 'Missions actives',
+          createdMissions: 'Missions créées par vous',
+          pending: 'En attente',
+          pendingValidations: 'Validations en cours'
+        },
+        missions: {
+          title: 'Missions de contenu',
+          description: 'Publiez du contenu sur les réseaux sociaux et soyez rémunéré(e) pour les vues que vous générez. Si vous souhaitez lancer une campagne, cliquez ici.',
+          activeMissionsCount: {
+            singular: 'mission de contenu en direct',
+            plural: 'missions de contenu en direct'
+          },
+          gridView: 'Vue grille',
+          stats: {
+            totalMissions: 'Missions totales',
+            active: 'actives',
+            totalBudget: 'Budget total',
+            investment: 'Investissement'
+          }
+        },
+        analytics: {
+          title: 'Analytics',
+          description: 'Suivez les performances de vos missions et l\'engagement de votre audience.',
+          kpis: {
+            totalViews: 'Vues totales',
+            thisMonth: 'ce mois',
+            totalEarnings: 'Gains totaux',
+            monthlyViews: 'Vues mensuelles',
+            monthlyEarnings: 'Gains mensuels',
+            avgViews: 'Vues moyennes',
+            topMission: 'Meilleure mission'
+          }
+        },
+        navigation: {
+          dashboard: 'Tableau de bord',
+          missions: 'Missions',
+          newMission: 'Nouvelle Mission',
+          analytics: 'Analytics',
+          wallet: 'Wallet',
+          payments: 'Paiements',
+          logout: 'Déconnexion'
+        },
+        newMission: {
+          title: 'Créer une nouvelle mission',
+          description: 'Configurez les paramètres de votre mission et commencez à recevoir des clips',
+          sections: {
+            basicInfo: 'Informations générales',
+            pricing: 'Budget',
+            platforms: 'Plateformes',
+            additionalInfo: 'Informations supplémentaires'
+          },
+          fields: {
+            title: {
+              label: 'Titre de la mission',
+              placeholder: 'Ex : Clip mes meilleurs moments gaming'
+            },
+            description: {
+              label: 'Description détaillée',
+              placeholder: 'Décrivez ce que vous attendez des clippeurs, le style souhaité, etc.'
+            },
+            category: {
+              label: 'Catégorie',
+              placeholder: 'Sélectionnez une catégorie',
+              options: {
+                entertainment: 'Divertissement',
+                music: 'Musique',
+                brand: 'Marque',
+                products: 'Produits'
+              }
+            },
+            pricePerView: {
+              label: 'Prix par 1k vues',
+              placeholder: 'Ex : 5,00'
+            },
+            minViews: {
+              label: 'Vues minimales',
+              placeholder: '1000'
+            },
+            maxViews: {
+              label: 'Vues maximales',
+              placeholder: '100000'
+            },
+            platforms: {
+              label: 'Plateformes cibles',
+              options: {
+                tiktok: 'TikTok',
+                youtube: 'YouTube',
+                instagram: 'Instagram',
+                facebook: 'Facebook',
+                twitter: 'X/Twitter'
+              }
+            },
+            targetAudience: {
+              label: 'Public cible',
+              placeholder: 'Décrivez votre public cible'
+            },
+            requirements: {
+              label: 'Exigences',
+              placeholder: 'Listez les exigences spécifiques pour les clippeurs'
+            },
+            thumbnail: {
+              label: 'Vignette de la mission',
+              upload: 'Uploader une vignette',
+              dragDrop: 'ou glisser-déposer',
+              formats: 'PNG, JPG jusqu\'à 5MB'
+            }
+          },
+          actions: {
+            saveDraft: 'Enregistrer comme brouillon',
+            publish: 'Publier la mission'
+          }
+        }
+      },
+      clipper: {
+        welcome: {
+          title: 'Bienvenue sur ClipTokk,',
+          description: 'Vous êtes maintenant prêt(e) à commencer votre aventure de clipping et à gagner de l\'argent avec vos créations !',
+          steps: {
+            findMissions: {
+              title: '1. Trouvez des missions',
+              description: 'Parcourez les missions disponibles et choisissez celles qui vous intéressent'
+            },
+            createClips: {
+              title: '2. Créez vos clips',
+              description: 'Utilisez votre créativité pour faire des clips viraux à partir du contenu des créateurs'
+            },
+            earnMoney: {
+              title: '3. Gagnez de l\'argent',
+              description: 'Soyez payé en fonction des vues que génèrent vos clips sur TikTok'
+            }
+          }
+        },
+        stats: {
+          totalEarnings: {
+            title: 'Gains totaux',
+            description: 'Vos premiers gains arrivent bientôt !'
+          },
+          generatedViews: {
+            title: 'Vues générées',
+            description: 'Prêt à faire le buzz ?'
+          },
+          createdClips: {
+            title: 'Clips créés',
+            description: 'Votre créativité n\'attend que vous !'
+          }
+        },
+        missions: {
+          title: 'Missions de contenu',
+          description: 'Publiez du contenu sur les réseaux sociaux et soyez rémunéré(e) pour les vues que vous générez. Si vous souhaitez lancer une campagne, cliquez ici.',
+          filters: {
+            allProducts: 'Tous les produits',
+            entertainment: 'Intrattenimento',
+            music: 'Música',
+            brand: 'Marca',
+            products: 'Produtos'
+          }
+        }
+      }
+    }
+  },
+  es: {
+    nav: {
+      howItWorks: 'Cómo funciona',
+      faq: 'FAQ',
+      signIn: 'Iniciar sesión',
+      language: 'Español'
+    },
+    hero: {
+      challenge: {
+        ongoing: 'Desafío en curso',
+        earned: '¡ya ganados!',
+        joinNow: 'Unirse ahora'
+      },
+      badge: '500+ clippers activos esta semana',
+      title: {
+        part1: 'Gana dinero publicando',
+        part2: 'TikToks virales'
+      },
+      description: '¿Publicas clips? Te pagamos por cada visualización. Únete a misiones, publica en TikTok, gana dinero según el rendimiento.',
+      cta: {
+        missions: 'Ver misiones disponibles',
+        becomeClipper: 'Convertirse en clipper'
+      },
+      stats: {
+        clippers: '500+ clippers activos',
+        views: '2.3M visualizaciones generadas'
+      }
+    },
+    howItWorks: {
+      title: '¿Cómo funciona?',
+      subtitle: '3 pasos simples para empezar a ganar',
+      steps: {
+        mission: {
+          title: '1. Elige una misión',
+          description: 'Explora las misiones disponibles y selecciona las que te interesen. Cada misión especifica el tema y la compensación.'
+        },
+        create: {
+          title: '2. Crea tu clip',
+          description: 'Crea y publica tu TikTok siguiendo las pautas de la misión. Nuestro sistema rastrea automáticamente tus visualizaciones.'
+        },
+        paid: {
+          title: '3. Recibe el pago',
+          description: 'Rastrea tus ganancias en tiempo real y retira tu dinero desde $10. Pagos rápidos y seguros a través de Stripe.'
+        }
+      }
+    },
+    platform: {
+      title: 'Así es tu panel de clipper',
+      subtitle: 'Obtén una vista previa de la plataforma antes de comenzar. Misiones, estadísticas, retiros... todo está diseñado para facilitarte la vida.',
+      sections: {
+        mission: {
+          title: 'Selección de misión',
+          subtitle: 'Elige una misión según tu estilo y audiencia',
+          rate: '$0.10 / 1K vistas',
+          followers: 'seguidores',
+          duration: '30-60s',
+          expires: 'Expira en 3d'
+        },
+        performance: {
+          title: 'Seguimiento del rendimiento',
+          subtitle: 'Rastrea tus ganancias, clips publicados y vistas en tiempo real',
+          stats: {
+            earnings: 'Ganancias',
+            views: 'Vistas'
+          }
+        },
+        submission: {
+          title: 'Envío fácil',
+          subtitle: 'Pega tu enlace de TikTok, todo se detecta automáticamente',
+          checks: {
+            duration: 'Duración: 45 segundos',
+            hashtags: 'Hashtags requeridos presentes',
+            mention: 'Mención del creador incluida'
+          }
+        },
+        withdrawal: {
+          title: 'Retiro fácil',
+          subtitle: 'Obtén tus ganancias',
+          balance: 'Saldo disponible',
+          stripe: {
+            title: 'Stripe Connect',
+            subtitle: 'Pago seguro'
+          },
+          transfer: {
+            time: '24-48h',
+            subtitle: 'Tiempo de transferencia'
+          }
+        }
+      },
+      cta: 'Quiero probar la plataforma'
+    },
+    dashboard: {
+      common: {
+        loading: 'Cargando...',
+        error: 'Error:',
+        loginRequired: 'Inicio de sesión requerido',
+        loginMessage: 'Por favor, inicia sesión para acceder a tu panel.',
+        profileSetup: 'Configuración del perfil',
+        profileMessage: 'Tu perfil aún no está configurado.',
+        setupProfile: 'Configurar mi perfil',
+        loadingDashboard: 'Cargando tu panel...',
+        loadingAnalytics: 'Cargando tus análisis...',
+        loadingSettings: 'Cargando tu configuración...',
+      },
+      creator: {
+        title: 'Panel de creador',
+        welcome: 'Bienvenido',
+        overview: 'Aquí tienes un resumen de tu rendimiento.',
+        stats: {
+          totalViews: 'Visualizaciones totales',
+          avgViews: 'visualizaciones promedio',
+          totalRevenue: 'Ingresos totales',
+          paidMissions: 'misiones pagadas',
+          activeMissions: 'Misiones activas',
+          createdMissions: 'Misiones creadas por ti',
+          pending: 'Pendiente',
+          pendingValidations: 'Validaciones pendientes'
+        },
+        missions: {
+          title: 'Misiones de contenido',
+          description: 'Publica contenido en redes sociales y recibe pagos por las visualizaciones que generes. Si quieres lanzar una campaña, haz clic aquí.',
+          activeMissionsCount: {
+            singular: 'misión de contenido en vivo',
+            plural: 'misiones de contenido en vivo'
+          },
+          gridView: 'Vista de cuadrícula',
+          stats: {
+            totalMissions: 'Misiones totales',
+            active: 'activas',
+            totalBudget: 'Presupuesto total',
+            investment: 'Inversión'
+          }
+        },
+        analytics: {
+          title: 'Análisis',
+          description: 'Sigue el rendimiento de tus misiones y el compromiso de tu audiencia.',
+          kpis: {
+            totalViews: 'Visualizaciones totales',
+            thisMonth: 'este mes',
+            totalEarnings: 'Ganancias totales',
+            monthlyViews: 'Visualizaciones mensuales',
+            monthlyEarnings: 'Ganancias mensuales',
+            avgViews: 'Visualizaciones promedio',
+            topMission: 'Mejor misión'
+          }
+        },
+        navigation: {
+          dashboard: 'Panel',
+          missions: 'Misiones',
+          newMission: 'Nueva Misión',
+          analytics: 'Análisis',
+          wallet: 'Billetera',
+          payments: 'Pagos',
+          logout: 'Cerrar sesión'
+        }
+      },
+      clipper: {
+        welcome: {
+          title: '¡Bienvenido a ClipTokk,',
+          description: '¡Ahora estás listo para comenzar tu viaje de clipping y ganar dinero con tus creaciones!',
+          steps: {
+            findMissions: {
+              title: '1. Encuentra misiones',
+              description: 'Explora las misiones disponibles y elige las que te interesen'
+            },
+            createClips: {
+              title: '2. Crea tus clips',
+              description: 'Usa tu creatividad para hacer clips virales a partir del contenido de los creadores'
+            },
+            earnMoney: {
+              title: '3. Gana dinero',
+              description: 'Recibe pagos según las visualizaciones que generen tus clips en TikTok'
+            }
+          }
+        },
+        stats: {
+          totalEarnings: {
+            title: 'Ganancias totales',
+            description: '¡Tus primeras ganancias están por llegar!'
+          },
+          generatedViews: {
+            title: 'Visualizaciones generadas',
+            description: '¿Listo para hacerte viral?'
+          },
+          createdClips: {
+            title: 'Clips creados',
+            description: '¡Tu creatividad te está esperando!'
+          }
+        },
+        missions: {
+          title: 'Misiones de contenido',
+          description: 'Publica contenido en redes sociales y recibe pagos por las visualizaciones que generes. Si quieres lanzar una campaña, haz clic aquí.',
+          filters: {
+            allProducts: 'Todos los productos',
+            entertainment: 'Entretenimiento',
+            music: 'Música',
+            brand: 'Marca',
+            products: 'Productos'
+          }
+        }
+      }
+    }
+  },
+  it: {
+    nav: {
+      howItWorks: 'Come funziona',
+      faq: 'FAQ',
+      signIn: 'Accedi',
+      language: 'Italiano'
+    },
+    hero: {
+      challenge: {
+        ongoing: 'Sfida in corso',
+        earned: 'già guadagnati!',
+        joinNow: 'Unisciti ora'
+      },
+      badge: '500+ clipper attivi questa settimana',
+      title: {
+        part1: 'Guadagna pubblicando',
+        part2: 'TikTok virali'
+      },
+      description: 'Pubblichi clip? Ti paghiamo per ogni visualizzazione. Unisciti alle missioni, pubblica su TikTok, guadagna in base alle prestazioni.',
+      cta: {
+        missions: 'Vedi missioni disponibili',
+        becomeClipper: 'Diventa clipper'
+      },
+      stats: {
+        clippers: '500+ clipper attivi',
+        views: '2.3M visualizzazioni generate'
+      }
+    },
+    howItWorks: {
+      title: 'Come funziona?',
+      subtitle: '3 semplici passi per iniziare a guadagnare',
+      steps: {
+        mission: {
+          title: '1. Scegli una missione',
+          description: 'Sfoglia le missioni disponibili e seleziona quelle che ti interessano. Ogni missione specifica il tema e il compenso.'
+        },
+        create: {
+          title: '2. Crea il tuo clip',
+          description: 'Crea e pubblica il tuo TikTok seguendo le linee guida della missione. Il nostro sistema traccia automaticamente le tue visualizzazioni.'
+        },
+        paid: {
+          title: '3. Ricevi il pagamento',
+          description: 'Traccia i tuoi guadagni in tempo reale e preleva i tuoi soldi da $10. Pagamenti rapidi e sicuri tramite Stripe.'
+        }
+      }
+    },
+    platform: {
+      title: 'Ecco come appare la tua dashboard clipper',
+      subtitle: 'Ottieni un\'anteprima della piattaforma prima di iniziare. Missioni, statistiche, prelievi... tutto è progettato per semplificarti la vita.',
+      sections: {
+        mission: {
+          title: 'Selezione missione',
+          subtitle: 'Scegli una missione in base al tuo stile e pubblico',
+          rate: '$0.10 / 1K visualizzazioni',
+          followers: 'follower',
+          duration: '30-60s',
+          expires: 'Scade in 3g'
+        },
+        performance: {
+          title: 'Monitoraggio prestazioni',
+          subtitle: 'Traccia i tuoi guadagni, clip pubblicati e visualizzazioni in tempo reale',
+          stats: {
+            earnings: 'Guadagni',
+            views: 'Visualizzazioni'
+          }
+        },
+        submission: {
+          title: 'Invio facile',
+          subtitle: 'Incolla il tuo link TikTok, tutto viene rilevato automaticamente',
+          checks: {
+            duration: 'Durata: 45 secondi',
+            hashtags: 'Hashtag richiesti presenti',
+            mention: 'Menzione del creatore inclusa'
+          }
+        },
+        withdrawal: {
+          title: 'Prelievo facile',
+          subtitle: 'Ottieni i tuoi guadagni',
+          balance: 'Saldo disponibile',
+          stripe: {
+            title: 'Stripe Connect',
+            subtitle: 'Pagamento sicuro'
+          },
+          transfer: {
+            time: '24-48h',
+            subtitle: 'Tempo di trasferimento'
+          }
+        }
+      },
+      cta: 'Voglio provare la piattaforma'
+    },
+    dashboard: {
+      common: {
+        loading: 'Caricamento...',
+        error: 'Errore:',
+        loginRequired: 'Accesso richiesto',
+        loginMessage: 'Effettua l\'accesso per accedere alla tua dashboard.',
+        profileSetup: 'Configurazione del profilo',
+        profileMessage: 'Il tuo profilo non è ancora configurato.',
+        setupProfile: 'Configura il mio profilo',
+        loadingDashboard: 'Caricamento della tua dashboard...',
+        loadingAnalytics: 'Caricamento delle tue analisi...',
+        loadingSettings: 'Caricamento delle tue impostazioni...',
+      },
+      creator: {
+        title: 'Dashboard del creatore',
+        welcome: 'Benvenuto',
+        overview: 'Ecco una panoramica delle tue prestazioni.',
+        stats: {
+          totalViews: 'Visualizzazioni totali',
+          avgViews: 'visualizzazioni medie',
+          totalRevenue: 'Ricavi totali',
+          paidMissions: 'missioni pagate',
+          activeMissions: 'Missioni attive',
+          createdMissions: 'Missioni create da te',
+          pending: 'In attesa',
+          pendingValidations: 'Validazioni in corso'
+        },
+        missions: {
+          title: 'Missioni di contenuto',
+          description: 'Pubblica contenuti sui social media e guadagna in base alle visualizzazioni che generi. Se vuoi lanciare una campagna, clicca qui.',
+          activeMissionsCount: {
+            singular: 'missione di contenuto in diretta',
+            plural: 'missioni di contenuto in diretta'
+          },
+          gridView: 'Vista griglia',
+          stats: {
+            totalMissions: 'Missioni totali',
+            active: 'attive',
+            totalBudget: 'Budget totale',
+            investment: 'Investimento'
+          }
+        },
+        analytics: {
+          title: 'Analisi',
+          description: 'Monitora le prestazioni delle tue missioni e il coinvolgimento del tuo pubblico.',
+          kpis: {
+            totalViews: 'Visualizzazioni totali',
+            thisMonth: 'questo mese',
+            totalEarnings: 'Guadagni totali',
+            monthlyViews: 'Visualizzazioni mensili',
+            monthlyEarnings: 'Guadagni mensili',
+            avgViews: 'Visualizzazioni medie',
+            topMission: 'Migliore missione'
+          }
+        },
+        navigation: {
+          dashboard: 'Dashboard',
+          missions: 'Missioni',
+          newMission: 'Nuova Missione',
+          analytics: 'Analisi',
+          wallet: 'Portafoglio',
+          payments: 'Pagamenti',
+          logout: 'Esci'
+        }
+      },
+      clipper: {
+        welcome: {
+          title: 'Benvenuto su ClipTokk,',
+          description: 'Ora sei pronto per iniziare il tuo viaggio di clipping e guadagnare con le tue creazioni!',
+          steps: {
+            findMissions: {
+              title: '1. Trova missioni',
+              description: 'Sfoglia le missioni disponibili e scegli quelle che ti interessano'
+            },
+            createClips: {
+              title: '2. Crea i tuoi clip',
+              description: 'Usa la tua creatività per creare clip virali dai contenuti dei creatori'
+            },
+            earnMoney: {
+              title: '3. Guadagna',
+              description: 'Ricevi pagamenti in base alle visualizzazioni che i tuoi clip generano su TikTok'
+            }
+          }
+        },
+        stats: {
+          totalEarnings: {
+            title: 'Guadagni totali',
+            description: 'I tuoi primi guadagni stanno arrivando!'
+          },
+          generatedViews: {
+            title: 'Visualizzazioni generate',
+            description: 'Pronto a diventare virale?'
+          },
+          createdClips: {
+            title: 'Clip creati',
+            description: 'La tua creatività ti sta aspettando!'
+          }
+        },
+        missions: {
+          title: 'Missioni di contenuto',
+          description: 'Pubblica contenuti sui social media e guadagna in base alle visualizzazioni che generi. Se vuoi lanciare una campagna, clicca qui.',
+          filters: {
+            allProducts: 'Tutti i prodotti',
+            entertainment: 'Intrattenimento',
+            music: 'Musica',
+            brand: 'Marca',
+            products: 'Prodotti'
+          }
+        }
+      }
+    }
+  }
+}; 

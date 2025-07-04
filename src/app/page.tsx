@@ -28,6 +28,8 @@ import {
 import AuthModal from '@/components/AuthModal';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { useLanguage } from '@/components/LanguageContext';
+import { Language } from '@/lib/translations';
 
 type AuthModalMode = 'login' | 'signup' | 'clipper-signup';
 
@@ -115,6 +117,15 @@ export default function Home() {
   // État pour gérer la lecture des vidéos
   const [playingVideo, setPlayingVideo] = useState<number | null>(null);
 
+  const { t, language, setLanguage } = useLanguage();
+
+  const languages: { code: Language; label: string }[] = [
+    { code: 'en', label: 'English' },
+    { code: 'fr', label: 'Français' },
+    { code: 'es', label: 'Español' },
+    { code: 'it', label: 'Italiano' }
+  ];
+
   // Détecter si l'utilisateur vient de valider son email
   useEffect(() => {
     const handleAuthRedirect = async () => {
@@ -167,16 +178,37 @@ export default function Home() {
           </Link>
           <nav className="hidden md:flex items-center gap-8">
             <Link href="#how-it-works" className="text-[#0F172A]/70 hover:text-[#0F172A]">
-              Comment ça marche
+              {t('nav.howItWorks')}
             </Link>
             <Link href="#faq" className="text-[#0F172A]/70 hover:text-[#0F172A]">
-              FAQ
+              {t('nav.faq')}
             </Link>
+            <div className="relative group">
+              <button className="flex items-center gap-2 text-[#0F172A]/70 hover:text-[#0F172A]">
+                <span>{t('nav.language')}</span>
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 border border-gray-100">
+                {languages.map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => setLanguage(lang.code)}
+                    className={`w-full px-4 py-2 text-left hover:bg-gray-50 ${
+                      language === lang.code ? 'text-[#0F172A] font-medium' : 'text-[#0F172A]/70'
+                    }`}
+                  >
+                    {lang.label}
+                  </button>
+                ))}
+              </div>
+            </div>
             <button
               onClick={() => setAuthModal({isOpen: true, mode: 'login'})}
               className="px-4 py-2 rounded-full bg-[#0F172A] text-white hover:bg-[#0F172A]/90 transition-all duration-300"
             >
-              Se connecter
+              {t('nav.signIn')}
             </button>
           </nav>
         </div>
@@ -189,14 +221,14 @@ export default function Home() {
             <div className="flex items-center gap-3">
               <span className="text-red-600 text-xl">🔥</span>
               <span className="font-semibold text-red-700">
-                Challenge en cours : <span className="font-bold">2 340€</span> déjà gagnés !
+                {t('hero.challenge.ongoing')}: <span className="font-bold">$2,340</span> {t('hero.challenge.earned')}
               </span>
             </div>
             <Link
               href="/missions"
               className="bg-red-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-red-700 transition-all duration-300 text-sm whitespace-nowrap"
             >
-              🚀 Participer maintenant
+              🚀 {t('hero.challenge.joinNow')}
             </Link>
           </div>
         </div>
@@ -211,18 +243,18 @@ export default function Home() {
               {/* Badge */}
               <div className="inline-flex items-center gap-2 bg-[#E5F9EE] text-[#10B981] px-4 py-2 rounded-full text-sm font-medium mb-8">
                 <span className="w-2 h-2 bg-[#10B981] rounded-full"></span>
-                500+ clippeurs actifs cette semaine
+                {t('hero.badge')}
               </div>
 
               {/* Title */}
               <h1 className="text-6xl font-black text-[#0F172A] mb-6 leading-tight">
-                Gagne de l'argent en postant des{' '}
-                <span className="text-[#10B981]">TikToks viraux</span>
+                {t('hero.title.part1')}{' '}
+                <span className="text-[#10B981]">{t('hero.title.part2')}</span>
               </h1>
 
               {/* Description */}
               <p className="text-xl text-[#0F172A]/70 mb-8">
-                Tu postes des clips ? On te paie pour chaque vue. Rejoins des missions, publie sur TikTok, gagne de l'argent à la performance.
+                {t('hero.description')}
               </p>
 
               {/* CTAs */}
@@ -231,7 +263,7 @@ export default function Home() {
                   href="/missions"
                   className="inline-flex items-center justify-center bg-[#10B981] text-white px-8 py-4 rounded-full font-bold hover:bg-[#10B981]/90 transition-all duration-300 text-lg"
                 >
-                  <span>Voir les missions disponibles</span>
+                  <span>{t('hero.cta.missions')}</span>
                   <svg className="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
@@ -240,7 +272,7 @@ export default function Home() {
                   onClick={() => setAuthModal({isOpen: true, mode: 'clipper-signup'})}
                   className="inline-flex items-center justify-center text-[#0F172A] hover:text-[#0F172A]/70 transition-all duration-300 px-8 py-4"
                 >
-                  <span>Devenir clippeur</span>
+                  <span>{t('hero.cta.becomeClipper')}</span>
                   <svg className="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
@@ -251,11 +283,11 @@ export default function Home() {
               <div className="flex items-center gap-8 mt-12">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-[#10B981] rounded-full"></div>
-                  <span className="text-[#0F172A]/70">500+ clippeurs actifs</span>
+                  <span className="text-[#0F172A]/70">{t('hero.stats.clippers')}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-[#10B981] rounded-full"></div>
-                  <span className="text-[#0F172A]/70">2,3M vues générées</span>
+                  <span className="text-[#0F172A]/70">{t('hero.stats.views')}</span>
                 </div>
               </div>
             </div>
@@ -324,8 +356,8 @@ export default function Home() {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-[#0F172A] mb-4">Comment ça marche ?</h2>
-            <p className="text-xl text-[#0F172A]/70">3 étapes simples pour commencer à gagner</p>
+            <h2 className="text-4xl font-bold text-[#0F172A] mb-4">{t('howItWorks.title')}</h2>
+            <p className="text-xl text-[#0F172A]/70">{t('howItWorks.subtitle')}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -334,9 +366,11 @@ export default function Home() {
               <div className="w-16 h-16 bg-[#10B981]/10 rounded-full flex items-center justify-center mb-6 mx-auto">
                 <span className="text-3xl">🎯</span>
               </div>
-              <h3 className="text-xl font-bold text-[#0F172A] mb-4 text-center">1. Choisis une mission</h3>
+              <h3 className="text-xl font-bold text-[#0F172A] mb-4 text-center">
+                {t('howItWorks.steps.mission.title')}
+              </h3>
               <p className="text-[#0F172A]/70 text-center">
-                Parcours les missions disponibles et sélectionne celles qui t'intéressent. Chaque mission précise le thème et la rémunération.
+                {t('howItWorks.steps.mission.description')}
               </p>
             </div>
 
@@ -345,9 +379,11 @@ export default function Home() {
               <div className="w-16 h-16 bg-[#10B981]/10 rounded-full flex items-center justify-center mb-6 mx-auto">
                 <span className="text-3xl">✂️</span>
               </div>
-              <h3 className="text-xl font-bold text-[#0F172A] mb-4 text-center">2. Crée ton clip</h3>
+              <h3 className="text-xl font-bold text-[#0F172A] mb-4 text-center">
+                {t('howItWorks.steps.create.title')}
+              </h3>
               <p className="text-[#0F172A]/70 text-center">
-                Réalise et publie ton TikTok en suivant les consignes de la mission. Notre système détecte automatiquement tes vues.
+                {t('howItWorks.steps.create.description')}
               </p>
             </div>
 
@@ -356,9 +392,11 @@ export default function Home() {
               <div className="w-16 h-16 bg-[#10B981]/10 rounded-full flex items-center justify-center mb-6 mx-auto">
                 <span className="text-3xl">💸</span>
               </div>
-              <h3 className="text-xl font-bold text-[#0F172A] mb-4 text-center">3. Reçois tes gains</h3>
+              <h3 className="text-xl font-bold text-[#0F172A] mb-4 text-center">
+                {t('howItWorks.steps.paid.title')}
+              </h3>
               <p className="text-[#0F172A]/70 text-center">
-                Suis tes revenus en temps réel et retire ton argent dès 10€. Paiements rapides et sécurisés via Stripe.
+                {t('howItWorks.steps.paid.description')}
               </p>
             </div>
           </div>
@@ -370,10 +408,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-[#0F172A] mb-4">
-              Voici à quoi ressemble ton espace clippeur
+              {t('platform.title')}
             </h2>
             <p className="text-xl text-[#0F172A]/70 max-w-3xl mx-auto">
-              Découvre un aperçu de la plateforme avant de te lancer. Missions, statistiques, retraits… tout est pensé pour te simplifier la vie.
+              {t('platform.subtitle')}
             </p>
           </div>
 
@@ -384,9 +422,9 @@ export default function Home() {
               <div className="text-center mb-4">
                 <div className="flex items-center justify-center gap-2 text-[#10B981] font-medium mb-2">
                   <span className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center">1</span>
-                  <span>Choix de mission</span>
+                  <span>{t('platform.sections.mission.title')}</span>
                 </div>
-                <p className="text-gray-600">Choisis une mission selon ton style et ton audience</p>
+                <p className="text-gray-600">{t('platform.sections.mission.subtitle')}</p>
               </div>
               <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-6 p-6 h-[300px]">
                 <div className="flex items-center justify-between mb-4">
@@ -398,16 +436,16 @@ export default function Home() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900">MrBeast Gaming</h3>
-                      <p className="text-sm text-gray-600">12.5M abonnés</p>
+                      <p className="text-sm text-gray-600">12.5M {t('platform.sections.mission.followers')}</p>
                     </div>
                   </div>
                   <span className="bg-[#10B981]/10 text-[#10B981] text-sm font-medium px-3 py-1 rounded-full">
-                    0,10€ / 1K vues
+                    {t('platform.sections.mission.rate')}
                   </span>
                 </div>
                 <div className="bg-gray-50 rounded-xl p-4 mb-4">
                   <p className="text-gray-600">
-                    Crée un clip sur notre nouveau jeu "Beast Battle Royale". Montre les meilleurs moments !
+                    Create a clip about our new game "Beast Battle Royale". Show the best moments!
                   </p>
                 </div>
                 <div className="flex items-center gap-4 text-sm text-gray-500">
@@ -415,13 +453,13 @@ export default function Home() {
                     <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    <span>30-60s</span>
+                    <span>{t('platform.sections.mission.duration')}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
-                    <span className="text-sm text-gray-600">Expire dans 3j</span>
+                    <span className="text-sm text-gray-600">{t('platform.sections.mission.expires')}</span>
                   </div>
                 </div>
               </div>
@@ -432,9 +470,9 @@ export default function Home() {
               <div className="text-center mb-4">
                 <div className="flex items-center justify-center gap-2 text-[#10B981] font-medium mb-2">
                   <span className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center">2</span>
-                  <span>Suivi des performances</span>
+                  <span>{t('platform.sections.performance.title')}</span>
                 </div>
-                <p className="text-gray-600">Suis tes gains, clips postés et vues en temps réel</p>
+                <p className="text-gray-600">{t('platform.sections.performance.subtitle')}</p>
               </div>
               <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-6 p-6 h-[300px]">
                 <div className="grid grid-cols-2 gap-4 mb-6">
@@ -446,8 +484,8 @@ export default function Home() {
                         </svg>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-500">Gains</p>
-                        <p className="font-bold text-[#10B981]">347€</p>
+                        <p className="text-sm text-gray-500">{t('platform.sections.performance.stats.earnings')}</p>
+                        <p className="font-bold text-[#10B981]">$347</p>
                       </div>
                     </div>
                   </div>
@@ -460,7 +498,7 @@ export default function Home() {
                         </svg>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-500">Vues</p>
+                        <p className="text-sm text-gray-500">{t('platform.sections.performance.stats.views')}</p>
                         <p className="font-bold text-gray-900">2.3M</p>
                       </div>
                     </div>
@@ -472,20 +510,20 @@ export default function Home() {
                       <div className="w-10 h-10 bg-gray-200 rounded"></div>
                       <div>
                         <p className="text-sm font-medium text-gray-800">MrBeast Challenge</p>
-                        <p className="text-xs text-gray-600">425K vues</p>
+                        <p className="text-xs text-gray-600">425K views</p>
                       </div>
                     </div>
-                    <span className="text-[#10B981] font-medium">+42€</span>
+                    <span className="text-[#10B981] font-medium">+$42</span>
                   </div>
                   <div className="bg-gray-50 rounded-lg p-3 flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-200 rounded"></div>
                       <div>
                         <p className="text-sm font-medium text-gray-800">Speed IRL</p>
-                        <p className="text-xs text-gray-600">283K vues</p>
+                        <p className="text-xs text-gray-600">283K views</p>
                       </div>
                     </div>
-                    <span className="text-[#10B981] font-medium">+28€</span>
+                    <span className="text-[#10B981] font-medium">+$28</span>
                   </div>
                 </div>
               </div>
@@ -496,9 +534,9 @@ export default function Home() {
               <div className="text-center mb-4">
                 <div className="flex items-center justify-center gap-2 text-[#10B981] font-medium mb-2">
                   <span className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center">3</span>
-                  <span>Soumission simple</span>
+                  <span>{t('platform.sections.submission.title')}</span>
                 </div>
-                <p className="text-gray-600">Colle ton lien TikTok, tout est détecté automatiquement</p>
+                <p className="text-gray-600">{t('platform.sections.submission.subtitle')}</p>
               </div>
               <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-6 p-6 h-[300px]">
                 <div className="mb-6">
@@ -514,7 +552,7 @@ export default function Home() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    <p className="text-gray-600">Durée : 45 secondes</p>
+                    <p className="text-gray-600">{t('platform.sections.submission.checks.duration')}</p>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center">
@@ -522,7 +560,7 @@ export default function Home() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    <p className="text-gray-600">Hashtags requis présents</p>
+                    <p className="text-gray-600">{t('platform.sections.submission.checks.hashtags')}</p>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center">
@@ -530,7 +568,7 @@ export default function Home() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    <p className="text-gray-600">Mention du créateur incluse</p>
+                    <p className="text-gray-600">{t('platform.sections.submission.checks.mention')}</p>
                   </div>
                 </div>
               </div>
@@ -541,14 +579,14 @@ export default function Home() {
               <div className="text-center mb-4">
                 <div className="flex items-center justify-center gap-2 text-[#10B981] font-medium mb-2">
                   <span className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center">4</span>
-                  <span>Retrait facile</span>
+                  <span>{t('platform.sections.withdrawal.title')}</span>
                 </div>
-                <p className="text-gray-600">Retire tes gains</p>
+                <p className="text-gray-600">{t('platform.sections.withdrawal.subtitle')}</p>
               </div>
               <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-6 p-6 h-[300px]">
                 <div className="flex items-center justify-between mb-6">
-                  <h3 className="font-semibold text-gray-800">Solde disponible</h3>
-                  <span className="text-2xl font-bold text-[#10B981]">347,20 €</span>
+                  <h3 className="font-semibold text-gray-800">{t('platform.sections.withdrawal.balance')}</h3>
+                  <span className="text-2xl font-bold text-[#10B981]">$347.20</span>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="bg-gray-50 rounded-xl p-4">
@@ -559,8 +597,8 @@ export default function Home() {
                         </svg>
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-gray-800">Stripe Connect</p>
-                        <p className="text-sm text-gray-600">Paiement sécurisé</p>
+                        <p className="text-sm font-medium text-gray-800">{t('platform.sections.withdrawal.stripe.title')}</p>
+                        <p className="text-sm text-gray-600">{t('platform.sections.withdrawal.stripe.subtitle')}</p>
                       </div>
                     </div>
                   </div>
@@ -572,8 +610,8 @@ export default function Home() {
                         </svg>
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-gray-700">24-48h</p>
-                        <p className="text-sm text-gray-600">Délai de virement</p>
+                        <p className="text-sm font-medium text-gray-700">{t('platform.sections.withdrawal.transfer.time')}</p>
+                        <p className="text-sm text-gray-600">{t('platform.sections.withdrawal.transfer.subtitle')}</p>
                       </div>
                     </div>
                   </div>
@@ -588,7 +626,7 @@ export default function Home() {
               onClick={() => setAuthModal({isOpen: true, mode: 'clipper-signup'})}
               className="inline-flex items-center justify-center bg-[#10B981] text-white px-8 py-4 rounded-full font-bold hover:bg-[#10B981]/90 transition-all duration-300 text-lg"
             >
-              Je veux essayer la plateforme
+              {t('platform.cta')}
               <svg className="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>

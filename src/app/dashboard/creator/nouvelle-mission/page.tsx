@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation'
 import { useAuth } from '@/components/AuthContext'
 import { supabase } from '@/lib/supabase'
 import RoleProtectionOptimized from '@/components/RoleProtectionOptimized'
+import { useLanguage } from '@/components/LanguageContext'
+import { translations } from '@/lib/translations'
 import {
   IconArrowLeft,
   IconVideo,
@@ -14,7 +16,14 @@ import {
   IconBrandTiktok,
   IconBrandInstagram,
   IconBrandYoutube,
-  IconBrandX
+  IconBrandX,
+  IconCheck,
+  IconX,
+  IconAlertCircle,
+  IconInfoCircle,
+  IconTrash,
+  IconPlus,
+  IconMinus
 } from '@tabler/icons-react'
 
 export default function NouvelleMission() {
@@ -23,6 +32,8 @@ export default function NouvelleMission() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isUploadingImage, setIsUploadingImage] = useState(false)
   const router = useRouter()
+  const { language } = useLanguage()
+  const t = translations[language].dashboard
 
   // États pour le formulaire
   const [formData, setFormData] = useState({
@@ -40,7 +51,8 @@ export default function NouvelleMission() {
     brand_guidelines: '',
     video_url: '',
     duration_min: '',
-    duration_max: ''
+    duration_max: '',
+    status: 'draft'
   })
 
   useEffect(() => {
@@ -203,7 +215,7 @@ export default function NouvelleMission() {
         video_url: formData.video_url || '',
         duration_min: formData.duration_min ? parseInt(formData.duration_min) : 15,
         duration_max: formData.duration_max ? parseInt(formData.duration_max) : 60,
-        status: 'active',
+        status: formData.status,
         featured: false
       }
 
@@ -275,13 +287,13 @@ export default function NouvelleMission() {
             <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
               <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
                 <IconVideo className="w-6 h-6" />
-                Informations générales
+                {t.creator.newMission.sections.basicInfo}
               </h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="md:col-span-2">
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Titre de la mission *
+                    {t.creator.newMission.fields.title.label} *
                   </label>
                   <input
                     type="text"
@@ -289,14 +301,14 @@ export default function NouvelleMission() {
                     value={formData.title}
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                    placeholder="Ex: Clip mes meilleurs moments gaming"
+                    placeholder={t.creator.newMission.fields.title.placeholder}
                     required
                   />
                 </div>
 
                 <div className="md:col-span-2">
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Description détaillée *
+                    {t.creator.newMission.fields.description.label} *
                   </label>
                   <textarea
                     name="description"
@@ -304,29 +316,14 @@ export default function NouvelleMission() {
                     onChange={handleInputChange}
                     rows={4}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                    placeholder="Décrivez ce que vous attendez des clippeurs, le style souhaité, etc."
+                    placeholder={t.creator.newMission.fields.description.placeholder}
                     required
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Type de contenu souhaité *
-                  </label>
-                  <select
-                    name="content_type"
-                    value={formData.content_type}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                  >
-                    <option value="UGC">UGC (User Generated Content)</option>
-                    <option value="Découpage de vidéos">Découpage de vidéos</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Catégorie *
+                    {t.creator.newMission.fields.category.label} *
                   </label>
                   <select
                     name="category"
@@ -334,12 +331,11 @@ export default function NouvelleMission() {
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
                   >
-                    <option value="Marque">Marque</option>
-                    <option value="Divertissement">Divertissement</option>
-                    <option value="Produits">Produits</option>
-                    <option value="Musique">Musique</option>
-                    <option value="Logo">Logo</option>
-                    <option value="Autre">Autre</option>
+                    <option value="">{t.creator.newMission.fields.category.placeholder}</option>
+                    <option value="Marque">{t.creator.newMission.fields.category.options.brand}</option>
+                    <option value="Divertissement">{t.creator.newMission.fields.category.options.entertainment}</option>
+                    <option value="Musique">{t.creator.newMission.fields.category.options.music}</option>
+                    <option value="Produits">{t.creator.newMission.fields.category.options.products}</option>
                   </select>
                 </div>
               </div>
@@ -349,13 +345,13 @@ export default function NouvelleMission() {
             <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
               <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
                 <IconCoin className="w-6 h-6" />
-                Configuration du budget
+                {t.creator.newMission.sections.pricing}
               </h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Budget total ($US) *
+                    {t.creator.newMission.fields.totalBudget.label} *
                   </label>
                   <input
                     type="number"
@@ -363,7 +359,7 @@ export default function NouvelleMission() {
                     value={formData.total_budget}
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                    placeholder="10000"
+                    placeholder={t.creator.newMission.fields.totalBudget.placeholder}
                     min="1"
                     required
                   />
@@ -371,7 +367,7 @@ export default function NouvelleMission() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Récompense par 1000 vues ($US) *
+                    {t.creator.newMission.fields.reward.label} *
                   </label>
                   <input
                     type="number"
@@ -380,12 +376,12 @@ export default function NouvelleMission() {
                     value={formData.reward}
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                    placeholder="Ex: 5.00"
+                    placeholder={t.creator.newMission.fields.reward.placeholder}
                     min="0.01"
                     required
                   />
                   <div className="mt-2 text-sm text-gray-500">
-                    <div className="font-medium mb-1">Exemple avec 1$ par 1000 vues :</div>
+                    <div className="font-medium mb-1">{t.creator.newMission.fields.rewardExample}</div>
                     <div className="space-y-1">
                       <div>• 10 000 vues = 10$</div>
                       <div>• 100 000 vues = 100$</div>
@@ -400,12 +396,12 @@ export default function NouvelleMission() {
             <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
               <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
                 <IconTarget className="w-6 h-6" />
-                Plateformes et contenu
+                {t.creator.newMission.sections.platforms}
               </h2>
 
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-3">
-                  Plateformes cibles *
+                  {t.creator.newMission.fields.platforms.label} *
                 </label>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {[
@@ -436,7 +432,7 @@ export default function NouvelleMission() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    URL de la vidéo source
+                    {t.creator.newMission.fields.videoUrl.label}
                   </label>
                   <input
                     type="url"
@@ -444,13 +440,13 @@ export default function NouvelleMission() {
                     value={formData.video_url}
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                    placeholder="https://youtube.com/watch?v=..."
+                    placeholder={t.creator.newMission.fields.videoUrl.placeholder}
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Logo/image du créateur
+                    {t.creator.newMission.fields.creatorImage.label}
                   </label>
                   <div className="flex items-center gap-4">
                     <input
@@ -465,7 +461,7 @@ export default function NouvelleMission() {
                       className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50"
                     >
                       <IconUpload className="w-5 h-5" />
-                      {isUploadingImage ? 'Upload...' : 'Uploader une photo ou une image'}
+                      {isUploadingImage ? 'Upload...' : t.creator.newMission.fields.creatorImage.upload}
                     </label>
                   </div>
                   {formData.creator_image && (
@@ -481,7 +477,7 @@ export default function NouvelleMission() {
 
                 <div className="md:col-span-2">
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Directives de marque et instructions spécifiques
+                    {t.creator.newMission.fields.brandGuidelines.label}
                   </label>
                   <textarea
                     name="brand_guidelines"
@@ -489,13 +485,13 @@ export default function NouvelleMission() {
                     onChange={handleInputChange}
                     rows={4}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                    placeholder="Instructions spéciales, ton de la marque, éléments à éviter, etc."
+                    placeholder={t.creator.newMission.fields.brandGuidelines.placeholder}
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Durée minimale (secondes)
+                    {t.creator.newMission.fields.durationMin.label}
                   </label>
                   <input
                     type="number"
@@ -503,14 +499,14 @@ export default function NouvelleMission() {
                     value={formData.duration_min}
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                    placeholder="15"
+                    placeholder={t.creator.newMission.fields.durationMin.placeholder}
                     min="1"
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Durée maximale (secondes)
+                    {t.creator.newMission.fields.durationMax.label}
                   </label>
                   <input
                     type="number"
@@ -518,7 +514,7 @@ export default function NouvelleMission() {
                     value={formData.duration_max}
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                    placeholder="60"
+                    placeholder={t.creator.newMission.fields.durationMax.placeholder}
                     min="1"
                   />
                 </div>
@@ -532,14 +528,14 @@ export default function NouvelleMission() {
                 onClick={() => router.back()}
                 className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium"
               >
-                Annuler
+                {t.common.cancel}
               </button>
               <button
                 type="submit"
                 disabled={isSubmitting}
                 className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isSubmitting ? 'Création...' : 'Créer la mission'}
+                {isSubmitting ? t.common.loading : t.creator.newMission.actions.publish}
               </button>
             </div>
           </form>

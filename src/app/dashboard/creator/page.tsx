@@ -4,10 +4,14 @@ import { useAuth } from '@/components/AuthContext'
 import RoleProtectionOptimized from '@/components/RoleProtectionOptimized'
 import { useDashboardDataParallel } from '@/hooks/useOptimizedData'
 import { useMemo } from 'react'
+import { useLanguage } from '@/components/LanguageContext'
+import { translations } from '@/lib/translations'
 
 export default function CreatorDashboard() {
   // Récupérer l'utilisateur connecté
   const { user, profile } = useAuth()
+  const { language } = useLanguage()
+  const t = translations[language].dashboard
   
   // Pas de fallback - utiliser uniquement l'ID de l'utilisateur connecté
   const userId = user?.id || null
@@ -47,8 +51,8 @@ export default function CreatorDashboard() {
   if (!user) {
     return (
       <div className="p-6 text-center">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">Connexion requise</h2>
-        <p className="text-gray-600">Veuillez vous connecter pour accéder à votre dashboard.</p>
+        <h2 className="text-xl font-semibold text-gray-900 mb-4">{t.common.loginRequired}</h2>
+        <p className="text-gray-600">{t.common.loginMessage}</p>
       </div>
     )
   }
@@ -57,13 +61,13 @@ export default function CreatorDashboard() {
   if (user && !profile) {
     return (
       <div className="p-6 text-center">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">Configuration du profil</h2>
-        <p className="text-gray-600 mb-4">Votre profil n'est pas encore configuré.</p>
+        <h2 className="text-xl font-semibold text-gray-900 mb-4">{t.common.profileSetup}</h2>
+        <p className="text-gray-600 mb-4">{t.common.profileMessage}</p>
         <a 
           href="/onboarding/role" 
           className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
         >
-          Configurer mon profil
+          {t.common.setupProfile}
         </a>
       </div>
     )
@@ -90,7 +94,7 @@ export default function CreatorDashboard() {
     return (
       <div className="p-6">
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
-          <strong>Erreur :</strong> {error}
+          <strong>{t.common.error}</strong> {error}
         </div>
       </div>
     )
@@ -101,10 +105,10 @@ export default function CreatorDashboard() {
       <div className="p-6">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Tableau de bord créateur
+            {t.creator.title}
           </h1>
           <p className="text-gray-600">
-            Bienvenue {profile?.pseudo || 'Créateur'} ! Voici un aperçu de vos performances.
+            {t.creator.welcome} {profile?.pseudo || 'Créateur'} ! {t.creator.overview}
           </p>
         </div>
 
@@ -113,7 +117,7 @@ export default function CreatorDashboard() {
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center">
               <div className="flex-1">
-                <p className="text-sm font-medium text-gray-600">Vues totales</p>
+                <p className="text-sm font-medium text-gray-600">{t.creator.stats.totalViews}</p>
                 <p className="text-2xl font-bold text-gray-900">
                   {stats.totalViews.toLocaleString()}
                 </p>
@@ -126,14 +130,14 @@ export default function CreatorDashboard() {
               </div>
             </div>
             <p className="text-xs text-green-600 mt-2">
-              +{userStats?.avg_views?.toFixed(0) || 0} vues en moyenne
+              +{userStats?.avg_views?.toFixed(0) || 0} {t.creator.stats.avgViews}
             </p>
           </div>
 
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center">
               <div className="flex-1">
-                <p className="text-sm font-medium text-gray-600">Revenus totaux</p>
+                <p className="text-sm font-medium text-gray-600">{t.creator.stats.totalRevenue}</p>
                 <p className="text-2xl font-bold text-gray-900">
                   {stats.totalEarnings.toFixed(2)}€
                 </p>
@@ -145,14 +149,14 @@ export default function CreatorDashboard() {
               </div>
             </div>
             <p className="text-xs text-green-600 mt-2">
-              +{userStats?.approved_submissions || 0} missions payées
+              +{userStats?.approved_submissions || 0} {t.creator.stats.paidMissions}
             </p>
           </div>
 
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center">
               <div className="flex-1">
-                <p className="text-sm font-medium text-gray-600">Missions actives</p>
+                <p className="text-sm font-medium text-gray-600">{t.creator.stats.activeMissions}</p>
                 <p className="text-2xl font-bold text-gray-900">{stats.totalMissions}</p>
               </div>
               <div className="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center">
@@ -162,14 +166,14 @@ export default function CreatorDashboard() {
               </div>
             </div>
             <p className="text-xs text-blue-600 mt-2">
-              Missions créées par vous
+              {t.creator.stats.createdMissions}
             </p>
           </div>
 
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center">
               <div className="flex-1">
-                <p className="text-sm font-medium text-gray-600">En attente</p>
+                <p className="text-sm font-medium text-gray-600">{t.creator.stats.pending}</p>
                 <p className="text-2xl font-bold text-gray-900">{stats.pendingValidations}</p>
               </div>
               <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
@@ -179,7 +183,7 @@ export default function CreatorDashboard() {
               </div>
             </div>
             <p className="text-xs text-orange-600 mt-2">
-              Validations en cours
+              {t.creator.stats.pendingValidations}
             </p>
           </div>
         </div>
