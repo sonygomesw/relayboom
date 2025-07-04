@@ -4,14 +4,16 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { useLanguage } from '@/components/LanguageContext';
-import { translations } from '@/lib/translations';
+import { dashboardTranslations } from '@/lib/dashboard-translations';
 import { Language } from '@/lib/clipper-translations';
+import { useAuth } from '@/components/AuthContext';
 
 export default function DashboardRedirect() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const { user, profile } = useAuth();
   const { language } = useLanguage();
-  const t = translations[language as Language];
+  const t = dashboardTranslations[language as Language];
 
   useEffect(() => {
     const redirectToCorrectDashboard = async () => {
@@ -25,7 +27,7 @@ export default function DashboardRedirect() {
         }
 
         // Récupérer le profil utilisateur pour déterminer le rôle
-        const { data: profile, error } = await supabase
+        const { data: profileData, error } = await supabase
           .from('profiles')
           .select('role')
           .eq('id', user.id)
@@ -38,9 +40,9 @@ export default function DashboardRedirect() {
         }
 
         // Rediriger selon le rôle
-        if (profile?.role === 'creator') {
+        if (profileData?.role === 'creator') {
           router.push('/dashboard/creator');
-        } else if (profile?.role === 'clipper') {
+        } else if (profileData?.role === 'clipper') {
           router.push('/dashboard/clipper');
         } else {
           // Pas de rôle défini, rediriger vers l'onboarding

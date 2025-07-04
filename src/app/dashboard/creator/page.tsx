@@ -5,7 +5,7 @@ import RoleProtectionOptimized from '@/components/RoleProtectionOptimized'
 import { useDashboardDataParallel } from '@/hooks/useOptimizedData'
 import { useMemo } from 'react'
 import { useLanguage } from '@/components/LanguageContext'
-import { translations } from '@/lib/translations'
+import { translations } from '@/lib/translations.new'
 
 export default function CreatorDashboard() {
   // Récupérer l'utilisateur connecté
@@ -191,7 +191,7 @@ export default function CreatorDashboard() {
         {/* Missions récentes */}
         <div className="bg-white rounded-lg shadow">
           <div className="px-6 py-4 border-b border-gray-200">
-            <h2 className="text-lg font-semibold text-gray-900">Vos missions récentes</h2>
+            <h2 className="text-lg font-semibold text-gray-900">{t.creator.missions.recentTitle}</h2>
           </div>
           <div className="overflow-hidden">
             {missions && missions.length > 0 ? (
@@ -218,10 +218,10 @@ export default function CreatorDashboard() {
                       </div>
                       <div className="text-right">
                         <p className="text-sm font-medium text-gray-900">
-                          {mission.price_per_1k_views}€/1k vues
+                          {mission.price_per_1k_views}{t.creator.missions.missionCard.viewsRate}
                         </p>
                         <p className="text-xs text-gray-500">
-                          {mission.total_submissions} soumissions
+                          {mission.total_submissions} {t.creator.missions.missionCard.submissions}
                         </p>
                       </div>
                     </div>
@@ -233,14 +233,14 @@ export default function CreatorDashboard() {
                 <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                <h3 className="mt-2 text-sm font-medium text-gray-900">Aucune mission</h3>
-                <p className="mt-1 text-sm text-gray-500">Commencez par créer votre première mission.</p>
+                <h3 className="mt-2 text-sm font-medium text-gray-900">{t.creator.missions.noMissions.title}</h3>
+                <p className="mt-1 text-sm text-gray-500">{t.creator.missions.noMissions.description}</p>
                 <div className="mt-6">
                   <a
                     href="/dashboard/creator/nouvelle-mission"
                     className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700"
                   >
-                    Créer une mission
+                    {t.creator.missions.noMissions.createButton}
                   </a>
                 </div>
               </div>
