@@ -11,8 +11,13 @@ import {
   IconWallet,
   IconSettings,
   IconLogout,
-  IconPlus
+  IconPlus,
+  IconLanguage
 } from '@tabler/icons-react'
+import { useLanguage } from '@/components/LanguageContext'
+import { translations } from '@/lib/translations'
+import { Language } from '@/lib/translations'
+import { useState } from 'react'
 
 interface SidebarLink {
   href: string
@@ -35,6 +40,15 @@ interface ClipperSidebarProps {
 export default function ClipperSidebar({ userStats, profile }: ClipperSidebarProps) {
   const pathname = usePathname()
   const router = useRouter()
+  const { language, setLanguage } = useLanguage()
+  const [showLanguageDropdown, setShowLanguageDropdown] = useState(false)
+
+  const languages: { code: Language; label: string }[] = [
+    { code: 'en', label: 'English' },
+    { code: 'fr', label: 'Français' },
+    { code: 'es', label: 'Español' },
+    { code: 'it', label: 'Italiano' }
+  ]
 
   const links: SidebarLink[] = [
     {
@@ -133,6 +147,36 @@ export default function ClipperSidebar({ userStats, profile }: ClipperSidebarPro
           </div>
           
           <div className="space-y-2">
+            {/* Language Selector */}
+            <div className="relative">
+              <button
+                onClick={() => setShowLanguageDropdown(!showLanguageDropdown)}
+                className="w-full flex items-center gap-3 px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-50 transition-colors"
+              >
+                <IconLanguage className="w-5 h-5" />
+                <span>{translations[language].nav.language}</span>
+              </button>
+              
+              {showLanguageDropdown && (
+                <div className="absolute bottom-full left-0 mb-2 w-full bg-white rounded-lg border border-gray-200 shadow-lg">
+                  {languages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      onClick={() => {
+                        setLanguage(lang.code)
+                        setShowLanguageDropdown(false)
+                      }}
+                      className={`w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors ${
+                        language === lang.code ? 'text-blue-600 font-medium' : 'text-gray-700'
+                      }`}
+                    >
+                      {lang.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <Link
               href="/dashboard/clipper/settings"
               className="flex items-center gap-3 px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-50 transition-colors w-full"
