@@ -117,19 +117,35 @@ export default function HomePage() {
         <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
           <div className="h-56 w-full sm:h-72 md:h-96 lg:w-full lg:h-full bg-gradient-to-br from-green-100 to-blue-100 flex items-center justify-center">
             <div className="max-w-sm mx-auto bg-white rounded-2xl shadow-xl p-4">
-              <div className="bg-gray-900 rounded-xl p-4 text-white">
-                <div className="flex items-center space-x-2 mb-3">
-                  <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center text-sm font-bold">
-                    M
+              <div className="relative bg-gray-900 rounded-xl overflow-hidden">
+                {/* Video Background */}
+                <video 
+                  src="/video/mrbeast.mp4" 
+                  autoPlay 
+                  muted 
+                  loop 
+                  playsInline
+                  className="w-full h-48 object-cover"
+                />
+                
+                {/* Overlay Content */}
+                <div className="absolute inset-0 bg-black/40 flex flex-col justify-between p-4 text-white">
+                  {/* Top Section - User Info */}
+                  <div className="flex items-center space-x-2">
+                    <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center text-sm font-bold">
+                      M
+                    </div>
+                    <div>
+                      <div className="font-semibold">@mrbeast</div>
+                      <div className="text-xs text-gray-300">Je donne 100 000$ à celui qui reste le plus longtemps dans ce cercle !</div>
+                    </div>
                   </div>
-                  <div>
-                    <div className="font-semibold">@mrbeast</div>
-                    <div className="text-xs text-gray-400">Je donne 100 000$ à celui qui reste le plus longtemps dans ce cercle !</div>
+                  
+                  {/* Bottom Section - Earnings */}
+                  <div className="text-right">
+                    <div className="text-green-400 font-bold text-lg">Tes gains: 50€</div>
+                    <div className="text-xs text-gray-300">pour 2.3M vues</div>
                   </div>
-                </div>
-                <div className="text-right">
-                  <div className="text-green-400 font-bold">Tes gains: 50€</div>
-                  <div className="text-xs text-gray-400">pour 2.3M vues</div>
                 </div>
               </div>
             </div>
