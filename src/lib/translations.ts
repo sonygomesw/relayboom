@@ -104,6 +104,7 @@ export const translations = {
         loadingDashboard: 'Loading your dashboard...',
         loadingAnalytics: 'Loading your analytics...',
         loadingSettings: 'Loading your settings...',
+        cancel: 'Cancel'
       },
       creator: {
         title: 'Creator Dashboard',
@@ -366,13 +367,14 @@ export const translations = {
         loading: 'Chargement...',
         error: 'Erreur :',
         loginRequired: 'Connexion requise',
-        loginMessage: 'Veuillez vous connecter pour accéder à votre dashboard.',
+        loginMessage: 'Veuillez vous connecter pour accéder à votre tableau de bord.',
         profileSetup: 'Configuration du profil',
         profileMessage: 'Votre profil n\'est pas encore configuré.',
         setupProfile: 'Configurer mon profil',
-        loadingDashboard: 'Chargement de votre dashboard...',
-        loadingAnalytics: 'Chargement de vos analytics...',
+        loadingDashboard: 'Chargement de votre tableau de bord...',
+        loadingAnalytics: 'Chargement de vos analyses...',
         loadingSettings: 'Chargement de vos paramètres...',
+        cancel: 'Annuler'
       },
       creator: {
         title: 'Tableau de bord créateur',
@@ -641,7 +643,8 @@ export const translations = {
         setupProfile: 'Configurar mi perfil',
         loadingDashboard: 'Cargando tu panel...',
         loadingAnalytics: 'Cargando tus análisis...',
-        loadingSettings: 'Cargando tu configuración...',
+        loadingSettings: 'Cargando tus ajustes...',
+        cancel: 'Cancelar'
       },
       creator: {
         title: 'Panel de creador',
@@ -905,12 +908,13 @@ export const translations = {
         error: 'Errore:',
         loginRequired: 'Accesso richiesto',
         loginMessage: 'Effettua l\'accesso per accedere alla tua dashboard.',
-        profileSetup: 'Configurazione del profilo',
+        profileSetup: 'Configurazione profilo',
         profileMessage: 'Il tuo profilo non è ancora configurato.',
         setupProfile: 'Configura il mio profilo',
         loadingDashboard: 'Caricamento della tua dashboard...',
         loadingAnalytics: 'Caricamento delle tue analisi...',
         loadingSettings: 'Caricamento delle tue impostazioni...',
+        cancel: 'Annulla'
       },
       creator: {
         title: 'Dashboard del creatore',
