@@ -14,6 +14,7 @@
     "optimize": "npm run build:analyze && npm run perf"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "@stripe/react-stripe-js": "^3.7.0",
     "@stripe/stripe-js": "^7.4.0",
     "@supabase/auth-ui-react": "^0.4.7",

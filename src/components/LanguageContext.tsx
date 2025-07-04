@@ -1,75 +1,68 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { Language } from '@/lib/types/translations';
-import { translations } from '@/lib/translations.new';
-import { dashboardTranslations } from '@/lib/dashboard-translations';
+import { translations, Translation } from '@/lib/i18n/translations';
 
-type LanguageContextType = {
-  language: Language;
-  setLanguage: (lang: Language) => void;
-  t: (key: string, source?: 'dashboard' | 'main') => string;
-};
+interface LanguageContextType {
+  language: string;
+  setLanguage: (lang: string) => void;
+  t: Translation;
+  availableLanguages: { code: string; name: string; flag: string }[];
+}
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguage] = useState<Language>('en');
+export const availableLanguages = [
+  { code: 'fr', name: 'Français', flag: '🇫🇷' },
+  { code: 'en', name: 'English', flag: '🇬🇧' },
+  { code: 'es', name: 'Español', flag: '🇪🇸' },
+  { code: 'it', name: 'Italiano', flag: '🇮🇹' }
+];
 
+export function LanguageProvider({ children }: { children: React.ReactNode }) {
+  const [language, setLanguageState] = useState<string>('fr');
+
+  // Load language from localStorage on mount
   useEffect(() => {
-    const savedLanguage = localStorage.getItem('language') as Language;
-    if (savedLanguage && ['en', 'fr', 'es', 'it'].includes(savedLanguage)) {
-      setLanguage(savedLanguage);
+    const savedLanguage = localStorage.getItem('cliptokk-language');
+    if (savedLanguage && translations[savedLanguage]) {
+      setLanguageState(savedLanguage);
     } else {
-      const browserLang = navigator.language.split('-')[0] as Language;
-      if (['en', 'fr', 'es', 'it'].includes(browserLang)) {
-        setLanguage(browserLang);
+      // Detect browser language
+      const browserLanguage = navigator.language.split('-')[0];
+      if (translations[browserLanguage]) {
+        setLanguageState(browserLanguage);
       }
     }
   }, []);
 
-  const handleSetLanguage = (lang: Language) => {
-    setLanguage(lang);
-    localStorage.setItem('language', lang);
+  const setLanguage = (lang: string) => {
+    if (translations[lang]) {
+      setLanguageState(lang);
+      localStorage.setItem('cliptokk-language', lang);
+    }
   };
 
-  const t = (key: string, source: 'dashboard' | 'main' = 'main') => {
-    const translationSource = source === 'dashboard' ? dashboardTranslations : translations;
-    const keys = key.split('.');
-    let value = (translationSource[language] || translationSource['en']) as Record<string, any>;
-    
-    for (const k of keys) {
-      if (value && typeof value === 'object' && k in value) {
-        value = value[k];
-      } else {
-        // Try English as fallback
-        let fallbackValue = translationSource['en'] as Record<string, any>;
-        for (const fallbackKey of keys) {
-          if (fallbackValue && typeof fallbackValue === 'object' && fallbackKey in fallbackValue) {
-            fallbackValue = fallbackValue[fallbackKey];
-          } else {
-            console.warn(`Translation key not found: ${key} in ${source} translations`);
-            return key; // Return the key as fallback
-          }
-        }
-        return typeof fallbackValue === 'string' ? fallbackValue : String(fallbackValue);
-      }
-    }
-    
-    return typeof value === 'string' ? value : String(value);
+  const t = translations[language] || translations.fr;
+
+  const contextValue: LanguageContextType = {
+    language,
+    setLanguage,
+    t,
+    availableLanguages
   };
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage: handleSetLanguage, t }}>
+    <LanguageContext.Provider value={contextValue}>
       {children}
     </LanguageContext.Provider>
   );
 }
 
-export const useLanguage = () => {
+export function useLanguage() {
   const context = useContext(LanguageContext);
-  if (!context) {
+  if (context === undefined) {
     throw new Error('useLanguage must be used within a LanguageProvider');
   }
   return context;
-}; 
+} 
