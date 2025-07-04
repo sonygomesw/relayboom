@@ -202,75 +202,165 @@ export default function MissionsPage() {
             </div>
 
             {/* Missions Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-              {filteredMissions.map((mission) => (
-                <div 
-                  key={mission.id}
-                  className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all duration-200 group flex flex-col min-h-[180px] w-full"
-                >
-                  {mission.featured && (
-                    <div className="absolute top-1 right-1 z-10">
-                      <div className="bg-gradient-to-r from-emerald-500 to-green-600 text-white px-1.5 py-0.5 rounded-full text-xs font-bold shadow-sm">
-                        ⭐
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredMissions.map((mission, index) => {
+                // Alterner entre style clair et sombre comme dans le dashboard
+                const isDarkStyle = index % 2 === 1
+                
+                return (
+                  <div 
+                    key={mission.id} 
+                    className={`
+                      ${isDarkStyle 
+                        ? 'bg-gray-900 border-gray-800' 
+                        : 'bg-white border-gray-200'
+                      } 
+                      rounded-2xl border-2 p-6 hover:shadow-xl transition-all duration-300 hover:scale-[1.02] relative overflow-hidden
+                    `}
+                  >
+                    {/* Badge Featured */}
+                    {mission.featured && (
+                      <div className="absolute top-4 right-4 bg-gradient-to-r from-emerald-500 to-green-600 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
+                        ⭐ Featured
+                      </div>
+                    )}
+
+                    {/* Header avec titre et créateur */}
+                    <div className="flex items-start justify-between mb-6">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-3">
+                          {/* Avatar du créateur */}
+                          <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                            <span className="text-white text-sm font-bold">
+                              {mission.creator_name?.charAt(0).toUpperCase() || 'C'}
+                            </span>
+                          </div>
+                          <div>
+                            <h3 className={`font-bold text-lg ${isDarkStyle ? 'text-white' : 'text-gray-900'}`}>
+                              {mission.title}
+                            </h3>
+                            <p className={`text-sm ${isDarkStyle ? 'text-gray-400' : 'text-gray-500'}`}>
+                              {mission.creator_name}
+                            </p>
+                          </div>
+                        </div>
+                        
+                        <p className={`text-sm leading-relaxed ${isDarkStyle ? 'text-gray-300' : 'text-gray-600'}`}>
+                          {mission.description}
+                        </p>
                       </div>
                     </div>
-                  )}
 
-                  {/* Header ultra-mini avec plus d'espace */}
-                  <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-2.5 flex items-center gap-2 border-b border-gray-100 relative">
-                    {/* Avatar très petit */}
-                    <div className="relative">
-                      <img 
-                        src={mission.creator_image} 
-                        alt={mission.creator_name}
-                        className="w-6 h-6 rounded-full object-cover ring-1 ring-white shadow-sm"
-                      />
-                      <div className="absolute -bottom-0.5 -right-0.5 w-1.5 h-1.5 bg-emerald-500 rounded-full border border-white"></div>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-bold text-sm text-gray-900 truncate group-hover:text-emerald-600 transition-colors leading-tight">
-                        {mission.title || 'Mission sans titre'}
-                      </h3>
-                      <p className="text-xs text-gray-500 truncate font-normal">
-                        {mission.creator_name}
-                      </p>
-                      <p className="text-xs text-gray-600 truncate font-normal mt-1">
-                        {mission.description}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Content mini avec plus d'espace */}
-                  <div className="p-2.5 flex-1 flex flex-col justify-between">
-                    <div className="space-y-2">
-                      {/* Prix en priorité */}
-                      <div className="bg-gradient-to-r from-emerald-50 to-green-50 rounded p-1.5 text-center border border-emerald-100">
-                        <div className="text-xs font-bold bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent">
+                    {/* Prix et budget - Style carte référence */}
+                    <div className={`
+                      ${isDarkStyle 
+                        ? 'bg-gray-800 border-gray-700' 
+                        : 'bg-gray-50 border-gray-200'
+                      } 
+                      rounded-xl border p-4 mb-6
+                    `}>
+                      <div className="text-center">
+                        <div className={`text-2xl font-bold mb-1 ${isDarkStyle ? 'text-white' : 'text-gray-900'}`}>
                           {formatCurrency(mission.price_per_1k_views)}/1K
                         </div>
-                        <div className="text-xs text-gray-500 mt-0.5">
+                        <div className={`text-sm ${isDarkStyle ? 'text-gray-400' : 'text-gray-600'}`}>
                           Budget: {formatCurrency(mission.total_budget)}
                         </div>
                       </div>
+                    </div>
 
-                      {/* Badge catégorie très petit */}
-                      <div className="flex items-center justify-center">
-                        <span className="bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded text-xs">
-                          {getCategoryIcon(mission.category)}
+                    {/* Statistiques - Style CPI pour les cartes sombres */}
+                    {isDarkStyle && (
+                      <div className="mb-6">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-white font-medium">ClipTokk Mission</span>
+                          <span className="text-gray-400 text-sm">
+                            {formatCurrency(mission.price_per_1k_views * 0.8)}/1K
+                          </span>
+                        </div>
+                        
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-white text-lg font-bold">
+                            {formatCurrency(mission.total_budget * 0.7)} of
+                          </span>
+                          <span className="text-gray-400 text-lg">
+                            70%
+                          </span>
+                        </div>
+                        <span className="text-gray-400 text-sm">
+                          {formatCurrency(mission.total_budget)}
                         </span>
+                        
+                        {/* Barre de progression */}
+                        <div className="w-full bg-gray-700 rounded-full h-2 mt-3">
+                          <div 
+                            className="bg-gradient-to-r from-orange-500 to-red-500 h-2 rounded-full" 
+                            style={{ width: '70%' }}
+                          ></div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Détails - Type et plateformes */}
+                    <div className="flex items-center justify-between mb-6">
+                      <div>
+                        <div className={`text-xs font-medium mb-1 ${isDarkStyle ? 'text-gray-400' : 'text-gray-500'}`}>
+                          Type
+                        </div>
+                        <div className={`text-sm font-medium ${isDarkStyle ? 'text-white' : 'text-gray-900'}`}>
+                          {mission.category || 'Other'}
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <div className={`text-xs font-medium mb-1 ${isDarkStyle ? 'text-gray-400' : 'text-gray-500'}`}>
+                          Plateformes
+                        </div>
+                        <div className="flex items-center gap-2">
+                          {/* Icônes des plateformes */}
+                          <div className="w-6 h-6 bg-gradient-to-br from-purple-500 to-pink-500 rounded-md flex items-center justify-center">
+                            <span className="text-white text-xs font-bold">IG</span>
+                          </div>
+                          <div className="w-6 h-6 bg-black rounded-md flex items-center justify-center">
+                            <span className="text-white text-xs font-bold">TT</span>
+                          </div>
+                          <div className="w-6 h-6 bg-red-500 rounded-md flex items-center justify-center">
+                            <span className="text-white text-xs font-bold">YT</span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <div className={`text-xs font-medium mb-1 ${isDarkStyle ? 'text-gray-400' : 'text-gray-500'}`}>
+                          Budget max
+                        </div>
+                        <div className={`text-sm font-bold ${isDarkStyle ? 'text-white' : 'text-gray-900'}`}>
+                          {Math.round(mission.total_budget / mission.price_per_1k_views)}K
+                        </div>
                       </div>
                     </div>
 
-                    {/* Bouton mini avec plus d'espace */}
+                    {/* Bouton d'action */}
                     <Link
                       href={`/mission/${mission.id}`}
-                      className="w-full bg-gradient-to-r from-emerald-600 to-green-600 text-white py-1.5 rounded text-xs font-medium text-center hover:from-emerald-700 hover:to-green-700 transition-all duration-200 mt-2"
+                      className={`
+                        w-full py-3 px-6 rounded-xl font-semibold text-sm transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] block text-center
+                        ${isDarkStyle 
+                          ? 'bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-600/25' 
+                          : 'bg-green-500 hover:bg-green-600 text-white shadow-lg shadow-green-500/25'
+                        }
+                      `}
                     >
-                      Voir
+                      Voir la mission
                     </Link>
+
+                    {/* Effet de brillance pour les cartes sombres */}
+                    {isDarkStyle && (
+                      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-white/5 to-transparent pointer-events-none"></div>
+                    )}
                   </div>
-                </div>
-              ))}
+                )
+              })}
             </div>
 
             {filteredMissions.length === 0 && (
