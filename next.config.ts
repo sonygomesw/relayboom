@@ -4,8 +4,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // 🚀 Optimisations de performance avancées
   experimental: {
-    optimizePackageImports: process.env.NODE_ENV === 'production' ? ['@tabler/icons-react', 'framer-motion'] : [],
-    // optimizeCss désactivé car il cause des erreurs avec critters
+    optimizePackageImports: [],
     optimizeCss: false,
     optimizeServerReact: false,
   },
@@ -15,7 +14,7 @@ const nextConfig: NextConfig = {
   
   // Optimisation des builds
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
+    removeConsole: false,
   },
   
   // Cache optimization pour le développement
@@ -48,35 +47,16 @@ const nextConfig: NextConfig = {
     ],
   },
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: false,
   },
   
   // Optimisation TypeScript
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
   
-  // Simplified webpack configuration to fix caching issues
+  // Simplified webpack configuration
   webpack: (config, { dev, isServer }) => {
-    if (dev) {
-      // Optimisations pour le développement
-      config.watchOptions = {
-        poll: false,
-        aggregateTimeout: 100,
-        ignored: ['**/node_modules', '**/.git', '**/.next'],
-      };
-      
-      // Disable problematic optimizations in dev
-      config.optimization = {
-        ...config.optimization,
-        minimize: false,
-      };
-      
-      config.performance = {
-        hints: false
-      };
-    }
-    
     return config;
   },
 };
