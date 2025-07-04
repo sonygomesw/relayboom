@@ -2,11 +2,12 @@
 
 import { useAuth } from '@/components/AuthContext'
 import { useLanguage } from '@/components/LanguageContext'
+import { translations } from '@/lib/translations.new'
 import RoleProtectionOptimized from '@/components/RoleProtectionOptimized'
 
 export default function CreatorAnalytics() {
   const { user } = useAuth()
-  const { t } = useLanguage()
+  const { language } = useLanguage(); const t = translations[language] || translations.en
 
   return (
     <RoleProtectionOptimized allowedRoles={['creator']}>
@@ -25,3 +26,4 @@ export default function CreatorAnalytics() {
     </RoleProtectionOptimized>
   )
 }
+export const dynamic = "force-dynamic"

@@ -595,4 +595,4 @@ export default function CreatorPaiements() {
     </div>
     // </RoleProtectionOptimized>
   )
-} 
+} export const dynamic = "force-dynamic"

@@ -221,9 +221,9 @@ export default function AnalyticsPage() {
         <main className="p-8">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">{t.dashboard.creator.analytics.title}</h1>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">"Texte par défaut"</h1>
             <p className="text-gray-600">
-              {t.dashboard.creator.analytics.description}
+              "Texte par défaut"
             </p>
           </div>
 

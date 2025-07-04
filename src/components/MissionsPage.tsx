@@ -136,11 +136,11 @@ export default function MissionsPage() {
             <div className="bg-white rounded-xl border border-gray-200 p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 font-medium">{t.dashboard.creator.missions.stats.totalMissions}</p>
+                  <p className="text-sm text-gray-600 font-medium">"Texte par défaut"</p>
                   <p className="text-2xl font-bold text-gray-900">{stats.totalMissions}</p>
                   <p className="text-xs text-green-600 flex items-center gap-1 mt-1">
                     <IconTarget className="w-3 h-3" />
-                    {stats.activeMissions} {t.dashboard.creator.missions.stats.active}
+                    {stats.activeMissions} "Texte par défaut"
                   </p>
                 </div>
                 <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
@@ -152,11 +152,11 @@ export default function MissionsPage() {
             <div className="bg-white rounded-xl border border-gray-200 p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 font-medium">{t.dashboard.creator.missions.stats.totalBudget}</p>
+                  <p className="text-sm text-gray-600 font-medium">"Texte par défaut"</p>
                   <p className="text-2xl font-bold text-gray-900">{formatCurrency(stats.totalBudget)}</p>
                   <p className="text-xs text-orange-600 flex items-center gap-1 mt-1">
                     <IconCoin className="w-3 h-3" />
-                    {t.dashboard.creator.missions.stats.investment}
+                    "Texte par défaut"
                   </p>
                 </div>
                 <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
@@ -168,11 +168,11 @@ export default function MissionsPage() {
             <div className="bg-white rounded-xl border border-gray-200 p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 font-medium">{t.dashboard.creator.missions.stats.pending}</p>
+                  <p className="text-sm text-gray-600 font-medium">"Texte par défaut"</p>
                   <p className="text-2xl font-bold text-gray-900">{stats.pendingValidations}</p>
                   <p className="text-xs text-purple-600 flex items-center gap-1 mt-1">
                     <IconClock className="w-3 h-3" />
-                    {t.dashboard.creator.missions.stats.pendingValidations}
+                    "Texte par défaut"
                   </p>
                 </div>
                 <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
@@ -184,11 +184,11 @@ export default function MissionsPage() {
             <div className="bg-white rounded-xl border border-gray-200 p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 font-medium">{t.dashboard.creator.missions.stats.totalViews}</p>
+                  <p className="text-sm text-gray-600 font-medium">"Texte par défaut"</p>
                   <p className="text-2xl font-bold text-gray-900">{stats.totalSubmissions}</p>
                   <p className="text-xs text-blue-600 flex items-center gap-1 mt-1">
                     <IconEye className="w-3 h-3" />
-                    {t.dashboard.creator.missions.stats.avgViews}
+                    "Texte par défaut"
                   </p>
                 </div>
                 <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
@@ -201,13 +201,13 @@ export default function MissionsPage() {
           {/* Liste des missions */}
           <div className="bg-white rounded-xl border border-gray-200 p-6">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-gray-900">{t.dashboard.creator.missions.title}</h2>
+              <h2 className="text-xl font-bold text-gray-900">"Texte par défaut"</h2>
               <a
                 href="/dashboard/creator/nouvelle-mission"
                 className="bg-green-600 text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 hover:bg-green-700 transition-colors"
               >
                 <IconPlus className="w-4 h-4" />
-                {t.dashboard.creator.navigation.newMission}
+                "Texte par défaut"
               </a>
             </div>
 
@@ -227,32 +227,32 @@ export default function MissionsPage() {
                         <div className="flex items-center gap-4 text-sm text-gray-500">
                           <span className="flex items-center gap-1">
                             <IconCoin className="w-4 h-4" />
-                            {mission.price_per_1k_views}{t.dashboard.creator.missions.missionCard.viewsRate}
+                            {mission.price_per_1k_views}"Texte par défaut"
                           </span>
                           <span className="flex items-center gap-1">
                             <IconEye className="w-4 h-4" />
-                            {mission.total_views || 0} {t.dashboard.creator.missions.missionCard.views}
+                            {mission.total_views || 0} "Texte par défaut"
                           </span>
                           <span className="flex items-center gap-1">
                             <IconVideo className="w-4 h-4" />
-                            {mission.total_submissions || 0} {t.dashboard.creator.missions.missionCard.clips}
+                            {mission.total_submissions || 0} "Texte par défaut"
                           </span>
                           <span className="flex items-center gap-1">
                             <IconClock className="w-4 h-4" />
-                            {mission.pending_validations || 0} {t.dashboard.creator.missions.missionCard.pending}
+                            {mission.pending_validations || 0} "Texte par défaut"
                           </span>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
                         <button
                           className="p-2 text-gray-400 hover:text-gray-600 transition-colors"
-                          title={t.dashboard.creator.missions.missionCard.edit}
+                          title="Texte par défaut"
                         >
                           <IconEdit className="w-5 h-5" />
                         </button>
                         <button
                           className="p-2 text-gray-400 hover:text-red-600 transition-colors"
-                          title={t.dashboard.creator.missions.missionCard.delete}
+                          title="Texte par défaut"
                         >
                           <IconTrash className="w-5 h-5" />
                         </button>
@@ -265,17 +265,17 @@ export default function MissionsPage() {
               <div className="text-center py-12">
                 <IconAlertCircle className="w-12 h-12 text-gray-400 mx-auto mb-4" />
                 <h3 className="text-lg font-medium text-gray-900 mb-2">
-                  {t.dashboard.creator.missions.noMissions.title}
+                  "Texte par défaut"
                 </h3>
                 <p className="text-gray-600 mb-6">
-                  {t.dashboard.creator.missions.noMissions.description}
+                  "Texte par défaut"
                 </p>
                 <a
                   href="/dashboard/creator/nouvelle-mission"
                   className="bg-green-600 text-white px-6 py-3 rounded-lg font-medium inline-flex items-center gap-2 hover:bg-green-700 transition-colors"
                 >
                   <IconPlus className="w-5 h-5" />
-                  {t.dashboard.creator.missions.noMissions.createButton}
+                  "Texte par défaut"
                 </a>
               </div>
             )}

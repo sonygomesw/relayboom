@@ -3,164 +3,118 @@ import { Language } from './clipper-translations';
 export const translations = {
   en: {
     common: {
-      loading: 'Loading...',
-      error: 'Error:',
-      cancel: 'Cancel',
-      save: 'Save',
-      continue: 'Continue'
+      loading: "Loading...",
+      loadingDashboard: "Loading dashboard...",
+      save: "Save",
+      cancel: "Cancel",
+      continue: "Continue",
+      confirm: "Confirm",
+      edit: "Edit",
+      delete: "Delete",
+      examine: "Examine",
+      missing: "Missing",
+      error: "Error",
+      approve: "Approve",
+      reject: "Reject",
+      processing: "Processing..."
     },
-    nav: {
-      howItWorks: 'How it works',
-      faq: 'FAQ',
-      signIn: 'Sign in',
-      language: 'Language'
-    },
-    hero: {
-      challenge: {
-        ongoing: 'Ongoing challenge',
-        earned: 'already earned!',
-        joinNow: 'Join now'
-      },
-      badge: '500+ active clippers this week',
-      title: {
-        part1: 'Make money by posting',
-        part2: 'viral TikToks'
-      },
-      description: 'You post clips? We pay you for every view. Join missions, publish on TikTok, earn money based on performance.',
-      cta: {
-        missions: 'See available missions',
-        becomeClipper: 'Become a clipper'
-      }
-    },
-    dashboard: {
-      creator: {
-        title: 'Creator Dashboard',
-        welcome: 'Welcome',
-        overview: 'Here\'s an overview of your performance',
-        stats: {
-          totalViews: 'Total Views',
-          avgViews: 'average views',
-          totalRevenue: 'Total Revenue',
-          paidMissions: 'paid missions'
-        },
-        navigation: {
-          dashboard: 'Dashboard',
-          missions: 'Missions',
-          newMission: 'New Mission',
-          analytics: 'Analytics',
-          wallet: 'Wallet',
-          payments: 'Payments',
-          logout: 'Logout'
+    clipper: {
+      missions: {
+        title: "Available Missions",
+        description: "Browse and accept missions from creators",
+        activeMissionsCount: {
+          singular: "active mission",
+          plural: "active missions"
         }
       },
-      clipper: {
-        title: 'Clipper Dashboard',
-        welcome: {
-          title: 'Welcome to ClipTokk',
-          description: 'You\'re now ready to start your clipping journey'
-        },
-        stats: {
-          totalEarnings: 'Total Earnings',
-          generatedViews: 'Generated Views',
-          createdClips: 'Created Clips'
-        },
-        actions: {
-          cancel: 'Cancel',
-          confirmPalier: 'Confirm milestone'
-        }
-      }
-    },
-    missions: {
-      title: 'Available Missions',
-      description: 'Browse and accept missions from creators',
       filters: {
-        allProducts: 'All Products',
-        entertainment: 'Entertainment',
-        music: 'Music',
-        brand: 'Brand',
-        products: 'Products'
+        allProducts: "All products",
+        entertainment: "Entertainment",
+        music: "Music",
+        brand: "Brand",
+        products: "Products"
+      },
+      welcome: {
+        title: "Welcome",
+        description: "Get started with ClipTokk and start earning money by creating clips!",
+        steps: {
+          findMissions: {
+            title: "Find Missions",
+            description: "Browse available missions from creators"
+          },
+          createClips: {
+            title: "Create Clips",
+            description: "Create engaging clips that follow the mission guidelines"
+          },
+          earnMoney: {
+            title: "Earn Money",
+            description: "Get paid for your views and successful clips"
+          }
+        }
+      },
+      stats: {
+        totalEarnings: "Total earnings",
+        generatedViews: "Generated views",
+        createdClips: "Created clips"
       }
     }
   },
   fr: {
     common: {
-      loading: 'Chargement...',
-      error: 'Erreur :',
-      cancel: 'Annuler',
-      save: 'Enregistrer',
-      continue: 'Continuer'
+      loading: "Chargement...",
+      loadingDashboard: "Chargement du tableau de bord...",
+      save: "Enregistrer",
+      cancel: "Annuler",
+      continue: "Continuer",
+      confirm: "Confirmer",
+      edit: "Modifier",
+      delete: "Supprimer",
+      examine: "Examiner",
+      missing: "Manquant",
+      error: "Erreur",
+      approve: "Approuver",
+      reject: "Rejeter",
+      processing: "Traitement en cours..."
     },
-    nav: {
-      howItWorks: 'Comment ça marche',
-      faq: 'FAQ',
-      signIn: 'Se connecter',
-      language: 'Langue'
-    },
-    hero: {
-      challenge: {
-        ongoing: 'Challenge en cours',
-        earned: 'déjà gagnés !',
-        joinNow: 'Participer maintenant'
-      },
-      badge: '500+ clippeurs actifs cette semaine',
-      title: {
-        part1: 'Gagne de l\'argent en postant des',
-        part2: 'TikToks viraux'
-      },
-      description: 'Tu postes des clips ? On te paie pour chaque vue. Rejoins des missions, publie sur TikTok, gagne de l\'argent à la performance.',
-      cta: {
-        missions: 'Voir les missions disponibles',
-        becomeClipper: 'Devenir clippeur'
-      }
-    },
-    dashboard: {
-      creator: {
-        title: 'Tableau de bord créateur',
-        welcome: 'Bienvenue',
-        overview: 'Voici un aperçu de vos performances',
-        stats: {
-          totalViews: 'Vues totales',
-          avgViews: 'vues en moyenne',
-          totalRevenue: 'Revenus totaux',
-          paidMissions: 'missions payées'
-        },
-        navigation: {
-          dashboard: 'Tableau de bord',
-          missions: 'Missions',
-          newMission: 'Nouvelle Mission',
-          analytics: 'Analytics',
-          wallet: 'Portefeuille',
-          payments: 'Paiements',
-          logout: 'Déconnexion'
+    clipper: {
+      missions: {
+        title: "Missions disponibles",
+        description: "Parcourez et acceptez des missions de créateurs",
+        activeMissionsCount: {
+          singular: "mission active",
+          plural: "missions actives"
         }
       },
-      clipper: {
-        title: 'Tableau de bord clippeur',
-        welcome: {
-          title: 'Bienvenue sur ClipTokk',
-          description: 'Tu es prêt à commencer ton aventure de clipping'
-        },
-        stats: {
-          totalEarnings: 'Gains totaux',
-          generatedViews: 'Vues générées',
-          createdClips: 'Clips créés'
-        },
-        actions: {
-          cancel: 'Annuler',
-          confirmPalier: 'Confirmer le palier'
-        }
-      }
-    },
-    missions: {
-      title: 'Missions disponibles',
-      description: 'Parcourez et acceptez les missions des créateurs',
       filters: {
-        allProducts: 'Tous les produits',
-        entertainment: 'Divertissement',
-        music: 'Musique',
-        brand: 'Marque',
-        products: 'Produits'
+        allProducts: "Tous les produits",
+        entertainment: "Divertissement",
+        music: "Musique",
+        brand: "Marque",
+        products: "Produits"
+      },
+      welcome: {
+        title: "Bienvenue",
+        description: "Commencez avec ClipTokk et gagnez de l'argent en créant des clips !",
+        steps: {
+          findMissions: {
+            title: "Trouver des Missions",
+            description: "Parcourez les missions disponibles des créateurs"
+          },
+          createClips: {
+            title: "Créer des Clips",
+            description: "Créez des clips engageants qui suivent les directives de la mission"
+          },
+          earnMoney: {
+            title: "Gagner de l'argent",
+            description: "Soyez payé pour vos vues et vos clips réussis"
+          }
+        }
+      },
+      stats: {
+        totalEarnings: "Gains totaux",
+        generatedViews: "Vues générées",
+        createdClips: "Clips créés"
       }
     }
   }
-} 
+}; 

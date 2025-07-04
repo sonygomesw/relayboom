@@ -7,6 +7,7 @@ import AuthModal from './AuthModal';
 import VideoCarouselDemo from './VideoCarouselDemo';
 import ExpandableCardDemo from './expandable-card-demo-standard';
 
+
 export default function HomePage() {
   const { t } = useLanguage();
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);

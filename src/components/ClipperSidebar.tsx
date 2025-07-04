@@ -15,8 +15,8 @@ import {
   IconLanguage
 } from '@tabler/icons-react'
 import { useLanguage } from '@/components/LanguageContext'
-import { translations } from '@/lib/translations'
-import { Language } from '@/lib/translations'
+import { translations } from '@/lib/translations.new'
+import { Language } from '@/lib/translations.new'
 import { useState } from 'react'
 
 interface SidebarLink {

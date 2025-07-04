@@ -4,8 +4,8 @@ import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { IconDashboard, IconVideo, IconTrendingUp, IconCoin, IconPlus, IconWallet, IconLogout, IconLanguage } from '@tabler/icons-react'
 import { useLanguage } from '@/components/LanguageContext'
-import { translations } from '@/lib/translations'
-import { Language } from '@/lib/translations'
+import { translations } from '@/lib/translations.new'
+import { Language } from '@/lib/translations.new'
 import { useState } from 'react'
 
 interface SidebarLink {
@@ -19,7 +19,7 @@ export default function CreatorNavbar() {
   const pathname = usePathname()
   const router = useRouter()
   const { language, setLanguage } = useLanguage()
-  const t = translations[language].dashboard.creator.navigation
+  const t = "Texte par défaut"
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false)
 
   const languages: { code: Language; label: string }[] = [
@@ -38,37 +38,37 @@ export default function CreatorNavbar() {
     {
       href: '/dashboard/creator',
       icon: <IconDashboard className="w-5 h-5" />,
-      label: t.dashboard
+      label: "Dashboard"
     },
     {
       href: '/dashboard/creator/missions',
       icon: <IconVideo className="w-5 h-5" />,
-      label: t.missions
+      label: "Missions"
     },
     {
       href: '/dashboard/creator/nouvelle-mission',
       icon: <IconPlus className="w-5 h-5" />,
-      label: t.newMission
+      label: "Nouvelle Mission"
     },
     {
       href: '/dashboard/creator/analytics',
       icon: <IconTrendingUp className="w-5 h-5" />,
-      label: t.analytics
+      label: "Analytics"
     },
     {
       href: '/dashboard/creator/wallet',
       icon: <IconWallet className="w-5 h-5" />,
-      label: t.wallet
+      label: "Wallet"
     },
     {
       href: '/dashboard/creator/revenus',
       icon: <IconCoin className="w-5 h-5" />,
-      label: t.payments
+      label: "Revenus"
     },
     {
       href: '#',
       icon: <IconLogout className="w-5 h-5" />,
-      label: t.logout,
+      label: "Déconnexion",
       onClick: handleLogout
     }
   ]
