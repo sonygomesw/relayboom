@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useLanguage } from './LanguageContext';
 
+// Language selector component with globe icon and country flags
 export default function LanguageSelector() {
   const { language, setLanguage, availableLanguages } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
