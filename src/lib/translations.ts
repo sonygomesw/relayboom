@@ -136,6 +136,13 @@ export const translations = {
           history: {
             title: 'Transaction History',
             empty: 'No transactions yet'
+          },
+          stats: {
+            availableCredits: 'Available Credits',
+            pendingCredits: 'Pending Credits',
+            totalEarnings: 'Total Earnings',
+            lastWithdrawal: 'Last Withdrawal',
+            nextPayout: 'Next Payout'
           }
         },
         missions: {
@@ -424,6 +431,13 @@ export const translations = {
           history: {
             title: 'Historique des transactions',
             empty: 'Aucune transaction pour le moment'
+          },
+          stats: {
+            availableCredits: 'Crédits disponibles',
+            pendingCredits: 'Crédits en attente',
+            totalEarnings: 'Gains totaux',
+            lastWithdrawal: 'Dernier retrait',
+            nextPayout: 'Prochain paiement'
           }
         },
         missions: {
@@ -712,6 +726,13 @@ export const translations = {
           history: {
             title: 'Historial de transacciones',
             empty: 'Aún no hay transacciones'
+          },
+          stats: {
+            availableCredits: 'Créditos disponibles',
+            pendingCredits: 'Créditos pendientes',
+            totalEarnings: 'Ganancias totales',
+            lastWithdrawal: 'Último retiro',
+            nextPayout: 'Próximo pago'
           }
         },
         missions: {
@@ -1000,6 +1021,13 @@ export const translations = {
           history: {
             title: 'Cronologia transazioni',
             empty: 'Nessuna transazione ancora'
+          },
+          stats: {
+            availableCredits: 'Crediti disponibili',
+            pendingCredits: 'Crediti in attesa',
+            totalEarnings: 'Guadagni totali',
+            lastWithdrawal: 'Ultimo prelievo',
+            nextPayout: 'Prossimo pagamento'
           }
         },
         missions: {
