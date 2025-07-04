@@ -40,7 +40,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50/30">
       {/* Navigation */}
-      <nav className="bg-white/95 backdrop-blur-xl border-b border-gray-200/50 sticky top-0 z-50 shadow-sm">
+      <nav className="bg-white/95 backdrop-blur-xl border-b border-gray-200/50 sticky top-0 z-40 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
@@ -272,11 +272,11 @@ export default function HomePage() {
       </div>
 
       {/* Comment ça marche Section */}
-      <div id="comment-ca-marche" className="py-24 bg-white">
+      <div id="comment-ca-marche" className="py-24 bg-white relative z-10">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
           {/* Header avec design Apple-style */}
           <div className="text-center mb-20">
-            <h2 className="text-5xl sm:text-6xl font-bold text-gray-900 mb-6 tracking-tight">
+            <h2 className="text-5xl sm:text-6xl font-bold text-gray-900 mb-6 tracking-tight leading-tight">
               {t.howItWorks.title}
             </h2>
             <p className="max-w-3xl mx-auto text-xl sm:text-2xl text-gray-600 font-normal leading-relaxed">
@@ -285,7 +285,7 @@ export default function HomePage() {
           </div>
 
           {/* Steps avec design Apple-style */}
-          <div className="grid grid-cols-1 gap-16 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-16 lg:grid-cols-3 relative z-20">
             {/* Step 1 */}
             <div className="group text-center">
               <div className="relative mb-8">
@@ -360,13 +360,13 @@ export default function HomePage() {
           </div>
 
           {/* Ligne de connexion entre les steps (desktop only) */}
-          <div className="hidden lg:block relative -mt-32 mb-16">
+          <div className="hidden lg:block relative -mt-32 mb-20">
             <div className="absolute top-1/2 left-1/3 w-1/3 h-0.5 bg-gradient-to-r from-blue-200 to-purple-200 transform -translate-y-1/2"></div>
             <div className="absolute top-1/2 left-2/3 w-1/3 h-0.5 bg-gradient-to-r from-purple-200 to-green-200 transform -translate-y-1/2"></div>
           </div>
 
           {/* CTA Section */}
-          <div className="text-center mt-20 mb-16">
+          <div className="text-center mt-24 mb-20 relative z-30">
             <div className="inline-flex items-center px-6 py-3 bg-gray-50 rounded-full text-sm font-medium text-gray-600 mb-8">
               <svg className="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
@@ -391,7 +391,7 @@ export default function HomePage() {
       </div>
 
       {/* Combien peux-tu gagner Section */}
-      <div className="py-24 bg-gradient-to-b from-white to-gray-50/50">
+      <div className="py-24 bg-gradient-to-b from-white to-gray-50/50 relative z-10">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="text-center mb-16">
             <h2 className="text-5xl sm:text-6xl font-bold text-gray-900 mb-6 tracking-tight leading-tight">
