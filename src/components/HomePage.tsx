@@ -12,6 +12,7 @@ export default function HomePage() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authModalMode, setAuthModalMode] = useState<'login' | 'signup' | 'clipper-signup'>('login');
   const [mounted, setMounted] = useState(false);
+  const [viewsCount, setViewsCount] = useState(100000); // Default value for the simulator
 
   useEffect(() => {
     setMounted(true);
@@ -272,6 +273,70 @@ export default function HomePage() {
                   <h3 className="text-3xl font-bold text-gray-900 mb-2">{t.pricing.plans.expert.price}</h3>
                   <p className="text-gray-600 font-medium mb-6">{t.pricing.plans.expert.views}</p>
                   <p className="text-gray-700 leading-relaxed">{t.pricing.plans.expert.description}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Mini Earnings Simulator */}
+          <div className="mt-20 max-w-2xl mx-auto">
+            <div className="bg-gradient-to-r from-green-600 to-blue-600 rounded-3xl p-8 text-white">
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold mb-2">💰 Simulateur de gains</h3>
+                <p className="text-green-100">Découvre combien tu peux gagner avec tes vues !</p>
+              </div>
+              
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-sm font-medium text-green-100 mb-2">
+                    Nombre de vues de ton clip
+                  </label>
+                  <input
+                    type="range"
+                    min="10000"
+                    max="5000000"
+                    step="10000"
+                    value={viewsCount}
+                    onChange={(e) => setViewsCount(parseInt(e.target.value))}
+                    className="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
+                  />
+                  <div className="flex justify-between text-xs text-green-100 mt-2">
+                    <span>10K</span>
+                    <span>5M</span>
+                  </div>
+                </div>
+                
+                <div className="text-center">
+                  <div className="text-4xl font-bold mb-2">
+                    {viewsCount.toLocaleString()} vues
+                  </div>
+                  <div className="text-2xl font-semibold text-yellow-300">
+                    = {Math.round(viewsCount * 0.0001)}€ gagnés
+                  </div>
+                  <p className="text-sm text-green-100 mt-2">
+                    Basé sur 0,10€ pour 1000 vues
+                  </p>
+                </div>
+                
+                <div className="bg-white/10 rounded-xl p-4">
+                  <div className="flex items-center justify-between text-sm">
+                    <span>Avec {Math.round(viewsCount / 100000)} clips similaires par mois :</span>
+                    <span className="font-bold text-yellow-300">
+                      {Math.round(viewsCount * 0.0001 * (viewsCount / 100000))}€/mois
+                    </span>
+                  </div>
+                </div>
+                
+                <div className="text-center">
+                  <button
+                    onClick={() => {
+                      setAuthModalMode('clipper-signup')
+                      setIsAuthModalOpen(true)
+                    }}
+                    className="bg-white text-green-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
+                  >
+                    Je veux gagner ça ! 🚀
+                  </button>
                 </div>
               </div>
             </div>
