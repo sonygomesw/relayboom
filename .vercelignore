@@ -1,3 +1,6 @@
-# Ignorer les erreurs TypeScript
-*.ts
-*.tsx 
+# Ne pas ignorer les fichiers TypeScript de l'application
+# Ignorer uniquement les fichiers de test et de configuration
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx 
