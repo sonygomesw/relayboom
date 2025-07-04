@@ -390,125 +390,335 @@ export default function HomePage() {
                   <span className="bg-white/20 text-white px-3 py-1 rounded-full text-sm font-semibold">
                     🔥 Populaire
                   </span>
-                  <span className="text-white font-bold text-lg">15€</span>
+                  <span className="text-white font-bold text-lg">12€/1000 vues</span>
                 </div>
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Clip MrBeast Challenge</h3>
-                <p className="text-gray-600 text-sm mb-4">Crée un clip viral de 30-60s à partir d'une vidéo MrBeast récente</p>
+                <div className="flex items-center mb-4">
+                  <img 
+                    src="/mrbeast.jpg" 
+                    alt="MrBeast" 
+                    className="w-12 h-12 rounded-full object-cover mr-3"
+                  />
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900">MrBeast Challenge</h3>
+                    <p className="text-sm text-gray-600">Défis Extrêmes</p>
+                  </div>
+                </div>
+                <p className="text-gray-600 text-sm mb-4">Clippe les moments les plus fous des challenges MrBeast ! Focus sur les réactions authentiques, les twists inattendus.</p>
                 
                 <div className="space-y-3 mb-4">
                   <div className="flex items-center text-sm text-gray-700">
                     <svg className="w-4 h-4 text-orange-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
-                    <span>100K+ followers • 2.3M vues/mois</span>
+                    <span>200M+ abonnés • 5.2M vues/mois</span>
                   </div>
                   <div className="flex items-center text-sm text-gray-700">
                     <svg className="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"/>
                     </svg>
-                    <span>0,15€ pour 1000 vues</span>
+                    <span>Budget: 5000€ • Taux premium</span>
                   </div>
                   <div className="flex items-center text-sm text-gray-700">
                     <svg className="w-4 h-4 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd"/>
                     </svg>
-                    <span>6 jours restants</span>
+                    <span>Durée: 30-60s • 8 jours restants</span>
                   </div>
                 </div>
                 
                 <div className="border-t pt-4">
-                  <button className="w-full bg-orange-500 text-white py-2 px-4 rounded-lg font-semibold hover:bg-orange-600 transition-colors">
-                    Voir les détails
+                  <button 
+                    onClick={() => {
+                      setAuthModalMode('clipper-signup')
+                      setIsAuthModalOpen(true)
+                    }}
+                    className="w-full bg-orange-500 text-white py-2 px-4 rounded-lg font-semibold hover:bg-orange-600 transition-colors"
+                  >
+                    Accepter cette mission
                   </button>
                 </div>
               </div>
             </div>
             
-            {/* Mission 2 - Dance Challenge */}
+            {/* Mission 2 - Speed Gaming */}
             <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-300">
-              <div className="bg-gradient-to-r from-pink-500 to-purple-500 p-4">
+              <div className="bg-gradient-to-r from-purple-500 to-blue-500 p-4">
                 <div className="flex items-center justify-between">
                   <span className="bg-white/20 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                    💃 Facile
+                    🎮 Gaming
                   </span>
-                  <span className="text-white font-bold text-lg">12€</span>
+                  <span className="text-white font-bold text-lg">10€/1000 vues</span>
                 </div>
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Dance Challenge Viral</h3>
-                <p className="text-gray-600 text-sm mb-4">Reproduis une chorégraphie tendance avec ta propre créativité</p>
+                <div className="flex items-center mb-4">
+                  <img 
+                    src="/speedfan.jpg" 
+                    alt="Speed" 
+                    className="w-12 h-12 rounded-full object-cover mr-3"
+                  />
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900">Speed Gaming</h3>
+                    <p className="text-sm text-gray-600">Réactions Epic</p>
+                  </div>
+                </div>
+                <p className="text-gray-600 text-sm mb-4">Capture les meilleures réactions gaming de Speed ! Ses explosions de joie, de rage, ses moments de skill intense.</p>
                 
                 <div className="space-y-3 mb-4">
                   <div className="flex items-center text-sm text-gray-700">
-                    <svg className="w-4 h-4 text-pink-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <svg className="w-4 h-4 text-purple-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
-                    <span>Tous niveaux • 1.8M vues/mois</span>
+                    <span>25M+ abonnés • 3.8M vues/mois</span>
                   </div>
                   <div className="flex items-center text-sm text-gray-700">
                     <svg className="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"/>
                     </svg>
-                    <span>0,12€ pour 1000 vues</span>
+                    <span>Budget: 3000€ • Engagement élevé</span>
                   </div>
                   <div className="flex items-center text-sm text-gray-700">
                     <svg className="w-4 h-4 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd"/>
                     </svg>
-                    <span>12 jours restants</span>
+                    <span>Durée: 15-45s • 12 jours restants</span>
                   </div>
                 </div>
                 
                 <div className="border-t pt-4">
-                  <button className="w-full bg-pink-500 text-white py-2 px-4 rounded-lg font-semibold hover:bg-pink-600 transition-colors">
-                    Voir les détails
+                  <button 
+                    onClick={() => {
+                      setAuthModalMode('clipper-signup')
+                      setIsAuthModalOpen(true)
+                    }}
+                    className="w-full bg-purple-500 text-white py-2 px-4 rounded-lg font-semibold hover:bg-purple-600 transition-colors"
+                  >
+                    Accepter cette mission
                   </button>
                 </div>
               </div>
             </div>
             
-            {/* Mission 3 - Gaming Reaction */}
+            {/* Mission 3 - Kai Cenat */}
             <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-300">
-              <div className="bg-gradient-to-r from-blue-500 to-cyan-500 p-4">
+              <div className="bg-gradient-to-r from-green-500 to-teal-500 p-4">
                 <div className="flex items-center justify-between">
                   <span className="bg-white/20 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                    🎮 Expert
+                    🎬 Streaming
                   </span>
-                  <span className="text-white font-bold text-lg">20€</span>
+                  <span className="text-white font-bold text-lg">9€/1000 vues</span>
                 </div>
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Gaming Reaction Clip</h3>
-                <p className="text-gray-600 text-sm mb-4">Réagis à un moment fort d'un stream gaming populaire</p>
+                <div className="flex items-center mb-4">
+                  <img 
+                    src="/kaicenatfan.jpg" 
+                    alt="Kai Cenat" 
+                    className="w-12 h-12 rounded-full object-cover mr-3"
+                  />
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900">Kai Cenat</h3>
+                    <p className="text-sm text-gray-600">Best Moments</p>
+                  </div>
+                </div>
+                <p className="text-gray-600 text-sm mb-4">Filme les moments les plus épiques de Kai Cenat ! Ses réactions face au contenu viral, interactions avec le chat.</p>
                 
                 <div className="space-y-3 mb-4">
                   <div className="flex items-center text-sm text-gray-700">
-                    <svg className="w-4 h-4 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <svg className="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
-                    <span>Gaming créateurs • 3.1M vues/mois</span>
+                    <span>12M+ abonnés • 2.5M vues/mois</span>
                   </div>
                   <div className="flex items-center text-sm text-gray-700">
                     <svg className="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"/>
                     </svg>
-                    <span>0,20€ pour 1000 vues</span>
+                    <span>Budget: 2500€ • Roi de Twitch</span>
                   </div>
                   <div className="flex items-center text-sm text-gray-700">
                     <svg className="w-4 h-4 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd"/>
                     </svg>
-                    <span>4 jours restants</span>
+                    <span>Durée: 20-60s • 15 jours restants</span>
                   </div>
                 </div>
                 
                 <div className="border-t pt-4">
-                  <button className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-600 transition-colors">
-                    Voir les détails
+                  <button 
+                    onClick={() => {
+                      setAuthModalMode('clipper-signup')
+                      setIsAuthModalOpen(true)
+                    }}
+                    className="w-full bg-green-500 text-white py-2 px-4 rounded-lg font-semibold hover:bg-green-600 transition-colors"
+                  >
+                    Accepter cette mission
                   </button>
                 </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Section avec plus de créateurs */}
+          <div className="text-center mb-8">
+            <p className="text-lg text-gray-600 mb-6">
+              Et bien d'autres créateurs disponibles...
+            </p>
+          </div>
+          
+          {/* Grille supplémentaire avec plus de créateurs */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+            {/* Drake */}
+            <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300">
+              <div className="bg-gradient-to-r from-yellow-500 to-orange-500 p-3">
+                <div className="flex items-center justify-between">
+                  <span className="bg-white/20 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                    🎵 Musique
+                  </span>
+                  <span className="text-white font-bold text-sm">15€/1000 vues</span>
+                </div>
+              </div>
+              <div className="p-4">
+                <div className="flex items-center mb-3">
+                  <img 
+                    src="/drakefan.jpg" 
+                    alt="Drake" 
+                    className="w-10 h-10 rounded-full object-cover mr-3"
+                  />
+                  <div>
+                    <h4 className="text-lg font-bold text-gray-900">Drake</h4>
+                    <p className="text-xs text-gray-600">Moments Iconiques</p>
+                  </div>
+                </div>
+                <p className="text-gray-600 text-xs mb-3">Concerts, interviews, réactions spontanées. Contenu premium pour audience massive.</p>
+                <div className="text-xs text-gray-700 mb-3">
+                  <span>140M+ abonnés • 4000€ budget</span>
+                </div>
+                <button 
+                  onClick={() => {
+                    setAuthModalMode('clipper-signup')
+                    setIsAuthModalOpen(true)
+                  }}
+                  className="w-full bg-yellow-500 text-white py-2 px-3 rounded-lg text-sm font-semibold hover:bg-yellow-600 transition-colors"
+                >
+                  Voir mission
+                </button>
+              </div>
+            </div>
+            
+            {/* Travis Scott */}
+            <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300">
+              <div className="bg-gradient-to-r from-red-500 to-pink-500 p-3">
+                <div className="flex items-center justify-between">
+                  <span className="bg-white/20 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                    🎤 Rap
+                  </span>
+                  <span className="text-white font-bold text-sm">13€/1000 vues</span>
+                </div>
+              </div>
+              <div className="p-4">
+                <div className="flex items-center mb-3">
+                  <img 
+                    src="/traviscottfan.jpg" 
+                    alt="Travis Scott" 
+                    className="w-10 h-10 rounded-full object-cover mr-3"
+                  />
+                  <div>
+                    <h4 className="text-lg font-bold text-gray-900">Travis Scott</h4>
+                    <p className="text-xs text-gray-600">Astroworld Vibes</p>
+                  </div>
+                </div>
+                <p className="text-gray-600 text-xs mb-3">Concerts épiques, studio sessions, lifestyle. L'énergie Travis Scott en clips.</p>
+                <div className="text-xs text-gray-700 mb-3">
+                  <span>50M+ abonnés • 3500€ budget</span>
+                </div>
+                <button 
+                  onClick={() => {
+                    setAuthModalMode('clipper-signup')
+                    setIsAuthModalOpen(true)
+                  }}
+                  className="w-full bg-red-500 text-white py-2 px-3 rounded-lg text-sm font-semibold hover:bg-red-600 transition-colors"
+                >
+                  Voir mission
+                </button>
+              </div>
+            </div>
+            
+            {/* Central Cee */}
+            <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300">
+              <div className="bg-gradient-to-r from-indigo-500 to-purple-500 p-3">
+                <div className="flex items-center justify-between">
+                  <span className="bg-white/20 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                    🇬🇧 UK Drill
+                  </span>
+                  <span className="text-white font-bold text-sm">11€/1000 vues</span>
+                </div>
+              </div>
+              <div className="p-4">
+                <div className="flex items-center mb-3">
+                  <img 
+                    src="/centralfan.jpg" 
+                    alt="Central Cee" 
+                    className="w-10 h-10 rounded-full object-cover mr-3"
+                  />
+                  <div>
+                    <h4 className="text-lg font-bold text-gray-900">Central Cee</h4>
+                    <p className="text-xs text-gray-600">UK Drill King</p>
+                  </div>
+                </div>
+                <p className="text-gray-600 text-xs mb-3">Clips drill UK, freestyles, lifestyle Londres. Contenu authentique UK.</p>
+                <div className="text-xs text-gray-700 mb-3">
+                  <span>8M+ abonnés • 2800€ budget</span>
+                </div>
+                <button 
+                  onClick={() => {
+                    setAuthModalMode('clipper-signup')
+                    setIsAuthModalOpen(true)
+                  }}
+                  className="w-full bg-indigo-500 text-white py-2 px-3 rounded-lg text-sm font-semibold hover:bg-indigo-600 transition-colors"
+                >
+                  Voir mission
+                </button>
+              </div>
+            </div>
+            
+            {/* Keine Musik */}
+            <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300">
+              <div className="bg-gradient-to-r from-cyan-500 to-blue-500 p-3">
+                <div className="flex items-center justify-between">
+                  <span className="bg-white/20 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                    🇩🇪 Électro
+                  </span>
+                  <span className="text-white font-bold text-sm">8€/1000 vues</span>
+                </div>
+              </div>
+              <div className="p-4">
+                <div className="flex items-center mb-3">
+                  <img 
+                    src="/keinemusikfan.jpg" 
+                    alt="Keine Musik" 
+                    className="w-10 h-10 rounded-full object-cover mr-3"
+                  />
+                  <div>
+                    <h4 className="text-lg font-bold text-gray-900">Keine Musik</h4>
+                    <p className="text-xs text-gray-600">Électro Berlin</p>
+                  </div>
+                </div>
+                <p className="text-gray-600 text-xs mb-3">Sets électro, festivals, ambiance Berlin. Musique électronique premium.</p>
+                <div className="text-xs text-gray-700 mb-3">
+                  <span>2M+ abonnés • 1800€ budget</span>
+                </div>
+                <button 
+                  onClick={() => {
+                    setAuthModalMode('clipper-signup')
+                    setIsAuthModalOpen(true)
+                  }}
+                  className="w-full bg-cyan-500 text-white py-2 px-3 rounded-lg text-sm font-semibold hover:bg-cyan-600 transition-colors"
+                >
+                  Voir mission
+                </button>
               </div>
             </div>
           </div>
