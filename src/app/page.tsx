@@ -174,7 +174,7 @@ export default function Home() {
             </Link>
             <button
               onClick={() => setAuthModal({isOpen: true, mode: 'login'})}
-              className="px-4 py-2 rounded-full border border-[#0F172A]/10 hover:border-[#0F172A]/20 text-[#0F172A]/70 hover:text-[#0F172A] transition-all duration-300"
+              className="px-4 py-2 rounded-full bg-[#0F172A] text-white hover:bg-[#0F172A]/90 transition-all duration-300"
             >
               Se connecter
             </button>
