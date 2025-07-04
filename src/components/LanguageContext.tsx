@@ -1,7 +1,8 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { Language, translations } from '@/lib/translations.new';
+import { Language } from '@/lib/clipper-translations';
+import { dashboardTranslations } from '@/lib/dashboard-translations';
 
 type LanguageContextType = {
   language: Language;
@@ -33,7 +34,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   const t = (key: string) => {
     const keys = key.split('.');
-    let value: Record<string, any> = translations[language];
+    let value: Record<string, any> = dashboardTranslations[language];
     
     for (const k of keys) {
       if (value && typeof value === 'object' && k in value) {
