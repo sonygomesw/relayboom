@@ -12,6 +12,10 @@ export default function LanguageSelector() {
   const currentLanguage = availableLanguages.find(lang => lang.code === language);
 
   useEffect(() => {
+    console.log('LanguageSelector mounted with language:', language);
+    console.log('Available languages:', availableLanguages);
+    console.log('Current language:', currentLanguage);
+    
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsOpen(false);
@@ -22,12 +26,18 @@ export default function LanguageSelector() {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  }, [language, availableLanguages, currentLanguage]);
 
   const handleLanguageChange = (langCode: string) => {
+    console.log('Language changed to:', langCode);
     setLanguage(langCode);
     setIsOpen(false);
   };
+
+  if (!currentLanguage) {
+    console.log('No current language found, returning null');
+    return null;
+  }
 
   return (
     <div className="relative inline-block text-left" ref={dropdownRef}>

@@ -6,19 +6,17 @@ import ClipperSidebar from '@/components/ClipperSidebar'
 import IbanSetup from '@/components/IbanSetup'
 import { useDashboardDataParallel } from '@/hooks/useOptimizedData'
 import { IconSettings, IconCreditCard, IconUser, IconLock } from '@tabler/icons-react'
-import { useLanguage } from '@/components/LanguageContext'
 
 export default function ClipperSettings() {
   const { user, profile } = useAuth()
   const { userStats, isLoading } = useDashboardDataParallel(user?.id || null)
-  const { t } = useLanguage()
 
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">{t('common.loading')}</p>
+          <p className="text-gray-600">Chargement...</p>
         </div>
       </div>
     )
@@ -54,7 +52,7 @@ export default function ClipperSettings() {
                     <IconSettings className="w-8 h-8 text-white" />
                   </div>
                   <div className="flex-1">
-                    <h1 className="text-5xl font-bold text-gray-900 leading-tight">{t('settings.title')}</h1>
+                    <h1 className="text-5xl font-bold text-gray-900 leading-tight">"Paramètres"</h1>
                     <p className="text-xl text-gray-600 mt-2">
                       Gérez vos informations personnelles et vos préférences de paiement.
                     </p>
@@ -65,7 +63,7 @@ export default function ClipperSettings() {
               {/* Navigation des paramètres */}
               <div className="flex gap-6 mb-8 border-b border-gray-200">
                 <button className="px-6 py-3 text-lg font-medium text-blue-600 border-b-2 border-blue-600">
-                  {t('settings.paymentMethod')}
+                  "Méthode de paiement"
                 </button>
                 <button className="px-6 py-3 text-lg font-medium text-gray-500 hover:text-gray-700">
                   Profil
@@ -84,7 +82,7 @@ export default function ClipperSettings() {
                 <div>
                   <div className="flex items-center gap-3 mb-6">
                     <IconCreditCard className="w-6 h-6 text-blue-600" />
-                    <h2 className="text-2xl font-bold text-gray-900">{t('settings.bankInfo')}</h2>
+                    <h2 className="text-2xl font-bold text-gray-900">"Informations bancaires"</h2>
                   </div>
                   <p className="text-gray-600 mb-6">
                     Configurez vos informations bancaires pour recevoir vos paiements par virement SEPA.
@@ -97,7 +95,7 @@ export default function ClipperSettings() {
                 <div className="border-t pt-8">
                   <div className="flex items-center gap-3 mb-6">
                     <IconUser className="w-6 h-6 text-green-600" />
-                    <h2 className="text-2xl font-bold text-gray-900">{t('settings.paymentHistory')}</h2>
+                    <h2 className="text-2xl font-bold text-gray-900">"Historique des paiements"</h2>
                   </div>
                   
                   <div className="bg-white rounded-xl border border-gray-200 p-6">
@@ -105,7 +103,7 @@ export default function ClipperSettings() {
                       <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                         <IconCreditCard className="w-8 h-8 text-gray-400" />
                       </div>
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">{t('settings.noPayments')}</h3>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">"Aucun paiement"</h3>
                       <p className="text-gray-600">
                         Vos paiements apparaîtront ici une fois que vos clips seront approuvés et payés.
                       </p>
@@ -120,14 +118,14 @@ export default function ClipperSettings() {
                       <IconLock className="w-6 h-6 text-blue-600 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold text-blue-900 mb-2">
-                          {t('settings.paymentTitle')}
+                          "Comment fonctionne le paiement ?"
                         </h3>
                         <div className="space-y-2 text-blue-800">
-                          <p>• <strong>{t('settings.commission')} :</strong> 10% prélevés lors de la recharge du créateur</p>
+                          <p>• <strong>"Commission" :</strong> 10% prélevés lors de la recharge du créateur</p>
                           <p>• <strong>Votre part :</strong> 100% du montant calculé (commission déjà déduite)</p>
-                          <p>• <strong>{t('settings.calculation')} :</strong> (Nombre de vues ÷ 1000) × Prix par 1k vues</p>
+                          <p>• <strong>"Calcul" :</strong> (Nombre de vues ÷ 1000) × Prix par 1k vues</p>
                           <p>• <strong>Paiement :</strong> Virement SEPA sous 2-3 jours ouvrés</p>
-                          <p>• <strong>{t('settings.minimumThreshold')} :</strong> Aucun seuil minimum</p>
+                          <p>• <strong>"Seuil minimum" :</strong> Aucun seuil minimum</p>
                         </div>
                       </div>
                     </div>
