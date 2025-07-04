@@ -4,7 +4,8 @@ export const dashboardTranslations = {
   en: {
     common: {
       loading: "Loading...",
-      loadingDashboard: "Loading your dashboard..."
+      loadingDashboard: "Loading your dashboard...",
+      loadingAnalytics: "Loading analytics..."
     },
     filters: {
       allProducts: "All Products",
@@ -12,6 +13,27 @@ export const dashboardTranslations = {
       music: "Music",
       brand: "Brand",
       products: "Products"
+    },
+    creator: {
+      analytics: {
+        title: "Analytics",
+        description: "Track your performance and growth",
+        stats: {
+          totalViews: "Total Views",
+          totalEarnings: "Total Earnings",
+          totalMissions: "Total Missions",
+          totalClippers: "Total Clippers",
+          monthlyViews: "Monthly Views",
+          monthlyEarnings: "Monthly Earnings",
+          weeklyViews: "Weekly Views",
+          weeklyEarnings: "Weekly Earnings",
+          averageViewsPerMission: "Average Views per Mission",
+          topPerformingMission: "Top Performing Mission",
+          recentActivity: "Recent Activity",
+          viewsGrowth: "Views Growth",
+          earningsGrowth: "Earnings Growth"
+        }
+      }
     },
     clipper: {
       missions: {
@@ -59,7 +81,8 @@ export const dashboardTranslations = {
   fr: {
     common: {
       loading: "Chargement...",
-      loadingDashboard: "Chargement de votre tableau de bord..."
+      loadingDashboard: "Chargement de votre tableau de bord...",
+      loadingAnalytics: "Chargement des analyses..."
     },
     filters: {
       allProducts: "Tous les produits",
@@ -67,6 +90,27 @@ export const dashboardTranslations = {
       music: "Musique",
       brand: "Marque",
       products: "Produits"
+    },
+    creator: {
+      analytics: {
+        title: "Analyses",
+        description: "Suivez vos performances et votre croissance",
+        stats: {
+          totalViews: "Vues totales",
+          totalEarnings: "Gains totaux",
+          totalMissions: "Missions totales",
+          totalClippers: "Clippers totaux",
+          monthlyViews: "Vues mensuelles",
+          monthlyEarnings: "Gains mensuels",
+          weeklyViews: "Vues hebdomadaires",
+          weeklyEarnings: "Gains hebdomadaires",
+          averageViewsPerMission: "Vues moyennes par mission",
+          topPerformingMission: "Mission la plus performante",
+          recentActivity: "Activité récente",
+          viewsGrowth: "Croissance des vues",
+          earningsGrowth: "Croissance des gains"
+        }
+      }
     },
     clipper: {
       missions: {
