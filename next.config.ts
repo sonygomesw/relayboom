@@ -1,3 +1,4 @@
+// Force new deployment - v7 - translations update
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
