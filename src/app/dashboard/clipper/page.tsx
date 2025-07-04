@@ -7,7 +7,7 @@ import { useAuth } from '@/components/AuthContext'
 import { useDashboardDataParallel, useMissionsCache } from '@/hooks/useOptimizedData'
 import ClipperSidebar from '@/components/ClipperSidebar'
 import { useLanguage } from '@/components/LanguageContext'
-import { translations } from '@/lib/translations'
+import { translations } from '@/lib/translations.new'
 import { 
   IconEye,
   IconTrendingUp,
@@ -63,11 +63,11 @@ export default function ClipperDashboard() {
 
   // Options pour le filtre Produit uniquement
   const productOptions = [
-    { value: 'all', label: t.clipper.missions.filters.allProducts },
-    { value: 'Divertissement', label: t.clipper.missions.filters.entertainment },
-    { value: 'Musique', label: t.clipper.missions.filters.music },
-    { value: 'Marque', label: t.clipper.missions.filters.brand },
-    { value: 'Produits', label: t.clipper.missions.filters.products }
+    { value: 'all', label: t.filters.allProducts },
+    { value: 'Divertissement', label: t.filters.entertainment },
+    { value: 'Musique', label: t.filters.music },
+    { value: 'Marque', label: t.filters.brand },
+    { value: 'Produits', label: t.filters.products }
   ]
 
   // Debug optimisé
@@ -196,7 +196,7 @@ export default function ClipperDashboard() {
               </div>
               
               <div className="text-xl text-gray-600 mb-8">
-                {dashboardData.missionCount} {dashboardData.missionCount > 1 ? t.creator.missions.activeMissionsCount.plural : t.creator.missions.activeMissionsCount.singular}
+                {dashboardData.missionCount} {dashboardData.missionCount > 1 ? t.clipper.missions.activeMissionsCount.plural : t.clipper.missions.activeMissionsCount.singular}
               </div>
 
               {/* Filtres style Whop - Agrandis et fonctionnels */}
@@ -234,7 +234,7 @@ export default function ClipperDashboard() {
                 <div className="flex items-center gap-3">
                   <button className="px-6 py-3 bg-white rounded-xl border border-gray-200 hover:border-gray-300 transition-colors text-lg">
                     <IconEye className="w-5 h-5 inline mr-2" />
-                    {t.creator.missions.gridView}
+                    {t.clipper.missions.gridView}
                   </button>
                 </div>
               </div>
@@ -248,50 +248,50 @@ export default function ClipperDashboard() {
                     <div className="flex items-start gap-6">
                       <div className="w-20 h-20 rounded-2xl overflow-hidden bg-gray-100 flex-shrink-0">
                         <img 
-                          src={mission.creator_thumbnail || '/placeholder-mission.jpg'} 
-                          alt={mission.title}
+                          src={mission.creator_avatar || '/default-avatar.png'} 
+                          alt={mission.creator_name || 'Creator'} 
                           className="w-full h-full object-cover"
                         />
                       </div>
                       <div className="flex-1">
-                        <h3 className="text-xl font-bold text-gray-900 mb-2">{mission.title}</h3>
-                        <p className="text-gray-600 mb-4">{mission.description}</p>
-                        <div className="flex items-center gap-4">
-                          <span className="text-sm text-gray-500">
-                            <IconCoin className="w-4 h-4 inline mr-1" />
-                            {mission.price_per_1k_views}€ / 1K vues
-                          </span>
-                          <span className="text-sm text-gray-500">
-                            <IconEye className="w-4 h-4 inline mr-1" />
-                            {mission.total_views || 0} vues
-                          </span>
-                          <span className="text-sm text-gray-500">
-                            <IconPlayerPlay className="w-4 h-4 inline mr-1" />
-                            {mission.total_submissions || 0} clips
-                          </span>
+                        <div className="flex items-start justify-between mb-4">
+                          <div>
+                            <h2 className="text-2xl font-bold text-gray-900 mb-1">{mission.title}</h2>
+                            <p className="text-gray-600">{mission.description}</p>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-2xl font-bold text-green-600">{mission.price_per_1k_views}€</span>
+                            <span className="text-gray-500">/1k vues</span>
+                          </div>
                         </div>
-                      </div>
-                      <div>
-                        <button 
-                          onClick={() => router.push(`/mission/${mission.id}`)}
-                          className="px-6 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 transition-colors"
-                        >
-                          Voir la mission
-                        </button>
+                        <div className="flex items-center gap-6">
+                          <div className="flex items-center gap-2">
+                            <IconEye className="w-5 h-5 text-gray-400" />
+                            <span className="text-gray-600">{mission.views_target} vues</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <IconClock className="w-5 h-5 text-gray-400" />
+                            <span className="text-gray-600">{mission.duration} jours</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <IconStar className="w-5 h-5 text-gray-400" />
+                            <span className="text-gray-600">{mission.difficulty}</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 ))
               ) : (
-                <div className="text-center py-12">
-                  <p className="text-gray-600">Aucune mission disponible pour le moment.</p>
+                <div className="text-center py-12 bg-white rounded-xl shadow">
+                  <p className="text-gray-500">Aucune mission disponible pour le moment</p>
                 </div>
               )}
             </div>
           </div>
         </main>
       </div>
-      </div>
+    </div>
     </RoleProtectionOptimized>
   )
 } 

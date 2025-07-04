@@ -453,6 +453,13 @@ export const translations = {
       signIn: 'Sign in',
       language: 'Language'
     },
+    filters: {
+      allProducts: 'All Products',
+      entertainment: 'Entertainment',
+      music: 'Music',
+      brand: 'Brand',
+      products: 'Products'
+    },
     // ... rest of English translations
   },
   fr: {
@@ -678,7 +685,7 @@ export const translations = {
             title: "Missions Disponibles",
             description: "Parcourez et acceptez les missions des créateurs",
             filters: {
-              allProducts: "Tous les Produits",
+              allProducts: "Tous les produits",
               entertainment: "Divertissement",
               music: "Musique",
               brand: "Marque",
@@ -912,6 +919,13 @@ export const translations = {
       faq: 'FAQ',
       signIn: 'Connexion',
       language: 'Langue'
+    },
+    filters: {
+      allProducts: 'Tous les produits',
+      entertainment: 'Divertissement',
+      music: 'Musique',
+      brand: 'Marque',
+      products: 'Produits'
     },
     // ... rest of French translations
   },
