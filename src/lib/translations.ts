@@ -184,46 +184,26 @@ export const translations = {
                 products: 'Products'
               }
             },
-            pricePerView: {
-              label: 'Price per 1k views',
-              placeholder: 'Ex: 5.00'
+            totalBudget: {
+              label: 'Total Budget',
+              placeholder: 'Ex: 1000'
             },
-            minViews: {
-              label: 'Minimum Views',
-              placeholder: '1000'
+            reward: {
+              label: 'Reward per 1k views',
+              placeholder: 'Ex: 1.00'
             },
-            maxViews: {
-              label: 'Maximum Views',
-              placeholder: '100000'
-            },
+            rewardExample: 'Example rewards:',
             platforms: {
-              label: 'Target Platforms',
-              options: {
-                tiktok: 'TikTok',
-                youtube: 'YouTube',
-                instagram: 'Instagram',
-                facebook: 'Facebook',
-                twitter: 'X/Twitter'
-              }
+              label: 'Target Platforms'
             },
-            targetAudience: {
-              label: 'Target Audience',
-              placeholder: 'Describe your target audience'
+            videoUrl: {
+              label: 'Reference Video URL',
+              placeholder: 'https://...'
             },
-            requirements: {
-              label: 'Requirements',
-              placeholder: 'List any specific requirements for clippers'
-            },
-            thumbnail: {
-              label: 'Mission Thumbnail',
-              upload: 'Upload a thumbnail',
-              dragDrop: 'or drag and drop',
-              formats: 'PNG, JPG up to 5MB'
+            creatorImage: {
+              label: 'Creator Image',
+              upload: 'Upload Image'
             }
-          },
-          actions: {
-            saveDraft: 'Save as Draft',
-            publish: 'Publish Mission'
           }
         }
       },
@@ -433,15 +413,15 @@ export const translations = {
           title: 'Créer une nouvelle mission',
           description: 'Configurez les paramètres de votre mission et commencez à recevoir des clips',
           sections: {
-            basicInfo: 'Informations générales',
-            pricing: 'Budget',
+            basicInfo: 'Informations de base',
+            pricing: 'Tarification',
             platforms: 'Plateformes',
             additionalInfo: 'Informations supplémentaires'
           },
           fields: {
             title: {
               label: 'Titre de la mission',
-              placeholder: 'Ex : Clip mes meilleurs moments gaming'
+              placeholder: 'Ex : Clipper mes meilleurs moments de jeu'
             },
             description: {
               label: 'Description détaillée',
@@ -457,46 +437,26 @@ export const translations = {
                 products: 'Produits'
               }
             },
-            pricePerView: {
-              label: 'Prix par 1k vues',
-              placeholder: 'Ex : 5,00'
+            totalBudget: {
+              label: 'Budget total',
+              placeholder: 'Ex : 1000'
             },
-            minViews: {
-              label: 'Vues minimales',
-              placeholder: '1000'
+            reward: {
+              label: 'Récompense par 1k vues',
+              placeholder: 'Ex : 1.00'
             },
-            maxViews: {
-              label: 'Vues maximales',
-              placeholder: '100000'
-            },
+            rewardExample: 'Exemples de récompenses :',
             platforms: {
-              label: 'Plateformes cibles',
-              options: {
-                tiktok: 'TikTok',
-                youtube: 'YouTube',
-                instagram: 'Instagram',
-                facebook: 'Facebook',
-                twitter: 'X/Twitter'
-              }
+              label: 'Plateformes cibles'
             },
-            targetAudience: {
-              label: 'Public cible',
-              placeholder: 'Décrivez votre public cible'
+            videoUrl: {
+              label: 'URL de la vidéo de référence',
+              placeholder: 'https://...'
             },
-            requirements: {
-              label: 'Exigences',
-              placeholder: 'Listez les exigences spécifiques pour les clippeurs'
-            },
-            thumbnail: {
-              label: 'Vignette de la mission',
-              upload: 'Uploader une vignette',
-              dragDrop: 'ou glisser-déposer',
-              formats: 'PNG, JPG jusqu\'à 5MB'
+            creatorImage: {
+              label: 'Image du créateur',
+              upload: 'Télécharger une image'
             }
-          },
-          actions: {
-            saveDraft: 'Enregistrer comme brouillon',
-            publish: 'Publier la mission'
           }
         }
       },
@@ -701,6 +661,56 @@ export const translations = {
           wallet: 'Billetera',
           payments: 'Pagos',
           logout: 'Cerrar sesión'
+        },
+        newMission: {
+          title: 'Crear nueva misión',
+          description: 'Configura los parámetros de tu misión y comienza a recibir clips',
+          sections: {
+            basicInfo: 'Información básica',
+            pricing: 'Precios',
+            platforms: 'Plataformas',
+            additionalInfo: 'Información adicional'
+          },
+          fields: {
+            title: {
+              label: 'Título de la misión',
+              placeholder: 'Ej: Clipear mis mejores momentos de juego'
+            },
+            description: {
+              label: 'Descripción detallada',
+              placeholder: 'Describe lo que esperas de los clippers, el estilo deseado, etc.'
+            },
+            category: {
+              label: 'Categoría',
+              placeholder: 'Selecciona una categoría',
+              options: {
+                entertainment: 'Entretenimiento',
+                music: 'Música',
+                brand: 'Marca',
+                products: 'Productos'
+              }
+            },
+            totalBudget: {
+              label: 'Presupuesto total',
+              placeholder: 'Ej: 1000'
+            },
+            reward: {
+              label: 'Recompensa por 1k vistas',
+              placeholder: 'Ej: 1.00'
+            },
+            rewardExample: 'Ejemplos de recompensas:',
+            platforms: {
+              label: 'Plataformas objetivo'
+            },
+            videoUrl: {
+              label: 'URL del video de referencia',
+              placeholder: 'https://...'
+            },
+            creatorImage: {
+              label: 'Imagen del creador',
+              upload: 'Subir imagen'
+            }
+          }
         }
       },
       clipper: {
@@ -741,10 +751,10 @@ export const translations = {
           description: 'Pubblica contenuti sui social media e guadagna in base alle visualizzazioni che generi. Se vuoi lanciare una campagna, clicca qui.',
           filters: {
             allProducts: 'Todos los productos',
-            entertainment: 'Entretenimiento',
+            entertainment: 'Intrattenimento',
             music: 'Música',
             brand: 'Marca',
-            products: 'Productos'
+            products: 'Produtos'
           }
         }
       }
@@ -904,6 +914,56 @@ export const translations = {
           wallet: 'Portafoglio',
           payments: 'Pagamenti',
           logout: 'Esci'
+        },
+        newMission: {
+          title: 'Crea nuova missione',
+          description: 'Configura i parametri della tua missione e inizia a ricevere clip',
+          sections: {
+            basicInfo: 'Informazioni di base',
+            pricing: 'Prezzi',
+            platforms: 'Piattaforme',
+            additionalInfo: 'Informazioni aggiuntive'
+          },
+          fields: {
+            title: {
+              label: 'Titolo della missione',
+              placeholder: 'Es: Clippare i miei migliori momenti di gioco'
+            },
+            description: {
+              label: 'Descrizione dettagliata',
+              placeholder: 'Descrivi cosa ti aspetti dai clipper, lo stile desiderato, ecc.'
+            },
+            category: {
+              label: 'Categoria',
+              placeholder: 'Seleziona una categoria',
+              options: {
+                entertainment: 'Intrattenimento',
+                music: 'Musica',
+                brand: 'Marca',
+                products: 'Prodotti'
+              }
+            },
+            totalBudget: {
+              label: 'Budget totale',
+              placeholder: 'Es: 1000'
+            },
+            reward: {
+              label: 'Ricompensa per 1k visualizzazioni',
+              placeholder: 'Es: 1.00'
+            },
+            rewardExample: 'Esempi di ricompense:',
+            platforms: {
+              label: 'Piattaforme target'
+            },
+            videoUrl: {
+              label: 'URL del video di riferimento',
+              placeholder: 'https://...'
+            },
+            creatorImage: {
+              label: 'Immagine del creatore',
+              upload: 'Carica immagine'
+            }
+          }
         }
       },
       clipper: {
