@@ -6,7 +6,7 @@ export const translations = {
       howItWorks: 'How it works',
       faq: 'FAQ',
       signIn: 'Sign in',
-      language: 'English'
+      language: 'Language'
     },
     hero: {
       challenge: {
@@ -279,7 +279,7 @@ export const translations = {
       howItWorks: 'Comment ça marche',
       faq: 'FAQ',
       signIn: 'Se connecter',
-      language: 'Français'
+      language: 'Langue'
     },
     hero: {
       challenge: {
@@ -552,7 +552,7 @@ export const translations = {
       howItWorks: 'Cómo funciona',
       faq: 'FAQ',
       signIn: 'Iniciar sesión',
-      language: 'Español'
+      language: 'Idioma'
     },
     hero: {
       challenge: {
@@ -738,7 +738,7 @@ export const translations = {
         },
         missions: {
           title: 'Misiones de contenido',
-          description: 'Publica contenido en redes sociales y recibe pagos por las visualizaciones que generes. Si quieres lanzar una campaña, haz clic aquí.',
+          description: 'Pubblica contenuti sui social media e guadagna in base alle visualizzazioni che generi. Se vuoi lanciare una campagna, clicca qui.',
           filters: {
             allProducts: 'Todos los productos',
             entertainment: 'Entretenimiento',
@@ -755,7 +755,7 @@ export const translations = {
       howItWorks: 'Come funziona',
       faq: 'FAQ',
       signIn: 'Accedi',
-      language: 'Italiano'
+      language: 'Lingua'
     },
     hero: {
       challenge: {
