@@ -265,17 +265,6 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Trending Badge */}
-      <div className="py-4 bg-gradient-to-r from-red-500 to-red-600">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center">
-            <div className="inline-flex items-center px-6 py-3 rounded-full text-sm font-semibold bg-white/20 backdrop-blur-xl text-white shadow-lg">
-              {t.trending.badge}
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Les clips qui cartonnent Section */}
       <div className="py-20 bg-gradient-to-b from-gray-50/50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
