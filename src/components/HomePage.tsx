@@ -313,8 +313,34 @@ export default function HomePage() {
                     step="10000"
                     value={viewsCount}
                     onChange={(e) => setViewsCount(parseInt(e.target.value))}
-                    className="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
+                    className="w-full h-3 bg-white/40 rounded-lg appearance-none cursor-pointer slider"
+                    style={{
+                      background: `linear-gradient(to right, #10B981 0%, #10B981 ${((viewsCount - 10000) / (5000000 - 10000)) * 100}%, rgba(255,255,255,0.4) ${((viewsCount - 10000) / (5000000 - 10000)) * 100}%, rgba(255,255,255,0.4) 100%)`,
+                      WebkitAppearance: 'none',
+                      outline: 'none'
+                    }}
                   />
+                  <style jsx>{`
+                    .slider::-webkit-slider-thumb {
+                      appearance: none;
+                      width: 20px;
+                      height: 20px;
+                      border-radius: 50%;
+                      background: #ffffff;
+                      cursor: pointer;
+                      border: 3px solid #10B981;
+                      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+                    }
+                    .slider::-moz-range-thumb {
+                      width: 20px;
+                      height: 20px;
+                      border-radius: 50%;
+                      background: #ffffff;
+                      cursor: pointer;
+                      border: 3px solid #10B981;
+                      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+                    }
+                  `}</style>
                   <div className="flex justify-between text-xs text-blue-100 mt-2">
                     <span>10K</span>
                     <span>5M</span>
