@@ -544,11 +544,6 @@ export default function Home() {
                   <h3 className="font-semibold text-gray-800">Solde disponible</h3>
                   <span className="text-2xl font-bold text-[#10B981]">347,20 €</span>
                 </div>
-                <div className="bg-gray-50 rounded-xl p-4 mb-6">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-sm text-gray-500">Montant du retrait</span>
-                  </div>
-                </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="bg-gray-50 rounded-xl p-4">
                     <div className="flex items-center gap-3">
