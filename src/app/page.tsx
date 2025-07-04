@@ -172,6 +172,12 @@ export default function Home() {
             <Link href="#faq" className="text-[#0F172A]/70 hover:text-[#0F172A]">
               FAQ
             </Link>
+            <button
+              onClick={() => setAuthModal({isOpen: true, mode: 'login'})}
+              className="text-[#0F172A]/70 hover:text-[#0F172A]"
+            >
+              Se connecter
+            </button>
           </nav>
         </div>
       </header>
