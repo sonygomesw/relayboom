@@ -5,12 +5,13 @@ import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { useLanguage } from '@/components/LanguageContext';
 import { translations } from '@/lib/translations';
+import { Language } from '@/lib/clipper-translations';
 
 export default function DashboardRedirect() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const { language } = useLanguage();
-  const t = translations[language];
+  const t = translations[language as Language];
 
   useEffect(() => {
     const redirectToCorrectDashboard = async () => {
@@ -61,7 +62,7 @@ export default function DashboardRedirect() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">{t.dashboard.common.loading}</p>
+          <p className="text-gray-600">{t.common.loading}</p>
         </div>
       </div>
     );
