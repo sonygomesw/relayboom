@@ -139,10 +139,26 @@ export const translations = {
           },
           stats: {
             availableCredits: 'Available Credits',
-            pendingCredits: 'Pending Credits',
-            totalEarnings: 'Total Earnings',
-            lastWithdrawal: 'Last Withdrawal',
-            nextPayout: 'Next Payout'
+            available: 'Available now',
+            totalDeposited: 'Total Deposited',
+            total: 'Total',
+            reservedCredits: 'Reserved Credits',
+            reserved: 'Reserved',
+            spentCredits: 'Spent Credits',
+            spent: 'Spent'
+          },
+          actions: {
+            addFunds: 'Add Funds',
+            addFundsButton: 'Add Credits',
+            bankAccount: 'Bank Account',
+            bankAccountButton: 'Manage Account'
+          },
+          transactions: {
+            title: 'Recent Transactions',
+            empty: {
+              title: 'No transactions yet',
+              description: 'Your transaction history will appear here'
+            }
           }
         },
         missions: {
@@ -434,10 +450,26 @@ export const translations = {
           },
           stats: {
             availableCredits: 'Crédits disponibles',
-            pendingCredits: 'Crédits en attente',
-            totalEarnings: 'Gains totaux',
-            lastWithdrawal: 'Dernier retrait',
-            nextPayout: 'Prochain paiement'
+            available: 'Disponible maintenant',
+            totalDeposited: 'Total déposé',
+            total: 'Total',
+            reservedCredits: 'Crédits réservés',
+            reserved: 'Réservé',
+            spentCredits: 'Crédits dépensés',
+            spent: 'Dépensé'
+          },
+          actions: {
+            addFunds: 'Ajouter des fonds',
+            addFundsButton: 'Ajouter des crédits',
+            bankAccount: 'Compte bancaire',
+            bankAccountButton: 'Gérer le compte'
+          },
+          transactions: {
+            title: 'Transactions récentes',
+            empty: {
+              title: 'Aucune transaction',
+              description: 'Votre historique de transactions apparaîtra ici'
+            }
           }
         },
         missions: {
@@ -729,10 +761,26 @@ export const translations = {
           },
           stats: {
             availableCredits: 'Créditos disponibles',
-            pendingCredits: 'Créditos pendientes',
-            totalEarnings: 'Ganancias totales',
-            lastWithdrawal: 'Último retiro',
-            nextPayout: 'Próximo pago'
+            available: 'Disponible ahora',
+            totalDeposited: 'Total depositado',
+            total: 'Total',
+            reservedCredits: 'Créditos reservados',
+            reserved: 'Reservado',
+            spentCredits: 'Créditos gastados',
+            spent: 'Gastado'
+          },
+          actions: {
+            addFunds: 'Agregar fondos',
+            addFundsButton: 'Agregar créditos',
+            bankAccount: 'Cuenta bancaria',
+            bankAccountButton: 'Gestionar cuenta'
+          },
+          transactions: {
+            title: 'Transacciones recientes',
+            empty: {
+              title: 'Sin transacciones',
+              description: 'Tu historial de transacciones aparecerá aquí'
+            }
           }
         },
         missions: {
@@ -878,7 +926,7 @@ export const translations = {
           filters: {
             allProducts: 'Todos los productos',
             entertainment: 'Intrattenimento',
-            music: 'Música',
+            music: 'Musica',
             brand: 'Marca',
             products: 'Produtos'
           }
@@ -1024,10 +1072,26 @@ export const translations = {
           },
           stats: {
             availableCredits: 'Crediti disponibili',
-            pendingCredits: 'Crediti in attesa',
-            totalEarnings: 'Guadagni totali',
-            lastWithdrawal: 'Ultimo prelievo',
-            nextPayout: 'Prossimo pagamento'
+            available: 'Disponibile ora',
+            totalDeposited: 'Totale depositato',
+            total: 'Totale',
+            reservedCredits: 'Crediti riservati',
+            reserved: 'Riservato',
+            spentCredits: 'Crediti spesi',
+            spent: 'Speso'
+          },
+          actions: {
+            addFunds: 'Aggiungi fondi',
+            addFundsButton: 'Aggiungi crediti',
+            bankAccount: 'Conto bancario',
+            bankAccountButton: 'Gestisci conto'
+          },
+          transactions: {
+            title: 'Transazioni recenti',
+            empty: {
+              title: 'Nessuna transazione',
+              description: 'La tua cronologia delle transazioni apparirà qui'
+            }
           }
         },
         missions: {
