@@ -54,36 +54,56 @@ export default function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthM
     setMessage('');
 
     try {
+      console.log('🔄 Début de l\'authentification, mode:', mode);
+      console.log('📧 Email:', email);
+      console.log('🔗 Supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL);
+      
       if (mode === 'login') {
         // Login with email and password
         console.log('🔐 Tentative de connexion pour:', email);
+        
+        // Vérifier que Supabase est bien configuré
+        if (!supabase || !supabase.auth) {
+          throw new Error('Supabase n\'est pas configuré correctement');
+        }
+        
         const { data, error } = await supabase.auth.signInWithPassword({
-          email,
-          password
+          email: email.trim(),
+          password: password
         });
         
+        console.log('🔍 Réponse Supabase:', { data, error });
+        
         if (error) {
-          console.error('❌ Erreur de connexion:', error);
+          console.error('❌ Erreur de connexion détaillée:', {
+            message: error.message,
+            status: error.status,
+            name: error.name
+          });
           throw error;
+        }
+        
+        if (!data.user) {
+          throw new Error('Aucun utilisateur retourné par Supabase');
         }
         
         console.log('✅ Connexion réussie:', data.user?.email);
         
-        if (data.user) {
-          setMessage('Connexion réussie ! Redirection...');
-          setAwaitingRedirect(true);
-          // La redirection sera gérée par l'useEffect une fois que l'AuthContext sera mis à jour
-        }
+        setMessage('Connexion réussie ! Redirection...');
+        setAwaitingRedirect(true);
+        // La redirection sera gérée par l'useEffect une fois que l'AuthContext sera mis à jour
       } else {
         // Sign up with email and password
         console.log('📝 Tentative d\'inscription pour:', email);
         const { data, error } = await supabase.auth.signUp({
-          email,
+          email: email.trim(),
           password,
           options: {
             emailRedirectTo: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://cliptokk.com'}/auth/callback`
           }
         });
+        
+        console.log('🔍 Réponse inscription Supabase:', { data, error });
         
         if (error) {
           console.error('❌ Erreur d\'inscription:', error);
@@ -108,6 +128,7 @@ export default function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthM
       }
     } catch (error: any) {
       console.error('💥 Erreur complète:', error);
+      console.error('💥 Stack trace:', error.stack);
       
       // Messages d'erreur plus explicites
       let errorMessage = error.message || 'Une erreur est survenue';
@@ -118,9 +139,13 @@ export default function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthM
         errorMessage = 'Email non confirmé. Vérifie ta boîte mail.';
       } else if (error.message?.includes('Too many requests')) {
         errorMessage = 'Trop de tentatives. Attends quelques minutes.';
+      } else if (error.message?.includes('network') || error.message?.includes('fetch')) {
+        errorMessage = 'Problème de connexion. Vérifie ta connexion internet.';
+      } else if (error.message?.includes('Supabase')) {
+        errorMessage = 'Problème de configuration du serveur. Contacte le support.';
       }
       
-      setMessage(errorMessage);
+      setMessage(`Erreur: ${errorMessage}`);
       setAwaitingRedirect(false);
     } finally {
       setLoading(false);
@@ -280,6 +305,35 @@ export default function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthM
           ) : (
             <>Déjà un compte ? <button onClick={() => onModeChange('login')} className="text-green-600 hover:underline">Se connecter</button></>
           )}
+        </div>
+
+        {/* Bouton de test de connexion Supabase */}
+        <div className="mt-4 text-center">
+          <button
+            onClick={async () => {
+              try {
+                setMessage('Test de connexion Supabase...');
+                console.log('🧪 Test de connexion Supabase');
+                console.log('🔗 URL:', process.env.NEXT_PUBLIC_SUPABASE_URL);
+                console.log('🔑 Key (premiers chars):', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.substring(0, 20) + '...');
+                
+                const { data, error } = await supabase.auth.getSession();
+                console.log('📊 Session actuelle:', { data, error });
+                
+                if (error) {
+                  setMessage(`Erreur de test: ${error.message}`);
+                } else {
+                  setMessage('Test réussi ! Supabase fonctionne correctement.');
+                }
+              } catch (err: any) {
+                console.error('❌ Erreur de test:', err);
+                setMessage(`Erreur de test: ${err.message}`);
+              }
+            }}
+            className="text-xs text-gray-400 hover:text-gray-600 underline"
+          >
+            Tester la connexion
+          </button>
         </div>
       </div>
     </div>
