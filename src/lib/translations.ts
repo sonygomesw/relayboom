@@ -120,6 +120,24 @@ export const translations = {
           pending: 'Pending',
           pendingValidations: 'Pending validations'
         },
+        wallet: {
+          title: 'My Wallet',
+          description: 'Manage your earnings and withdrawals',
+          balance: {
+            title: 'Available Balance',
+            pending: 'Pending',
+            total: 'Total Earnings'
+          },
+          withdraw: {
+            title: 'Withdraw Funds',
+            button: 'Withdraw',
+            minimum: 'Minimum withdrawal amount:'
+          },
+          history: {
+            title: 'Transaction History',
+            empty: 'No transactions yet'
+          }
+        },
         missions: {
           title: 'Content Missions',
           description: 'Post content on social media and get paid for the views you generate. If you want to launch a campaign, click here.',
@@ -389,6 +407,24 @@ export const translations = {
           createdMissions: 'Missions créées par vous',
           pending: 'En attente',
           pendingValidations: 'Validations en cours'
+        },
+        wallet: {
+          title: 'Mon Portefeuille',
+          description: 'Gérez vos gains et retraits',
+          balance: {
+            title: 'Solde disponible',
+            pending: 'En attente',
+            total: 'Gains totaux'
+          },
+          withdraw: {
+            title: 'Retirer des fonds',
+            button: 'Retirer',
+            minimum: 'Montant minimum de retrait :'
+          },
+          history: {
+            title: 'Historique des transactions',
+            empty: 'Aucune transaction pour le moment'
+          }
         },
         missions: {
           title: 'Missions de contenu',
@@ -660,6 +696,24 @@ export const translations = {
           pending: 'Pendiente',
           pendingValidations: 'Validaciones pendientes'
         },
+        wallet: {
+          title: 'Mi Billetera',
+          description: 'Administra tus ganancias y retiros',
+          balance: {
+            title: 'Saldo disponible',
+            pending: 'Pendiente',
+            total: 'Ganancias totales'
+          },
+          withdraw: {
+            title: 'Retirar fondos',
+            button: 'Retirar',
+            minimum: 'Monto mínimo de retiro:'
+          },
+          history: {
+            title: 'Historial de transacciones',
+            empty: 'Aún no hay transacciones'
+          }
+        },
         missions: {
           title: 'Misiones de contenido',
           description: 'Publica contenido en redes sociales y recibe pagos por las visualizaciones que generes. Si quieres lanzar una campaña, haz clic aquí.',
@@ -928,7 +982,25 @@ export const translations = {
           activeMissions: 'Missioni attive',
           createdMissions: 'Missioni create da te',
           pending: 'In attesa',
-          pendingValidations: 'Validazioni in corso'
+          pendingValidations: 'Validazioni in attesa'
+        },
+        wallet: {
+          title: 'Il mio Portafoglio',
+          description: 'Gestisci i tuoi guadagni e prelievi',
+          balance: {
+            title: 'Saldo disponibile',
+            pending: 'In attesa',
+            total: 'Guadagni totali'
+          },
+          withdraw: {
+            title: 'Preleva fondi',
+            button: 'Preleva',
+            minimum: 'Importo minimo di prelievo:'
+          },
+          history: {
+            title: 'Cronologia transazioni',
+            empty: 'Nessuna transazione ancora'
+          }
         },
         missions: {
           title: 'Missioni di contenuto',
