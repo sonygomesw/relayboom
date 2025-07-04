@@ -33,7 +33,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   const t = (key: string) => {
     const keys = key.split('.');
-    let value = translations[language];
+    let value: Record<string, any> = translations[language];
     
     for (const k of keys) {
       if (value && typeof value === 'object' && k in value) {
