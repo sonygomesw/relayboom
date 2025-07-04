@@ -247,7 +247,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Combien peux-tu gagner */}
+      {/* Combien peux-tu gagner Section */}
       <div className="py-20 bg-gradient-to-b from-white to-gray-50/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:text-center">
@@ -287,7 +287,26 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Témoignages */}
+      {/* Trending Badge */}
+      <div className="flex justify-center py-12">
+        <div className="inline-flex items-center px-8 py-4 rounded-full bg-gradient-to-r from-red-100 to-orange-100 text-red-800 text-sm font-semibold shadow-xl shadow-red-500/10">
+          🔥 Tendance cette semaine
+        </div>
+      </div>
+
+      {/* Video Carousel - Les clips qui cartonnent */}
+      <div className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="lg:text-center mb-12">
+            <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+              Les clips qui cartonnent
+            </h2>
+          </div>
+          <VideoCarouselDemo />
+        </div>
+      </div>
+
+      {/* Témoignages - Ils cartonnent déjà */}
       <div className="py-20 bg-gradient-to-b from-gray-50/50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:text-center">
@@ -350,25 +369,6 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Trending Badge */}
-      <div className="flex justify-center py-12">
-        <div className="inline-flex items-center px-8 py-4 rounded-full bg-gradient-to-r from-red-100 to-orange-100 text-red-800 text-sm font-semibold shadow-xl shadow-red-500/10">
-          🔥 Tendance cette semaine
-        </div>
-      </div>
-
-      {/* Video Carousel */}
-      <div className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="lg:text-center mb-12">
-            <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-              Les clips qui cartonnent
-            </h2>
-          </div>
-          <VideoCarouselDemo />
         </div>
       </div>
 
