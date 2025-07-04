@@ -40,7 +40,8 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50/30">
       {/* Navigation */}
-      <nav className="bg-white/95 backdrop-blur-xl border-b border-gray-200/50 sticky top-0 z-40 shadow-sm">
+      <nav className="bg-white/95 backdrop-blur-xl border-b border-gray-200/50 sticky top-0 z-40 shadow-sm"
+           style={{ backgroundColor: 'rgba(255, 255, 255, 0.95)', borderBottomColor: '#E6E6E6' }}>
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
@@ -52,17 +53,37 @@ export default function HomePage() {
             <div className="hidden md:flex items-center space-x-1">
               <a 
                 href="#comment-ca-marche" 
-                className="group relative px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 rounded-lg transition-all duration-200 hover:bg-gray-50"
+                className="group relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200"
+                style={{ color: '#6E6E73' }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = '#1D1D1F'
+                  e.currentTarget.style.backgroundColor = '#F5F5F7'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = '#6E6E73'
+                  e.currentTarget.style.backgroundColor = 'transparent'
+                }}
               >
                 {t.nav.howItWorks}
-                <span className="absolute inset-x-0 bottom-0 h-0.5 bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-center"></span>
+                <span className="absolute inset-x-0 bottom-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-center"
+                      style={{ backgroundColor: '#0066CC' }}></span>
               </a>
               <a 
                 href="#missions" 
-                className="group relative px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 rounded-lg transition-all duration-200 hover:bg-gray-50"
+                className="group relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200"
+                style={{ color: '#6E6E73' }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = '#1D1D1F'
+                  e.currentTarget.style.backgroundColor = '#F5F5F7'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = '#6E6E73'
+                  e.currentTarget.style.backgroundColor = 'transparent'
+                }}
               >
                 {t.nav.missions}
-                <span className="absolute inset-x-0 bottom-0 h-0.5 bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-center"></span>
+                <span className="absolute inset-x-0 bottom-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-center"
+                      style={{ backgroundColor: '#0066CC' }}></span>
               </a>
             </div>
 
@@ -79,7 +100,16 @@ export default function HomePage() {
                   setAuthModalMode('login')
                   setIsAuthModalOpen(true)
                 }}
-                className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 rounded-lg transition-all duration-200 hover:bg-gray-50"
+                className="px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200"
+                style={{ color: '#6E6E73' }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = '#1D1D1F'
+                  e.currentTarget.style.backgroundColor = '#F5F5F7'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = '#6E6E73'
+                  e.currentTarget.style.backgroundColor = 'transparent'
+                }}
               >
                 {t.nav.login}
               </button>
@@ -90,7 +120,19 @@ export default function HomePage() {
                   setAuthModalMode('clipper-signup')
                   setIsAuthModalOpen(true)
                 }}
-                className="group inline-flex items-center px-6 py-2.5 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                className="group inline-flex items-center px-6 py-2.5 text-sm font-semibold text-white rounded-lg shadow-sm transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-offset-2"
+                style={{ 
+                  backgroundColor: '#0066CC',
+                  boxShadow: '0 1px 2px 0 rgba(29, 29, 31, 0.05)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#0052A3'
+                  e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(29, 29, 31, 0.1), 0 2px 4px -1px rgba(29, 29, 31, 0.06)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#0066CC'
+                  e.currentTarget.style.boxShadow = '0 1px 2px 0 rgba(29, 29, 31, 0.05)'
+                }}
               >
                 {t.nav.becomeClipper}
                 <svg className="ml-2 w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -136,7 +178,19 @@ export default function HomePage() {
                       setAuthModalMode('signup')
                       setIsAuthModalOpen(true)
                     }}
-                    className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                    className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white rounded-xl shadow-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                    style={{ 
+                      backgroundColor: '#0066CC',
+                      boxShadow: '0 1px 2px 0 rgba(29, 29, 31, 0.05)'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = '#0052A3'
+                      e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(29, 29, 31, 0.1), 0 2px 4px -1px rgba(29, 29, 31, 0.06)'
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = '#0066CC'
+                      e.currentTarget.style.boxShadow = '0 1px 2px 0 rgba(29, 29, 31, 0.05)'
+                    }}
                   >
                     <span className="relative z-10">{t.hero.ctaPrimary}</span>
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
@@ -147,7 +201,7 @@ export default function HomePage() {
                       setAuthModalMode('clipper-signup')
                       setIsAuthModalOpen(true)
                     }}
-                    className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-gray-700 bg-white hover:bg-gray-50 border border-gray-200 hover:border-gray-300 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+                    className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-gray-700 bg-white hover:bg-gray-50 border border-gray-200 hover:border-gray-300 rounded-xl shadow-sm transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
                   >
                     {t.hero.ctaSecondary}
                     <svg className="ml-2 w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -379,7 +433,19 @@ export default function HomePage() {
                 setAuthModalMode('clipper-signup')
                 setIsAuthModalOpen(true)
               }}
-              className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white rounded-xl shadow-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              style={{ 
+                backgroundColor: '#0066CC',
+                boxShadow: '0 1px 2px 0 rgba(29, 29, 31, 0.05)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#0052A3'
+                e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(29, 29, 31, 0.1), 0 2px 4px -1px rgba(29, 29, 31, 0.06)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = '#0066CC'
+                e.currentTarget.style.boxShadow = '0 1px 2px 0 rgba(29, 29, 31, 0.05)'
+              }}
             >
               Commencer maintenant
               <svg className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -895,7 +961,19 @@ export default function HomePage() {
                 setAuthModalMode('clipper-signup')
                 setIsAuthModalOpen(true)
               }}
-              className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white rounded-xl shadow-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              style={{ 
+                backgroundColor: '#0066CC',
+                boxShadow: '0 1px 2px 0 rgba(29, 29, 31, 0.05)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#0052A3'
+                e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(29, 29, 31, 0.1), 0 2px 4px -1px rgba(29, 29, 31, 0.06)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = '#0066CC'
+                e.currentTarget.style.boxShadow = '0 1px 2px 0 rgba(29, 29, 31, 0.05)'
+              }}
             >
               Voir toutes les missions disponibles
               <svg className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">

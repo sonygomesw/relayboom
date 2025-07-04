@@ -202,7 +202,7 @@ export default function MissionsPage() {
             </div>
 
             {/* Missions Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {filteredMissions.map((mission, index) => {
                 // Alterner entre style clair et sombre comme dans le dashboard
                 const isDarkStyle = index % 2 === 1
