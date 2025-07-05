@@ -147,7 +147,10 @@ export default function MissionsPage() {
             <div className="relative bg-white rounded-2xl p-8 mb-8 text-gray-800 overflow-hidden shadow-lg border border-gray-100">
               {/* Contenu */}
               <div className="relative z-10">
-                <h1 className="text-3xl font-bold mb-4 text-gray-900">Missions Disponibles</h1>
+                <h1 className="text-3xl font-bold mb-4 text-gray-900 flex items-center gap-3 justify-center">
+                  <IconTarget className="w-8 h-8 text-blue-600" />
+                  Missions Disponibles
+                </h1>
                 <p className="text-gray-600 mb-6">
                   Découvrez les missions de clipping les plus rentables. Choisissez votre créateur favori et commencez à gagner de l'argent !
                 </p>
@@ -205,7 +208,7 @@ export default function MissionsPage() {
             </div>
 
             {/* Missions Grid - Cartes style noir comme l'exemple */}
-            <div className="bg-blue-50 rounded-2xl p-6">
+            <div className="bg-gradient-to-br from-blue-100 via-sky-50 to-indigo-100 rounded-2xl p-6 shadow-inner">
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                               {filteredMissions.map((mission) => {
                 // Calculer le pourcentage de budget utilisé basé sur les vraies données
@@ -413,7 +416,8 @@ export default function MissionsPage() {
       <section className="relative bg-white py-16 overflow-hidden shadow-sm">
         {/* Contenu */}
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center">
-          <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+          <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 flex items-center gap-4 justify-center">
+            <IconTarget className="w-12 h-12 text-blue-600" />
             Missions Disponibles
           </h1>
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
@@ -477,7 +481,7 @@ export default function MissionsPage() {
       {/* Missions Grid */}
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="bg-blue-50 rounded-2xl p-6">
+          <div className="bg-gradient-to-br from-blue-100 via-sky-50 to-indigo-100 rounded-2xl p-6 shadow-inner">
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
             {filteredMissions.map((mission) => (
               <div 
