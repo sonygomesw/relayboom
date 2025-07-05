@@ -203,15 +203,16 @@ export default function MissionsPage() {
 
             {/* Missions Grid - Cartes style noir comme l'exemple */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              {filteredMissions.map((mission) => {
-                // Calculer le pourcentage de budget utilisé (simulation)
-                const budgetPercentage = Math.floor(Math.random() * 80) + 20; // Entre 20% et 100%
+                            {filteredMissions.map((mission) => {
+                // Calculer le pourcentage de budget utilisé basé sur les vraies données
+                const budgetUsed = mission.total_budget * 0.6; // 60% du budget utilisé par défaut
+                const budgetPercentage = Math.round((budgetUsed / mission.total_budget) * 100);
                 
-                                 return (
-                   <div 
-                     key={mission.id}
-                     className="bg-gray-900 rounded-xl overflow-hidden hover:bg-gray-800 transition-all duration-200 group flex flex-col h-80 relative border border-gray-700"
-                   >
+                return (
+                  <div 
+                    key={mission.id}
+                    className="bg-blue-900 rounded-xl overflow-hidden hover:bg-blue-800 transition-all duration-200 group flex flex-col h-80 relative border border-blue-700"
+                  >
                                          {/* Header avec photo et prix */}
                      <div className="flex items-start justify-between p-6">
                        {/* Photo créateur en carré avec marge */}
@@ -219,7 +220,7 @@ export default function MissionsPage() {
                          <img 
                            src={mission.creator_image || `https://ui-avatars.com/api/?name=${encodeURIComponent(mission.creator_name || 'User')}&background=0066CC&color=fff&size=56`}
                            alt={mission.creator_name}
-                           className="w-14 h-14 rounded-lg object-cover border border-gray-600"
+                           className="w-14 h-14 rounded-lg object-cover border border-blue-600"
                          />
                        </div>
                        
@@ -244,14 +245,14 @@ export default function MissionsPage() {
                                          {/* Jauge de budget au milieu */}
                      <div className="px-6 mb-8 flex-1 flex flex-col justify-center">
                        <div className="text-white text-xl font-bold mb-1">
-                         {formatCurrency(mission.total_budget * (budgetPercentage / 100))} of
+                         {formatCurrency(budgetUsed)} of
                        </div>
                        <div className="text-white text-xl font-bold mb-4">
                          {formatCurrency(mission.total_budget)}
                        </div>
                        
                        {/* Barre de progression */}
-                       <div className="w-full bg-gray-700 rounded-full h-3 mb-3">
+                       <div className="w-full bg-blue-700 rounded-full h-3 mb-3">
                          <div 
                            className="bg-gradient-to-r from-orange-500 to-orange-600 h-3 rounded-full transition-all duration-300"
                            style={{ width: `${budgetPercentage}%` }}
@@ -261,8 +262,8 @@ export default function MissionsPage() {
                        {/* Pourcentage et vues */}
                        <div className="flex items-center justify-between mb-3">
                          <span className="text-white font-bold text-base">{budgetPercentage}%</span>
-                         <div className="text-gray-400 text-sm">
-                           {(Math.random() * 20 + 5).toFixed(1)}M vues
+                         <div className="text-blue-300 text-sm">
+                           {(budgetUsed / mission.price_per_1k_views).toFixed(1)}K vues
                          </div>
                        </div>
                      </div>
@@ -270,7 +271,7 @@ export default function MissionsPage() {
                                          {/* Type de contenu et plateformes en bas */}
                      <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between">
                        {/* Type de contenu */}
-                       <span className="text-gray-400 text-sm font-medium">
+                       <span className="text-blue-300 text-sm font-medium">
                          {mission.content_type || 'Other'}
                        </span>
                        
@@ -283,7 +284,7 @@ export default function MissionsPage() {
                            </svg>
                          </div>
                          {/* TikTok */}
-                         <div className="w-5 h-5 rounded flex items-center justify-center bg-black border border-gray-600">
+                         <div className="w-5 h-5 rounded flex items-center justify-center bg-black border border-blue-600">
                            <svg viewBox="0 0 24 24" className="w-3 h-3 fill-white">
                              <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
                            </svg>
