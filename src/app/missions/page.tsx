@@ -143,8 +143,8 @@ export default function MissionsPage() {
         <ClipperSidebar userStats={userStats} profile={profile} />
         <div className="flex-1 ml-96">
           <main className="p-8">
-            {/* Hero Section adapté */}
-            <div className="relative bg-white rounded-2xl p-8 mb-8 text-gray-800 overflow-hidden shadow-lg">
+            {/* Hero Section adapté - Fond blanc */}
+            <div className="relative bg-white rounded-2xl p-8 mb-8 text-gray-800 overflow-hidden shadow-lg border border-gray-100">
               {/* Contenu */}
               <div className="relative z-10">
                 <h1 className="text-3xl font-bold mb-4 text-gray-900">Missions Disponibles</h1>
@@ -409,8 +409,8 @@ export default function MissionsPage() {
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="relative bg-white py-16 overflow-hidden">
+      {/* Hero Section - Fond blanc */}
+      <section className="relative bg-white py-16 overflow-hidden shadow-sm">
         {/* Contenu */}
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center">
           <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
