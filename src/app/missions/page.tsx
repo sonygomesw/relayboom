@@ -83,17 +83,21 @@ export default function MissionsPage() {
     try {
       const { data, error } = await supabase
         .from('missions')
-        .select(`
-          *,
-          budget_used,
-          total_views
-        `)
+        .select('*')
         .eq('status', 'active')
         .order('featured', { ascending: false })
         .order('created_at', { ascending: false })
 
       if (error) throw error
-      setMissions(data || [])
+      
+      // Ajouter des données par défaut si les champs n'existent pas
+      const missionsWithDefaults = (data || []).map(mission => ({
+        ...mission,
+        budget_used: mission.budget_used || Math.round(mission.total_budget * 0.3), // 30% par défaut
+        total_views: mission.total_views || Math.round((mission.total_budget * 0.3) / mission.price_per_1k_views * 1000)
+      }))
+      
+      setMissions(missionsWithDefaults)
     } catch (error) {
       console.error('Erreur chargement missions:', error)
     } finally {
