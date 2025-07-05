@@ -144,18 +144,14 @@ export default function MissionsPage() {
         <div className="flex-1 ml-96">
           <main className="p-8">
             {/* Hero Section adapté */}
-            <div className="relative bg-gradient-to-br from-purple-600 via-violet-600 to-pink-600 rounded-2xl p-8 mb-8 text-white overflow-hidden">
-              {/* Effet glassmorphism */}
-              <div className="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 via-violet-500/20 to-pink-500/20"></div>
-              
+            <div className="relative bg-white rounded-2xl p-8 mb-8 text-gray-800 overflow-hidden shadow-lg">
               {/* Contenu */}
               <div className="relative z-10">
-                <h1 className="text-3xl font-bold mb-4">Missions Disponibles</h1>
-                <p className="text-purple-100 mb-6">
+                <h1 className="text-3xl font-bold mb-4 text-gray-900">Missions Disponibles</h1>
+                <p className="text-gray-600 mb-6">
                   Découvrez les missions de clipping les plus rentables. Choisissez votre créateur favori et commencez à gagner de l'argent !
                 </p>
-                <div className="flex flex-wrap gap-6 text-purple-100 text-sm">
+                <div className="flex flex-wrap gap-6 text-gray-700 text-sm">
                   <div className="flex items-center gap-2">
                     <IconTarget className="w-4 h-4" />
                     <span>{missions.length} missions actives</span>
@@ -209,8 +205,9 @@ export default function MissionsPage() {
             </div>
 
             {/* Missions Grid - Cartes style noir comme l'exemple */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                            {filteredMissions.map((mission) => {
+            <div className="bg-blue-50 rounded-2xl p-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                              {filteredMissions.map((mission) => {
                 // Calculer le pourcentage de budget utilisé basé sur les vraies données
                 const budgetUsed = mission.total_budget * 0.6; // 60% du budget utilisé par défaut
                 const budgetPercentage = Math.round((budgetUsed / mission.total_budget) * 100);
@@ -315,6 +312,7 @@ export default function MissionsPage() {
                   </div>
                 );
               })}
+              </div>
             </div>
 
             {filteredMissions.length === 0 && (
@@ -412,20 +410,16 @@ export default function MissionsPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-purple-600 via-violet-600 to-pink-600 py-16 overflow-hidden">
-        {/* Effet glassmorphism */}
-        <div className="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 via-violet-500/20 to-pink-500/20"></div>
-        
+      <section className="relative bg-white py-16 overflow-hidden">
         {/* Contenu */}
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center">
-          <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">
+          <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
             Missions Disponibles
           </h1>
-          <p className="text-xl text-purple-100 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
             Découvrez les missions de clipping les plus rentables. Choisissez votre créateur favori et commencez à gagner de l'argent !
           </p>
-          <div className="flex flex-wrap justify-center gap-8 text-purple-100">
+          <div className="flex flex-wrap justify-center gap-8 text-gray-700">
             <div className="flex items-center gap-2">
               <IconTarget className="w-5 h-5" />
               <span>{missions.length} missions actives</span>
@@ -483,7 +477,8 @@ export default function MissionsPage() {
       {/* Missions Grid */}
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+          <div className="bg-blue-50 rounded-2xl p-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
             {filteredMissions.map((mission) => (
               <div 
                 key={mission.id}
@@ -552,6 +547,7 @@ export default function MissionsPage() {
                 </div>
               </div>
             ))}
+            </div>
           </div>
 
           {filteredMissions.length === 0 && (
