@@ -243,20 +243,7 @@ export default function MissionsPage() {
                      key={mission.id}
                      className="bg-white rounded-2xl overflow-hidden hover:scale-[1.02] hover:shadow-2xl transition-all duration-200 ease-in-out group flex flex-col h-80 relative shadow-lg border-0"
                    >
-                     {/* Badge de statut - Priorité: Featured > Premium > Nouveau */}
-                     {mission.featured ? (
-                       <div className="absolute top-3 right-3 z-10 bg-gradient-to-r from-green-400 to-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
-                         ⭐ Populaire
-                       </div>
-                     ) : mission.price_per_1k_views >= 0.12 ? (
-                       <div className="absolute top-3 right-3 z-10 bg-gradient-to-r from-amber-400 to-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
-                         🔥 Premium
-                       </div>
-                     ) : budgetPercentage < 20 ? (
-                       <div className="absolute top-3 right-3 z-10 bg-gradient-to-r from-blue-400 to-cyan-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
-                         🚀 Nouveau
-                       </div>
-                     ) : null}
+
                                          {/* Header avec photo et prix */}
                      <div className="flex items-start justify-between p-6">
                        {/* Photo créateur en carré avec marge */}
