@@ -15,6 +15,8 @@ interface Mission {
   creator_image: string
   price_per_1k_views: number
   total_budget: number
+  budget_used: number
+  total_views: number
   status: string
   featured: boolean
   content_type: string
@@ -81,7 +83,11 @@ export default function MissionsPage() {
     try {
       const { data, error } = await supabase
         .from('missions')
-        .select('*')
+        .select(`
+          *,
+          budget_used,
+          total_views
+        `)
         .eq('status', 'active')
         .order('featured', { ascending: false })
         .order('created_at', { ascending: false })
@@ -213,9 +219,10 @@ export default function MissionsPage() {
             <div className="rounded-2xl p-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                               {filteredMissions.map((mission) => {
-                // Calculer le pourcentage de budget utilisé basé sur les vraies données
-                const budgetUsed = mission.total_budget * 0.6; // 60% du budget utilisé par défaut
-                const budgetPercentage = Math.round((budgetUsed / mission.total_budget) * 100);
+                // Utiliser les vraies données de la base de données
+                const budgetUsed = mission.budget_used || 0;
+                const budgetPercentage = mission.total_budget > 0 ? Math.round((budgetUsed / mission.total_budget) * 100) : 0;
+                const totalViews = mission.total_views || 0;
                 
                                  return (
                    <div 
@@ -272,7 +279,7 @@ export default function MissionsPage() {
                        <div className="flex items-center justify-between mb-3">
                          <span className="text-gray-900 font-bold text-base">{budgetPercentage}%</span>
                          <div className="text-gray-600 text-sm">
-                           {(budgetUsed / mission.price_per_1k_views).toFixed(1)}K vues
+                           {totalViews >= 1000 ? `${(totalViews / 1000).toFixed(1)}K` : totalViews} vues
                          </div>
                        </div>
                      </div>
