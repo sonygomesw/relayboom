@@ -6,6 +6,9 @@ import RoleProtectionOptimized from '@/components/RoleProtectionOptimized'
 import { useAuth } from '@/components/AuthContext'
 import { useDashboardDataParallel, useMissionsCache } from '@/hooks/useOptimizedData'
 import ClipperSidebar from '@/components/ClipperSidebar'
+import { useLanguage } from '@/components/LanguageContext'
+import { translations } from '@/lib/translations.new'
+import { Language } from '@/lib/clipper-translations'
 import { 
   IconEye,
   IconTrendingUp,
@@ -25,6 +28,8 @@ import {
 export default function ClipperDashboard() {
   const { user, profile } = useAuth()
   const router = useRouter()
+  const { language } = useLanguage()
+  const t = translations[language as Language]
   
   // États pour les filtres (uniquement Produit maintenant)
   const [selectedProduct, setSelectedProduct] = useState('all')
@@ -93,6 +98,106 @@ export default function ClipperDashboard() {
     return null
   }
 
+  // 🆕 État d'accueil pour nouveaux clippers
+  const isNewClipper = !userStats || (userStats.total_earnings === 0 && userStats.total_views === 0)
+  
+  if (isNewClipper && dashboardData.activeMissions.length === 0) {
+    return (
+      <RoleProtectionOptimized allowedRoles={['clipper']}>
+        <div className="min-h-screen bg-gray-50 flex">
+          <ClipperSidebar userStats={dashboardData} profile={profile} />
+          <div className="flex-1 ml-96">
+            <main className="p-12">
+              <div className="max-w-4xl mx-auto text-center">
+                {/* Message d'accueil pour nouveau clipper */}
+                <div className="bg-white rounded-2xl p-12 shadow-lg border border-gray-200">
+                  <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <span className="text-3xl">🎉</span>
+                  </div>
+                  <h1 className="text-4xl font-bold text-gray-900 mb-4">
+                    Bienvenue {profile.pseudo || 'Clippeur'} !
+                  </h1>
+                  <p className="text-xl text-gray-600 mb-8">
+                    Commencez avec ClipTokk et gagnez de l'argent en créant des clips !
+                  </p>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div className="p-6 bg-blue-50 rounded-xl">
+                      <IconPlayerPlay className="w-8 h-8 text-blue-500 mx-auto mb-3" />
+                      <h3 className="font-semibold text-gray-900 mb-2">
+                        Trouver des Missions
+                      </h3>
+                      <p className="text-sm text-gray-600">
+                        Parcourez les missions disponibles des créateurs
+                      </p>
+                    </div>
+                    <div className="p-6 bg-purple-50 rounded-xl">
+                      <IconBolt className="w-8 h-8 text-purple-500 mx-auto mb-3" />
+                      <h3 className="font-semibold text-gray-900 mb-2">
+                        {t?.platformPreviews?.dashboard?.clipper?.welcome?.steps?.createClips?.title ?? 'Créer des Clips'}
+                      </h3>
+                      <p className="text-sm text-gray-600">
+                        {t?.platformPreviews?.dashboard?.clipper?.welcome?.steps?.createClips?.description ?? 'Créez des clips engageants qui suivent les directives de la mission'}
+                      </p>
+                    </div>
+                    <div className="p-6 bg-green-50 rounded-xl">
+                      <IconCoin className="w-8 h-8 text-green-500 mx-auto mb-3" />
+                      <h3 className="font-semibold text-gray-900 mb-2">
+                        {t?.platformPreviews?.dashboard?.clipper?.welcome?.steps?.earnMoney?.title ?? 'Gagner de l\'argent'}
+                      </h3>
+                      <p className="text-sm text-gray-600">
+                        {t?.platformPreviews?.dashboard?.clipper?.welcome?.steps?.earnMoney?.description ?? 'Soyez payé pour vos vues et vos clips réussis'}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                    <div className="bg-white p-6 rounded-xl border border-gray-200">
+                      <div className="flex items-center justify-between mb-3">
+                        <h3 className="font-medium text-gray-600">
+                          {t?.platformPreviews?.dashboard?.stats?.totalEarnings ?? 'Gains totaux'}
+                        </h3>
+                        <IconCoin className="w-5 h-5 text-green-500" />
+                      </div>
+                      <p className="text-2xl font-bold text-gray-900">0€</p>
+                      <p className="text-sm text-gray-500 mt-1">
+                        {t?.platformPreviews?.dashboard?.stats?.totalEarnings ?? 'Gains totaux'}
+                      </p>
+                    </div>
+                    <div className="bg-white p-6 rounded-xl border border-gray-200">
+                      <div className="flex items-center justify-between mb-3">
+                        <h3 className="font-medium text-gray-600">
+                          {t?.platformPreviews?.dashboard?.stats?.totalViews ?? 'Vues générées'}
+                        </h3>
+                        <IconEye className="w-5 h-5 text-blue-500" />
+                      </div>
+                      <p className="text-2xl font-bold text-gray-900">0</p>
+                      <p className="text-sm text-gray-500 mt-1">
+                        {t?.platformPreviews?.dashboard?.stats?.totalViews ?? 'Vues générées'}
+                      </p>
+                    </div>
+                    <div className="bg-white p-6 rounded-xl border border-gray-200">
+                      <div className="flex items-center justify-between mb-3">
+                        <h3 className="font-medium text-gray-600">
+                          {t?.platformPreviews?.dashboard?.stats?.postedClips ?? 'Clips créés'}
+                        </h3>
+                        <IconPlayerPlay className="w-5 h-5 text-purple-500" />
+                      </div>
+                      <p className="text-2xl font-bold text-gray-900">0</p>
+                      <p className="text-sm text-gray-500 mt-1">
+                        {t?.platformPreviews?.dashboard?.stats?.postedClips ?? 'Clips créés'}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+      </RoleProtectionOptimized>
+    )
+  }
+
   return (
     <RoleProtectionOptimized allowedRoles={['clipper']}>
       <div className="min-h-screen bg-gray-50 flex">
@@ -155,22 +260,21 @@ export default function ClipperDashboard() {
                   </div>
                 </div>
 
-                {/* Missions horizontales style Content Rewards */}
+                {/* Grille des missions */}
                 <div className="space-y-4">
                   {dashboardData.activeMissions.map((mission) => {
                     // Calculer les données de progression
-                    const budgetUsed = (mission as any).budget_used || (mission as any).total_budget * 0.3 || 300;
-                    const totalBudget = (mission as any).total_budget || 1000;
-                    const budgetPercentage = totalBudget > 0 ? Math.round((budgetUsed / totalBudget) * 100) : 30;
-                    const totalViews = (mission as any).total_views || Math.round(budgetUsed / mission.price_per_1k_views * 1000);
+                    const budgetUsed = mission.budget_used || mission.total_budget * 0.3;
+                    const budgetPercentage = mission.total_budget > 0 ? Math.round((budgetUsed / mission.total_budget) * 100) : 0;
+                    const totalViews = mission.total_views || Math.round(budgetUsed / mission.price_per_1k_views * 1000);
                     
                     return (
-                      <div key={mission.id} className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-all duration-200 hover:border-gray-300 relative">
+                      <div key={mission.id} className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-all duration-200 hover:border-gray-300">
                         <div className="flex items-start gap-6">
                           {/* Image du créateur */}
                           <div className="flex-shrink-0">
                             <img 
-                              src={(mission as any).creator_image || `https://ui-avatars.com/api/?name=${encodeURIComponent(mission.creator_name || 'User')}&background=0066CC&color=fff&size=80`}
+                              src={mission.creator_image || `https://ui-avatars.com/api/?name=${encodeURIComponent(mission.creator_name || 'User')}&background=0066CC&color=fff&size=80`}
                               alt={mission.creator_name}
                               className="w-20 h-20 rounded-xl object-cover border border-gray-200"
                             />
@@ -198,7 +302,7 @@ export default function ClipperDashboard() {
                             <div className="mb-4">
                               <div className="flex items-center justify-between mb-2">
                                 <span className="text-lg font-bold text-gray-900">
-                                  {(budgetUsed || 0).toFixed(2)} $US sur {totalBudget.toFixed(2)} $US versés
+                                  {(budgetUsed || 0).toFixed(2)} $US sur {mission.total_budget?.toFixed(2) || '0.00'} $US versés
                                 </span>
                                 <span className="text-sm font-medium text-gray-600">
                                   {budgetPercentage}%
@@ -227,7 +331,7 @@ export default function ClipperDashboard() {
                                 </div>
                                 <div>
                                   <span className="font-medium">Type</span>
-                                  <span className="ml-2">{(mission as any).content_type || 'Découpage'}</span>
+                                  <span className="ml-2">{mission.content_type || 'Découpage'}</span>
                                 </div>
                               </div>
                               
