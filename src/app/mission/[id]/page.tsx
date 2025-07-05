@@ -77,7 +77,7 @@ export default function MissionDetailPage() {
 
       if (error || !missionData) {
         console.error('Erreur chargement mission:', error)
-        router.push('/missions')
+        router.push('/dashboard/clipper')
         return
       }
 
@@ -148,7 +148,7 @@ Tu as toutes les cartes en main pour faire un carton ! 🚀`,
       setMission(adaptedMission)
     } catch (error) {
       console.error('Erreur chargement mission:', error)
-      router.push('/missions')
+      router.push('/dashboard/clipper')
     } finally {
       setIsLoading(false)
     }

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, memo } from 'react'
+import { useEffect, useMemo, memo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from './AuthContext'
 
@@ -13,24 +13,33 @@ interface RoleProtectionProps {
 function RoleProtectionOptimized({ allowedRoles, children, redirectTo }: RoleProtectionProps) {
   const { user, profile, isLoading, isAuthenticated } = useAuth()
   const router = useRouter()
+  const [gracePeriod, setGracePeriod] = useState(true)
 
+  // 🚀 Période de grâce pour éviter les redirections prématurées
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setGracePeriod(false)
+    }, 1000) // 1 seconde de grâce pour laisser l'AuthContext se charger
 
+    return () => clearTimeout(timer)
+  }, [])
 
   // 🚀 Mémoïser les calculs d'autorisation
   const authStatus = useMemo(() => {
-    if (isLoading) return 'loading'
+    if (isLoading || gracePeriod) return 'loading'
     if (!isAuthenticated || !user) return 'unauthenticated'
     if (!profile) return 'no-profile'
     if (!profile.role || !allowedRoles.includes(profile.role)) return 'unauthorized'
     return 'authorized'
-  }, [isLoading, isAuthenticated, user, profile, allowedRoles])
+  }, [isLoading, isAuthenticated, user, profile, allowedRoles, gracePeriod])
 
   // Debug seulement en dev et lors de changements importants
   if (process.env.NODE_ENV === 'development' && authStatus !== 'loading') {
     console.log('🔒 RoleProtection:', {
       status: authStatus,
       userRole: profile?.role,
-      allowedRoles
+      allowedRoles,
+      gracePeriod
     })
   }
 

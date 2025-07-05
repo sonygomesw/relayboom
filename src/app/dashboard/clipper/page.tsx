@@ -1,10 +1,10 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import RoleProtectionOptimized from '@/components/RoleProtectionOptimized'
 import { useAuth } from '@/components/AuthContext'
-import { useDashboardDataParallel, useMissionsCache } from '@/hooks/useOptimizedData'
+import { supabase } from '@/lib/supabase'
 import ClipperSidebar from '@/components/ClipperSidebar'
 import { 
   IconEye,
@@ -22,42 +22,112 @@ import {
   IconChevronDown
 } from '@tabler/icons-react'
 
+interface Mission {
+  id: string
+  title: string
+  description: string
+  creator_name: string
+  creator_image?: string
+  price_per_1k_views: number
+  total_budget: number
+  status: string
+  category: string
+  created_at: string
+}
+
+interface UserStats {
+  total_earnings: number
+  total_views: number
+  total_submissions: number
+}
+
 export default function ClipperDashboard() {
   const { user, profile } = useAuth()
   const router = useRouter()
   
-  // États pour les filtres (uniquement Produit maintenant)
+  // États pour les données
+  const [missions, setMissions] = useState<Mission[]>([])
+  const [userStats, setUserStats] = useState<UserStats>({ total_earnings: 0, total_views: 0, total_submissions: 0 })
+  const [isLoading, setIsLoading] = useState(true)
+  
+  // États pour les filtres
   const [selectedProduct, setSelectedProduct] = useState('all')
   const [showProductDropdown, setShowProductDropdown] = useState(false)
-  
-  // 🚀 NOUVEAU : Utiliser les hooks optimisés avec cache
-  const { userStats, isLoading: statsLoading } = useDashboardDataParallel(user?.id || null)
-  const { missions, loading: missionsLoading } = useMissionsCache() // Toutes les missions pour les clippers
 
-  // Loading global
-  const isLoading = statsLoading || missionsLoading
-
-  // 🚀 Mémoïser les calculs pour éviter les re-calculs avec filtres
-  const dashboardData = useMemo(() => {
-    const totalEarnings = userStats?.total_earnings || 0
-    const totalViews = userStats?.total_views || 0
-    let activeMissions = missions?.filter(m => m.status === 'active') || []
-    
-    // Appliquer le filtre Produit uniquement
-    if (selectedProduct !== 'all') {
-      activeMissions = activeMissions.filter(m => m.category === selectedProduct)
+  // Charger les données au montage
+  useEffect(() => {
+    if (user?.id) {
+      loadDashboardData()
     }
-    
-    return {
-      totalEarnings,
-      totalViews,
-      nextMilestone: 75,
-      activeMissions,
-      missionCount: activeMissions.length
-    }
-  }, [userStats, missions, selectedProduct])
+  }, [user?.id])
 
-  // Options pour le filtre Produit uniquement
+  const loadDashboardData = async () => {
+    if (!user?.id) return
+
+    try {
+      setIsLoading(true)
+      
+      // Charger les données en parallèle mais de manière simple
+      const [missionsResult, userStatsResult] = await Promise.all([
+        // Missions actives seulement avec les champs essentiels
+        supabase
+          .from('missions')
+          .select('id, title, description, creator_name, creator_image, price_per_1k_views, total_budget, status, category, created_at')
+          .eq('status', 'active')
+          .order('created_at', { ascending: false })
+          .limit(20), // Limiter à 20 missions pour la performance
+        
+        // Stats utilisateur simples
+        supabase
+          .from('submissions')
+          .select('views_count, earnings')
+          .eq('user_id', user.id)
+          .eq('status', 'approved')
+      ])
+
+      // Traiter les missions
+      if (missionsResult.data) {
+        setMissions(missionsResult.data)
+      }
+
+      // Traiter les stats utilisateur
+      if (userStatsResult.data) {
+        const totalEarnings = userStatsResult.data.reduce((sum, sub) => sum + (sub.earnings || 0), 0)
+        const totalViews = userStatsResult.data.reduce((sum, sub) => sum + (sub.views_count || 0), 0)
+        const totalSubmissions = userStatsResult.data.length
+        
+        setUserStats({
+          total_earnings: totalEarnings,
+          total_views: totalViews,
+          total_submissions: totalSubmissions
+        })
+      }
+
+    } catch (error) {
+      console.error('Erreur chargement dashboard:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  // Filtrer les missions selon le produit sélectionné
+  const filteredMissions = useMemo(() => {
+    if (selectedProduct === 'all') {
+      return missions
+    }
+    return missions.filter(mission => mission.category === selectedProduct)
+  }, [missions, selectedProduct])
+
+  // Préparer les données pour le dashboard
+  const dashboardData = useMemo(() => ({
+    totalEarnings: userStats.total_earnings,
+    totalViews: userStats.total_views,
+    nextMilestone: 75,
+    activeMissions: filteredMissions,
+    missionCount: filteredMissions.length
+  }), [userStats, filteredMissions])
+
+  // Options pour le filtre Produit
   const productOptions = [
     { value: 'all', label: 'Tous les produits' },
     { value: 'Divertissement', label: 'Divertissement' },
@@ -65,18 +135,6 @@ export default function ClipperDashboard() {
     { value: 'Marque', label: 'Marque' },
     { value: 'Produits', label: 'Produits' }
   ]
-
-  // Debug optimisé
-  if (process.env.NODE_ENV === 'development') {
-    console.log('🔍 Clipper Dashboard (optimisé):', {
-      userId: user?.id,
-      statsLoaded: !!userStats,
-      missionsCount: missions?.length || 0,
-      filteredCount: dashboardData.missionCount,
-      filters: { selectedProduct },
-      isLoading
-    })
-  }
 
   if (isLoading) {
     return (
@@ -158,11 +216,10 @@ export default function ClipperDashboard() {
                 {/* Missions horizontales style Content Rewards */}
                 <div className="space-y-4">
                   {dashboardData.activeMissions.map((mission) => {
-                    // Calculer les données de progression
-                    const budgetUsed = (mission as any).budget_used || (mission as any).total_budget * 0.3 || 300;
-                    const totalBudget = (mission as any).total_budget || 1000;
+                    // Calculer les données de progression (simulées pour la performance)
+                    const budgetUsed = mission.total_budget * 0.3 || 300;
+                    const totalBudget = mission.total_budget || 1000;
                     const budgetPercentage = totalBudget > 0 ? Math.round((budgetUsed / totalBudget) * 100) : 30;
-                    const totalViews = (mission as any).total_views || Math.round(budgetUsed / mission.price_per_1k_views * 1000);
                     
                     return (
                       <div key={mission.id} className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-all duration-200 hover:border-gray-300 relative">
@@ -170,7 +227,7 @@ export default function ClipperDashboard() {
                           {/* Image du créateur */}
                           <div className="flex-shrink-0 w-1/3">
                             <img 
-                              src={(mission as any).creator_image || `https://ui-avatars.com/api/?name=${encodeURIComponent(mission.creator_name || 'User')}&background=0066CC&color=fff&size=160`}
+                              src={mission.creator_image || `https://ui-avatars.com/api/?name=${encodeURIComponent(mission.creator_name || 'User')}&background=0066CC&color=fff&size=160`}
                               alt={mission.creator_name}
                               className="w-full h-32 rounded-xl object-cover border border-gray-200"
                             />
@@ -227,7 +284,7 @@ export default function ClipperDashboard() {
                                 </div>
                                 <div>
                                   <span className="font-medium">Type</span>
-                                  <span className="ml-2">{(mission as any).content_type || 'Découpage'}</span>
+                                  <span className="ml-2">Découpage</span>
                                 </div>
                               </div>
                               
