@@ -141,9 +141,9 @@ export default function MissionsPage() {
     return (
       <div className="min-h-screen bg-gray-50 flex">
         <ClipperSidebar userStats={userStats} profile={profile} />
-        <div className="flex-1 ml-96 bg-gradient-to-br from-slate-600 via-slate-700 to-gray-700 relative overflow-hidden">
+        <div className="flex-1 ml-96 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 relative overflow-hidden">
           {/* Effet de texture de fond */}
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-800/15 via-purple-800/15 to-indigo-800/15"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-800/10 via-indigo-800/10 to-slate-800/10"></div>
           <main className="p-8 relative z-10">
             {/* Hero Section adapté - Fond blanc */}
             <div className="relative bg-white rounded-2xl p-8 mb-8 text-gray-800 overflow-hidden shadow-lg border border-gray-100">
