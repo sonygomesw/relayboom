@@ -241,7 +241,7 @@ export default function MissionsPage() {
                                  return (
                    <div 
                      key={mission.id}
-                     className="bg-white rounded-2xl overflow-hidden hover:scale-[1.02] hover:shadow-2xl transition-all duration-200 ease-in-out group flex flex-col h-96 relative shadow-lg border-0"
+                     className="bg-white rounded-2xl overflow-hidden hover:scale-[1.02] hover:shadow-2xl transition-all duration-200 ease-in-out group flex flex-col h-[28rem] relative shadow-lg border-0"
                    >
 
                                          {/* Header avec photo et prix */}
@@ -268,14 +268,14 @@ export default function MissionsPage() {
 
                                          {/* Titre */}
                      <div className="px-8">
-                       <h3 className="text-gray-900 font-bold text-lg mb-8 line-clamp-2 leading-tight break-words">
+                       <h3 className="text-gray-900 font-bold text-lg mb-6 line-clamp-2 leading-tight break-words">
                          {mission.title || 'Mission sans titre'}
                        </h3>
                      </div>
 
                                          {/* Jauge de budget au milieu */}
                      <div className="px-8 mb-6 flex-1 flex flex-col justify-center">
-                       <div className="flex items-baseline gap-3 mb-6 flex-wrap">
+                       <div className="flex items-baseline gap-3 mb-4 flex-wrap">
                          <span className="text-3xl font-bold text-gray-900 flex-shrink-0">{formatCurrency(budgetUsed)}</span>
                          <span className="text-gray-500 font-medium text-lg flex-shrink-0">sur</span>
                          <span className="text-xl font-semibold text-gray-600 flex-shrink-0">{formatCurrency(mission.total_budget)}</span>
@@ -288,7 +288,7 @@ export default function MissionsPage() {
                        </div>
                        
                        {/* Barre de progression */}
-                       <div className="w-full bg-gray-100 rounded-full h-5 mb-4">
+                       <div className="w-full bg-gray-100 rounded-full h-5 mb-3">
                          <div 
                            className="bg-gradient-to-r from-[#22D3EE] to-[#3B82F6] h-5 rounded-full transition-all duration-300 shadow-sm"
                            style={{ width: `${budgetPercentage}%` }}
