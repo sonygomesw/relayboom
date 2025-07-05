@@ -19,7 +19,7 @@ function RoleProtectionOptimized({ allowedRoles, children, redirectTo }: RolePro
   useEffect(() => {
     const timer = setTimeout(() => {
       setGracePeriod(false)
-    }, 1000) // 1 seconde de grâce pour laisser l'AuthContext se charger
+    }, 2000) // 2 secondes de grâce pour laisser l'AuthContext se charger
 
     return () => clearTimeout(timer)
   }, [])

@@ -39,11 +39,16 @@ export default function MissionDetailPage() {
   const missionId = params.id as string
 
   useEffect(() => {
-    if (user && profile) {
+    if (missionId) {
       loadMission()
+    }
+  }, [missionId])
+
+  useEffect(() => {
+    if (user?.id) {
       loadUserStats()
     }
-  }, [user, profile, missionId])
+  }, [user?.id])
 
   const loadUserStats = async () => {
     if (!user?.id) return
@@ -65,7 +70,7 @@ export default function MissionDetailPage() {
   }
 
   const loadMission = async () => {
-    if (!user?.id) return
+    if (!missionId) return
     
     try {
       // Charger la mission depuis Supabase
