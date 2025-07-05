@@ -367,7 +367,7 @@ export default function HomePage() {
 
           {/* CTA Section */}
           <div className="text-center mt-40 mb-60 relative z-30">
-            <div className="inline-flex items-center px-6 py-3 bg-gray-50 rounded-full text-sm font-medium text-gray-600 mb-16">
+            <div className="inline-flex items-center px-6 py-3 bg-gray-50 rounded-full text-sm font-medium text-gray-600 mb-24">
               <svg className="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
