@@ -141,8 +141,10 @@ export default function MissionsPage() {
     return (
       <div className="min-h-screen bg-gray-50 flex">
         <ClipperSidebar userStats={userStats} profile={profile} />
-        <div className="flex-1 ml-96">
-          <main className="p-8">
+        <div className="flex-1 ml-96 bg-gradient-to-br from-slate-800 via-slate-900 to-gray-900 relative overflow-hidden">
+          {/* Effet de texture de fond */}
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-indigo-900/20"></div>
+          <main className="p-8 relative z-10">
             {/* Hero Section adapté - Fond blanc */}
             <div className="relative bg-white rounded-2xl p-8 mb-8 text-gray-800 overflow-hidden shadow-lg border border-gray-100">
               {/* Contenu */}
@@ -208,10 +210,7 @@ export default function MissionsPage() {
             </div>
 
             {/* Missions Grid - Cartes style noir comme l'exemple */}
-            <div className="bg-gradient-to-br from-slate-800 via-slate-900 to-gray-900 rounded-2xl p-6 relative overflow-hidden">
-              {/* Effet de texture de fond */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-indigo-900/20"></div>
-              <div className="relative z-10">
+            <div className="rounded-2xl p-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                               {filteredMissions.map((mission) => {
                 // Calculer le pourcentage de budget utilisé basé sur les vraies données
@@ -319,7 +318,6 @@ export default function MissionsPage() {
                 );
               })}
                 </div>
-              </div>
             </div>
 
             {filteredMissions.length === 0 && (
