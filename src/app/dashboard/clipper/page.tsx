@@ -170,9 +170,9 @@ export default function ClipperDashboard() {
                           {/* Image du créateur */}
                           <div className="flex-shrink-0">
                             <img 
-                              src={(mission as any).creator_image || `https://ui-avatars.com/api/?name=${encodeURIComponent(mission.creator_name || 'User')}&background=0066CC&color=fff&size=80`}
+                              src={(mission as any).creator_image || `https://ui-avatars.com/api/?name=${encodeURIComponent(mission.creator_name || 'User')}&background=0066CC&color=fff&size=120`}
                               alt={mission.creator_name}
-                              className="w-20 h-20 rounded-xl object-cover border border-gray-200"
+                              className="w-32 h-24 rounded-xl object-cover border border-gray-200"
                             />
                           </div>
                           
