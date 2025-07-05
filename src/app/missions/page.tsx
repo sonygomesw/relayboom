@@ -245,7 +245,7 @@ export default function MissionsPage() {
                    >
 
                                          {/* Header avec photo et prix */}
-                     <div className="flex items-start justify-between p-8">
+                     <div className="flex items-start justify-between p-8 gap-4">
                        {/* Photo créateur en carré avec marge */}
                        <div className="flex-shrink-0">
                          <img 
@@ -256,8 +256,8 @@ export default function MissionsPage() {
                        </div>
                        
                        {/* Prix par 1K vues en haut à droite */}
-                       <div className="text-right">
-                         <div className="text-gray-900 font-bold text-lg">
+                       <div className="text-right flex-shrink-0 min-w-0">
+                         <div className="text-gray-900 font-bold text-lg whitespace-nowrap">
                            {formatCurrency(mission.price_per_1k_views)} / 1K
                          </div>
                          {mission.featured && (
@@ -268,17 +268,17 @@ export default function MissionsPage() {
 
                                          {/* Titre */}
                      <div className="px-8">
-                       <h3 className="text-gray-900 font-bold text-lg mb-8 line-clamp-2 leading-tight">
+                       <h3 className="text-gray-900 font-bold text-lg mb-8 line-clamp-2 leading-tight break-words">
                          {mission.title || 'Mission sans titre'}
                        </h3>
                      </div>
 
                                          {/* Jauge de budget au milieu */}
                      <div className="px-8 mb-10 flex-1 flex flex-col justify-center">
-                       <div className="flex items-baseline gap-3 mb-6">
-                         <span className="text-3xl font-bold text-gray-900">{formatCurrency(budgetUsed)}</span>
-                         <span className="text-gray-500 font-medium text-lg">sur</span>
-                         <span className="text-xl font-semibold text-gray-600">{formatCurrency(mission.total_budget)}</span>
+                       <div className="flex items-baseline gap-3 mb-6 flex-wrap">
+                         <span className="text-3xl font-bold text-gray-900 flex-shrink-0">{formatCurrency(budgetUsed)}</span>
+                         <span className="text-gray-500 font-medium text-lg flex-shrink-0">sur</span>
+                         <span className="text-xl font-semibold text-gray-600 flex-shrink-0">{formatCurrency(mission.total_budget)}</span>
                        </div>
                        
                        {/* Barre de progression */}
