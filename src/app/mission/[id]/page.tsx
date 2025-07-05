@@ -108,7 +108,7 @@ export default function MissionDetailPage() {
         ...missionData,
         price_per_1k_views: missionData.reward || 0.1,
         total_budget: missionData.total_budget || 1000,
-        long_description: `🎯 **Mission ${missionData.creator_name} !**
+        long_description: missionData.brand_guidelines || `🎯 **Mission ${missionData.creator_name} !**
 
 ${missionData.description}
 
