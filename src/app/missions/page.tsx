@@ -164,9 +164,9 @@ export default function MissionsPage() {
         <div className="flex-1 ml-96 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 relative overflow-hidden">
           {/* Effet de texture de fond */}
           <div className="absolute inset-0 bg-gradient-to-br from-blue-800/10 via-indigo-800/10 to-slate-800/10"></div>
-          <main className="p-8 relative z-10">
+          <main className="py-8 pr-8 relative z-10 max-w-none">
             {/* Hero Section adapté - Fond blanc */}
-            <div className="relative bg-white rounded-2xl p-8 mb-8 text-gray-800 overflow-hidden shadow-lg border border-gray-100">
+            <div className="relative bg-white rounded-2xl p-8 mb-8 text-gray-800 overflow-hidden shadow-lg border border-gray-100 max-w-6xl">
               {/* Contenu */}
               <div className="relative z-10">
                 <h1 className="text-3xl font-bold mb-4 text-gray-900 flex items-center gap-3 justify-center">
@@ -194,7 +194,7 @@ export default function MissionsPage() {
             </div>
 
             {/* Filters */}
-            <div className="bg-white rounded-xl border border-gray-200 p-6 mb-8">
+            <div className="bg-white rounded-xl border border-gray-200 p-6 mb-8 max-w-6xl">
               <div className="flex flex-wrap gap-4 items-center justify-between">
                 <div className="flex flex-wrap gap-4">
                   <div>
@@ -230,7 +230,7 @@ export default function MissionsPage() {
             </div>
 
             {/* Missions Grid - Cartes style noir comme l'exemple */}
-            <div className="rounded-2xl p-6">
+            <div className="rounded-2xl p-6 max-w-6xl">
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                               {filteredMissions.map((mission) => {
                 // Utiliser les vraies données de la base de données
