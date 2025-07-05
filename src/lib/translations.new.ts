@@ -1,5 +1,7 @@
 import { Language } from './clipper-translations';
 
+export type { Language };
+
 export const translations = {
   en: {
     common: {

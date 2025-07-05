@@ -45,7 +45,7 @@ export default function HomePage() {
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
             <div className="flex-shrink-0">
-              <img src="/logo.png" alt="ClipTokk" className="h-20 w-auto" />
+              <img src="/logo.png" alt="ClipTokk" className="h-32 w-auto" />
             </div>
 
             {/* Navigation Links (Desktop) */}
@@ -1048,7 +1048,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
           <div className="xl:grid xl:grid-cols-3 xl:gap-8">
             <div className="space-y-8 xl:col-span-1">
-              <img className="h-20" src="/logo.png" alt="ClipTokk" />
+                              <img className="h-32" src="/logo.png" alt="ClipTokk" />
               <p className="text-gray-300 text-base leading-relaxed">
                 {t.footer.description}
               </p>

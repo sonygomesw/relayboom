@@ -19,10 +19,10 @@ export default function CreatorNavbar() {
   const pathname = usePathname()
   const router = useRouter()
   const { language, setLanguage } = useLanguage()
-  const t = "Texte par défaut"
+  const t = translations[language as keyof typeof translations]
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false)
 
-  const languages: { code: Language; label: string }[] = [
+  const languages = [
     { code: 'en', label: 'English' },
     { code: 'fr', label: 'Français' },
     { code: 'es', label: 'Español' },
@@ -79,7 +79,7 @@ export default function CreatorNavbar() {
         <div className="flex-1">
           <div className="mb-8">
             <Link href="/" className="flex items-center">
-              <img src="/logo.png" alt="Logo" className="h-8" />
+              <img src="/logo.png" alt="Logo" className="h-16" />
             </Link>
           </div>
 
@@ -112,7 +112,7 @@ export default function CreatorNavbar() {
             className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors"
           >
             <IconLanguage className="w-5 h-5" />
-            <span className="font-medium">{translations[language].nav.language}</span>
+            <span className="font-medium">{(translations as any)[language]?.nav?.language || 'Language'}</span>
           </button>
           
           {showLanguageDropdown && (
@@ -121,7 +121,7 @@ export default function CreatorNavbar() {
                 <button
                   key={lang.code}
                   onClick={() => {
-                    setLanguage(lang.code)
+                    setLanguage(lang.code as any)
                     setShowLanguageDropdown(false)
                   }}
                   className={`w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors ${

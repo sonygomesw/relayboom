@@ -43,7 +43,7 @@ export default function ClipperSidebar({ userStats, profile }: ClipperSidebarPro
   const { language, setLanguage } = useLanguage()
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false)
 
-  const languages: { code: Language; label: string }[] = [
+  const languages = [
     { code: 'en', label: 'English' },
     { code: 'fr', label: 'Français' },
     { code: 'es', label: 'Español' },
@@ -89,7 +89,7 @@ export default function ClipperSidebar({ userStats, profile }: ClipperSidebarPro
         {/* Header avec profil */}
         <div className="p-8 border-b border-gray-100">
           <Link href="/" className="flex items-center mb-6">
-            <img src="/logo.png" alt="ClipTokk" className="h-24" />
+            <img src="/logo.png" alt="ClipTokk" className="h-32" />
           </Link>
           
           {/* Stats utilisateur */}
@@ -154,7 +154,7 @@ export default function ClipperSidebar({ userStats, profile }: ClipperSidebarPro
                 className="w-full flex items-center gap-3 px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-50 transition-colors"
               >
                 <IconLanguage className="w-5 h-5" />
-                <span>{translations[language].nav.language}</span>
+                <span>{(translations as any)[language]?.nav?.language || 'Language'}</span>
               </button>
               
               {showLanguageDropdown && (
@@ -163,7 +163,7 @@ export default function ClipperSidebar({ userStats, profile }: ClipperSidebarPro
                     <button
                       key={lang.code}
                       onClick={() => {
-                        setLanguage(lang.code)
+                        setLanguage(lang.code as any)
                         setShowLanguageDropdown(false)
                       }}
                       className={`w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors ${

@@ -104,7 +104,7 @@ export default function CreatorLayout({ children }: { children: React.ReactNode 
           {/* Logo */}
           <div className="p-6">
             <Link href="/" className="flex items-center">
-              <img src="/logo.png" alt="ClipTokk" className="h-28" />
+              <img src="/logo.png" alt="ClipTokk" className="h-36" />
             </Link>
           </div>
 

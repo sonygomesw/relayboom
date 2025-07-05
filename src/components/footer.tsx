@@ -14,8 +14,8 @@ export default function Footer() {
               <Image 
                 src="/logo.png" 
                 alt="ClipTokk" 
-                width={150} 
-                height={150} 
+                width={200} 
+                height={200} 
                 className="rounded-lg"
               />
             </div>
