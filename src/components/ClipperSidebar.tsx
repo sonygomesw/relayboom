@@ -84,7 +84,7 @@ export default function ClipperSidebar({ userStats, profile }: ClipperSidebarPro
   }
 
   return (
-    <aside className="fixed top-0 left-0 h-screen w-96 bg-white border-r border-gray-200 shadow-sm">
+    <aside className="fixed top-0 left-0 h-screen w-96 bg-white border-r border-gray-200 shadow-sm pt-8">
       <div className="flex flex-col h-full">
         {/* Header avec profil */}
         <div className="p-8 border-b border-gray-100">
