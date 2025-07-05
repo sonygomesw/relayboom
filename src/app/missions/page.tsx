@@ -289,24 +289,24 @@ export default function MissionsPage() {
                          ></div>
                        </div>
                        
-                       {/* Pourcentage et vues */}
-                       <div className="flex items-center justify-between mb-4">
-                         <span className="text-gray-900 font-bold text-lg">{budgetPercentage}%</span>
-                         <div className="text-gray-600 text-base">
-                           {formatViews(totalViews)}
-                         </div>
+                                              {/* Pourcentage et vues - ligne au-dessus de la barre */}
+                       <div className="flex items-center justify-between mb-2 text-sm text-gray-500">
+                         <span>{budgetPercentage}%</span>
+                         <span>{formatViews(totalViews)}</span>
                        </div>
                      </div>
 
-                                         {/* Type de contenu et plateformes en bas */}
-                     <div className="absolute bottom-8 left-8 right-8 flex items-center justify-between">
-                       {/* Type de contenu */}
-                       <span className="text-gray-600 text-base font-medium">
-                         {mission.content_type || 'Other'}
-                       </span>
+                     {/* Section bottom - bien structurée */}
+                     <div className="px-8 pb-8 space-y-4">
+                       {/* Ligne 1: Type de contenu */}
+                       <div className="flex justify-center">
+                         <span className="text-gray-600 text-base font-medium bg-gray-100 px-3 py-1 rounded-full">
+                           {mission.content_type || 'Other'}
+                         </span>
+                       </div>
                        
-                       {/* Plateformes en bas à droite */}
-                       <div className="flex items-center gap-4">
+                       {/* Ligne 2: Plateformes centrées */}
+                       <div className="flex items-center justify-center gap-4">
                          {/* TikTok */}
                          <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-black shadow-md hover:scale-110 transition-transform cursor-pointer group/tiktok relative">
                            <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white">
