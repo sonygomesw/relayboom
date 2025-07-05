@@ -310,9 +310,7 @@ export default function LeaderboardPage() {
             {/* Header */}
             <div className="mb-12">
               <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
-                  <IconTrophy className="w-8 h-8 text-yellow-600" />
-                </div>
+                <IconTrophy className="w-12 h-12 text-yellow-500" />
                 <h1 className="text-4xl font-bold text-gray-900">Leaderboard</h1>
               </div>
               <p className="text-xl text-gray-600">Découvre le classement des meilleurs clippeurs et participe aux compétitions</p>
