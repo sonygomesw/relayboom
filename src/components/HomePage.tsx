@@ -38,52 +38,31 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50/30">
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       {/* Navigation */}
-      <nav className="bg-white/95 backdrop-blur-xl border-b border-gray-200/50 sticky top-0 z-40 shadow-sm"
-           style={{ backgroundColor: 'rgba(255, 255, 255, 0.95)', borderBottomColor: '#E6E6E6' }}>
+      <nav className="bg-white/95 backdrop-blur-xl border-b border-gray-100 sticky top-0 z-40 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
             <div className="flex-shrink-0">
-              <img src="/logo.png" alt="ClipTokk" className="h-16 w-auto" />
+              <img src="/logo.png" alt="ClipTokk" className="h-20 w-auto" />
             </div>
 
             {/* Navigation Links (Desktop) */}
             <div className="hidden md:flex items-center space-x-1">
               <a 
                 href="#comment-ca-marche" 
-                className="group relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200"
-                style={{ color: '#6E6E73' }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = '#1D1D1F'
-                  e.currentTarget.style.backgroundColor = '#F5F5F7'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = '#6E6E73'
-                  e.currentTarget.style.backgroundColor = 'transparent'
-                }}
+                className="group relative px-4 py-2 text-sm font-medium text-gray-400 hover:text-gray-700 hover:bg-gray-50 rounded-lg transition-all duration-200"
               >
                 {t.nav.howItWorks}
-                <span className="absolute inset-x-0 bottom-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-center"
-                      style={{ backgroundColor: '#0066CC' }}></span>
+                <span className="absolute inset-x-0 bottom-0 h-0.5 bg-primary-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-center"></span>
               </a>
               <a 
                 href="#missions" 
-                className="group relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200"
-                style={{ color: '#6E6E73' }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = '#1D1D1F'
-                  e.currentTarget.style.backgroundColor = '#F5F5F7'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = '#6E6E73'
-                  e.currentTarget.style.backgroundColor = 'transparent'
-                }}
+                className="group relative px-4 py-2 text-sm font-medium text-gray-400 hover:text-gray-700 hover:bg-gray-50 rounded-lg transition-all duration-200"
               >
                 {t.nav.missions}
-                <span className="absolute inset-x-0 bottom-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-center"
-                      style={{ backgroundColor: '#0066CC' }}></span>
+                <span className="absolute inset-x-0 bottom-0 h-0.5 bg-primary-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-center"></span>
               </a>
             </div>
 
@@ -100,16 +79,7 @@ export default function HomePage() {
                   setAuthModalMode('login')
                   setIsAuthModalOpen(true)
                 }}
-                className="px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200"
-                style={{ color: '#6E6E73' }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = '#1D1D1F'
-                  e.currentTarget.style.backgroundColor = '#F5F5F7'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = '#6E6E73'
-                  e.currentTarget.style.backgroundColor = 'transparent'
-                }}
+                className="px-4 py-2 text-sm font-medium text-gray-400 hover:text-gray-700 hover:bg-gray-50 rounded-lg transition-all duration-200"
               >
                 {t.nav.login}
               </button>
@@ -120,19 +90,7 @@ export default function HomePage() {
                   setAuthModalMode('clipper-signup')
                   setIsAuthModalOpen(true)
                 }}
-                className="group inline-flex items-center px-6 py-2.5 text-sm font-semibold text-white rounded-lg shadow-sm transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-offset-2"
-                style={{ 
-                  backgroundColor: '#0066CC',
-                  boxShadow: '0 1px 2px 0 rgba(29, 29, 31, 0.05)'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#0052A3'
-                  e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(29, 29, 31, 0.1), 0 2px 4px -1px rgba(29, 29, 31, 0.06)'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = '#0066CC'
-                  e.currentTarget.style.boxShadow = '0 1px 2px 0 rgba(29, 29, 31, 0.05)'
-                }}
+                className="group inline-flex items-center px-6 py-2.5 text-sm font-semibold text-white bg-primary-500 hover:bg-primary-600 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
               >
                 {t.nav.becomeClipper}
                 <svg className="ml-2 w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -147,7 +105,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <div className="relative bg-gradient-to-b from-white via-gray-50/30 to-white overflow-hidden">
         {/* Subtle background pattern */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(59,130,246,0.15)_1px,transparent_0)] bg-[length:24px_24px] opacity-30"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(0,102,204,0.15)_1px,transparent_0)] bg-[length:24px_24px] opacity-30"></div>
         
         <div className="relative max-w-7xl mx-auto">
           <div className="relative z-10 pb-16 sm:pb-20 md:pb-24 lg:max-w-2xl lg:w-full lg:pb-32 xl:pb-40">
@@ -155,7 +113,7 @@ export default function HomePage() {
               <div className="sm:text-center lg:text-left">
                 {/* Badge avec design Apple-style */}
                 <div className="mb-8 animate-fade-in">
-                  <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-white/80 backdrop-blur-sm text-blue-700 border border-blue-200/50 shadow-sm">
+                  <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-white/80 backdrop-blur-sm text-primary-700 border border-primary-200/50 shadow-sm">
                     <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
                     {t.hero.badge}
                   </span>
@@ -178,22 +136,10 @@ export default function HomePage() {
                       setAuthModalMode('signup')
                       setIsAuthModalOpen(true)
                     }}
-                    className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white rounded-xl shadow-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                    style={{ 
-                      backgroundColor: '#0066CC',
-                      boxShadow: '0 1px 2px 0 rgba(29, 29, 31, 0.05)'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = '#0052A3'
-                      e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(29, 29, 31, 0.1), 0 2px 4px -1px rgba(29, 29, 31, 0.06)'
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = '#0066CC'
-                      e.currentTarget.style.boxShadow = '0 1px 2px 0 rgba(29, 29, 31, 0.05)'
-                    }}
+                    className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-primary-500 hover:bg-primary-600 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                   >
                     <span className="relative z-10">{t.hero.ctaPrimary}</span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary-600 to-primary-700 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
                   </button>
                   
                   <button
@@ -217,7 +163,7 @@ export default function HomePage() {
                     <span className="font-medium">{t.hero.stats.activeClippers}</span>
                   </div>
                   <div className="flex items-center text-sm text-gray-500">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-3 animate-pulse"></div>
+                    <div className="w-2 h-2 bg-primary-500 rounded-full mr-3 animate-pulse"></div>
                     <span className="font-medium">{t.hero.stats.viewsGenerated}</span>
                   </div>
                 </div>
@@ -226,13 +172,13 @@ export default function HomePage() {
                 <div className="mt-8 flex justify-center lg:justify-start animate-fade-in">
                   <a
                     href="/platform-previews"
-                    className="group inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors duration-200"
+                    className="group inline-flex items-center text-sm font-medium text-primary-600 hover:text-primary-700 transition-colors duration-200"
                   >
                     <svg className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                     </svg>
-                    <span className="border-b border-blue-200 group-hover:border-blue-400 transition-colors duration-200">
+                    <span className="border-b border-primary-200 group-hover:border-primary-400 transition-colors duration-200">
                       Voir un aperçu des missions
                     </span>
                   </a>
@@ -246,7 +192,7 @@ export default function HomePage() {
         <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 flex items-center justify-center p-8">
           <div className="relative animate-fade-in">
             {/* Glow effect */}
-            <div className="absolute inset-0 bg-blue-500/20 rounded-[4rem] blur-3xl scale-110 opacity-30"></div>
+            <div className="absolute inset-0 bg-primary-500/20 rounded-[4rem] blur-3xl scale-110 opacity-30"></div>
             
             {/* iPhone mockup */}
             <div className="relative w-80 h-[600px] bg-gray-900 rounded-[4rem] p-2 shadow-2xl shadow-gray-900/30">
@@ -344,12 +290,12 @@ export default function HomePage() {
             <div className="group text-center">
               <div className="relative mb-8">
                 {/* Numéro de step */}
-                <div className="absolute -top-4 -left-4 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-semibold shadow-lg">
+                <div className="absolute -top-4 -left-4 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-semibold shadow-lg">
                   1
                 </div>
                 
                 {/* Icône avec design amélioré */}
-                <div className="mx-auto w-24 h-24 bg-gradient-to-br from-blue-500 to-blue-600 rounded-3xl flex items-center justify-center shadow-xl shadow-blue-500/25 group-hover:shadow-2xl group-hover:shadow-blue-500/30 transition-all duration-300 group-hover:scale-105">
+                <div className="mx-auto w-24 h-24 bg-gradient-to-br from-primary-500 to-primary-600 rounded-3xl flex items-center justify-center shadow-xl shadow-primary-500/25 group-hover:shadow-2xl group-hover:shadow-primary-500/30 transition-all duration-300 group-hover:scale-105">
                   <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
@@ -415,8 +361,8 @@ export default function HomePage() {
 
           {/* Ligne de connexion entre les steps (desktop only) */}
           <div className="hidden lg:block relative -mt-32 mb-40">
-            <div className="absolute top-1/2 left-1/3 w-1/3 h-0.5 bg-gradient-to-r from-blue-200 to-purple-200 transform -translate-y-1/2"></div>
-            <div className="absolute top-1/2 left-2/3 w-1/3 h-0.5 bg-gradient-to-r from-purple-200 to-green-200 transform -translate-y-1/2"></div>
+            <div className="absolute top-1/2 left-1/3 w-1/3 h-0.5 bg-primary-200 transform -translate-y-1/2"></div>
+            <div className="absolute top-1/2 left-2/3 w-1/3 h-0.5 bg-primary-200 transform -translate-y-1/2"></div>
           </div>
 
           {/* CTA Section */}
@@ -433,19 +379,7 @@ export default function HomePage() {
                 setAuthModalMode('clipper-signup')
                 setIsAuthModalOpen(true)
               }}
-              className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white rounded-xl shadow-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-              style={{ 
-                backgroundColor: '#0066CC',
-                boxShadow: '0 1px 2px 0 rgba(29, 29, 31, 0.05)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#0052A3'
-                e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(29, 29, 31, 0.1), 0 2px 4px -1px rgba(29, 29, 31, 0.06)'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = '#0066CC'
-                e.currentTarget.style.boxShadow = '0 1px 2px 0 rgba(29, 29, 31, 0.05)'
-              }}
+              className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-primary-500 hover:bg-primary-600 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
             >
               Commencer maintenant
               <svg className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -501,15 +435,15 @@ export default function HomePage() {
           
           {/* Mini Earnings Simulator */}
           <div className="mt-20 max-w-2xl mx-auto">
-            <div className="bg-gradient-to-r from-blue-400 to-cyan-400 rounded-3xl p-8 text-white">
+            <div className="bg-gradient-to-r from-primary-400 to-cyan-400 rounded-3xl p-8 text-white">
               <div className="text-center mb-8">
                 <h3 className="text-2xl font-bold mb-2">💰 Simulateur de gains</h3>
-                <p className="text-blue-100">Découvre combien tu peux gagner avec tes vues !</p>
+                <p className="text-primary-100">Découvre combien tu peux gagner avec tes vues !</p>
               </div>
               
               <div className="space-y-6">
                 <div>
-                  <label className="block text-sm font-medium text-blue-100 mb-2">
+                  <label className="block text-sm font-medium text-primary-100 mb-2">
                     Nombre de vues de ton clip
                   </label>
                   <input
@@ -547,7 +481,7 @@ export default function HomePage() {
                       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
                     }
                   `}</style>
-                  <div className="flex justify-between text-xs text-blue-100 mt-2">
+                  <div className="flex justify-between text-xs text-primary-100 mt-2">
                     <span>10K</span>
                     <span>5M</span>
                   </div>
@@ -560,7 +494,7 @@ export default function HomePage() {
                   <div className="text-2xl font-semibold text-yellow-300">
                     = {Math.round(viewsCount * 0.0001)}€ gagnés
                   </div>
-                  <p className="text-sm text-blue-100 mt-2">
+                  <p className="text-sm text-primary-100 mt-2">
                     Basé sur 0,10€ pour 1000 vues • Moyennes réelles de la plateforme
                   </p>
                 </div>
@@ -573,7 +507,7 @@ export default function HomePage() {
                     </span>
                   </div>
                   <div className="text-center mt-3 pt-3 border-t border-white/20">
-                    <div className="flex items-center justify-center gap-2 text-xs text-blue-100">
+                    <div className="flex items-center justify-center gap-2 text-xs text-primary-100">
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                       </svg>
@@ -588,7 +522,7 @@ export default function HomePage() {
                       setAuthModalMode('clipper-signup')
                       setIsAuthModalOpen(true)
                     }}
-                    className="bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
+                    className="bg-white text-primary-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
                   >
                     Je veux gagner ça ! 🚀
                   </button>
@@ -623,7 +557,7 @@ export default function HomePage() {
             {/* Mission 1 - MrBeast */}
             <div className="group bg-white rounded-2xl shadow-sm border border-gray-200/50 overflow-hidden hover:shadow-xl hover:border-gray-300/50 transition-all duration-300 hover:scale-[1.02]">
               {/* Header */}
-              <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-6">
+              <div className="bg-gradient-to-r from-primary-500 to-primary-600 p-6">
                 <div className="flex items-center justify-between">
                   <span className="inline-flex items-center px-3 py-1.5 bg-white/20 backdrop-blur-sm text-white rounded-full text-xs font-semibold">
                     🔥 Populaire
@@ -652,7 +586,7 @@ export default function HomePage() {
                 
                 <div className="space-y-3 mb-6">
                   <div className="flex items-center text-sm text-gray-600">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                    <div className="w-2 h-2 bg-primary-500 rounded-full mr-3"></div>
                     <span>200M+ abonnés • 5.2M vues/mois</span>
                   </div>
                   <div className="flex items-center text-sm text-gray-600">
@@ -670,7 +604,7 @@ export default function HomePage() {
                     setAuthModalMode('clipper-signup')
                     setIsAuthModalOpen(true)
                   }}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-xl font-semibold transition-all duration-200 group-hover:shadow-md"
+                  className="w-full bg-primary-600 hover:bg-primary-700 text-white py-3 px-4 rounded-xl font-semibold transition-all duration-200 group-hover:shadow-md"
                 >
                   Accepter cette mission
                 </button>
@@ -709,7 +643,7 @@ export default function HomePage() {
                 
                 <div className="space-y-3 mb-6">
                   <div className="flex items-center text-sm text-gray-600">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                    <div className="w-2 h-2 bg-primary-500 rounded-full mr-3"></div>
                     <span>25M+ abonnés • 3.8M vues/mois</span>
                   </div>
                   <div className="flex items-center text-sm text-gray-600">
@@ -766,7 +700,7 @@ export default function HomePage() {
                 
                 <div className="space-y-3 mb-6">
                   <div className="flex items-center text-sm text-gray-600">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                    <div className="w-2 h-2 bg-primary-500 rounded-full mr-3"></div>
                     <span>12M+ abonnés • 2.5M vues/mois</span>
                   </div>
                   <div className="flex items-center text-sm text-gray-600">
@@ -961,19 +895,7 @@ export default function HomePage() {
                 setAuthModalMode('clipper-signup')
                 setIsAuthModalOpen(true)
               }}
-              className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white rounded-xl shadow-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-              style={{ 
-                backgroundColor: '#0066CC',
-                boxShadow: '0 1px 2px 0 rgba(29, 29, 31, 0.05)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#0052A3'
-                e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(29, 29, 31, 0.1), 0 2px 4px -1px rgba(29, 29, 31, 0.06)'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = '#0066CC'
-                e.currentTarget.style.boxShadow = '0 1px 2px 0 rgba(29, 29, 31, 0.05)'
-              }}
+              className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-primary-500 hover:bg-primary-600 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
             >
               Voir toutes les missions disponibles
               <svg className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1015,7 +937,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
             <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl shadow-gray-900/5 p-8 border border-gray-100/50 transition-all duration-300 hover:transform hover:scale-105">
               <div className="flex items-center mb-6">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-xl shadow-blue-500/25">
+                <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-xl shadow-primary-500/25">
                   L
                 </div>
                 <div className="ml-6">
@@ -1126,7 +1048,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
           <div className="xl:grid xl:grid-cols-3 xl:gap-8">
             <div className="space-y-8 xl:col-span-1">
-              <img className="h-16" src="/logo.png" alt="ClipTokk" />
+              <img className="h-20" src="/logo.png" alt="ClipTokk" />
               <p className="text-gray-300 text-base leading-relaxed">
                 {t.footer.description}
               </p>
