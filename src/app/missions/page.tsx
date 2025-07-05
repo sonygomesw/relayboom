@@ -221,7 +221,7 @@ export default function MissionsPage() {
                                  return (
                    <div 
                      key={mission.id}
-                     className="bg-white/10 backdrop-blur-sm rounded-xl overflow-hidden hover:bg-white/20 transition-all duration-200 group flex flex-col h-80 relative border border-white/20 shadow-lg"
+                     className="bg-white/25 backdrop-blur-sm rounded-xl overflow-hidden hover:bg-white/35 transition-all duration-200 group flex flex-col h-80 relative border border-white/30 shadow-lg"
                    >
                                          {/* Header avec photo et prix */}
                      <div className="flex items-start justify-between p-6">
@@ -230,7 +230,7 @@ export default function MissionsPage() {
                          <img 
                            src={mission.creator_image || `https://ui-avatars.com/api/?name=${encodeURIComponent(mission.creator_name || 'User')}&background=0066CC&color=fff&size=56`}
                            alt={mission.creator_name}
-                           className="w-14 h-14 rounded-lg object-cover border border-white/30"
+                           className="w-14 h-14 rounded-lg object-cover border border-white/40"
                          />
                        </div>
                        
@@ -262,7 +262,7 @@ export default function MissionsPage() {
                        </div>
                        
                        {/* Barre de progression */}
-                       <div className="w-full bg-white/20 rounded-full h-3 mb-3">
+                       <div className="w-full bg-white/30 rounded-full h-3 mb-3">
                          <div 
                            className="bg-gradient-to-r from-pink-500 via-purple-500 to-violet-500 h-3 rounded-full transition-all duration-300"
                            style={{ width: `${budgetPercentage}%` }}
@@ -294,7 +294,7 @@ export default function MissionsPage() {
                            </svg>
                          </div>
                          {/* TikTok */}
-                         <div className="w-5 h-5 rounded flex items-center justify-center bg-black/50 border border-white/30">
+                         <div className="w-5 h-5 rounded flex items-center justify-center bg-black/50 border border-white/40">
                            <svg viewBox="0 0 24 24" className="w-3 h-3 fill-white">
                              <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
                            </svg>
@@ -493,7 +493,7 @@ export default function MissionsPage() {
             {filteredMissions.map((mission) => (
               <div 
                 key={mission.id}
-                className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 overflow-hidden hover:bg-white/20 transition-all duration-200 group flex flex-col min-h-[180px] w-full shadow-lg"
+                className="bg-white/25 backdrop-blur-sm rounded-xl border border-white/30 overflow-hidden hover:bg-white/35 transition-all duration-200 group flex flex-col min-h-[180px] w-full shadow-lg"
               >
                 {mission.featured && (
                   <div className="absolute top-1 right-1 z-10">
@@ -504,7 +504,7 @@ export default function MissionsPage() {
                 )}
 
                 {/* Header ultra-mini avec plus d'espace */}
-                                  <div className="bg-white/10 backdrop-blur-sm p-2.5 flex items-center gap-2 border-b border-white/20 relative">
+                                  <div className="bg-white/20 backdrop-blur-sm p-2.5 flex items-center gap-2 border-b border-white/30 relative">
                   {/* Avatar très petit */}
                   <div className="relative">
                     <img 
@@ -531,7 +531,7 @@ export default function MissionsPage() {
                 <div className="p-2.5 flex-1 flex flex-col justify-between">
                   <div className="space-y-2">
                     {/* Prix en priorité */}
-                                          <div className="bg-white/10 backdrop-blur-sm rounded p-1.5 text-center border border-white/20">
+                                          <div className="bg-white/20 backdrop-blur-sm rounded p-1.5 text-center border border-white/30">
                       <div className="text-xs font-bold bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent">
                         {formatCurrency(mission.price_per_1k_views)}/1K
                       </div>
@@ -542,7 +542,7 @@ export default function MissionsPage() {
 
                     {/* Badge catégorie très petit */}
                     <div className="flex items-center justify-center">
-                                              <span className="bg-white/10 text-white/70 px-1.5 py-0.5 rounded text-xs border border-white/20">
+                                              <span className="bg-white/20 text-white/80 px-1.5 py-0.5 rounded text-xs border border-white/30">
                         {getCategoryIcon(mission.category)}
                       </span>
                     </div>
