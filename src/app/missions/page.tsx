@@ -208,7 +208,10 @@ export default function MissionsPage() {
             </div>
 
             {/* Missions Grid - Cartes style noir comme l'exemple */}
-            <div className="bg-gradient-to-br from-blue-100 via-sky-50 to-indigo-100 rounded-2xl p-6 shadow-inner">
+            <div className="bg-gradient-to-br from-slate-800 via-slate-900 to-gray-900 rounded-2xl p-6 relative overflow-hidden">
+              {/* Effet de texture de fond */}
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-indigo-900/20"></div>
+              <div className="relative z-10">
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                               {filteredMissions.map((mission) => {
                 // Calculer le pourcentage de budget utilisé basé sur les vraies données
@@ -218,7 +221,7 @@ export default function MissionsPage() {
                                  return (
                    <div 
                      key={mission.id}
-                     className="bg-gradient-to-br from-purple-900 via-violet-900 to-pink-900 rounded-xl overflow-hidden hover:from-purple-800 hover:via-violet-800 hover:to-pink-800 transition-all duration-200 group flex flex-col h-80 relative border border-purple-500/30 backdrop-blur-sm"
+                     className="bg-white/10 backdrop-blur-sm rounded-xl overflow-hidden hover:bg-white/20 transition-all duration-200 group flex flex-col h-80 relative border border-white/20 shadow-lg"
                    >
                                          {/* Header avec photo et prix */}
                      <div className="flex items-start justify-between p-6">
@@ -227,7 +230,7 @@ export default function MissionsPage() {
                          <img 
                            src={mission.creator_image || `https://ui-avatars.com/api/?name=${encodeURIComponent(mission.creator_name || 'User')}&background=0066CC&color=fff&size=56`}
                            alt={mission.creator_name}
-                           className="w-14 h-14 rounded-lg object-cover border border-purple-400/50"
+                           className="w-14 h-14 rounded-lg object-cover border border-white/30"
                          />
                        </div>
                        
@@ -259,7 +262,7 @@ export default function MissionsPage() {
                        </div>
                        
                        {/* Barre de progression */}
-                       <div className="w-full bg-purple-800/50 rounded-full h-3 mb-3">
+                       <div className="w-full bg-white/20 rounded-full h-3 mb-3">
                          <div 
                            className="bg-gradient-to-r from-pink-500 via-purple-500 to-violet-500 h-3 rounded-full transition-all duration-300"
                            style={{ width: `${budgetPercentage}%` }}
@@ -269,7 +272,7 @@ export default function MissionsPage() {
                        {/* Pourcentage et vues */}
                        <div className="flex items-center justify-between mb-3">
                          <span className="text-white font-bold text-base">{budgetPercentage}%</span>
-                         <div className="text-purple-300 text-sm">
+                         <div className="text-white/70 text-sm">
                            {(budgetUsed / mission.price_per_1k_views).toFixed(1)}K vues
                          </div>
                        </div>
@@ -278,7 +281,7 @@ export default function MissionsPage() {
                                          {/* Type de contenu et plateformes en bas */}
                      <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between">
                        {/* Type de contenu */}
-                       <span className="text-purple-300 text-sm font-medium">
+                       <span className="text-white/70 text-sm font-medium">
                          {mission.content_type || 'Other'}
                        </span>
                        
@@ -291,7 +294,7 @@ export default function MissionsPage() {
                            </svg>
                          </div>
                          {/* TikTok */}
-                         <div className="w-5 h-5 rounded flex items-center justify-center bg-black border border-purple-400/50">
+                         <div className="w-5 h-5 rounded flex items-center justify-center bg-black/50 border border-white/30">
                            <svg viewBox="0 0 24 24" className="w-3 h-3 fill-white">
                              <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
                            </svg>
@@ -315,6 +318,7 @@ export default function MissionsPage() {
                   </div>
                 );
               })}
+                </div>
               </div>
             </div>
 
@@ -481,12 +485,15 @@ export default function MissionsPage() {
       {/* Missions Grid */}
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="bg-gradient-to-br from-blue-100 via-sky-50 to-indigo-100 rounded-2xl p-6 shadow-inner">
+          <div className="bg-gradient-to-br from-slate-800 via-slate-900 to-gray-900 rounded-2xl p-6 relative overflow-hidden">
+            {/* Effet de texture de fond */}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-indigo-900/20"></div>
+            <div className="relative z-10">
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
             {filteredMissions.map((mission) => (
               <div 
                 key={mission.id}
-                className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all duration-200 group flex flex-col min-h-[180px] w-full"
+                className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 overflow-hidden hover:bg-white/20 transition-all duration-200 group flex flex-col min-h-[180px] w-full shadow-lg"
               >
                 {mission.featured && (
                   <div className="absolute top-1 right-1 z-10">
@@ -497,7 +504,7 @@ export default function MissionsPage() {
                 )}
 
                 {/* Header ultra-mini avec plus d'espace */}
-                <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-2.5 flex items-center gap-2 border-b border-gray-100 relative">
+                                  <div className="bg-white/10 backdrop-blur-sm p-2.5 flex items-center gap-2 border-b border-white/20 relative">
                   {/* Avatar très petit */}
                   <div className="relative">
                     <img 
@@ -508,15 +515,15 @@ export default function MissionsPage() {
                     <div className="absolute -bottom-0.5 -right-0.5 w-1.5 h-1.5 bg-emerald-500 rounded-full border border-white"></div>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-bold text-sm text-gray-900 truncate group-hover:text-emerald-600 transition-colors leading-tight">
+                                          <h3 className="font-bold text-sm text-white truncate group-hover:text-emerald-300 transition-colors leading-tight">
                       {mission.title || 'Mission sans titre'}
                     </h3>
-                    <p className="text-xs text-gray-500 truncate font-normal">
-                      {mission.creator_name}
-                    </p>
-                    <p className="text-xs text-gray-600 truncate font-normal mt-1">
-                      {mission.description}
-                    </p>
+                                          <p className="text-xs text-white/70 truncate font-normal">
+                        {mission.creator_name}
+                      </p>
+                      <p className="text-xs text-white/60 truncate font-normal mt-1">
+                        {mission.description}
+                      </p>
                   </div>
                 </div>
 
@@ -524,18 +531,18 @@ export default function MissionsPage() {
                 <div className="p-2.5 flex-1 flex flex-col justify-between">
                   <div className="space-y-2">
                     {/* Prix en priorité */}
-                    <div className="bg-gradient-to-r from-emerald-50 to-green-50 rounded p-1.5 text-center border border-emerald-100">
+                                          <div className="bg-white/10 backdrop-blur-sm rounded p-1.5 text-center border border-white/20">
                       <div className="text-xs font-bold bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent">
                         {formatCurrency(mission.price_per_1k_views)}/1K
                       </div>
-                      <div className="text-xs text-gray-500 mt-0.5">
+                                              <div className="text-xs text-white/70 mt-0.5">
                         Budget: {formatCurrency(mission.total_budget)}
                       </div>
                     </div>
 
                     {/* Badge catégorie très petit */}
                     <div className="flex items-center justify-center">
-                      <span className="bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded text-xs">
+                                              <span className="bg-white/10 text-white/70 px-1.5 py-0.5 rounded text-xs border border-white/20">
                         {getCategoryIcon(mission.category)}
                       </span>
                     </div>
@@ -551,6 +558,7 @@ export default function MissionsPage() {
                 </div>
               </div>
             ))}
+              </div>
             </div>
           </div>
 
