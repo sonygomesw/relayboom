@@ -221,7 +221,7 @@ export default function MissionsPage() {
                                  return (
                    <div 
                      key={mission.id}
-                     className="bg-white/25 backdrop-blur-sm rounded-xl overflow-hidden hover:bg-white/35 transition-all duration-200 group flex flex-col h-80 relative border border-white/30 shadow-lg"
+                     className="bg-white rounded-xl overflow-hidden hover:bg-gray-50 transition-all duration-200 group flex flex-col h-80 relative border border-gray-200 shadow-lg"
                    >
                                          {/* Header avec photo et prix */}
                      <div className="flex items-start justify-between p-6">
@@ -230,13 +230,13 @@ export default function MissionsPage() {
                          <img 
                            src={mission.creator_image || `https://ui-avatars.com/api/?name=${encodeURIComponent(mission.creator_name || 'User')}&background=0066CC&color=fff&size=56`}
                            alt={mission.creator_name}
-                           className="w-14 h-14 rounded-lg object-cover border border-white/40"
+                           className="w-14 h-14 rounded-lg object-cover border border-gray-200"
                          />
                        </div>
                        
                        {/* Prix par 1K vues en haut à droite */}
                        <div className="text-right">
-                         <div className="text-white font-bold text-base">
+                         <div className="text-gray-900 font-bold text-base">
                            {formatCurrency(mission.price_per_1k_views)} / 1K
                          </div>
                          {mission.featured && (
@@ -247,22 +247,22 @@ export default function MissionsPage() {
 
                                          {/* Titre */}
                      <div className="px-6">
-                       <h3 className="text-white font-bold text-base mb-6 line-clamp-2 leading-tight">
+                       <h3 className="text-gray-900 font-bold text-base mb-6 line-clamp-2 leading-tight">
                          {mission.title || 'Mission sans titre'}
                        </h3>
                      </div>
 
                                          {/* Jauge de budget au milieu */}
                      <div className="px-6 mb-8 flex-1 flex flex-col justify-center">
-                       <div className="text-white text-xl font-bold mb-1">
+                       <div className="text-gray-900 text-xl font-bold mb-1">
                          {formatCurrency(budgetUsed)} of
                        </div>
-                       <div className="text-white text-xl font-bold mb-4">
+                       <div className="text-gray-900 text-xl font-bold mb-4">
                          {formatCurrency(mission.total_budget)}
                        </div>
                        
                        {/* Barre de progression */}
-                       <div className="w-full bg-white/30 rounded-full h-3 mb-3">
+                       <div className="w-full bg-gray-200 rounded-full h-3 mb-3">
                          <div 
                            className="bg-gradient-to-r from-pink-500 via-purple-500 to-violet-500 h-3 rounded-full transition-all duration-300"
                            style={{ width: `${budgetPercentage}%` }}
@@ -271,8 +271,8 @@ export default function MissionsPage() {
                        
                        {/* Pourcentage et vues */}
                        <div className="flex items-center justify-between mb-3">
-                         <span className="text-white font-bold text-base">{budgetPercentage}%</span>
-                         <div className="text-white/70 text-sm">
+                         <span className="text-gray-900 font-bold text-base">{budgetPercentage}%</span>
+                         <div className="text-gray-600 text-sm">
                            {(budgetUsed / mission.price_per_1k_views).toFixed(1)}K vues
                          </div>
                        </div>
@@ -281,7 +281,7 @@ export default function MissionsPage() {
                                          {/* Type de contenu et plateformes en bas */}
                      <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between">
                        {/* Type de contenu */}
-                       <span className="text-white/70 text-sm font-medium">
+                       <span className="text-gray-600 text-sm font-medium">
                          {mission.content_type || 'Other'}
                        </span>
                        
@@ -294,7 +294,7 @@ export default function MissionsPage() {
                            </svg>
                          </div>
                          {/* TikTok */}
-                         <div className="w-5 h-5 rounded flex items-center justify-center bg-black/50 border border-white/40">
+                         <div className="w-5 h-5 rounded flex items-center justify-center bg-gray-800 border border-gray-300">
                            <svg viewBox="0 0 24 24" className="w-3 h-3 fill-white">
                              <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
                            </svg>
@@ -493,7 +493,7 @@ export default function MissionsPage() {
             {filteredMissions.map((mission) => (
               <div 
                 key={mission.id}
-                className="bg-white/25 backdrop-blur-sm rounded-xl border border-white/30 overflow-hidden hover:bg-white/35 transition-all duration-200 group flex flex-col min-h-[180px] w-full shadow-lg"
+                className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:bg-gray-50 transition-all duration-200 group flex flex-col min-h-[180px] w-full shadow-lg"
               >
                 {mission.featured && (
                   <div className="absolute top-1 right-1 z-10">
@@ -504,7 +504,7 @@ export default function MissionsPage() {
                 )}
 
                 {/* Header ultra-mini avec plus d'espace */}
-                                  <div className="bg-white/20 backdrop-blur-sm p-2.5 flex items-center gap-2 border-b border-white/30 relative">
+                                  <div className="bg-gray-50 p-2.5 flex items-center gap-2 border-b border-gray-200 relative">
                   {/* Avatar très petit */}
                   <div className="relative">
                     <img 
@@ -515,13 +515,13 @@ export default function MissionsPage() {
                     <div className="absolute -bottom-0.5 -right-0.5 w-1.5 h-1.5 bg-emerald-500 rounded-full border border-white"></div>
                   </div>
                   <div className="flex-1 min-w-0">
-                                          <h3 className="font-bold text-sm text-white truncate group-hover:text-emerald-300 transition-colors leading-tight">
-                      {mission.title || 'Mission sans titre'}
-                    </h3>
-                                          <p className="text-xs text-white/70 truncate font-normal">
+                                                                <h3 className="font-bold text-sm text-gray-900 truncate group-hover:text-emerald-600 transition-colors leading-tight">
+                        {mission.title || 'Mission sans titre'}
+                      </h3>
+                      <p className="text-xs text-gray-600 truncate font-normal">
                         {mission.creator_name}
                       </p>
-                      <p className="text-xs text-white/60 truncate font-normal mt-1">
+                      <p className="text-xs text-gray-500 truncate font-normal mt-1">
                         {mission.description}
                       </p>
                   </div>
@@ -531,18 +531,18 @@ export default function MissionsPage() {
                 <div className="p-2.5 flex-1 flex flex-col justify-between">
                   <div className="space-y-2">
                     {/* Prix en priorité */}
-                                          <div className="bg-white/20 backdrop-blur-sm rounded p-1.5 text-center border border-white/30">
+                                          <div className="bg-gray-50 rounded p-1.5 text-center border border-gray-200">
                       <div className="text-xs font-bold bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent">
                         {formatCurrency(mission.price_per_1k_views)}/1K
                       </div>
-                                              <div className="text-xs text-white/70 mt-0.5">
-                        Budget: {formatCurrency(mission.total_budget)}
-                      </div>
+                                                                      <div className="text-xs text-gray-600 mt-0.5">
+                          Budget: {formatCurrency(mission.total_budget)}
+                        </div>
                     </div>
 
                     {/* Badge catégorie très petit */}
                     <div className="flex items-center justify-center">
-                                              <span className="bg-white/20 text-white/80 px-1.5 py-0.5 rounded text-xs border border-white/30">
+                                              <span className="bg-gray-100 text-gray-700 px-1.5 py-0.5 rounded text-xs border border-gray-200">
                         {getCategoryIcon(mission.category)}
                       </span>
                     </div>
