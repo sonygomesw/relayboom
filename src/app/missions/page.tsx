@@ -201,19 +201,19 @@ export default function MissionsPage() {
               </div>
             </div>
 
-            {/* Missions Grid - Petites cartes compactes */}
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-3">
+            {/* Missions Grid - Cartes moyennes agrandies */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
               {filteredMissions.map((mission) => (
                 <div 
                   key={mission.id}
                   className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all duration-200 group flex flex-col aspect-square relative"
                 >
                   {/* Photo utilisateur en haut à gauche */}
-                  <div className="absolute top-2 left-2 z-10">
+                  <div className="absolute top-3 left-3 z-10">
                     <img 
-                      src={mission.creator_image || `https://ui-avatars.com/api/?name=${encodeURIComponent(mission.creator_name || 'User')}&background=0066CC&color=fff&size=24`}
+                      src={mission.creator_image || `https://ui-avatars.com/api/?name=${encodeURIComponent(mission.creator_name || 'User')}&background=0066CC&color=fff&size=40`}
                       alt={mission.creator_name}
-                      className="w-6 h-6 rounded-full object-cover border-2 border-white shadow-sm"
+                      className="w-10 h-10 rounded-full object-cover border-3 border-white shadow-lg"
                     />
                   </div>
 
@@ -226,8 +226,8 @@ export default function MissionsPage() {
                   )}
 
                   {/* Content */}
-                  <div className="p-2 flex-1 flex flex-col justify-between">
-                    <div className="space-y-2 mt-6">
+                  <div className="p-3 flex-1 flex flex-col justify-between">
+                    <div className="space-y-3 mt-8">
                       {/* Titre */}
                       <h3 className="font-bold text-xs text-gray-900 truncate group-hover:text-emerald-600 transition-colors leading-tight">
                         {mission.title || 'Mission sans titre'}
