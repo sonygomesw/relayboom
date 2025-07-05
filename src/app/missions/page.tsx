@@ -274,30 +274,30 @@ export default function MissionsPage() {
                      </div>
 
                                          {/* Jauge de budget au milieu */}
-                     <div className="px-8 mb-10 flex-1 flex flex-col justify-center">
+                     <div className="px-8 mb-6 flex-1 flex flex-col justify-center">
                        <div className="flex items-baseline gap-3 mb-6 flex-wrap">
                          <span className="text-3xl font-bold text-gray-900 flex-shrink-0">{formatCurrency(budgetUsed)}</span>
                          <span className="text-gray-500 font-medium text-lg flex-shrink-0">sur</span>
                          <span className="text-xl font-semibold text-gray-600 flex-shrink-0">{formatCurrency(mission.total_budget)}</span>
                        </div>
                        
+                       {/* Pourcentage et vues - ligne au-dessus de la barre */}
+                       <div className="flex items-center justify-between mb-2 text-sm text-gray-500">
+                         <span>{budgetPercentage}%</span>
+                         <span>{formatViews(totalViews)}</span>
+                       </div>
+                       
                        {/* Barre de progression */}
-                       <div className="w-full bg-gray-100 rounded-full h-5 mb-6">
+                       <div className="w-full bg-gray-100 rounded-full h-5 mb-4">
                          <div 
                            className="bg-gradient-to-r from-[#22D3EE] to-[#3B82F6] h-5 rounded-full transition-all duration-300 shadow-sm"
                            style={{ width: `${budgetPercentage}%` }}
                          ></div>
                        </div>
-                       
-                                              {/* Pourcentage et vues - ligne au-dessus de la barre */}
-                       <div className="flex items-center justify-between mb-2 text-sm text-gray-500">
-                         <span>{budgetPercentage}%</span>
-                         <span>{formatViews(totalViews)}</span>
-                       </div>
                      </div>
 
                      {/* Section bottom - bien structurée */}
-                     <div className="px-8 pb-8 space-y-4">
+                     <div className="px-8 pb-6 space-y-3">
                        {/* Ligne 1: Type de contenu */}
                        <div className="flex justify-center">
                          <span className="text-gray-600 text-base font-medium bg-gray-100 px-3 py-1 rounded-full">
