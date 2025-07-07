@@ -5,6 +5,7 @@ import { Metadata } from 'next'
 import { AuthProvider } from '@/components/AuthContext'
 import { LanguageProvider } from '@/components/LanguageContext'
 import { SWRProvider } from '@/components/SWRProvider'
+import { ClientOnlyRouter } from '@/components/SafeRouter'
 import { Analytics } from '@vercel/analytics/react'
 import Loading from './loading'
 
@@ -67,15 +68,17 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/favicon.svg" />
       </head>
       <body className={inter.className}>
-        <SWRProvider>
-          <LanguageProvider>
-            <AuthProvider>
-              <Suspense fallback={<Loading />}>
-                {children}
-              </Suspense>
-            </AuthProvider>
-          </LanguageProvider>
-        </SWRProvider>
+        <ClientOnlyRouter>
+          <SWRProvider>
+            <LanguageProvider>
+              <AuthProvider>
+                <Suspense fallback={<Loading />}>
+                  {children}
+                </Suspense>
+              </AuthProvider>
+            </LanguageProvider>
+          </SWRProvider>
+        </ClientOnlyRouter>
         <Analytics />
       </body>
     </html>

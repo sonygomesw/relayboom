@@ -13,11 +13,12 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   experimental: {
-    optimizeCss: true,
     optimizePackageImports: ['@tabler/icons-react'],
   },
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
+    removeConsole: process.env.NODE_ENV === 'production' ? {
+      exclude: ['error', 'warn', 'info'],
+    } : false,
   },
   onDemandEntries: {
     maxInactiveAge: 60 * 1000, // 1 minute
@@ -30,7 +31,6 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true, // Temporairement activé pour le déploiement
   },
-  output: 'standalone',
   async redirects() {
     return [
       {
@@ -56,4 +56,5 @@ export default withPWA({
   dest: 'public',
   register: true,
   skipWaiting: true,
+  disable: process.env.NODE_ENV === 'development',
 })(nextConfig);

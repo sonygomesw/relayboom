@@ -1,7 +1,8 @@
 'use client'
 
 import { createContext, useContext, useEffect, useState, useMemo, useCallback } from 'react'
-import { useRouter, usePathname } from 'next/navigation'
+import { usePathname } from 'next/navigation'
+import { useSafeRouter } from './SafeRouter'
 import { supabase } from '@/lib/supabase'
 import type { User } from '@supabase/auth-js'
 
@@ -29,7 +30,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [profile, setProfile] = useState<Profile | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-  const router = useRouter()
+  const router = useSafeRouter()
   const pathname = usePathname()
 
   const loadUserData = useCallback(async () => {
@@ -79,7 +80,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           admin: '/admin'
         }
         
-        const redirectUrl = redirectMap[userProfile.role]
+        const redirectUrl = redirectMap[userProfile.role as keyof typeof redirectMap]
         if (redirectUrl) {
           console.log('Redirection vers:', redirectUrl)
           setTimeout(() => {
