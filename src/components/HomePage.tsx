@@ -13,7 +13,6 @@ export default function HomePage() {
   const [viewsCount, setViewsCount] = useState(100000);
   const [showStickyCTA, setShowStickyCTA] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const [authModalMode, setAuthModalMode] = useState<'login' | 'signup' | 'clipper-signup'>('login');
 
   useEffect(() => {
     setMounted(true);
@@ -31,6 +30,14 @@ export default function HomePage() {
   if (!mounted) {
     return null;
   }
+
+  const handleOpenAuthModal = () => {
+    setIsAuthModalOpen(true);
+  };
+
+  const handleCloseAuthModal = () => {
+    setIsAuthModalOpen(false);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
@@ -70,10 +77,7 @@ export default function HomePage() {
 
               {/* Login Button */}
               <button
-                onClick={() => {
-                  setAuthModalMode('login');
-                  setIsAuthModalOpen(true);
-                }}
+                onClick={handleOpenAuthModal}
                 className="px-4 py-2 text-sm font-medium text-gray-400 hover:text-gray-700 hover:bg-gray-50 rounded-lg transition-all duration-200"
               >
                 {t.nav.login}
@@ -81,10 +85,7 @@ export default function HomePage() {
 
               {/* CTA Button */}
               <button
-                onClick={() => {
-                  setAuthModalMode('clipper-signup');
-                  setIsAuthModalOpen(true);
-                }}
+                onClick={handleOpenAuthModal}
                 className="group inline-flex items-center px-6 py-2.5 text-sm font-semibold text-white bg-primary-500 hover:bg-primary-600 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
               >
                 {t.nav.becomeClipper}
@@ -127,20 +128,14 @@ export default function HomePage() {
                 {/* Boutons avec design Apple-style */}
                 <div className="mt-12 sm:mt-16 flex flex-col sm:flex-row sm:justify-center lg:justify-start gap-4 animate-fade-in">
                   <button
-                    onClick={() => {
-                      setAuthModalMode('clipper-signup');
-                      setIsAuthModalOpen(true);
-                    }}
+                    onClick={handleOpenAuthModal}
                     className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-primary-500 hover:bg-primary-600 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                   >
                     {t.hero.ctaPrimary}
                   </button>
                   
                   <button
-                    onClick={() => {
-                      setAuthModalMode('clipper-signup');
-                      setIsAuthModalOpen(true);
-                    }}
+                    onClick={handleOpenAuthModal}
                     className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-gray-700 bg-white hover:bg-gray-50 border border-gray-200 hover:border-gray-300 rounded-xl shadow-sm transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
                   >
                     {t.hero.ctaSecondary}
@@ -366,10 +361,7 @@ export default function HomePage() {
             </div>
             
             <button
-              onClick={() => {
-                // setAuthModalMode('clipper-signup') // This line is removed
-                // setIsAuthModalOpen(true) // This line is removed
-              }}
+              onClick={handleOpenAuthModal}
               className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-primary-500 hover:bg-primary-600 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
             >
               Commencer maintenant
@@ -513,10 +505,7 @@ export default function HomePage() {
                 
                 <div className="text-center">
                   <button
-                    onClick={() => {
-                      setAuthModalMode('clipper-signup');
-                      setIsAuthModalOpen(true);
-                    }}
+                    onClick={handleOpenAuthModal}
                     className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-primary-500 hover:bg-primary-600 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                   >
                     {t.cta.button}
@@ -595,10 +584,7 @@ export default function HomePage() {
                 </div>
                 
                 <button 
-                  onClick={() => {
-                    setAuthModalMode('clipper-signup');
-                    setIsAuthModalOpen(true);
-                  }}
+                  onClick={handleOpenAuthModal}
                   className="w-full bg-primary-600 hover:bg-primary-700 text-white py-3 px-4 rounded-xl font-semibold transition-all duration-200 group-hover:shadow-md"
                 >
                   Accepter cette mission
@@ -652,10 +638,7 @@ export default function HomePage() {
                 </div>
                 
                 <button 
-                  onClick={() => {
-                    setAuthModalMode('clipper-signup');
-                    setIsAuthModalOpen(true);
-                  }}
+                  onClick={handleOpenAuthModal}
                   className="w-full bg-primary-600 hover:bg-primary-700 text-white py-3 px-4 rounded-xl font-semibold transition-all duration-200 group-hover:shadow-md"
                 >
                   Accepter cette mission
@@ -709,10 +692,7 @@ export default function HomePage() {
                 </div>
                 
                 <button 
-                  onClick={() => {
-                    setAuthModalMode('clipper-signup');
-                    setIsAuthModalOpen(true);
-                  }}
+                  onClick={handleOpenAuthModal}
                   className="w-full bg-primary-600 hover:bg-primary-700 text-white py-3 px-4 rounded-xl font-semibold transition-all duration-200 group-hover:shadow-md"
                 >
                   Accepter cette mission
@@ -757,10 +737,7 @@ export default function HomePage() {
                   <span>140M+ abonnés • 4000€ budget</span>
                 </div>
                 <button 
-                  onClick={() => {
-                    setAuthModalMode('clipper-signup');
-                    setIsAuthModalOpen(true);
-                  }}
+                  onClick={handleOpenAuthModal}
                   className="w-full bg-primary-600 hover:bg-primary-700 text-white py-2 px-3 rounded-lg text-sm font-semibold transition-all duration-200"
                 >
                   Voir mission
@@ -795,10 +772,7 @@ export default function HomePage() {
                   <span>50M+ abonnés • 3500€ budget</span>
                 </div>
                 <button 
-                  onClick={() => {
-                    setAuthModalMode('clipper-signup');
-                    setIsAuthModalOpen(true);
-                  }}
+                  onClick={handleOpenAuthModal}
                   className="w-full bg-primary-600 hover:bg-primary-700 text-white py-2 px-3 rounded-lg text-sm font-semibold transition-all duration-200"
                 >
                   Voir mission
@@ -833,10 +807,7 @@ export default function HomePage() {
                   <span>8M+ abonnés • 2800€ budget</span>
                 </div>
                 <button 
-                  onClick={() => {
-                    setAuthModalMode('clipper-signup');
-                    setIsAuthModalOpen(true);
-                  }}
+                  onClick={handleOpenAuthModal}
                   className="w-full bg-primary-600 hover:bg-primary-700 text-white py-2 px-3 rounded-lg text-sm font-semibold transition-all duration-200"
                 >
                   Voir mission
@@ -871,10 +842,7 @@ export default function HomePage() {
                   <span>2M+ abonnés • 1800€ budget</span>
                 </div>
                 <button 
-                  onClick={() => {
-                    setAuthModalMode('clipper-signup');
-                    setIsAuthModalOpen(true);
-                  }}
+                  onClick={handleOpenAuthModal}
                   className="w-full bg-primary-600 hover:bg-primary-700 text-white py-2 px-3 rounded-lg text-sm font-semibold transition-all duration-200"
                 >
                   Voir mission
@@ -886,10 +854,7 @@ export default function HomePage() {
           {/* CTA Final */}
           <div className="text-center">
             <button
-              onClick={() => {
-                setAuthModalMode('clipper-signup');
-                setIsAuthModalOpen(true);
-              }}
+              onClick={handleOpenAuthModal}
               className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-primary-500 hover:bg-primary-600 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
             >
               Voir toutes les missions disponibles
@@ -1027,10 +992,7 @@ export default function HomePage() {
             {t.cta.subtitle}
           </p>
           <button
-            onClick={() => {
-              setAuthModalMode('clipper-signup');
-              setIsAuthModalOpen(true);
-            }}
+            onClick={handleOpenAuthModal}
             className="inline-flex items-center px-12 py-5 text-lg font-semibold rounded-full text-green-600 bg-white hover:bg-gray-50 shadow-2xl transition-all duration-300 transform hover:scale-105"
           >
             {t.cta.button}
@@ -1119,10 +1081,7 @@ export default function HomePage() {
       {showStickyCTA && (
         <div className="fixed bottom-4 left-4 right-4 z-50 md:hidden">
           <button
-            onClick={() => {
-              setAuthModalMode('clipper-signup');
-              setIsAuthModalOpen(true);
-            }}
+            onClick={handleOpenAuthModal}
             className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-4 px-6 rounded-full font-semibold text-lg shadow-2xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
           >
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1134,11 +1093,9 @@ export default function HomePage() {
       )}
 
       {/* Auth Modal */}
-      <AuthModal
+      <AuthModal 
         isOpen={isAuthModalOpen}
-        onClose={() => setIsAuthModalOpen(false)}
-        mode={authModalMode}
-        onModeChange={(mode) => setAuthModalMode(mode)}
+        onClose={handleCloseAuthModal}
       />
     </div>
   );
