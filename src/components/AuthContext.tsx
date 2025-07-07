@@ -26,9 +26,6 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
-// Durée du cache réduite pour plus de réactivité
-const CACHE_DURATION = 10000 // 10 secondes
-
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [profile, setProfile] = useState<Profile | null>(null)
@@ -36,110 +33,88 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [initialized, setInitialized] = useState(false)
   const router = useRouter()
 
-  // Fonction pour nettoyer les tokens corrompus
-  const clearCorruptedTokens = useCallback(() => {
+  // Fonction pour nettoyer la session
+  const clearSession = useCallback(async () => {
     try {
-      // Nettoyer tous les items Supabase du localStorage
+      // Nettoyer le localStorage
       Object.keys(localStorage).forEach(key => {
         if (key.startsWith('sb-') || key.includes('supabase.auth')) {
           localStorage.removeItem(key)
         }
       })
-      // Forcer un refresh de la session
-      supabase.auth.refreshSession()
-    } catch (error) {
-      console.error('Erreur nettoyage tokens:', error)
-    }
-  }, [])
-
-  const loadUserData = useCallback(async (useCache: boolean = true) => {
-    try {
-      // Forcer le rechargement lors de la connexion
-      if (!useCache) {
-        clearCorruptedTokens()
-      }
-
-      // Vérifier l'authentification
-      const { data: { user: authUser }, error: authError } = await supabase.auth.getUser()
       
-      if (authError) {
-        clearCorruptedTokens()
-        await supabase.auth.signOut()
-        setUser(null)
-        setProfile(null)
-        setIsLoading(false)
-        router.push('/')
+      // Déconnexion complète
+      await supabase.auth.signOut()
+      
+      // Reset des états
+      setUser(null)
+      setProfile(null)
+      
+      // Redirection
+      router.push('/')
+    } catch (error) {
+      console.error('Erreur nettoyage session:', error)
+    }
+  }, [router])
+
+  const loadUserData = useCallback(async () => {
+    try {
+      setIsLoading(true)
+
+      // Récupérer la session active
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession()
+      
+      if (sessionError || !session) {
+        await clearSession()
         return
       }
 
-      if (!authUser) {
-        setUser(null)
-        setProfile(null)
-        setIsLoading(false)
-        return
-      }
-
-      // Mettre à jour l'utilisateur immédiatement
-      setUser(authUser)
+      // Mettre à jour l'utilisateur
+      setUser(session.user)
 
       // Récupérer le profil
       const { data: userProfile, error: profileError } = await supabase
         .from('profiles')
         .select('*')
-        .eq('id', authUser.id)
+        .eq('id', session.user.id)
         .single()
 
       if (profileError) {
-        if (profileError.code === 'PGRST116') {
-          setProfile(null)
-        } else {
-          console.error('Erreur profil:', profileError)
-          setProfile(null)
-        }
-      } else {
-        setProfile(userProfile)
-        
-        // Précharger les données du dashboard
-        if (userProfile?.role === 'creator' || userProfile?.role === 'clipper') {
-          preloadDashboardData(authUser.id)
-        }
+        console.error('Erreur profil:', profileError)
+        await clearSession()
+        return
+      }
+
+      setProfile(userProfile)
+      
+      // Précharger les données du dashboard
+      if (userProfile?.role === 'creator' || userProfile?.role === 'clipper') {
+        preloadDashboardData(session.user.id)
       }
     } catch (error) {
-      console.error('Erreur auth:', error)
-      clearCorruptedTokens()
-      await supabase.auth.signOut()
-      setUser(null)
-      setProfile(null)
-      router.push('/')
+      console.error('Erreur chargement données:', error)
+      await clearSession()
     } finally {
       setIsLoading(false)
       setInitialized(true)
     }
-  }, [clearCorruptedTokens, router])
+  }, [clearSession])
 
   // Initialisation
   useEffect(() => {
     if (initialized) return
 
-    const initAuth = async () => {
-      await loadUserData(false)
-    }
-    
-    initAuth()
+    loadUserData()
 
     // Écouter les changements d'authentification
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        console.log('Auth event:', event)
+        console.log('Événement auth:', event)
         
-        if (event === 'SIGNED_IN') {
-          setIsLoading(true)
-          await loadUserData(false)
+        if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
+          await loadUserData()
         } else if (event === 'SIGNED_OUT') {
-          clearCorruptedTokens()
-          setUser(null)
-          setProfile(null)
-          router.push('/')
+          await clearSession()
         }
       }
     )
@@ -147,11 +122,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => {
       subscription.unsubscribe()
     }
-  }, [initialized, loadUserData, clearCorruptedTokens, router])
+  }, [initialized, loadUserData, clearSession])
 
   const refreshProfile = useCallback(async () => {
     if (!user) return
-    await loadUserData(false)
+    await loadUserData()
   }, [user, loadUserData])
 
   const value = useMemo(() => ({

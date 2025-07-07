@@ -1,96 +1,107 @@
 'use client'
 
-import { useEffect, useMemo, memo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useAuth } from './AuthContext'
+import { supabase } from '@/lib/supabase'
+import { useAuth } from '@/components/AuthContext'
+import { SkeletonLoader } from '@/components/SkeletonLoader'
 
-interface RoleProtectionProps {
+interface RoleProtectionOptimizedProps {
   allowedRoles: string[]
   children: React.ReactNode
   redirectTo?: string
+  fallback?: React.ReactNode
 }
 
-function RoleProtectionOptimized({ allowedRoles, children, redirectTo }: RoleProtectionProps) {
-  const { user, profile, isLoading, isAuthenticated } = useAuth()
+// Cache des rôles pour éviter les requêtes répétées
+const roleCache = new Map<string, { role: string; timestamp: number }>()
+
+export default function RoleProtectionOptimized({
+  allowedRoles,
+  children,
+  redirectTo,
+  fallback = <SkeletonLoader />
+}: RoleProtectionOptimizedProps) {
+  const [isAuthorized, setIsAuthorized] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
-  const [gracePeriod, setGracePeriod] = useState(true)
-
-  // 🚀 Période de grâce pour éviter les redirections prématurées
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setGracePeriod(false)
-    }, 2000) // 2 secondes de grâce pour laisser l'AuthContext se charger
-
-    return () => clearTimeout(timer)
-  }, [])
-
-  // 🚀 Mémoïser les calculs d'autorisation
-  const authStatus = useMemo(() => {
-    if (isLoading || gracePeriod) return 'loading'
-    if (!isAuthenticated || !user) return 'unauthenticated'
-    if (!profile) return 'no-profile'
-    if (!profile.role || !allowedRoles.includes(profile.role)) return 'unauthorized'
-    return 'authorized'
-  }, [isLoading, isAuthenticated, user, profile, allowedRoles, gracePeriod])
-
-  // Debug seulement en dev et lors de changements importants
-  if (process.env.NODE_ENV === 'development' && authStatus !== 'loading') {
-    console.log('🔒 RoleProtection:', {
-      status: authStatus,
-      userRole: profile?.role,
-      allowedRoles,
-      gracePeriod
-    })
-  }
+  const { user } = useAuth()
 
   useEffect(() => {
-    // 🚀 Optimisation : sortir tôt si autorisé ou en chargement
-    if (authStatus === 'loading' || authStatus === 'authorized') return
-
-    // Rediriger selon le statut
-    switch (authStatus) {
-      case 'unauthenticated':
-        router.push('/')
-        break
-      case 'no-profile':
-        router.push('/onboarding/role')
-        break
-      case 'unauthorized':
-        if (redirectTo) {
-          router.push(redirectTo)
-        } else {
-          // Rediriger vers le dashboard approprié
-          const dashboardMap = {
-            creator: '/dashboard/creator',
-            clipper: '/dashboard/clipper',
-            admin: '/admin'
-          }
-          const defaultPath = dashboardMap[profile?.role as keyof typeof dashboardMap] || '/onboarding/role'
-          router.push(defaultPath)
+    const checkAccess = async () => {
+      try {
+        if (!user) {
+          router.push('/')
+          return
         }
-        break
+
+        // Vérifier le cache
+        const cached = roleCache.get(user.id)
+        const now = Date.now()
+        
+        if (cached && (now - cached.timestamp) < 5 * 60 * 1000) { // 5 minutes
+          if (allowedRoles.includes(cached.role)) {
+            setIsAuthorized(true)
+            setIsLoading(false)
+            return
+          }
+          handleUnauthorized(cached.role)
+          return
+        }
+
+        // Récupérer le profil si pas en cache
+        const { data: profile, error } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', user.id)
+          .single()
+
+        if (error) {
+          console.error('Erreur récupération profil:', error)
+          router.push('/onboarding/role')
+          return
+        }
+
+        // Mettre en cache
+        roleCache.set(user.id, { 
+          role: profile.role,
+          timestamp: now
+        })
+
+        if (!profile?.role || !allowedRoles.includes(profile.role)) {
+          handleUnauthorized(profile?.role)
+          return
+        }
+
+        setIsAuthorized(true)
+      } catch (error) {
+        console.error('Erreur vérification accès:', error)
+        router.push('/')
+      } finally {
+        setIsLoading(false)
+      }
     }
-  }, [authStatus, redirectTo, router, profile?.role])
 
-  // Afficher le spinner seulement lors du premier chargement
-  if (authStatus === 'loading') {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Chargement...</p>
-        </div>
-      </div>
-    )
+    const handleUnauthorized = (role?: string) => {
+      if (redirectTo) {
+        router.push(redirectTo)
+      } else if (role === 'creator') {
+        router.push('/dashboard/creator')
+      } else if (role === 'clipper') {
+        router.push('/dashboard/clipper')
+      } else if (role === 'admin') {
+        router.push('/admin')
+      } else {
+        router.push('/onboarding/role')
+      }
+    }
+
+    checkAccess()
+  }, [allowedRoles, redirectTo, router, user])
+
+  if (isLoading) {
+    return fallback
   }
 
-  // Ne rien afficher si pas autorisé (redirection en cours)
-  if (authStatus !== 'authorized') {
-    return null
-  }
-
-  return <>{children}</>
-}
-
-// 🚀 Mémoïser le composant pour éviter les re-rendus inutiles
-export default memo(RoleProtectionOptimized) 
+  return isAuthorized ? children : null
+} 

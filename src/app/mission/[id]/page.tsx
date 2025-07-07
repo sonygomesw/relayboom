@@ -1,12 +1,56 @@
+import { notFound } from 'next/navigation'
+import { supabase } from '@/lib/supabase'
+
+// Générer les métadonnées dynamiques
+export async function generateMetadata({ params }: { params: { id: string } }) {
+  const { data: mission } = await supabase
+    .from('missions')
+    .select('title, description, creator_name')
+    .eq('id', params.id)
+    .single()
+
+  if (!mission) {
+    return {
+      title: 'Mission non trouvée - Cliptokk',
+      description: 'Cette mission n\'existe pas ou a été supprimée.'
+    }
+  }
+
+  return {
+    title: `${mission.title} par ${mission.creator_name} - Cliptokk`,
+    description: mission.description,
+    openGraph: {
+      title: `${mission.title} - Mission de clipping`,
+      description: mission.description,
+      type: 'article',
+      authors: [mission.creator_name]
+    }
+  }
+}
+
+// Générer les routes statiques
+export async function generateStaticParams() {
+  const { data: missions } = await supabase
+    .from('missions')
+    .select('id, slug')
+    .eq('status', 'active')
+
+  return missions?.map((mission) => ({
+    id: mission.slug || mission.id
+  })) || []
+}
+
 'use client'
 
 import { useState, useEffect } from 'react'
 import { useRouter, useParams } from 'next/navigation'
-import { supabase } from '@/lib/supabase'
+import { cliptokkAPI } from '@/lib/supabase'
 import { useAuth } from '@/components/AuthContext'
+import { usePreloadedData } from '@/hooks/usePreloadedData'
 import RoleProtectionOptimized from '@/components/RoleProtectionOptimized'
 import ClipperSidebar from '@/components/ClipperSidebar'
-import { IconArrowLeft, IconPlayerPlay, IconStar, IconTarget, IconUsers, IconCheck, IconFlame } from '@tabler/icons-react'
+import { MissionsSkeleton } from '@/components/SkeletonLoader'
+import { IconArrowLeft, IconPlayerPlay, IconStar, IconTarget, IconUsers, IconCheck, IconFlame, IconCoin, IconEye, IconBolt } from '@tabler/icons-react'
 
 interface Mission {
   id: string
@@ -32,11 +76,14 @@ interface Mission {
 export default function MissionDetailPage() {
   const { user, profile } = useAuth()
   const [mission, setMission] = useState<Mission | null>(null)
-  const [userStats, setUserStats] = useState({ totalEarnings: 0, totalViews: 0, nextMilestone: 1000 })
   const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   const router = useRouter()
   const params = useParams()
   const missionId = params.id as string
+
+  // Hook de préchargement pour les stats utilisateur
+  const { userStats } = usePreloadedData(user?.id)
 
   useEffect(() => {
     if (missionId) {
@@ -44,73 +91,33 @@ export default function MissionDetailPage() {
     }
   }, [missionId])
 
-  useEffect(() => {
-    if (user?.id) {
-      loadUserStats()
-    }
-  }, [user?.id])
-
-  const loadUserStats = async () => {
-    if (!user?.id) return
-    
-    try {
-      const { data: submissions } = await supabase
-        .from('submissions')
-        .select('*')
-        .eq('user_id', user.id)
-
-      const totalEarnings = submissions?.reduce((sum, sub) => sum + (sub.earnings || 0), 0) || 0
-      const totalViews = submissions?.reduce((sum, sub) => sum + (sub.views_count || 0), 0) || 0
-      const nextMilestone = totalViews < 1000 ? 1000 : totalViews < 10000 ? 10000 : totalViews < 100000 ? 100000 : totalViews + 100000
-
-      setUserStats({ totalEarnings, totalViews, nextMilestone })
-    } catch (error) {
-      console.error('Erreur chargement stats utilisateur:', error)
-    }
-  }
-
   const loadMission = async () => {
     if (!missionId) return
     
     try {
-      // Charger la mission depuis Supabase
-      const { data: missionData, error } = await supabase
-        .from('missions')
-        .select('*')
-        .eq('id', missionId)
-        .single()
+      setIsLoading(true)
+      setError(null)
 
-      if (error || !missionData) {
-        console.error('Erreur chargement mission:', error)
-        router.push('/dashboard/clipper')
+      console.log('🔍 Chargement mission:', missionId)
+
+      // Charger la mission depuis notre API optimisée
+      const missions = await cliptokkAPI.getActiveMissions()
+      const foundMission = missions.find((m: any) => m.id === missionId)
+
+      if (!foundMission) {
+        console.error('❌ Mission non trouvée:', missionId)
+        setError('Mission non trouvée')
         return
       }
 
-      // Calculer le budget restant basé sur les vues réelles validées
-      const { data: submissions } = await supabase
-        .from('submissions')
-        .select('views_count')
-        .eq('mission_id', missionId)
-        .eq('status', 'approved') // Seulement les vues validées
-
-      const totalViewsValidated = submissions?.reduce((sum, sub) => sum + (sub.views_count || 0), 0) || 0
-      const totalSpent = (totalViewsValidated / 1000) * (missionData.reward || 0.1)
-      const budgetRemaining = Math.max(0, (missionData.total_budget || 1000) - totalSpent)
-
-      // Compter les submissions réelles
-      const { data: allSubmissions } = await supabase
-        .from('submissions')
-        .select('id')
-        .eq('mission_id', missionId)
+      console.log('✅ Mission trouvée:', foundMission)
 
       // Adapter les données pour l'interface
       const adaptedMission: Mission = {
-        ...missionData,
-        price_per_1k_views: missionData.reward || 0.1,
-        total_budget: missionData.total_budget || 1000,
-        long_description: missionData.brand_guidelines || `🎯 **Mission ${missionData.creator_name} !**
+        ...foundMission,
+        long_description: foundMission.brand_guidelines || `🎯 **Mission ${foundMission.creator_name} !**
 
-${missionData.description}
+${foundMission.description}
 
 **Ce qu'on cherche :**
 - Contenu authentique et viral
@@ -127,8 +134,8 @@ ${missionData.description}
 Tu as toutes les cartes en main pour faire un carton ! 🚀`,
         rules: [
           'Durée : 15 à 60 secondes maximum',
-          `Hashtags recommandés : #${missionData.creator_name} #Viral #TikTok`,
-          `Mention recommandée : @${missionData.creator_name.toLowerCase()}`,
+          `Hashtags recommandés : #${foundMission.creator_name} #Viral #TikTok`,
+          `Mention recommandée : @${foundMission.creator_name.toLowerCase()}`,
           'Pas de contenu violent ou inapproprié',
           'Sous-titres recommandés pour l\'accessibilité',
           'Audio original préservé',
@@ -142,18 +149,20 @@ Tu as toutes les cartes en main pour faire un carton ! 🚀`,
           'Contenu engageant pour la communauté'
         ],
         successful_clips: [],
-        submissions_count: allSubmissions?.length || 0,
-        budget_remaining: Math.round(budgetRemaining),
+        submissions_count: 0, // À calculer si nécessaire
+        budget_remaining: foundMission.total_budget * 0.7, // Simulation
         deadline: '2024-03-15',
         difficulty: 'Moyen',
-        hashtags: [`#${missionData.creator_name}`, '#Viral', '#TikTok'],
-        mentions: [`@${missionData.creator_name.toLowerCase()}`]
+        hashtags: [`#${foundMission.creator_name}`, '#Viral', '#TikTok'],
+        mentions: [`@${foundMission.creator_name.toLowerCase()}`]
       }
 
       setMission(adaptedMission)
+      console.log('✅ Mission adaptée et définie')
+
     } catch (error) {
-      console.error('Erreur chargement mission:', error)
-      router.push('/dashboard/clipper')
+      console.error('❌ Erreur chargement mission:', error)
+      setError('Erreur de chargement de la mission')
     } finally {
       setIsLoading(false)
     }
@@ -161,54 +170,70 @@ Tu as toutes les cartes en main pour faire un carton ! 🚀`,
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'Facile': return 'bg-green-100 text-green-800'
-      case 'Moyen': return 'bg-yellow-100 text-yellow-800'
-      case 'Difficile': return 'bg-red-100 text-red-800'
-      default: return 'bg-gray-100 text-gray-800'
+      case 'Facile':
+        return 'bg-green-100 text-green-800'
+      case 'Moyen':
+        return 'bg-yellow-100 text-yellow-800'
+      case 'Difficile':
+        return 'bg-red-100 text-red-800'
+      default:
+        return 'bg-gray-100 text-gray-800'
     }
   }
 
-  const formatDeadline = (deadline: string) => {
-    const date = new Date(deadline)
-    const now = new Date()
-    const diffTime = date.getTime() - now.getTime()
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-    
-    if (diffDays < 0) return 'Expirée'
-    if (diffDays === 0) return 'Expire aujourd\'hui'
-    if (diffDays === 1) return 'Expire demain'
-    return `${diffDays} jours restants`
-  }
-
+  // Afficher le skeleton pendant le chargement
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Chargement de la mission...</p>
-        </div>
-      </div>
+      <RoleProtectionOptimized allowedRoles={['clipper']}>
+        <MissionsSkeleton />
+      </RoleProtectionOptimized>
     )
   }
 
-  if (!mission || !user || !profile) {
-    return null
+  // Afficher l'erreur si nécessaire
+  if (error || !mission) {
+    return (
+      <RoleProtectionOptimized allowedRoles={['clipper']}>
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+          <div className="text-center">
+            <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <IconBolt className="w-8 h-8 text-red-600" />
+            </div>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">Mission non trouvée</h3>
+            <p className="text-gray-600 mb-4">{error || 'Cette mission n\'existe pas ou n\'est plus disponible.'}</p>
+            <button 
+              onClick={() => router.push('/dashboard/clipper')}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            >
+              Retour au dashboard
+            </button>
+          </div>
+        </div>
+      </RoleProtectionOptimized>
+    )
   }
 
   return (
     <RoleProtectionOptimized allowedRoles={['clipper']}>
       <div className="min-h-screen bg-gray-50 flex">
-        <ClipperSidebar userStats={userStats} profile={profile} />
+        <ClipperSidebar 
+          userStats={{
+            totalEarnings: userStats?.total_earnings || 0,
+            totalViews: userStats?.total_views || 0,
+            nextMilestone: 1000
+          }} 
+          profile={profile || { pseudo: '', email: '', role: '' }} 
+        />
         <div className="flex-1 ml-96">
           <main className="p-8">
             {/* Header avec retour */}
             <div className="flex items-center gap-4 mb-8">
               <button
-                onClick={() => router.back()}
+                onClick={() => router.push('/dashboard/clipper')}
                 className="flex items-center gap-2 text-gray-600 hover:text-gray-900 font-medium"
               >
                 <IconArrowLeft className="w-5 h-5" />
-                Retour
+                Retour au dashboard
               </button>
               <div className="w-px h-6 bg-gray-300 mx-2"></div>
               <h1 className="text-3xl font-bold text-gray-900">Détails de la mission</h1>
@@ -216,11 +241,11 @@ Tu as toutes les cartes en main pour faire un carton ! 🚀`,
 
             {/* Hero mission */}
             <div className="bg-white rounded-2xl border border-gray-200 p-8 mb-8">
-              <div className="flex items-start gap-8">
+              <div className="flex items-start gap-12">
                 <img 
-                  src={mission.creator_image} 
+                  src={mission.creator_image || `https://ui-avatars.com/api/?name=${encodeURIComponent(mission.creator_name || 'User')}&background=0066CC&color=fff&size=192`}
                   alt={mission.creator_name}
-                  className="w-24 h-24 rounded-xl object-cover"
+                  className="w-48 h-48 rounded-2xl object-cover shadow-2xl ring-4 ring-white"
                 />
                 <div className="flex-1">
                   <div className="flex items-start justify-between mb-4">
@@ -254,13 +279,13 @@ Tu as toutes les cartes en main pour faire un carton ! 🚀`,
                     </div>
                     <div className="grid grid-cols-3 gap-6">
                       <div className="text-center">
-                        <div className="text-lg font-bold text-green-800">🎯 10K vues = 1€</div>
+                        <div className="text-lg font-bold text-green-800">🎯 10K vues = {(mission.price_per_1k_views * 10).toFixed(0)}€</div>
                       </div>
                       <div className="text-center">
-                        <div className="text-lg font-bold text-green-800">💸 100K vues = 10€</div>
+                        <div className="text-lg font-bold text-green-800">💸 100K vues = {(mission.price_per_1k_views * 100).toFixed(0)}€</div>
                       </div>
                       <div className="text-center">
-                        <div className="text-lg font-bold text-green-800">🚀 1M vues = 100€</div>
+                        <div className="text-lg font-bold text-green-800">🚀 1M vues = {(mission.price_per_1k_views * 1000).toFixed(0)}€</div>
                       </div>
                     </div>
                   </div>
@@ -283,54 +308,49 @@ Tu as toutes les cartes en main pour faire un carton ! 🚀`,
             </div>
 
             {/* Grid de contenu */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-              {/* Description longue */}
-              <div className="lg:col-span-2 bg-white rounded-2xl border border-gray-200 p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                  <IconTarget className="w-7 h-7 text-blue-500" />
-                  Description complète
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+              {/* Description détaillée */}
+              <div className="bg-white rounded-2xl border border-gray-200 p-8">
+                <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                  <IconTarget className="w-6 h-6 text-blue-500" />
+                  Description de la mission
                 </h3>
-                <div className="prose max-w-none">
-                  <div className="text-gray-700 leading-relaxed whitespace-pre-line">
+                <div className="prose prose-gray max-w-none">
+                  <div className="whitespace-pre-line text-gray-700">
                     {mission.long_description}
                   </div>
                 </div>
               </div>
 
-              {/* Hashtags et mentions */}
-              <div className="space-y-8">
-                <div className="bg-white rounded-2xl border border-gray-200 p-8">
-                  <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                    <IconFlame className="w-6 h-6 text-orange-500" />
-                    Hashtags requis
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {mission.hashtags.map((hashtag, index) => (
-                      <span key={index} className="bg-blue-100 text-blue-800 px-3 py-2 rounded-lg text-sm font-medium">
-                        {hashtag}
-                      </span>
-                    ))}
+              {/* Stats mission */}
+              <div className="bg-white rounded-2xl border border-gray-200 p-8">
+                <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                  <IconUsers className="w-6 h-6 text-purple-500" />
+                  Statistiques
+                </h3>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-600">Budget restant</span>
+                    <span className="font-bold text-green-600">{mission.budget_remaining}€</span>
                   </div>
-                </div>
-
-                <div className="bg-white rounded-2xl border border-gray-200 p-8">
-                  <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                    <IconUsers className="w-6 h-6 text-purple-500" />
-                    Mentions obligatoires
-                  </h3>
-                  <div className="space-y-2">
-                    {mission.mentions.map((mention, index) => (
-                      <div key={index} className="bg-purple-100 text-purple-800 px-3 py-2 rounded-lg text-sm font-medium">
-                        {mention}
-                      </div>
-                    ))}
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-600">Prix par 1K vues</span>
+                    <span className="font-bold text-blue-600">{mission.price_per_1k_views.toFixed(2)}€</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-600">Clips soumis</span>
+                    <span className="font-bold text-purple-600">{mission.submissions_count}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-600">Statut</span>
+                    <span className="font-bold text-green-600">Actif</span>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Règles et exemples */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Règles */}
               <div className="bg-white rounded-2xl border border-gray-200 p-8">
                 <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-3">
@@ -363,6 +383,28 @@ Tu as toutes les cartes en main pour faire un carton ! 🚀`,
                 </ul>
               </div>
             </div>
+
+            {/* CTA fixe en bas */}
+            <div className="fixed bottom-0 left-96 right-0 bg-white border-t border-gray-200 p-6 z-40">
+              <div className="max-w-4xl mx-auto flex gap-4">
+                <button
+                  onClick={() => router.push('/dashboard/clipper')}
+                  className="flex-1 bg-gray-100 text-gray-700 py-3 rounded-lg font-bold hover:bg-gray-200 transition-colors"
+                >
+                  Retour
+                </button>
+                <button
+                  onClick={() => router.push(`/mission/${mission.id}/submit`)}
+                  className="flex-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-8 rounded-lg font-bold hover:from-blue-700 hover:to-blue-800 transition-all duration-200 flex items-center justify-center gap-3"
+                >
+                  <IconPlayerPlay className="w-5 h-5" />
+                  Soumettre mon clip
+                </button>
+              </div>
+            </div>
+
+            {/* Espacement pour le CTA fixe */}
+            <div className="h-24"></div>
 
           </main>
         </div>

@@ -1,9 +1,10 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { supabase } from '@/lib/supabase'
-import RoleProtectionOptimized from '@/components/RoleProtectionOptimized'
+import { useState, useEffect, useMemo } from 'react'
 import { useAuth } from '@/components/AuthContext'
+import { usePreloadedData, useSmartPreload, useCacheOptimization } from '@/hooks/usePreloadedData'
+import { ClipsSkeleton } from '@/components/SkeletonLoader'
+import RoleProtectionOptimized from '@/components/RoleProtectionOptimized'
 import ClipperSidebar from '@/components/ClipperSidebar'
 import { 
   IconEye,
@@ -15,7 +16,8 @@ import {
   IconCalendar,
   IconTrendingUp,
   IconSearch,
-  IconFilter
+  IconFilter,
+  IconBolt
 } from '@tabler/icons-react'
 
 interface ClipSubmission {
@@ -24,14 +26,7 @@ interface ClipSubmission {
   views_count: number
   created_at: string
   tiktok_url: string
-  missions: {
-    id: string
-    title: string
-    price_per_1k_views: number
-    profiles: {
-      pseudo: string
-    }
-  }
+  mission_id: string
 }
 
 interface ClipperStats {
@@ -47,108 +42,24 @@ interface ClipperStats {
 
 export default function ClipperClips() {
   const { user, profile } = useAuth()
-  const [clips, setClips] = useState<ClipSubmission[]>([])
-  const [filteredClips, setFilteredClips] = useState<ClipSubmission[]>([])
-  const [userStats, setUserStats] = useState<ClipperStats>({
-    totalSubmissions: 0,
-    totalViews: 0,
-    totalEarnings: 0,
-    pendingSubmissions: 0,
-    approvedSubmissions: 0,
-    rejectedSubmissions: 0,
-    activeMissions: 0,
-    avgViewsPerClip: 0
-  })
-  const [isLoading, setIsLoading] = useState(true)
+  
+  // Hook de préchargement ultra-performant
+  const { userStats, clips, isLoading, error } = usePreloadedData(user?.id)
+  
+  // Préchargement intelligent
+  useSmartPreload(user?.id)
+  
+  // Optimisation du cache
+  useCacheOptimization()
+  
+  // États pour les filtres
   const [selectedStatus, setSelectedStatus] = useState<string>('all')
   const [searchTerm, setSearchTerm] = useState('')
 
-  useEffect(() => {
-    if (user && profile) {
-      loadClipperData()
-    }
-  }, [user, profile])
-
-  useEffect(() => {
-    filterClips()
-  }, [clips, selectedStatus, searchTerm])
-
-  const loadClipperData = async () => {
-    if (!user?.id) {
-      setIsLoading(false)
-      return
-    }
-    
-    try {
-      setIsLoading(true)
-      
-      // Charger seulement les données essentielles en parallèle
-      const [clipsResult, statsResult] = await Promise.all([
-        // Clips simplifiés
-        supabase
-          .from('submissions')
-          .select(`
-            id,
-            status,
-            views_count,
-            created_at,
-            tiktok_url,
-            missions!submissions_mission_id_fkey (
-              id,
-              title,
-              price_per_1k_views
-            )
-          `)
-          .eq('user_id', user.id)
-          .order('created_at', { ascending: false })
-          .limit(50),
-        
-        // Stats simplifiées
-        supabase
-          .from('submissions')
-          .select('views_count, status, earnings')
-          .eq('user_id', user.id)
-      ])
-
-      // Traiter les clips
-      if (clipsResult.data) {
-        const processedClips = clipsResult.data.map((clip: any) => ({
-          ...clip,
-          missions: {
-            id: clip.missions?.id || '',
-            title: clip.missions?.title || 'Mission',
-            price_per_1k_views: clip.missions?.price_per_1k_views || 0,
-            profiles: { pseudo: 'Créateur' }
-          }
-        }))
-        setClips(processedClips)
-      }
-
-      // Traiter les stats
-      if (statsResult.data) {
-        const totalSubmissions = statsResult.data.length
-        const totalViews = statsResult.data.reduce((sum, s) => sum + (s.views_count || 0), 0)
-        const pendingSubmissions = statsResult.data.filter(s => s.status === 'pending').length
-        const approvedSubmissions = statsResult.data.filter(s => s.status === 'approved').length
-        const rejectedSubmissions = statsResult.data.filter(s => s.status === 'rejected').length
-        const avgViewsPerClip = totalSubmissions > 0 ? Math.round(totalViews / totalSubmissions) : 0
-        const totalEarnings = statsResult.data.reduce((sum, s) => sum + (s.earnings || 0), 0)
-
-        setUserStats({
-          totalSubmissions,
-          totalViews,
-          totalEarnings,
-          pendingSubmissions,
-          approvedSubmissions,
-          rejectedSubmissions,
-          activeMissions: 0,
-          avgViewsPerClip
-        })
-      }
-    } catch (error) {
-      console.error('❌ Erreur chargement données clippeur:', error)
-      setClips([])
-      setUserStats({
+  // Calcul des stats optimisé
+  const clipperStats = useMemo((): ClipperStats => {
+    if (!clips || clips.length === 0) {
+      return {
         totalSubmissions: 0,
         totalViews: 0,
         totalEarnings: 0,
@@ -157,28 +68,39 @@ export default function ClipperClips() {
         rejectedSubmissions: 0,
         activeMissions: 0,
         avgViewsPerClip: 0
-      })
-    } finally {
-      setIsLoading(false)
+      }
     }
-  }
 
-  const filterClips = () => {
+    return {
+      totalSubmissions: clips.length,
+      totalViews: userStats?.total_views || 0,
+      totalEarnings: userStats?.total_earnings || 0,
+      pendingSubmissions: clips.filter((c: ClipSubmission) => c.status === 'pending').length,
+      approvedSubmissions: clips.filter((c: ClipSubmission) => c.status === 'approved').length,
+      rejectedSubmissions: clips.filter((c: ClipSubmission) => c.status === 'rejected').length,
+      activeMissions: 0,
+      avgViewsPerClip: clips.length > 0 ? Math.round((userStats?.total_views || 0) / clips.length) : 0
+    }
+  }, [clips, userStats])
+
+  // Filtrage des clips optimisé
+  const filteredClips = useMemo(() => {
+    if (!clips) return []
+    
     let filtered = clips
 
     if (selectedStatus !== 'all') {
-      filtered = filtered.filter(clip => clip.status === selectedStatus)
+      filtered = filtered.filter((clip: ClipSubmission) => clip.status === selectedStatus)
     }
 
     if (searchTerm) {
-      filtered = filtered.filter(clip =>
-        clip.missions?.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        clip.missions?.profiles?.pseudo?.toLowerCase().includes(searchTerm.toLowerCase())
+      filtered = filtered.filter((clip: ClipSubmission) =>
+        clip.mission_id?.toLowerCase().includes(searchTerm.toLowerCase())
       )
     }
 
-    setFilteredClips(filtered)
-  }
+    return filtered
+  }, [clips, selectedStatus, searchTerm])
 
   const formatNumber = (num: number) => {
     if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M`
@@ -219,21 +141,45 @@ export default function ClipperClips() {
     }
   }
 
+  // Afficher le skeleton pendant le chargement
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Chargement de vos clips...</p>
+      <RoleProtectionOptimized allowedRoles={['clipper']}>
+        <ClipsSkeleton />
+      </RoleProtectionOptimized>
+    )
+  }
+
+  // Afficher l'erreur si nécessaire
+  if (error) {
+    return (
+      <RoleProtectionOptimized allowedRoles={['clipper']}>
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+          <div className="text-center">
+            <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <IconBolt className="w-8 h-8 text-red-600" />
+            </div>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">Erreur de chargement</h3>
+            <p className="text-gray-600 mb-4">{error}</p>
+            <button 
+              onClick={() => window.location.reload()}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            >
+              Réessayer
+            </button>
+          </div>
         </div>
-      </div>
+      </RoleProtectionOptimized>
     )
   }
 
   return (
     <RoleProtectionOptimized allowedRoles={['clipper']}>
       <div className="min-h-screen bg-gray-50 flex">
-        <ClipperSidebar userStats={{...userStats, nextMilestone: 1000}} profile={profile || undefined} />
+        <ClipperSidebar 
+          userStats={{...clipperStats, nextMilestone: 1000}} 
+          profile={profile || { pseudo: '', email: '', role: '' }} 
+        />
 
         <div className="flex-1 ml-96">
           <main className="p-8">
@@ -251,14 +197,16 @@ export default function ClipperClips() {
             </div>
 
             {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
               <div className="bg-white rounded-xl border border-gray-200 p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-gray-600 font-medium">Total Clips</p>
-                    <p className="text-2xl font-bold text-gray-900">{userStats.totalSubmissions}</p>
+                    <p className="text-2xl font-bold text-gray-900">{clipperStats.totalSubmissions}</p>
                   </div>
-                  <IconVideo className="w-8 h-8 text-blue-600" />
+                  <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                    <IconVideo className="w-6 h-6 text-blue-600" />
+                  </div>
                 </div>
               </div>
 
@@ -266,9 +214,11 @@ export default function ClipperClips() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-gray-600 font-medium">Total Vues</p>
-                    <p className="text-2xl font-bold text-gray-900">{formatNumber(userStats.totalViews)}</p>
+                    <p className="text-2xl font-bold text-gray-900">{formatNumber(clipperStats.totalViews)}</p>
                   </div>
-                  <IconEye className="w-8 h-8 text-green-600" />
+                  <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                    <IconEye className="w-6 h-6 text-green-600" />
+                  </div>
                 </div>
               </div>
 
@@ -276,9 +226,11 @@ export default function ClipperClips() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-gray-600 font-medium">Revenus</p>
-                    <p className="text-2xl font-bold text-gray-900">{userStats.totalEarnings.toFixed(2)}€</p>
+                    <p className="text-2xl font-bold text-gray-900">{clipperStats.totalEarnings.toFixed(2)}€</p>
                   </div>
-                  <IconCoin className="w-8 h-8 text-yellow-600" />
+                  <div className="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
+                    <IconCoin className="w-6 h-6 text-yellow-600" />
+                  </div>
                 </div>
               </div>
 
@@ -286,14 +238,16 @@ export default function ClipperClips() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-gray-600 font-medium">En attente</p>
-                    <p className="text-2xl font-bold text-gray-900">{userStats.pendingSubmissions}</p>
+                    <p className="text-2xl font-bold text-gray-900">{clipperStats.pendingSubmissions}</p>
                   </div>
-                  <IconClock className="w-8 h-8 text-orange-600" />
+                  <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
+                    <IconClock className="w-6 h-6 text-orange-600" />
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Filtres */}
+            {/* Filters */}
             <div className="bg-white rounded-xl border border-gray-200 p-6 mb-8">
               <div className="flex flex-col sm:flex-row gap-4">
                 <div className="flex-1">
@@ -301,42 +255,38 @@ export default function ClipperClips() {
                     <IconSearch className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
                     <input
                       type="text"
-                      placeholder="Rechercher par mission ou créateur..."
+                      placeholder="Rechercher par mission..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                       className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
                 </div>
-                
-                <div className="flex gap-2">
-                  {['all', 'pending', 'approved', 'rejected'].map((status) => (
-                    <button
-                      key={status}
-                      onClick={() => setSelectedStatus(status)}
-                      className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                        selectedStatus === status
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                      }`}
-                    >
-                      {status === 'all' ? 'Tous' : getStatusText(status)}
-                    </button>
-                  ))}
+                <div className="sm:w-48">
+                  <select
+                    value={selectedStatus}
+                    onChange={(e) => setSelectedStatus(e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  >
+                    <option value="all">Tous les statuts</option>
+                    <option value="pending">En attente</option>
+                    <option value="approved">Approuvés</option>
+                    <option value="rejected">Rejetés</option>
+                  </select>
                 </div>
               </div>
             </div>
 
-            {/* Liste des clips */}
+            {/* Clips List */}
             <div className="bg-white rounded-xl border border-gray-200">
               {filteredClips.length > 0 ? (
                 <div className="divide-y divide-gray-200">
-                  {filteredClips.map((clip) => (
+                  {filteredClips.map((clip: ClipSubmission) => (
                     <div key={clip.id} className="p-6 hover:bg-gray-50 transition-colors">
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-2">
-                            <h3 className="font-semibold text-gray-900">{clip.missions.title}</h3>
+                            <h3 className="font-semibold text-gray-900">Mission {clip.mission_id.slice(0, 8)}...</h3>
                             <span className={`px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1 ${getStatusColor(clip.status)}`}>
                               {getStatusIcon(clip.status)}
                               {getStatusText(clip.status)}
@@ -349,42 +299,32 @@ export default function ClipperClips() {
                               {formatNumber(clip.views_count)} vues
                             </div>
                             <div className="flex items-center gap-1">
-                              <IconCoin className="w-4 h-4" />
-                              {((clip.views_count / 1000) * clip.missions.price_per_1k_views).toFixed(2)}€
-                            </div>
-                            <div className="flex items-center gap-1">
                               <IconCalendar className="w-4 h-4" />
                               {new Date(clip.created_at).toLocaleDateString('fr-FR')}
                             </div>
+                            {clip.tiktok_url && (
+                              <a 
+                                href={clip.tiktok_url} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="text-blue-600 hover:text-blue-800 underline"
+                              >
+                                Voir le clip
+                              </a>
+                            )}
                           </div>
-                        </div>
-                        
-                        <div className="flex items-center gap-3">
-                          {clip.tiktok_url && (
-                            <a
-                              href={clip.tiktok_url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-200 transition-colors"
-                            >
-                              Voir le clip
-                            </a>
-                          )}
                         </div>
                       </div>
                     </div>
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-12">
-                  <IconVideo className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                <div className="p-12 text-center">
+                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <IconVideo className="w-8 h-8 text-gray-400" />
+                  </div>
                   <h3 className="text-lg font-medium text-gray-900 mb-2">Aucun clip trouvé</h3>
-                  <p className="text-gray-600">
-                    {selectedStatus === 'all' 
-                      ? "Vous n'avez pas encore soumis de clips."
-                      : `Aucun clip ${getStatusText(selectedStatus).toLowerCase()} trouvé.`
-                    }
-                  </p>
+                  <p className="text-gray-600">Commencez par soumettre votre premier clip !</p>
                 </div>
               )}
             </div>

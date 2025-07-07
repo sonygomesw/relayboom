@@ -241,17 +241,17 @@ export default function MissionsPage() {
                                  return (
                    <div 
                      key={mission.id}
-                     className="bg-white rounded-2xl overflow-hidden hover:scale-[1.02] hover:shadow-2xl transition-all duration-200 ease-in-out group flex flex-col h-[28rem] relative shadow-lg border-0"
+                     className="bg-white rounded-2xl overflow-hidden hover:scale-[1.02] hover:shadow-2xl transition-all duration-200 ease-in-out group flex flex-col h-[32rem] relative shadow-lg border-0"
                    >
 
                                          {/* Header avec photo et prix */}
-                     <div className="flex items-start justify-between p-8 gap-4">
+                     <div className="flex items-start justify-between p-8 gap-6">
                        {/* Photo créateur en carré avec marge */}
                        <div className="flex-shrink-0">
                          <img 
-                           src={mission.creator_image || `https://ui-avatars.com/api/?name=${encodeURIComponent(mission.creator_name || 'User')}&background=0066CC&color=fff&size=64`}
+                           src={mission.creator_image || `https://ui-avatars.com/api/?name=${encodeURIComponent(mission.creator_name || 'User')}&background=0066CC&color=fff&size=128`}
                            alt={mission.creator_name}
-                           className="w-16 h-16 rounded-xl object-cover border border-gray-200"
+                           className="w-32 h-32 rounded-xl object-cover border border-gray-200 shadow-lg"
                          />
                        </div>
                        
@@ -521,7 +521,7 @@ export default function MissionsPage() {
             {filteredMissions.map((mission) => (
               <div 
                 key={mission.id}
-                className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:bg-gray-50 transition-all duration-200 group flex flex-col min-h-[180px] w-full shadow-lg"
+                className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:bg-gray-50 transition-all duration-200 group flex flex-col min-h-[220px] w-full shadow-lg"
               >
                 {mission.featured && (
                   <div className="absolute top-1 right-1 z-10">
@@ -531,16 +531,16 @@ export default function MissionsPage() {
                   </div>
                 )}
 
-                {/* Header ultra-mini avec plus d'espace */}
-                                  <div className="bg-gray-50 p-2.5 flex items-center gap-2 border-b border-gray-200 relative">
-                  {/* Avatar très petit */}
+                {/* Header avec avatar beaucoup plus grand */}
+                                  <div className="bg-gray-50 p-4 flex items-center gap-4 border-b border-gray-200 relative">
+                  {/* Avatar beaucoup plus grand */}
                   <div className="relative">
                     <img 
                       src={mission.creator_image} 
                       alt={mission.creator_name}
-                      className="w-6 h-6 rounded-full object-cover ring-1 ring-white shadow-sm"
+                      className="w-16 h-16 rounded-full object-cover ring-2 ring-white shadow-lg"
                     />
-                    <div className="absolute -bottom-0.5 -right-0.5 w-1.5 h-1.5 bg-emerald-500 rounded-full border border-white"></div>
+                    <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white"></div>
                   </div>
                   <div className="flex-1 min-w-0">
                                                                 <h3 className="font-bold text-sm text-gray-900 truncate group-hover:text-emerald-600 transition-colors leading-tight">

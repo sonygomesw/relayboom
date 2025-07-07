@@ -1,8 +1,52 @@
 import { useState, useEffect } from 'react'
-import { supabase, getCachedData } from '@/lib/supabase'
+import { supabase } from '@/lib/supabase'
 import useSWR from 'swr'
 import { getUserStatsOptimized, getMissionsWithStatsOptimized, getUserWalletStats } from '@/lib/supabase-optimized'
 import type { UserStats, MissionWithStats, WalletStats } from '@/lib/supabase-optimized'
+
+// Cache global pour éviter les requêtes répétées
+const globalCache = new Map<string, { data: any; timestamp: number }>()
+
+export const getCachedData = async (key: string, fetcher: () => Promise<any>, ttlMinutes = 5) => {
+  const cached = globalCache.get(key)
+  const now = Date.now()
+  
+  if (cached && (now - cached.timestamp) < (ttlMinutes * 60 * 1000)) {
+    console.log(`📦 Cache hit pour: ${key}`)
+    return cached.data
+  }
+  
+  console.log(`🔄 Requête pour: ${key}`)
+  const data = await fetcher()
+  globalCache.set(key, { data, timestamp: now })
+  return data
+}
+
+// Hook pour vider le cache quand nécessaire
+export const useCacheManager = () => {
+  const clearCache = (pattern?: string) => {
+    if (pattern) {
+      // Vider seulement les clés qui correspondent au pattern
+      Array.from(globalCache.keys()).forEach(key => {
+        if (key.includes(pattern)) {
+          globalCache.delete(key)
+        }
+      })
+    } else {
+      // Vider tout le cache
+      globalCache.clear()
+    }
+  }
+
+  const getCacheInfo = () => {
+    return {
+      size: globalCache.size,
+      keys: Array.from(globalCache.keys())
+    }
+  }
+
+  return { clearCache, getCacheInfo }
+}
 
 // Configuration SWR optimisée
 const SWR_CONFIG = {
@@ -14,7 +58,7 @@ const SWR_CONFIG = {
   errorRetryInterval: 1000
 }
 
-// 🚀 Hook optimisé pour le chargement des données utilisateur
+// Hook optimisé pour les données utilisateur
 export const useUserData = (userId: string | null) => {
   const [data, setData] = useState<any>(null)
   const [loading, setLoading] = useState(true)
@@ -44,7 +88,7 @@ export const useUserData = (userId: string | null) => {
               if (error) throw error
               return data
             },
-            2 // Cache 2 minutes
+            10 // Cache 10 minutes pour le profil
           ),
           getCachedData(
             `user_stats_${userId}`,
@@ -52,21 +96,24 @@ export const useUserData = (userId: string | null) => {
               // Requête optimisée avec seulement les champs nécessaires
               const { data, error } = await supabase
                 .from('submissions')
-                .select('views, created_at')
+                .select('views_count, earnings, status, created_at')
                 .eq('user_id', userId)
+                .eq('status', 'approved')
               
               if (error) throw error
               
-              const totalViews = data?.reduce((sum, s) => sum + (s.views || 0), 0) || 0
+              const totalViews = data?.reduce((sum, s) => sum + (s.views_count || 0), 0) || 0
+              const totalEarnings = data?.reduce((sum, s) => sum + (s.earnings || 0), 0) || 0
               const totalSubmissions = data?.length || 0
               
               return {
-                totalViews,
-                totalSubmissions,
+                total_views: totalViews,
+                total_earnings: totalEarnings,
+                total_submissions: totalSubmissions,
                 lastActivity: data?.[0]?.created_at || null
               }
             },
-            1 // Cache 1 minute
+            2 // Cache 2 minutes pour les stats
           )
         ])
 
@@ -86,50 +133,107 @@ export const useUserData = (userId: string | null) => {
   return { data, loading, error }
 }
 
-// 🚀 Hook optimisé pour les missions avec pagination
-export const useMissions = (limit: number = 10, offset: number = 0) => {
+// Hook optimisé pour les missions
+export const useMissions = () => {
   const [missions, setMissions] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
-  const [hasMore, setHasMore] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const loadMissions = async () => {
       try {
         setLoading(true)
         
-        const { data, error } = await supabase
-          .from('missions')
-          .select('id, title, creator_name, creator_thumbnail, reward, status')
-          .eq('status', 'active')
-          .order('created_at', { ascending: false })
-          .range(offset, offset + limit - 1)
+        const data = await getCachedData(
+          'missions_active',
+          async () => {
+            const { data, error } = await supabase
+              .from('missions')
+              .select('id, title, description, creator_name, creator_image, price_per_1k_views, total_budget, status, category, created_at')
+              .eq('status', 'active')
+              .order('created_at', { ascending: false })
+              .limit(50)
+            
+            if (error) throw error
+            return data || []
+          },
+          5 // Cache 5 minutes
+        )
 
-        if (error) throw error
-
-        if (offset === 0) {
-          setMissions(data || [])
-        } else {
-          setMissions(prev => [...prev, ...(data || [])])
-        }
-        
-        setHasMore((data || []).length === limit)
+        setMissions(data)
+        setError(null)
       } catch (err) {
         console.error('Erreur chargement missions:', err)
+        setError(err instanceof Error ? err.message : 'Erreur inconnue')
       } finally {
         setLoading(false)
       }
     }
 
     loadMissions()
-  }, [limit, offset])
+  }, [])
 
-  const loadMore = () => {
-    if (!loading && hasMore) {
-      // Cette fonction sera appelée par le composant parent
+  return { missions, loading, error }
+}
+
+// Hook pour les clips d'un utilisateur
+export const useUserClips = (userId: string | null) => {
+  const [clips, setClips] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (!userId) {
+      setLoading(false)
+      return
     }
-  }
 
-  return { missions, loading, hasMore, loadMore }
+    const loadClips = async () => {
+      try {
+        setLoading(true)
+        
+        const data = await getCachedData(
+          `user_clips_${userId}`,
+          async () => {
+            const { data, error } = await supabase
+              .from('submissions')
+              .select(`
+                id,
+                status,
+                views_count,
+                created_at,
+                tiktok_url,
+                mission_id,
+                missions!submissions_mission_id_fkey (
+                  id,
+                  title,
+                  price_per_1k_views
+                )
+              `)
+              .eq('user_id', userId)
+              .order('created_at', { ascending: false })
+              .limit(50)
+            
+            if (error) throw error
+            return data || []
+          },
+          3 // Cache 3 minutes
+        )
+
+        setClips(data)
+        setError(null)
+      } catch (err) {
+        console.error('Erreur chargement clips:', err)
+        setError(err instanceof Error ? err.message : 'Erreur inconnue')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadClips()
+  }, [userId])
+
+  return { clips, loading, error }
 }
 
 // 🚀 Hook pour les statistiques admin optimisées

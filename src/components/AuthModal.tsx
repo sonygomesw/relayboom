@@ -55,43 +55,53 @@ export default function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthM
 
     try {
       console.log('🔄 Début de l\'authentification, mode:', mode);
-      console.log('📧 Email:', email);
-      console.log('🔗 Supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL);
       
       if (mode === 'login') {
         // Login with email and password
         console.log('🔐 Tentative de connexion pour:', email);
         
-        // Vérifier que Supabase est bien configuré
-        if (!supabase || !supabase.auth) {
-          throw new Error('Supabase n\'est pas configuré correctement');
-        }
+        // Forcer la déconnexion avant la connexion pour nettoyer la session
+        await supabase.auth.signOut();
         
         const { data, error } = await supabase.auth.signInWithPassword({
           email: email.trim(),
           password: password
         });
         
-        console.log('🔍 Réponse Supabase:', { data, error });
-        
-        if (error) {
-          console.error('❌ Erreur de connexion détaillée:', {
-            message: error.message,
-            status: error.status,
-            name: error.name
-          });
-          throw error;
-        }
+        if (error) throw error;
         
         if (!data.user) {
           throw new Error('Aucun utilisateur retourné par Supabase');
         }
         
-        console.log('✅ Connexion réussie:', data.user?.email);
+        // Forcer le rafraîchissement de la session
+        const { data: sessionData } = await supabase.auth.refreshSession();
+        if (!sessionData.session) {
+          throw new Error('Impossible de rafraîchir la session');
+        }
         
+        console.log('✅ Connexion réussie:', data.user?.email);
         setMessage('Connexion réussie ! Redirection...');
-        setAwaitingRedirect(true);
-        // La redirection sera gérée par l'useEffect une fois que l'AuthContext sera mis à jour
+        
+        // Redirection immédiate
+        if (data.user) {
+          const { data: profileData } = await supabase
+            .from('profiles')
+            .select('role')
+            .eq('id', data.user.id)
+            .single();
+            
+          if (profileData?.role === 'creator') {
+            router.push('/dashboard/creator');
+          } else if (profileData?.role === 'clipper') {
+            router.push('/dashboard/clipper');
+          } else if (profileData?.role === 'admin') {
+            router.push('/admin');
+          } else {
+            router.push('/onboarding/role');
+          }
+          onClose();
+        }
       } else {
         // Sign up with email and password
         console.log('📝 Tentative d\'inscription pour:', email);

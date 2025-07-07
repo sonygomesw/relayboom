@@ -1,61 +1,126 @@
 import { useState, useEffect } from 'react'
 import { supabase } from './supabase'
 
-// 🚀 Types corrigés pour correspondre aux nouvelles fonctions SQL
+// Cache TTL en millisecondes
+const CACHE_TTL = {
+  SHORT: 1000 * 60 * 5, // 5 minutes
+  MEDIUM: 1000 * 60 * 30, // 30 minutes
+  LONG: 1000 * 60 * 60 * 24, // 24 heures
+}
+
+// Cache en mémoire avec TTL
+const memoryCache = new Map<string, { data: any; timestamp: number; ttl: number }>()
+
+// Fonction utilitaire pour le cache
+const withCache = async (key: string, ttl: number, fetcher: () => Promise<any>) => {
+  const now = Date.now()
+  const cached = memoryCache.get(key)
+
+  if (cached && now - cached.timestamp < cached.ttl) {
+    return cached.data
+  }
+
+  const data = await fetcher()
+  memoryCache.set(key, { data, timestamp: now, ttl })
+  return data
+}
+
+// Nettoyage périodique du cache
+setInterval(() => {
+  const now = Date.now()
+  for (const [key, value] of memoryCache.entries()) {
+    if (now - value.timestamp > value.ttl) {
+      memoryCache.delete(key)
+    }
+  }
+}, CACHE_TTL.SHORT)
+
+// Optimisation des requêtes utilisateur
+export const getUserStatsOptimized = async (userId: string) => {
+  return withCache(`user_stats_${userId}`, CACHE_TTL.SHORT, async () => {
+    const { data, error } = await supabase
+      .rpc('get_user_stats_optimized', { user_id: userId })
+    
+    if (error) throw error
+    return data
+  })
+}
+
+// Optimisation des requêtes de missions
+export const getMissionsWithStatsOptimized = async (creatorId?: string) => {
+  const cacheKey = `missions_${creatorId || 'all'}`
+  
+  return withCache(cacheKey, CACHE_TTL.SHORT, async () => {
+    let query = supabase
+      .from('missions')
+      .select(`
+        *,
+        submissions:clip_submissions(count),
+        total_views:clip_submissions(sum(views_count)),
+        creator:profiles!missions_creator_id_fkey(pseudo, avatar_url)
+      `)
+      .eq('status', 'active')
+      .order('created_at', { ascending: false })
+
+    if (creatorId) {
+      query = query.eq('creator_id', creatorId)
+    }
+
+    const { data, error } = await query
+    if (error) throw error
+    return data
+  })
+}
+
+// Optimisation des requêtes de wallet
+export const getUserWalletStats = async (userId: string) => {
+  return withCache(`wallet_${userId}`, CACHE_TTL.SHORT, async () => {
+    const { data, error } = await supabase
+      .rpc('get_wallet_stats_optimized', { user_id: userId })
+    
+    if (error) throw error
+    return data
+  })
+}
+
+// Types optimisés
+export interface UserStats {
+  total_views: number
+  total_earnings: number
+  total_submissions: number
+  average_views: number
+  best_performing_clip: {
+    id: string
+    views: number
+    url: string
+  } | null
+}
 
 export interface MissionWithStats {
   id: string
   title: string
   description: string
-  creator_name: string
-  creator_thumbnail: string
-  video_url: string
   price_per_1k_views: number
-  status: string
-  is_featured: boolean
-  created_at: string
-  creator_id: string
-  category: string
-  total_submissions: number
-  pending_validations: number
+  total_budget: number
+  remaining_budget: number
+  submissions_count: number
   total_views: number
-  total_earnings: number
-}
-
-export interface UserStats {
-  total_views: number
-  total_submissions: number
-  total_earnings: number
-  avg_views: number
-  pending_submissions: number
-  approved_submissions: number
-}
-
-export interface AdminStats {
-  total_users: number
-  total_creators: number
-  total_clippers: number
-  total_missions: number
-  active_missions: number
-  total_submissions: number
-  pending_validations: number
-  total_views: number
-  total_earnings: number
+  creator: {
+    pseudo: string
+    avatar_url: string | null
+  }
 }
 
 export interface WalletStats {
   balance: number
-  total_earned: number
+  total_deposits: number
+  total_withdrawals: number
   pending_earnings: number
-  total_submissions: number
-  recent_transactions: Array<{
-    id: string
+  last_transaction?: {
     amount: number
-    status: string
-    mission_title: string
-    views: number
+    type: 'deposit' | 'withdrawal'
     date: string
-  }>
+  }
 }
 
 /**

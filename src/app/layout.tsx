@@ -1,60 +1,68 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import { AuthProvider } from "@/components/AuthContext";
-import { SWRProvider } from "@/components/SWRProvider";
+import './globals.css'
+import { Suspense } from 'react'
+import { AuthProvider } from '@/components/AuthContext'
 import { LanguageProvider } from '@/components/LanguageContext'
+import { SWRProvider } from '@/components/SWRProvider'
+import { Analytics } from '@vercel/analytics/react'
+import Loading from './loading'
 
-// Police Inter optimisée avec poids plus épais pour une meilleure lisibilité
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
+// Optimisation des polices
+const fontSans = {
+  variable: '--font-sans',
+  display: 'swap',
   preload: true,
-  weight: ["400", "500", "600", "700"], // Ajout de poids plus épais
-});
+  fallback: ['system-ui', 'sans-serif']
+}
 
-export const metadata: Metadata = {
-  title: "ClipTokk - Plateforme de Clipping TikTok",
-  description: "Connectez créateurs et clippeurs pour du contenu viral TikTok",
-  keywords: ["tiktok", "clipping", "créateurs", "contenu viral"],
-  // Optimisations SEO et performance
-  robots: "index, follow",
-};
-
-export const viewport = {
-  width: "device-width",
-  initialScale: 1,
-  viewportFit: "cover" as const,
-};
+export const metadata = {
+  title: 'Cliptokk - Plateforme de Clipping',
+  description: 'Créez et monétisez vos clips TikTok. Rejoignez la communauté de créateurs et gagnez de l\'argent avec vos clips.',
+  keywords: ['tiktok', 'clip', 'monetization', 'creator', 'social media', 'viral content'],
+  authors: [{ name: 'Cliptokk Team' }],
+  openGraph: {
+    title: 'Cliptokk - Monétisez vos clips TikTok',
+    description: 'Créez des clips viraux et gagnez de l\'argent. Rejoignez la communauté Cliptokk.',
+    type: 'website',
+    locale: 'fr_FR',
+    url: 'https://cliptokk.com',
+    siteName: 'Cliptokk',
+    images: [{
+      url: '/og-image.jpg',
+      width: 1200,
+      height: 630,
+      alt: 'Cliptokk Platform'
+    }]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Cliptokk - Monétisez vos clips TikTok',
+    description: 'Créez des clips viraux et gagnez de l\'argent. Rejoignez la communauté Cliptokk.',
+    images: ['/og-image.jpg']
+  },
+  viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
+  themeColor: '#000000',
+  manifest: '/manifest.json'
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
-    <html lang="fr" className={inter.variable}>
-      <head>
-        {/* Preconnect pour optimiser les ressources externes */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        
-        {/* Prefetch pour les ressources critiques */}
-        <link rel="dns-prefetch" href="//supabase.com" />
-        <link rel="dns-prefetch" href="//images.unsplash.com" />
-        
-
-      </head>
-      <body className={`${inter.className} antialiased font-medium`} suppressHydrationWarning>
+    <html lang="fr">
+      <body>
         <SWRProvider>
-          <AuthProvider>
-            <LanguageProvider>
-              {children}
-            </LanguageProvider>
-          </AuthProvider>
+          <LanguageProvider>
+            <AuthProvider>
+              <Suspense fallback={<Loading />}>
+                {children}
+              </Suspense>
+            </AuthProvider>
+          </LanguageProvider>
         </SWRProvider>
+        <Analytics />
       </body>
     </html>
-  );
+  )
 }

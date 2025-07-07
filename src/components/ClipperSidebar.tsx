@@ -17,7 +17,7 @@ import {
 import { useLanguage } from '@/components/LanguageContext'
 import { translations } from '@/lib/translations.new'
 import { Language } from '@/lib/translations.new'
-import { useState } from 'react'
+import { useState, memo } from 'react'
 
 interface SidebarLink {
   href: string
@@ -25,23 +25,42 @@ interface SidebarLink {
   label: string
 }
 
-interface ClipperSidebarProps {
-  userStats?: {
-    totalEarnings: number
-    totalViews: number
-    nextMilestone: number
-  }
-  profile?: {
-    pseudo: string
-    email: string
-  }
+interface UserStats {
+  totalEarnings?: number
+  totalViews?: number
+  nextMilestone?: number
+  total_earnings?: number
+  total_views?: number
+  total_submissions?: number
 }
 
-export default function ClipperSidebar({ userStats, profile }: ClipperSidebarProps) {
+interface Profile {
+  pseudo?: string
+  email?: string
+  role?: string
+}
+
+interface ClipperSidebarProps {
+  userStats: UserStats
+  profile: Profile
+}
+
+// Mémoriser le composant pour éviter les re-rendus inutiles
+const ClipperSidebar = memo(({ userStats, profile }: ClipperSidebarProps) => {
   const pathname = usePathname()
   const router = useRouter()
   const { language, setLanguage } = useLanguage()
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false)
+
+  const t = translations[language as Language]
+
+  // Normaliser les stats pour supporter les différents formats
+  const normalizedStats = {
+    totalEarnings: userStats?.totalEarnings || userStats?.total_earnings || 0,
+    totalViews: userStats?.totalViews || userStats?.total_views || 0,
+    totalSubmissions: userStats?.total_submissions || 0,
+    nextMilestone: userStats?.nextMilestone || 1000
+  }
 
   const languages = [
     { code: 'en', label: 'English' },
@@ -50,16 +69,11 @@ export default function ClipperSidebar({ userStats, profile }: ClipperSidebarPro
     { code: 'it', label: 'Italiano' }
   ]
 
-  const links: SidebarLink[] = [
+  const sidebarLinks: SidebarLink[] = [
     {
       href: '/dashboard/clipper',
       icon: <IconDashboard className="w-5 h-5" />,
       label: 'Dashboard'
-    },
-    {
-      href: '/missions',
-      icon: <IconPlus className="w-5 h-5" />,
-      label: 'Missions'
     },
     {
       href: '/dashboard/clipper/clips',
@@ -75,13 +89,30 @@ export default function ClipperSidebar({ userStats, profile }: ClipperSidebarPro
       href: '/dashboard/clipper/revenus',
       icon: <IconCoin className="w-5 h-5" />,
       label: 'Revenus'
+    },
+    {
+      href: '/dashboard/clipper/settings',
+      icon: <IconSettings className="w-5 h-5" />,
+      label: 'Paramètres'
     }
   ]
 
   const handleLogout = async () => {
-    await supabase.auth.signOut()
-    router.push('/')
+    try {
+      await supabase.auth.signOut()
+      router.push('/')
+    } catch (error) {
+      console.error('Erreur déconnexion:', error)
+    }
   }
+
+  const formatNumber = (num: number) => {
+    if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M`
+    if (num >= 1000) return `${(num / 1000).toFixed(1)}k`
+    return num.toString()
+  }
+
+  const progressPercentage = Math.min((normalizedStats.totalViews / normalizedStats.nextMilestone) * 100, 100)
 
   return (
     <aside className="fixed top-0 left-0 h-screen w-96 bg-white border-r border-gray-200 shadow-sm pt-8">
@@ -96,16 +127,16 @@ export default function ClipperSidebar({ userStats, profile }: ClipperSidebarPro
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-sm text-gray-600">Revenus totaux</span>
-              <span className="font-semibold text-lg">{userStats?.totalEarnings?.toFixed(2) || '0.00'}€</span>
+              <span className="font-semibold text-lg">{formatNumber(normalizedStats.totalEarnings)}</span>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm text-gray-600">Vues générées</span>
-              <span className="font-semibold text-lg">{userStats?.totalViews?.toLocaleString() || '0'}</span>
+              <span className="font-semibold text-lg">{formatNumber(normalizedStats.totalViews)}</span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2">
               <div 
                 className="bg-gradient-to-r from-green-400 to-blue-500 h-2 rounded-full" 
-                style={{width: `${Math.min(100, (userStats?.totalViews || 0) / 1000)}%`}}
+                style={{width: `${progressPercentage}%`}}
               ></div>
             </div>
           </div>
@@ -114,7 +145,7 @@ export default function ClipperSidebar({ userStats, profile }: ClipperSidebarPro
         {/* Navigation */}
         <nav className="flex-1 px-6 py-4">
           <ul className="space-y-2">
-            {links.map((link) => (
+            {sidebarLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
@@ -196,4 +227,6 @@ export default function ClipperSidebar({ userStats, profile }: ClipperSidebarPro
       </div>
     </aside>
   )
-} 
+})
+
+export default ClipperSidebar 
