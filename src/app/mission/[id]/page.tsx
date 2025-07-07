@@ -31,38 +31,6 @@ interface Mission {
   mentions: string[]
 }
 
-export async function generateMetadata({ params }: { params: { id: string } }) {
-  const { data: mission } = await cliptokkAPI.getMission(params.id)
-  
-  if (!mission) {
-    return {
-      title: 'Mission non trouvée - Cliptokk',
-      description: 'Cette mission n\'existe pas ou a été supprimée.'
-    }
-  }
-
-  return {
-    title: `${mission.title} - Mission Cliptokk`,
-    description: mission.description,
-    openGraph: {
-      title: mission.title,
-      description: mission.description,
-      type: 'article',
-      url: `https://cliptokk.com/mission/${params.id}`,
-    }
-  }
-}
-
-// Générer les routes statiques
-export async function generateStaticParams() {
-  const { data: missions } = await cliptokkAPI.getActiveMissions()
-
-  return missions?.map((mission) => ({
-    id: mission.slug || mission.id
-  })) || []
-}
-
-
 export default function MissionDetailPage() {
   const { user, profile } = useAuth()
   const [mission, setMission] = useState<Mission | null>(null)
@@ -76,10 +44,10 @@ export default function MissionDetailPage() {
   const { userStats } = usePreloadedData(user?.id)
 
   useEffect(() => {
-    if (missionId) {
+    if (missionId && user) {  // Attendre que l'utilisateur soit authentifié
       loadMission()
     }
-  }, [missionId])
+  }, [missionId, user])  // Ajouter user comme dépendance
 
   const loadMission = async () => {
     if (!missionId) return
