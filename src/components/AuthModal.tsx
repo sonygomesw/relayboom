@@ -25,8 +25,10 @@ export default function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthM
   const router = useRouter();
   const { refreshProfile } = useAuth();
 
-  const handleAuth = async (e: React.FormEvent) => {
+  const handleAuth = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Empêche le rechargement de page
+    if (loading) return; // Évite les soumissions multiples
+    
     setLoading(true);
     setMessage('');
 
