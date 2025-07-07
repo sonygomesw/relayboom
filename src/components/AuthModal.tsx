@@ -37,17 +37,28 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
       }
 
       if (mode === 'login') {
+        console.log('Tentative de connexion...')
         const { data: authResult, error: authError } = await supabase.auth.signInWithPassword({
           email: email.trim(),
           password: password
         })
 
-        if (authError) throw authError
-        if (!authResult?.user) throw new Error('Connexion échouée')
+        if (authError) {
+          console.error('Erreur de connexion:', authError)
+          throw authError
+        }
+        
+        if (!authResult?.user) {
+          console.error('Pas de user dans authResult')
+          throw new Error('Connexion échouée')
+        }
 
+        console.log('Connexion réussie, rafraîchissement du profil...')
         await refreshProfile()
+        console.log('Profil rafraîchi, fermeture du modal...')
         onClose()
       } else {
+        console.log('Tentative d\'inscription...')
         const { data, error } = await supabase.auth.signUp({
           email: email.trim(),
           password,
@@ -60,23 +71,36 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
           }
         })
 
-        if (error) throw error
+        if (error) {
+          console.error('Erreur d\'inscription:', error)
+          throw error
+        }
 
         if (data?.user) {
           setError('Compte créé ! Vérifie ton email pour confirmer ton inscription.')
+        } else {
+          console.error('Pas de user dans data')
+          throw new Error('Inscription échouée')
         }
       }
 
     } catch (err: any) {
+      console.error('Erreur complète:', err)
+      
       const errorMessages: Record<string, string> = {
         'Invalid login credentials': 'Email ou mot de passe incorrect',
         'Email not confirmed': 'Email non confirmé. Vérifie ta boîte mail',
         'Too many requests': 'Trop de tentatives. Attends quelques minutes',
-        'Network error': 'Problème de connexion internet'
+        'Network error': 'Problème de connexion internet',
+        'User already registered': 'Un compte existe déjà avec cet email',
+        'Password should be at least 6 characters': 'Le mot de passe doit faire au moins 6 caractères',
+        'Unable to validate email address': 'Email invalide'
       }
       
       const message = err.message || ''
-      setError(errorMessages[message] || err.message || 'Une erreur est survenue')
+      const errorMessage = errorMessages[message] || message || 'Une erreur est survenue'
+      console.error('Message d\'erreur affiché:', errorMessage)
+      setError(errorMessage)
     } finally {
       setLoading(false)
     }

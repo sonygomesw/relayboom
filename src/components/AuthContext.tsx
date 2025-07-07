@@ -34,15 +34,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const loadUserData = useCallback(async () => {
     try {
-      setIsLoading(true)
+      console.log('Chargement des données utilisateur...')
       const { data: { session }, error: sessionError } = await supabase.auth.getSession()
       
-      if (sessionError || !session) {
+      if (sessionError) {
+        console.error('Erreur session:', sessionError)
+        throw sessionError
+      }
+
+      if (!session) {
+        console.log('Pas de session active')
         setUser(null)
         setProfile(null)
         return
       }
 
+      console.log('Session trouvée, utilisateur:', session.user.email)
       setUser(session.user)
 
       const { data: userProfile, error: profileError } = await supabase
@@ -51,14 +58,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         .eq('id', session.user.id)
         .single()
 
-      if (profileError || !userProfile) {
+      if (profileError) {
         console.error('Erreur profil:', profileError)
+        throw profileError
+      }
+
+      if (!userProfile) {
+        console.error('Profil non trouvé pour l\'utilisateur:', session.user.id)
         return
       }
 
+      console.log('Profil chargé:', userProfile.pseudo)
       setProfile(userProfile)
       
-      // Redirection uniquement si sur la page d'accueil
+      // Redirection uniquement si sur la page d'accueil et après un délai
       if (userProfile?.role && pathname === '/') {
         const redirectMap: Record<Profile['role'], string> = {
           creator: '/dashboard/creator',
@@ -68,11 +81,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         
         const redirectUrl = redirectMap[userProfile.role]
         if (redirectUrl) {
-          router.push(redirectUrl)
+          console.log('Redirection vers:', redirectUrl)
+          setTimeout(() => {
+            router.push(redirectUrl)
+          }, 500) // Petit délai pour éviter les redirections trop rapides
         }
       }
     } catch (error) {
       console.error('Erreur chargement:', error)
+      // En cas d'erreur, on réinitialise l'état
+      setUser(null)
+      setProfile(null)
     } finally {
       setIsLoading(false)
     }
@@ -81,13 +100,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (typeof window === 'undefined') return
 
+    console.log('Initialisation de l\'authentification...')
     loadUserData()
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
+        console.log('Événement auth:', event)
         if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
           await loadUserData()
         } else if (event === 'SIGNED_OUT') {
+          console.log('Déconnexion, réinitialisation...')
           setUser(null)
           setProfile(null)
           router.push('/')
@@ -96,12 +118,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     )
 
     return () => {
+      console.log('Nettoyage de l\'authentification')
       subscription.unsubscribe()
     }
   }, [loadUserData, router])
 
   const refreshProfile = useCallback(async () => {
-    if (!user) return
+    if (!user) {
+      console.log('Pas d\'utilisateur à rafraîchir')
+      return
+    }
+    console.log('Rafraîchissement du profil...')
     await loadUserData()
   }, [user, loadUserData])
 
