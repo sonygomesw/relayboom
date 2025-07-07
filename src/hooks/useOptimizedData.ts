@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import useSWR from 'swr'
-import { getUserStatsOptimized, getMissionsWithStatsOptimized, getUserWalletStats } from '@/lib/supabase-optimized'
 import type { UserStats, MissionWithStats, WalletStats } from '@/lib/supabase-optimized'
+import { getUserStatsOptimized, getMissionsWithStatsOptimized, getUserWalletStats } from '@/lib/api-functions'
 
 // Cache global pour éviter les requêtes répétées
 const globalCache = new Map<string, { data: any; timestamp: number }>()
