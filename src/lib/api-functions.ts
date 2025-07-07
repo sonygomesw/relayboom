@@ -54,24 +54,12 @@ export const getMissionsWithStatsOptimized = async (userId?: string): Promise<Mi
     const { data, error } = await supabase
       .from('missions')
       .select(`
-        id,
-        title,
-        description,
-        video_url,
-        price_per_1k_views,
-        total_budget,
-        status,
-        is_featured,
-        created_at,
-        creator_id,
-        category,
-        creator:profiles (
-          id,
+        *,
+        creator:profiles!creator_id (
           pseudo,
           avatar_url
         ),
         submissions (
-          id,
           status,
           views_count,
           earnings
