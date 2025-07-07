@@ -2,6 +2,7 @@ import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
+// Configuration du middleware
 export const config = {
   matcher: [
     /*
@@ -12,8 +13,7 @@ export const config = {
      * - public folder
      */
     '/((?!_next/static|_next/image|favicon.ico|public/).*)',
-  ],
-  runtime: 'experimental-edge' // Changé de 'edge' à 'experimental-edge'
+  ]
 }
 
 export async function middleware(req: NextRequest) {
