@@ -57,8 +57,6 @@ export const getMissionsWithStatsOptimized = async (userId?: string): Promise<Mi
         id,
         title,
         description,
-        creator_name,
-        creator_thumbnail,
         video_url,
         price_per_1k_views,
         total_budget,
@@ -67,8 +65,12 @@ export const getMissionsWithStatsOptimized = async (userId?: string): Promise<Mi
         created_at,
         creator_id,
         category,
-        creator:profiles!missions_creator_id_fkey(pseudo, avatar_url),
-        submissions(
+        creator:profiles!missions_creator_id_fkey (
+          id,
+          pseudo,
+          avatar_url
+        ),
+        submissions (
           id,
           status,
           views_count,
@@ -100,8 +102,8 @@ export const getMissionsWithStatsOptimized = async (userId?: string): Promise<Mi
         id: mission.id,
         title: mission.title,
         description: mission.description,
-        creator_name: mission.creator_name,
-        creator_thumbnail: mission.creator_thumbnail,
+        creator_name: mission.creator?.pseudo || '',
+        creator_thumbnail: mission.creator?.avatar_url || '',
         video_url: mission.video_url,
         price_per_1k_views: Number(mission.price_per_1k_views || 0),
         total_budget: Number(mission.total_budget || 0),
@@ -116,8 +118,8 @@ export const getMissionsWithStatsOptimized = async (userId?: string): Promise<Mi
         total_views: totalViews,
         total_earnings: totalEarnings,
         creator: {
-          pseudo: mission.creator?.pseudo || mission.creator_name,
-          avatar_url: mission.creator?.avatar_url || mission.creator_thumbnail
+          pseudo: mission.creator?.pseudo || '',
+          avatar_url: mission.creator?.avatar_url || ''
         }
       }
     })
