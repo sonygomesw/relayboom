@@ -65,7 +65,7 @@ export const getMissionsWithStatsOptimized = async (userId?: string): Promise<Mi
         created_at,
         creator_id,
         category,
-        creator:profiles!missions_creator_id_fkey (
+        creator:profiles (
           id,
           pseudo,
           avatar_url
@@ -77,6 +77,7 @@ export const getMissionsWithStatsOptimized = async (userId?: string): Promise<Mi
           earnings
         )
       `)
+      .order('created_at', { ascending: false })
 
     if (error) {
       console.error('Erreur getMissionsWithStatsOptimized:', error)
