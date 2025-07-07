@@ -189,10 +189,10 @@ export default function ClipperDashboard() {
                     const budgetPercentage = totalBudget > 0 ? Math.round((budgetUsed / totalBudget) * 100) : 30;
                     
                     return (
-                      <Link 
-                        href={`/mission/${mission.id}`}
+                      <div 
                         key={mission.id}
-                        className="block bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-all duration-200 hover:border-gray-300 relative"
+                        onClick={() => router.push(`/mission/${mission.id}`)}
+                        className="block bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-all duration-200 hover:border-gray-300 relative cursor-pointer"
                       >
                         <div className="flex items-start gap-6">
                           {/* Image du créateur */}
@@ -259,15 +259,7 @@ export default function ClipperDashboard() {
                             </div>
                           </div>
                         </div>
-                        
-                        {/* Lien invisible pour navigation */}
-                        <button
-                          onClick={() => router.push(`/mission/${mission.id}`)}
-                          className="absolute inset-0 z-10"
-                        >
-                          <span className="sr-only">Voir la mission {mission.title}</span>
-                        </button>
-                      </Link>
+                      </div>
                     );
                   })}
                 </div>
