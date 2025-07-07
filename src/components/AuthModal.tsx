@@ -1,56 +1,126 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
 import { useAuth } from './AuthContext'
+import { IconX, IconMail, IconLock } from '@tabler/icons-react'
 
-export default function AuthModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
-  const [isLoading, setIsLoading] = useState(false)
+interface AuthModalProps {
+  isOpen: boolean
+  onClose: () => void
+}
+
+export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const { isAuthenticated } = useAuth()
+  const { refreshProfile } = useAuth()
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      console.error('DEBUG - Utilisateur authentifié, fermeture modal')
-      onClose()
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    console.error('DEBUG - Début connexion')
+
+    if (loading) {
+      console.error('DEBUG - Déjà en chargement')
+      return
     }
-  }, [isAuthenticated, onClose])
 
-  const handleLogin = async () => {
     try {
-      setIsLoading(true)
+      setLoading(true)
       setError(null)
-      console.error('DEBUG - Début connexion')
 
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: `${window.location.origin}/auth/callback`,
-          queryParams: {
-            access_type: 'offline',
-            prompt: 'consent',
-          },
-        },
+      // Vérifier les champs
+      if (!email.trim() || !password) {
+        throw new Error('Veuillez remplir tous les champs')
+      }
+
+      console.error('DEBUG - Tentative connexion:', email)
+
+      // Connexion
+      const { data: authResult, error: authError } = await supabase.auth.signInWithPassword({
+        email: email.trim(),
+        password: password
       })
 
-      if (error) {
-        console.error('DEBUG - Erreur connexion:', error.message)
-        setError(error.message)
-        return
+      console.error('DEBUG - Résultat auth:', authError ? 'ERREUR' : 'OK')
+
+      if (authError) {
+        console.error('DEBUG - Erreur auth détaillée:', authError)
+        throw authError
       }
 
-      if (!data) {
-        console.error('DEBUG - Pas de données retournées')
-        setError('Erreur de connexion')
-        return
+      if (!authResult?.user) {
+        console.error('DEBUG - Pas d\'utilisateur dans la réponse')
+        throw new Error('Connexion échouée')
       }
 
-      console.error('DEBUG - Connexion réussie')
-    } catch (err) {
-      console.error('DEBUG - Erreur inattendue:', err)
-      setError('Une erreur inattendue est survenue')
+      console.error('DEBUG - User ID:', authResult.user.id)
+
+      // Vérifier la session
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession()
+
+      console.error('DEBUG - Session:', session ? 'OK' : 'NON')
+
+      if (sessionError) {
+        console.error('DEBUG - Erreur session:', sessionError)
+        throw sessionError
+      }
+
+      if (!session) {
+        console.error('DEBUG - Pas de session')
+        throw new Error('Session non créée')
+      }
+
+      // Récupérer le profil
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', authResult.user.id)
+        .single()
+
+      console.error('DEBUG - Profil:', profile ? 'OK' : 'NON')
+
+      if (profileError) {
+        console.error('DEBUG - Erreur profil:', profileError)
+        throw profileError
+      }
+
+      if (!profile) {
+        console.error('DEBUG - Profil non trouvé')
+        throw new Error('Profil non trouvé')
+      }
+
+      // Fermer le modal et rafraîchir
+      console.error('DEBUG - Rafraîchissement profil...')
+      await refreshProfile()
+      console.error('DEBUG - Profil rafraîchi')
+
+      onClose()
+      console.error('DEBUG - Modal fermé')
+
+    } catch (err: any) {
+      console.error('DEBUG - Erreur finale:', err)
+
+      let errorMessage = 'Une erreur est survenue'
+
+      if (err.message?.includes('Invalid login credentials')) {
+        errorMessage = 'Email ou mot de passe incorrect'
+      } else if (err.message?.includes('Email not confirmed')) {
+        errorMessage = 'Email non confirmé. Vérifie ta boîte mail'
+      } else if (err.message?.includes('Too many requests')) {
+        errorMessage = 'Trop de tentatives. Attends quelques minutes'
+      } else if (err.message?.includes('network') || err.message?.includes('fetch')) {
+        errorMessage = 'Problème de connexion internet'
+      } else if (err.message?.includes('fill')) {
+        errorMessage = err.message
+      } else if (err.code) {
+        errorMessage = `Erreur (${err.code}): ${err.message}`
+      }
+
+      setError(errorMessage)
     } finally {
-      setIsLoading(false)
+      setLoading(false)
     }
   }
 
@@ -58,29 +128,67 @@ export default function AuthModal({ isOpen, onClose }: { isOpen: boolean; onClos
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white p-8 rounded-lg shadow-xl max-w-md w-full">
-        <h2 className="text-2xl font-bold mb-6 text-center">Connexion</h2>
-        
-        {error && (
-          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">
-            {error}
-          </div>
-        )}
-
-        <button
-          onClick={handleLogin}
-          disabled={isLoading}
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {isLoading ? 'Chargement...' : 'Continuer avec Google'}
-        </button>
-
+      <div className="bg-white p-8 rounded-lg shadow-xl max-w-md w-full relative">
         <button
           onClick={onClose}
-          className="mt-4 w-full text-gray-600 hover:text-gray-800"
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
         >
-          Annuler
+          <IconX className="w-6 h-6" />
         </button>
+
+        <h2 className="text-2xl font-bold mb-6 text-center">Connexion</h2>
+
+        <form onSubmit={handleLogin} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Email
+            </label>
+            <div className="relative">
+              <IconMail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500"
+                placeholder="ton@email.com"
+                disabled={loading}
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Mot de passe
+            </label>
+            <div className="relative">
+              <IconLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500"
+                placeholder="••••••••"
+                disabled={loading}
+              />
+            </div>
+          </div>
+
+          {error && (
+            <div className="p-3 bg-red-100 text-red-700 rounded-lg">
+              {error}
+            </div>
+          )}
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-primary-500 text-white py-2 px-4 rounded-lg hover:bg-primary-600 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {loading ? 'Chargement...' : 'Se connecter'}
+          </button>
+        </form>
       </div>
     </div>
   )
