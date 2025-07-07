@@ -68,10 +68,15 @@ export default function NewMission() {
         throw new Error('Le budget total doit être d\'au moins 50€')
       }
 
+      // Vérification critique : s'assurer que l'utilisateur est connecté
+      if (!user?.id) {
+        throw new Error('Utilisateur non connecté. Veuillez vous reconnecter.')
+      }
+
       // Créer la mission
       const mission = await cliptokkAPI.createMission({
         ...formData,
-        creator_id: user?.id,
+        creator_id: user.id,
         creator_name: profile?.pseudo || '',
         status: 'active'
       })

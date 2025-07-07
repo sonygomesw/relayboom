@@ -82,8 +82,8 @@ export default function AdminMissions() {
 
   const loadMissions = async () => {
     try {
-      // Utiliser la même méthode que la page créateur qui fonctionne
-      const { getMissionsWithStatsOptimized } = await import('@/lib/supabase-optimized')
+      // Utiliser la fonction depuis api-functions
+      const { getMissionsWithStatsOptimized } = await import('@/lib/api-functions')
       const missionsData = await getMissionsWithStatsOptimized()
       
       console.log('📊 Missions chargées (admin):', missionsData?.length || 0)
