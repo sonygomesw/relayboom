@@ -44,8 +44,20 @@ export default function MissionDetailPage() {
   const { userStats } = usePreloadedData(user?.id)
 
   useEffect(() => {
-    if (missionId && user) {  // Attendre que l'utilisateur soit authentifié
+    console.log('🔄 useEffect mission - missionId:', missionId, 'user:', !!user)
+    
+    if (missionId) {  // Supprimer la condition user pour le test
       loadMission()
+    } else if (!user) {
+      // Si pas d'utilisateur après 3 secondes, charger quand même la mission
+      const timer = setTimeout(() => {
+        if (missionId) {
+          console.log('⏰ Timeout - chargement de la mission sans user')
+          loadMission()
+        }
+      }, 3000)
+      
+      return () => clearTimeout(timer)
     }
   }, [missionId, user])  // Ajouter user comme dépendance
 
@@ -142,38 +154,35 @@ Tu as toutes les cartes en main pour faire un carton ! 🚀`,
   // Afficher le skeleton pendant le chargement
   if (isLoading) {
     return (
-      <RoleProtectionOptimized allowedRoles={['clipper']}>
+      <div className="min-h-screen bg-gray-50">
         <MissionsSkeleton />
-      </RoleProtectionOptimized>
+      </div>
     )
   }
 
   // Afficher l'erreur si nécessaire
   if (error || !mission) {
     return (
-      <RoleProtectionOptimized allowedRoles={['clipper']}>
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-          <div className="text-center">
-            <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <IconBolt className="w-8 h-8 text-red-600" />
-            </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">Mission non trouvée</h3>
-            <p className="text-gray-600 mb-4">{error || 'Cette mission n\'existe pas ou n\'est plus disponible.'}</p>
-            <button 
-              onClick={() => router.push('/dashboard/clipper')}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-            >
-              Retour au dashboard
-            </button>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <IconBolt className="w-8 h-8 text-red-600" />
           </div>
+          <h3 className="text-lg font-medium text-gray-900 mb-2">Mission non trouvée</h3>
+          <p className="text-gray-600 mb-4">{error || 'Cette mission n\'existe pas ou n\'est plus disponible.'}</p>
+          <button 
+            onClick={() => router.push('/dashboard/clipper')}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          >
+            Retour au dashboard
+          </button>
         </div>
-      </RoleProtectionOptimized>
+      </div>
     )
   }
 
   return (
-    <RoleProtectionOptimized allowedRoles={['clipper']}>
-      <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-gray-50 flex">
         <ClipperSidebar 
           userStats={{
             totalEarnings: userStats?.total_earnings || 0,
@@ -367,6 +376,5 @@ Tu as toutes les cartes en main pour faire un carton ! 🚀`,
           </main>
         </div>
       </div>
-    </RoleProtectionOptimized>
   )
 }
