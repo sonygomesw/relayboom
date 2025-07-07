@@ -1,9 +1,8 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState, useMemo, useCallback } from 'react'
+import { createContext, useContext, useEffect, useState, useMemo, useCallback, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
-import { preloadDashboardData } from '@/hooks/useOptimizedData'
 import type { User } from '@supabase/auth-js'
 
 interface Profile {
@@ -31,6 +30,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [profile, setProfile] = useState<Profile | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
+  const timeoutRef = useRef<NodeJS.Timeout>()
+
+  // Nettoyer le timeout au démontage
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    }
+  }, [])
 
   const loadUserData = useCallback(async () => {
     try {
@@ -69,11 +78,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       setProfile(userProfile)
       
-      // Précharger les données du dashboard
-      if (userProfile?.role === 'creator' || userProfile?.role === 'clipper') {
-        preloadDashboardData(session.user.id)
-      }
-      
       // REDIRECTION AUTOMATIQUE après récupération du profil
       if (userProfile?.role && typeof window !== 'undefined') {
         const currentPath = window.location.pathname
@@ -81,29 +85,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         
         // Préchargement automatique ultra-rapide avant redirection
         if (userProfile.role === 'clipper') {
-          // Précharger toutes les données du dashboard clipper
-          console.log('⚡ Préchargement dashboard clipper...')
-          const { preloadDashboardData } = await import('@/hooks/useOptimizedData')
-          preloadDashboardData(session.user.id)
-          
           // Précharger les routes du dashboard
-          setTimeout(() => {
-            if (typeof window !== 'undefined') {
-              const routes = [
-                '/dashboard/clipper',
-                '/dashboard/clipper/clips', 
-                '/dashboard/clipper/revenus',
-                '/dashboard/clipper/leaderboard'
-              ]
-              routes.forEach(route => {
-                const link = document.createElement('link')
-                link.rel = 'prefetch'
-                link.href = route
-                document.head.appendChild(link)
-              })
-              console.log('⚡ Routes dashboard préchargées')
-            }
-          }, 100)
+          const routes = [
+            '/dashboard/clipper',
+            '/dashboard/clipper/clips', 
+            '/dashboard/clipper/revenus',
+            '/dashboard/clipper/leaderboard'
+          ]
+          routes.forEach(route => {
+            const link = document.createElement('link')
+            link.rel = 'prefetch'
+            link.href = route
+            document.head.appendChild(link)
+          })
+          console.log('⚡ Routes dashboard préchargées')
         }
         
         // Rediriger vers le dashboard approprié si on n'y est pas déjà
@@ -120,8 +115,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           
           if (redirectUrl) {
             console.log('🔄 AuthContext: Redirection vers', redirectUrl)
-            // Petit délai pour permettre le préchargement
-            setTimeout(() => {
+            // Utiliser le timeoutRef pour pouvoir le nettoyer
+            if (timeoutRef.current) {
+              clearTimeout(timeoutRef.current)
+            }
+            timeoutRef.current = setTimeout(() => {
               router.push(redirectUrl)
             }, 200)
           }
@@ -134,7 +132,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } finally {
       setIsLoading(false)
     }
-  }, [])
+  }, [router])
 
   // Initialisation et écoute des changements d'authentification
   useEffect(() => {
@@ -156,6 +154,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     return () => {
       subscription.unsubscribe()
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
     }
   }, [loadUserData, router])
 
