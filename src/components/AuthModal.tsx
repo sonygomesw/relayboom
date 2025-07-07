@@ -24,12 +24,8 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
   const handleAuth = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.error('DEBUG - Début auth:', mode)
-
-    if (loading) {
-      console.error('DEBUG - Déjà en chargement')
-      return
-    }
+    
+    if (loading) return
 
     try {
       setLoading(true)
@@ -41,9 +37,6 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
       }
 
       if (mode === 'login') {
-        console.error('DEBUG - Tentative connexion:', email)
-        
-        // Connexion
         const { data: authResult, error: authError } = await supabase.auth.signInWithPassword({
           email: email.trim(),
           password: password
@@ -52,26 +45,9 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
         if (authError) throw authError
         if (!authResult?.user) throw new Error('Connexion échouée')
 
-        // Vérifier la session
-        const { data: { session }, error: sessionError } = await supabase.auth.getSession()
-        if (sessionError) throw sessionError
-        if (!session) throw new Error('Session non créée')
-
-        // Récupérer le profil
-        const { data: profile, error: profileError } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', authResult.user.id)
-          .single()
-
-        if (profileError) throw profileError
-        if (!profile) throw new Error('Profil non trouvé')
-
         await refreshProfile()
         onClose()
-
       } else {
-        // Inscription
         const { data, error } = await supabase.auth.signUp({
           email: email.trim(),
           password,
@@ -88,47 +64,36 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
         if (data?.user) {
           setError('Compte créé ! Vérifie ton email pour confirmer ton inscription.')
-          // Ne pas fermer le modal, laisser le message visible
         }
       }
 
     } catch (err: any) {
-      console.error('DEBUG - Erreur finale:', err)
-      
-      let errorMessage = 'Une erreur est survenue'
-      
-      if (err.message?.includes('Invalid login credentials')) {
-        errorMessage = 'Email ou mot de passe incorrect'
-      } else if (err.message?.includes('Email not confirmed')) {
-        errorMessage = 'Email non confirmé. Vérifie ta boîte mail'
-      } else if (err.message?.includes('Too many requests')) {
-        errorMessage = 'Trop de tentatives. Attends quelques minutes'
-      } else if (err.message?.includes('network') || err.message?.includes('fetch')) {
-        errorMessage = 'Problème de connexion internet'
-      } else if (err.message?.includes('fill')) {
-        errorMessage = err.message
-      } else if (err.code) {
-        errorMessage = `Erreur (${err.code}): ${err.message}`
+      const errorMessages: Record<string, string> = {
+        'Invalid login credentials': 'Email ou mot de passe incorrect',
+        'Email not confirmed': 'Email non confirmé. Vérifie ta boîte mail',
+        'Too many requests': 'Trop de tentatives. Attends quelques minutes',
+        'Network error': 'Problème de connexion internet'
       }
       
-      setError(errorMessage)
+      const message = err.message || ''
+      setError(errorMessages[message] || err.message || 'Une erreur est survenue')
     } finally {
       setLoading(false)
     }
   }
 
-  const resetForm = () => {
+  const resetForm = useCallback(() => {
     setEmail('')
     setPassword('')
     setPseudo('')
     setTiktokUsername('')
     setError(null)
-  }
+  }, [])
 
-  const switchMode = (newMode: AuthMode) => {
+  const switchMode = useCallback((newMode: AuthMode) => {
     setMode(newMode)
     resetForm()
-  }
+  }, [resetForm])
 
   if (!isOpen) return null
 
@@ -155,6 +120,12 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
         </div>
 
         <form onSubmit={handleAuth} className="space-y-4">
+          {error && (
+            <div className="p-3 rounded bg-red-50 text-red-600 text-sm">
+              {error}
+            </div>
+          )}
+          
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Email
@@ -234,16 +205,12 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
             </>
           )}
 
-          {error && (
-            <div className={`p-3 rounded-lg ${error.includes('Erreur') ? 'bg-red-50 text-red-700' : 'bg-green-50 text-green-700'}`}>
-              {error}
-            </div>
-          )}
-
           <button
             type="submit"
             disabled={loading}
-            className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary-500 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 ${loading ? 'opacity-75 cursor-not-allowed' : ''}`}
+            className={`w-full py-2 px-4 border border-transparent rounded-lg shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 ${
+              loading ? 'opacity-75 cursor-not-allowed' : ''
+            }`}
           >
             {loading ? 'Chargement...' : mode === 'login' ? 'Se connecter' : 'Créer un compte'}
           </button>
@@ -252,35 +219,35 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
         <div className="mt-6 text-center text-sm">
           {mode === 'login' ? (
             <>
-              Pas encore de compte ?{' '}
-              <button
-                onClick={() => switchMode('signup')}
-                className="font-medium text-primary-600 hover:text-primary-500"
-                disabled={loading}
-              >
-                Créer un compte
-              </button>
-              <div className="mt-2">
+              <p className="text-gray-600">
+                Pas encore de compte ?{' '}
+                <button
+                  onClick={() => switchMode('signup')}
+                  className="text-primary-600 hover:text-primary-500 font-medium"
+                >
+                  Créer un compte
+                </button>
+              </p>
+              <p className="mt-2 text-gray-600">
+                Ou{' '}
                 <button
                   onClick={() => switchMode('clipper-signup')}
-                  className="font-medium text-primary-600 hover:text-primary-500"
-                  disabled={loading}
+                  className="text-primary-600 hover:text-primary-500 font-medium"
                 >
-                  Devenir clippeur
+                  devenir clippeur
                 </button>
-              </div>
+              </p>
             </>
           ) : (
-            <>
+            <p className="text-gray-600">
               Déjà un compte ?{' '}
               <button
                 onClick={() => switchMode('login')}
-                className="font-medium text-primary-600 hover:text-primary-500"
-                disabled={loading}
+                className="text-primary-600 hover:text-primary-500 font-medium"
               >
                 Se connecter
               </button>
-            </>
+            </p>
           )}
         </div>
       </div>
