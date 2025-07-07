@@ -2,7 +2,6 @@
 
 import { createContext, useContext, useEffect, useState, useMemo, useCallback } from 'react'
 import { usePathname } from 'next/navigation'
-import { useSafeRouter } from './SafeRouter'
 import { supabase } from '@/lib/supabase'
 import type { User } from '@supabase/auth-js'
 
@@ -30,7 +29,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [profile, setProfile] = useState<Profile | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-  const router = useSafeRouter()
+  // Pas de router dans AuthContext pour éviter les erreurs côté serveur
   const pathname = usePathname()
 
   const loadUserData = useCallback(async () => {
@@ -72,22 +71,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       console.log('Profil chargé:', userProfile.pseudo)
       setProfile(userProfile)
       
-      // Redirection uniquement si sur la page d'accueil et après un délai
-      if (userProfile?.role && pathname === '/') {
-        const redirectMap: Record<Profile['role'], string> = {
-          creator: '/dashboard/creator',
-          clipper: '/dashboard/clipper',
-          admin: '/admin'
-        }
-        
-        const redirectUrl = redirectMap[userProfile.role as keyof typeof redirectMap]
-        if (redirectUrl) {
-          console.log('Redirection vers:', redirectUrl)
-          setTimeout(() => {
-            router.push(redirectUrl)
-          }, 500) // Petit délai pour éviter les redirections trop rapides
-        }
-      }
+      // Pas de redirection automatique dans AuthContext pour éviter les erreurs côté serveur
+      // Les redirections se feront dans les pages individuelles
     } catch (error) {
       console.error('Erreur chargement:', error)
       // En cas d'erreur, on réinitialise l'état
@@ -96,7 +81,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } finally {
       setIsLoading(false)
     }
-  }, [router, pathname])
+  }, [pathname])
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -113,7 +98,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           console.log('Déconnexion, réinitialisation...')
           setUser(null)
           setProfile(null)
-          router.push('/')
+          // Redirection gérée par les composants individuels
         }
       }
     )
@@ -122,7 +107,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       console.log('Nettoyage de l\'authentification')
       subscription.unsubscribe()
     }
-  }, [loadUserData, router])
+  }, [loadUserData])
 
   const refreshProfile = useCallback(async () => {
     if (!user) {
