@@ -37,36 +37,72 @@ export default function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthM
         // Login with email and password
         console.log('🔐 Tentative de connexion pour:', email);
         
-        const { data, error } = await supabase.auth.signInWithPassword({
+        // Ajouter un timeout de 10 secondes
+        const authPromise = supabase.auth.signInWithPassword({
           email: email.trim(),
           password: password
         });
         
-        if (error) throw error;
+        const timeoutPromise = new Promise((_, reject) => 
+          setTimeout(() => reject(new Error('Timeout: La connexion prend trop de temps')), 10000)
+        );
+        
+        const { data, error } = await Promise.race([authPromise, timeoutPromise]) as any;
+        
+        if (error) {
+          console.error('❌ Erreur Supabase:', error);
+          throw error;
+        }
         
         if (!data.user) {
           throw new Error('Aucun utilisateur retourné par Supabase');
         }
         
         console.log('✅ Connexion réussie:', data.user?.email);
+        console.log('📋 Utilisateur ID:', data.user?.id);
         
-        // Rafraîchir le profil et rediriger
+        // Attendre un peu pour que la session soit établie
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        // Rafraîchir le profil
+        console.log('🔄 Rafraîchissement du profil...');
         await refreshProfile();
         
-        const { data: profileData } = await supabase
+        // Récupérer le profil avec timeout
+        console.log('🔍 Récupération du profil utilisateur...');
+        const profilePromise = supabase
           .from('profiles')
           .select('role')
           .eq('id', data.user.id)
           .single();
           
-        if (profileData?.role === 'creator') {
-          router.push('/dashboard/creator');
-        } else if (profileData?.role === 'clipper') {
-          router.push('/dashboard/clipper');
-        } else if (profileData?.role === 'admin') {
-          router.push('/admin');
-        } else {
+        const profileTimeoutPromise = new Promise((_, reject) => 
+          setTimeout(() => reject(new Error('Timeout: Récupération du profil trop lente')), 5000)
+        );
+        
+        const { data: profileData, error: profileError } = await Promise.race([profilePromise, profileTimeoutPromise]) as any;
+        
+        if (profileError) {
+          console.error('❌ Erreur récupération profil:', profileError);
+          // Continuer même si le profil n'est pas trouvé
           router.push('/onboarding/role');
+        } else {
+          console.log('✅ Profil récupéré:', profileData);
+          
+          // Redirection selon le rôle
+          if (profileData?.role === 'creator') {
+            console.log('➡️ Redirection vers dashboard creator');
+            router.push('/dashboard/creator');
+          } else if (profileData?.role === 'clipper') {
+            console.log('➡️ Redirection vers dashboard clipper');
+            router.push('/dashboard/clipper');
+          } else if (profileData?.role === 'admin') {
+            console.log('➡️ Redirection vers admin');
+            router.push('/admin');
+          } else {
+            console.log('➡️ Redirection vers onboarding (pas de rôle)');
+            router.push('/onboarding/role');
+          }
         }
         
         onClose();
@@ -98,23 +134,34 @@ export default function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthM
         }
       }
     } catch (error: any) {
-      console.error('💥 Erreur:', error);
+      console.error('💥 Erreur complète:', error);
+      console.error('💥 Type d\'erreur:', typeof error);
+      console.error('💥 Stack:', error.stack);
       
       let errorMessage = error.message || 'Une erreur est survenue';
       
+      // Gestion des erreurs spécifiques
       if (error.message?.includes('Invalid login credentials')) {
         errorMessage = 'Email ou mot de passe incorrect. Vérifie tes informations.';
       } else if (error.message?.includes('Email not confirmed')) {
-        errorMessage = 'Email non confirmé. Vérifie ta boîte mail.';
+        errorMessage = 'Email non confirmé. Vérifie ta boîte mail et clique sur le lien de confirmation.';
       } else if (error.message?.includes('Too many requests')) {
-        errorMessage = 'Trop de tentatives. Attends quelques minutes.';
+        errorMessage = 'Trop de tentatives. Attends quelques minutes avant de réessayer.';
+      } else if (error.message?.includes('Timeout')) {
+        errorMessage = 'Connexion trop lente. Vérifie ta connexion internet et réessaye.';
       } else if (error.message?.includes('network') || error.message?.includes('fetch')) {
         errorMessage = 'Problème de connexion. Vérifie ta connexion internet.';
+      } else if (error.code === 'ECONNABORTED') {
+        errorMessage = 'Connexion interrompue. Réessaye dans quelques instants.';
       }
       
       setMessage(`Erreur: ${errorMessage}`);
+      
+      // Log additionnel pour debug
+      console.log('🐛 Message d\'erreur affiché:', errorMessage);
     } finally {
       setLoading(false);
+      console.log('🏁 Fin handleAuth - loading: false');
     }
   };
 
