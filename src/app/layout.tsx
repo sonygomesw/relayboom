@@ -1,24 +1,34 @@
 import './globals.css'
 import { Suspense } from 'react'
+import { Inter } from 'next/font/google'
+import { Metadata } from 'next'
 import { AuthProvider } from '@/components/AuthContext'
 import { LanguageProvider } from '@/components/LanguageContext'
 import { SWRProvider } from '@/components/SWRProvider'
 import { Analytics } from '@vercel/analytics/react'
 import Loading from './loading'
 
-// Optimisation des polices
-const fontSans = {
-  variable: '--font-sans',
-  display: 'swap',
-  preload: true,
-  fallback: ['system-ui', 'sans-serif']
-}
+const inter = Inter({ subsets: ['latin'] })
 
-export const metadata = {
-  title: 'Cliptokk - Plateforme de Clipping',
-  description: 'Créez et monétisez vos clips TikTok. Rejoignez la communauté de créateurs et gagnez de l\'argent avec vos clips.',
-  keywords: ['tiktok', 'clip', 'monetization', 'creator', 'social media', 'viral content'],
-  authors: [{ name: 'Cliptokk Team' }],
+export const metadata: Metadata = {
+  title: 'Cliptokk - Plateforme de mise en relation créateurs/clippeurs',
+  description: 'Cliptokk est une plateforme qui met en relation les créateurs de contenu avec des clippeurs professionnels pour maximiser leur visibilité sur TikTok.',
+  manifest: '/manifest.json',
+  themeColor: '#000000',
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'Cliptokk',
+  },
+  icons: {
+    icon: '/favicon.svg',
+    apple: '/favicon.svg',
+  },
   openGraph: {
     title: 'Cliptokk - Monétisez vos clips TikTok',
     description: 'Créez des clips viraux et gagnez de l\'argent. Rejoignez la communauté Cliptokk.',
@@ -39,9 +49,6 @@ export const metadata = {
     description: 'Créez des clips viraux et gagnez de l\'argent. Rejoignez la communauté Cliptokk.',
     images: ['/og-image.jpg']
   },
-  viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
-  themeColor: '#000000',
-  manifest: '/manifest.json'
 }
 
 export default function RootLayout({
@@ -51,7 +58,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr">
-      <body>
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Cliptokk" />
+        <link rel="icon" href="/favicon.svg" />
+        <link rel="apple-touch-icon" href="/favicon.svg" />
+      </head>
+      <body className={inter.className}>
         <SWRProvider>
           <LanguageProvider>
             <AuthProvider>

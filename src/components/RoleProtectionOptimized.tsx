@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import { useAuth } from '@/components/AuthContext'
-import { SkeletonLoader } from '@/components/SkeletonLoader'
+import { QuickSkeleton } from '@/components/SkeletonLoader'
 
 interface RoleProtectionOptimizedProps {
   allowedRoles: string[]
@@ -20,7 +20,7 @@ export default function RoleProtectionOptimized({
   allowedRoles,
   children,
   redirectTo,
-  fallback = <SkeletonLoader />
+  fallback = <QuickSkeleton />
 }: RoleProtectionOptimizedProps) {
   const [isAuthorized, setIsAuthorized] = useState(false)
   const [isLoading, setIsLoading] = useState(true)

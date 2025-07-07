@@ -1,5 +1,7 @@
 // Force new deployment - v7 - translations update
 import type { NextConfig } from "next";
+import type { Configuration } from 'webpack';
+import withPWA from 'next-pwa';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -38,7 +40,7 @@ const nextConfig = {
       },
     ];
   },
-  webpack: (config, { dev, isServer }) => {
+  webpack: (config: Configuration, { dev, isServer }: { dev: boolean; isServer: boolean }) => {
     if (!dev) {
       // Optimisations pour la production
       config.optimization = {
@@ -50,4 +52,8 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default withPWA({
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+})(nextConfig);

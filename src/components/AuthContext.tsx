@@ -30,32 +30,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [profile, setProfile] = useState<Profile | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-  const [initialized, setInitialized] = useState(false)
   const router = useRouter()
-
-  // Fonction pour nettoyer la session
-  const clearSession = useCallback(async () => {
-    try {
-      // Nettoyer le localStorage
-      Object.keys(localStorage).forEach(key => {
-        if (key.startsWith('sb-') || key.includes('supabase.auth')) {
-          localStorage.removeItem(key)
-        }
-      })
-      
-      // Déconnexion complète
-      await supabase.auth.signOut()
-      
-      // Reset des états
-      setUser(null)
-      setProfile(null)
-      
-      // Redirection
-      router.push('/')
-    } catch (error) {
-      console.error('Erreur nettoyage session:', error)
-    }
-  }, [router])
 
   const loadUserData = useCallback(async () => {
     try {
@@ -64,8 +39,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       // Récupérer la session active
       const { data: { session }, error: sessionError } = await supabase.auth.getSession()
       
-      if (sessionError || !session) {
-        await clearSession()
+      if (sessionError) {
+        console.error('Erreur session:', sessionError)
+        setUser(null)
+        setProfile(null)
+        return
+      }
+
+      if (!session) {
+        setUser(null)
+        setProfile(null)
         return
       }
 
@@ -81,7 +64,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       if (profileError) {
         console.error('Erreur profil:', profileError)
-        await clearSession()
         return
       }
 
@@ -93,20 +75,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
     } catch (error) {
       console.error('Erreur chargement données:', error)
-      await clearSession()
     } finally {
       setIsLoading(false)
-      setInitialized(true)
     }
-  }, [clearSession])
+  }, [])
 
-  // Initialisation
+  // Initialisation et écoute des changements d'authentification
   useEffect(() => {
-    if (initialized) return
-
     loadUserData()
 
-    // Écouter les changements d'authentification
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         console.log('Événement auth:', event)
@@ -114,7 +91,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
           await loadUserData()
         } else if (event === 'SIGNED_OUT') {
-          await clearSession()
+          setUser(null)
+          setProfile(null)
+          router.push('/')
         }
       }
     )
@@ -122,7 +101,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => {
       subscription.unsubscribe()
     }
-  }, [initialized, loadUserData, clearSession])
+  }, [loadUserData, router])
 
   const refreshProfile = useCallback(async () => {
     if (!user) return

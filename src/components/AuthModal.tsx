@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/components/AuthContext';
@@ -21,32 +21,9 @@ export default function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthM
   const [videoUrl, setVideoUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
-  const [awaitingRedirect, setAwaitingRedirect] = useState(false);
   
   const router = useRouter();
-  const { user, profile, isLoading: authLoading } = useAuth();
-
-  // 🔄 Gérer la redirection automatique après connexion
-  useEffect(() => {
-    if (awaitingRedirect && user && !authLoading) {
-      console.log('🎯 Redirection automatique après connexion pour:', user.email);
-      
-      if (profile?.role === 'creator') {
-        router.push('/dashboard/creator');
-      } else if (profile?.role === 'clipper') {
-        router.push('/dashboard/clipper');
-      } else if (profile?.role === 'admin') {
-        router.push('/admin');
-      } else {
-        // Pas de rôle défini, rediriger vers l'onboarding
-        router.push('/onboarding/role');
-      }
-      
-      // Fermer le modal et reset l'état
-      setAwaitingRedirect(false);
-      onClose();
-    }
-  }, [awaitingRedirect, user, profile, authLoading, router, onClose]);
+  const { refreshProfile } = useAuth();
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,9 +37,6 @@ export default function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthM
         // Login with email and password
         console.log('🔐 Tentative de connexion pour:', email);
         
-        // Forcer la déconnexion avant la connexion pour nettoyer la session
-        await supabase.auth.signOut();
-        
         const { data, error } = await supabase.auth.signInWithPassword({
           email: email.trim(),
           password: password
@@ -74,34 +48,28 @@ export default function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthM
           throw new Error('Aucun utilisateur retourné par Supabase');
         }
         
-        // Forcer le rafraîchissement de la session
-        const { data: sessionData } = await supabase.auth.refreshSession();
-        if (!sessionData.session) {
-          throw new Error('Impossible de rafraîchir la session');
-        }
-        
         console.log('✅ Connexion réussie:', data.user?.email);
-        setMessage('Connexion réussie ! Redirection...');
         
-        // Redirection immédiate
-        if (data.user) {
-          const { data: profileData } = await supabase
-            .from('profiles')
-            .select('role')
-            .eq('id', data.user.id)
-            .single();
-            
-          if (profileData?.role === 'creator') {
-            router.push('/dashboard/creator');
-          } else if (profileData?.role === 'clipper') {
-            router.push('/dashboard/clipper');
-          } else if (profileData?.role === 'admin') {
-            router.push('/admin');
-          } else {
-            router.push('/onboarding/role');
-          }
-          onClose();
+        // Rafraîchir le profil et rediriger
+        await refreshProfile();
+        
+        const { data: profileData } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', data.user.id)
+          .single();
+          
+        if (profileData?.role === 'creator') {
+          router.push('/dashboard/creator');
+        } else if (profileData?.role === 'clipper') {
+          router.push('/dashboard/clipper');
+        } else if (profileData?.role === 'admin') {
+          router.push('/admin');
+        } else {
+          router.push('/onboarding/role');
         }
+        
+        onClose();
       } else {
         // Sign up with email and password
         console.log('📝 Tentative d\'inscription pour:', email);
@@ -113,14 +81,7 @@ export default function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthM
           }
         });
         
-        console.log('🔍 Réponse inscription Supabase:', { data, error });
-        
-        if (error) {
-          console.error('❌ Erreur d\'inscription:', error);
-          throw error;
-        }
-        
-        console.log('✅ Inscription réussie:', data.user?.email);
+        if (error) throw error;
         
         if (data.user) {
           // Store profile data for creation after email confirmation
@@ -137,10 +98,8 @@ export default function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthM
         }
       }
     } catch (error: any) {
-      console.error('💥 Erreur complète:', error);
-      console.error('💥 Stack trace:', error.stack);
+      console.error('💥 Erreur:', error);
       
-      // Messages d'erreur plus explicites
       let errorMessage = error.message || 'Une erreur est survenue';
       
       if (error.message?.includes('Invalid login credentials')) {
@@ -151,12 +110,9 @@ export default function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthM
         errorMessage = 'Trop de tentatives. Attends quelques minutes.';
       } else if (error.message?.includes('network') || error.message?.includes('fetch')) {
         errorMessage = 'Problème de connexion. Vérifie ta connexion internet.';
-      } else if (error.message?.includes('Supabase')) {
-        errorMessage = 'Problème de configuration du serveur. Contacte le support.';
       }
       
       setMessage(`Erreur: ${errorMessage}`);
-      setAwaitingRedirect(false);
     } finally {
       setLoading(false);
     }
@@ -170,7 +126,6 @@ export default function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthM
     setTiktokUsername('');
     setVideoUrl('');
     setMessage('');
-    setAwaitingRedirect(false);
     onClose();
   };
 
@@ -249,102 +204,92 @@ export default function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthM
                     type="text" 
                     value={pseudo}
                     onChange={(e) => setPseudo(e.target.value)}
-                    placeholder="TonPseudo"
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Nom d'utilisateur TikTok
-                </label>
-                <div className="relative">
-                  <IconBrandTiktok className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
-                  <input 
-                    type="text" 
-                    value={tiktokUsername}
-                    onChange={(e) => setTiktokUsername(e.target.value)}
-                    placeholder="@toncompte"
+                    placeholder="Ton pseudo public"
                     className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                   />
                 </div>
               </div>
 
               {mode === 'clipper-signup' && (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Lien d'un de tes clips (optionnel)
-                  </label>
-                  <div className="relative">
-                    <IconVideo className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
-                    <input 
-                      type="url" 
-                      value={videoUrl}
-                      onChange={(e) => setVideoUrl(e.target.value)}
-                      placeholder="https://tiktok.com/@toncompte/video/..."
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                    />
+                <>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Nom d'utilisateur TikTok
+                    </label>
+                    <div className="relative">
+                      <IconBrandTiktok className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                      <input 
+                        type="text" 
+                        value={tiktokUsername}
+                        onChange={(e) => setTiktokUsername(e.target.value)}
+                        placeholder="@ton-compte-tiktok"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      />
+                    </div>
                   </div>
-                </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Lien d'une vidéo TikTok
+                    </label>
+                    <div className="relative">
+                      <IconVideo className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                      <input 
+                        type="url" 
+                        value={videoUrl}
+                        onChange={(e) => setVideoUrl(e.target.value)}
+                        placeholder="https://tiktok.com/@user/video/..."
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      />
+                    </div>
+                  </div>
+                </>
               )}
             </>
           )}
 
-          <button 
+          {message && (
+            <div className={`p-3 rounded-lg ${message.includes('Erreur') ? 'bg-red-50 text-red-700' : 'bg-green-50 text-green-700'}`}>
+              {message}
+            </div>
+          )}
+
+          <button
             type="submit"
             disabled={loading}
-            className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors disabled:opacity-50"
+            className={`w-full py-3 px-4 rounded-lg text-white font-medium transition-colors
+              ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-green-600 hover:bg-green-700'}
+            `}
           >
-            {loading ? 'Chargement...' : 
-             mode === 'login' ? 'Se connecter' : 'Créer mon compte'}
+            {loading ? 'Chargement...' : mode === 'login' ? 'Se connecter' : 'Créer mon compte'}
           </button>
-        </form>
 
-        {message && (
-          <div className={`mt-4 p-3 rounded-lg text-sm ${
-            message.includes('erreur') ? 'bg-red-50 text-red-700' : 'bg-green-50 text-green-700'
-          }`}>
-            {message}
+          <div className="text-center text-sm text-gray-600">
+            {mode === 'login' ? (
+              <>
+                Pas encore de compte ?{' '}
+                <button
+                  type="button"
+                  onClick={() => onModeChange('signup')}
+                  className="text-green-600 hover:text-green-700 font-medium"
+                >
+                  Créer un compte
+                </button>
+              </>
+            ) : (
+              <>
+                Déjà un compte ?{' '}
+                <button
+                  type="button"
+                  onClick={() => onModeChange('login')}
+                  className="text-green-600 hover:text-green-700 font-medium"
+                >
+                  Se connecter
+                </button>
+              </>
+            )}
           </div>
-        )}
-
-        <div className="mt-6 text-center text-sm text-gray-500">
-          {mode === 'login' ? (
-            <>Pas encore de compte ? <button onClick={() => onModeChange('signup')} className="text-green-600 hover:underline">S'inscrire</button></>
-          ) : (
-            <>Déjà un compte ? <button onClick={() => onModeChange('login')} className="text-green-600 hover:underline">Se connecter</button></>
-          )}
-        </div>
-
-        {/* Bouton de test de connexion Supabase */}
-        <div className="mt-4 text-center">
-          <button
-            onClick={async () => {
-              try {
-                setMessage('Test de connexion Supabase...');
-                console.log('🧪 Test de connexion Supabase');
-                console.log('🔗 URL:', process.env.NEXT_PUBLIC_SUPABASE_URL);
-                console.log('🔑 Key (premiers chars):', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.substring(0, 20) + '...');
-                
-                const { data, error } = await supabase.auth.getSession();
-                console.log('📊 Session actuelle:', { data, error });
-                
-                if (error) {
-                  setMessage(`Erreur de test: ${error.message}`);
-                } else {
-                  setMessage('Test réussi ! Supabase fonctionne correctement.');
-                }
-              } catch (err: any) {
-                console.error('❌ Erreur de test:', err);
-                setMessage(`Erreur de test: ${err.message}`);
-              }
-            }}
-            className="text-xs text-gray-400 hover:text-gray-600 underline"
-          >
-            Tester la connexion
-          </button>
-        </div>
+        </form>
       </div>
     </div>
   );
