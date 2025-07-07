@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useMemo } from 'react'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import RoleProtectionOptimized from '@/components/RoleProtectionOptimized'
 import { useAuth } from '@/components/AuthContext'
@@ -188,7 +189,11 @@ export default function ClipperDashboard() {
                     const budgetPercentage = totalBudget > 0 ? Math.round((budgetUsed / totalBudget) * 100) : 30;
                     
                     return (
-                      <div key={mission.id} className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-all duration-200 hover:border-gray-300 relative">
+                      <Link 
+                        href={`/mission/${mission.id}`}
+                        key={mission.id}
+                        className="block bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-all duration-200 hover:border-gray-300 relative"
+                      >
                         <div className="flex items-start gap-6">
                           {/* Image du créateur */}
                           <div className="flex-shrink-0 w-1/3">
@@ -262,7 +267,7 @@ export default function ClipperDashboard() {
                         >
                           <span className="sr-only">Voir la mission {mission.title}</span>
                         </button>
-                      </div>
+                      </Link>
                     );
                   })}
                 </div>
