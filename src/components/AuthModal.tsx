@@ -32,82 +32,124 @@ export default function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthM
 
     try {
       console.log('🔄 Début de l\'authentification, mode:', mode);
+      console.log('📧 Email:', email);
+      console.log('🔑 Password présent:', !!password);
       
       if (mode === 'login') {
-        // Login with email and password
-        console.log('🔐 Tentative de connexion pour:', email);
+        console.log('🔐 === DÉBUT PROCESSUS DE CONNEXION ===');
         
-        // Ajouter un timeout de 10 secondes
-        const authPromise = supabase.auth.signInWithPassword({
+        // Test 1: Vérifier la connexion Supabase
+        console.log('ÉTAPE 1: Test de base Supabase...');
+        const { data: testSession, error: testError } = await supabase.auth.getSession();
+        console.log('✅ Supabase répond, session actuelle:', testSession.session ? 'Oui' : 'Non');
+        if (testError) {
+          console.error('❌ Erreur test Supabase:', testError);
+        }
+        
+        // Test 2: Tentative de connexion
+        console.log('ÉTAPE 2: signInWithPassword...');
+        console.log('Paramètres:', { email: email.trim(), passwordLength: password.length });
+        
+        const authResult = await supabase.auth.signInWithPassword({
           email: email.trim(),
           password: password
         });
         
-        const timeoutPromise = new Promise((_, reject) => 
-          setTimeout(() => reject(new Error('Timeout: La connexion prend trop de temps')), 10000)
-        );
+        console.log('ÉTAPE 3: Résultat de signInWithPassword...');
+        console.log('✅ Résultat reçu:', {
+          hasData: !!authResult.data,
+          hasUser: !!authResult.data?.user,
+          hasSession: !!authResult.data?.session,
+          hasError: !!authResult.error,
+          errorMessage: authResult.error?.message
+        });
         
-        const { data, error } = await Promise.race([authPromise, timeoutPromise]) as any;
-        
-        if (error) {
-          console.error('❌ Erreur Supabase:', error);
-          throw error;
+        if (authResult.error) {
+          console.error('❌ Erreur Supabase complète:', authResult.error);
+          throw authResult.error;
         }
         
-        if (!data.user) {
+        if (!authResult.data?.user) {
+          console.error('❌ Pas d\'utilisateur dans la réponse');
           throw new Error('Aucun utilisateur retourné par Supabase');
         }
         
-        console.log('✅ Connexion réussie:', data.user?.email);
-        console.log('📋 Utilisateur ID:', data.user?.id);
+        console.log('✅ Connexion Supabase réussie!');
+        console.log('👤 Utilisateur:', {
+          id: authResult.data.user.id,
+          email: authResult.data.user.email,
+          confirmed: !!authResult.data.user.email_confirmed_at
+        });
         
-        // Attendre un peu pour que la session soit établie
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        // Test 3: Vérifier la session après connexion
+        console.log('ÉTAPE 4: Vérification session après connexion...');
+        const { data: newSession } = await supabase.auth.getSession();
+        console.log('📱 Session après connexion:', {
+          exists: !!newSession.session,
+          userId: newSession.session?.user?.id,
+          accessToken: !!newSession.session?.access_token
+        });
         
-        // Rafraîchir le profil
-        console.log('🔄 Rafraîchissement du profil...');
+        // Test 4: Rafraîchir le profil
+        console.log('ÉTAPE 5: Rafraîchissement du profil...');
         await refreshProfile();
+        console.log('✅ refreshProfile() terminé');
         
-        // Récupérer le profil avec timeout
-        console.log('🔍 Récupération du profil utilisateur...');
-        const profilePromise = supabase
+        // Test 5: Récupérer le profil directement
+        console.log('ÉTAPE 6: Récupération directe du profil...');
+        const { data: profileData, error: profileError } = await supabase
           .from('profiles')
-          .select('role')
-          .eq('id', data.user.id)
+          .select('role, pseudo, email')
+          .eq('id', authResult.data.user.id)
           .single();
-          
-        const profileTimeoutPromise = new Promise((_, reject) => 
-          setTimeout(() => reject(new Error('Timeout: Récupération du profil trop lente')), 5000)
-        );
         
-        const { data: profileData, error: profileError } = await Promise.race([profilePromise, profileTimeoutPromise]) as any;
+        console.log('📋 Résultat profil:', {
+          hasData: !!profileData,
+          hasError: !!profileError,
+          errorMessage: profileError?.message,
+          errorCode: profileError?.code,
+          profileData: profileData
+        });
         
         if (profileError) {
           console.error('❌ Erreur récupération profil:', profileError);
-          // Continuer même si le profil n'est pas trouvé
+          console.log('➡️ Redirection vers onboarding (erreur profil)');
           router.push('/onboarding/role');
-        } else {
-          console.log('✅ Profil récupéré:', profileData);
+        } else if (profileData?.role) {
+          console.log('✅ Profil récupéré avec succès:', profileData);
           
           // Redirection selon le rôle
-          if (profileData?.role === 'creator') {
+          let redirectUrl = '/';
+          if (profileData.role === 'creator') {
+            redirectUrl = '/dashboard/creator';
             console.log('➡️ Redirection vers dashboard creator');
-            router.push('/dashboard/creator');
-          } else if (profileData?.role === 'clipper') {
+          } else if (profileData.role === 'clipper') {
+            redirectUrl = '/dashboard/clipper';
             console.log('➡️ Redirection vers dashboard clipper');
-            router.push('/dashboard/clipper');
-          } else if (profileData?.role === 'admin') {
+          } else if (profileData.role === 'admin') {
+            redirectUrl = '/admin';
             console.log('➡️ Redirection vers admin');
-            router.push('/admin');
           } else {
-            console.log('➡️ Redirection vers onboarding (pas de rôle)');
-            router.push('/onboarding/role');
+            redirectUrl = '/onboarding/role';
+            console.log('➡️ Redirection vers onboarding (rôle inconnu)');
           }
+          
+          console.log('ÉTAPE 7: Exécution router.push vers:', redirectUrl);
+          router.push(redirectUrl);
+          console.log('✅ router.push() exécuté');
+        } else {
+          console.log('➡️ Redirection vers onboarding (pas de rôle)');
+          router.push('/onboarding/role');
         }
         
+        console.log('ÉTAPE 8: Fermeture du modal...');
         onClose();
+        console.log('✅ Modal fermé');
+        
+        console.log('🎉 === PROCESSUS DE CONNEXION TERMINÉ ===');
+        
       } else {
-        // Sign up with email and password
+        // Code d'inscription inchangé
         console.log('📝 Tentative d\'inscription pour:', email);
         const { data, error } = await supabase.auth.signUp({
           email: email.trim(),
@@ -120,7 +162,6 @@ export default function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthM
         if (error) throw error;
         
         if (data.user) {
-          // Store profile data for creation after email confirmation
           const profileData = {
             email,
             pseudo: pseudo || email.split('@')[0],
@@ -134,34 +175,35 @@ export default function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthM
         }
       }
     } catch (error: any) {
+      console.error('💥 === ERREUR DANS handleAuth ===');
       console.error('💥 Erreur complète:', error);
-      console.error('💥 Type d\'erreur:', typeof error);
+      console.error('💥 Type:', typeof error);
+      console.error('💥 Message:', error.message);
+      console.error('💥 Code:', error.code);
       console.error('💥 Stack:', error.stack);
       
-      let errorMessage = error.message || 'Une erreur est survenue';
+      let errorMessage = 'Une erreur est survenue';
       
-      // Gestion des erreurs spécifiques
+      // Gestion des erreurs spécifiques Supabase
       if (error.message?.includes('Invalid login credentials')) {
-        errorMessage = 'Email ou mot de passe incorrect. Vérifie tes informations.';
+        errorMessage = '❌ Email ou mot de passe incorrect. Vérifie tes informations.';
       } else if (error.message?.includes('Email not confirmed')) {
-        errorMessage = 'Email non confirmé. Vérifie ta boîte mail et clique sur le lien de confirmation.';
+        errorMessage = '📧 Email non confirmé. Vérifie ta boîte mail et clique sur le lien de confirmation.';
       } else if (error.message?.includes('Too many requests')) {
-        errorMessage = 'Trop de tentatives. Attends quelques minutes avant de réessayer.';
-      } else if (error.message?.includes('Timeout')) {
-        errorMessage = 'Connexion trop lente. Vérifie ta connexion internet et réessaye.';
+        errorMessage = '⏰ Trop de tentatives. Attends quelques minutes avant de réessayer.';
       } else if (error.message?.includes('network') || error.message?.includes('fetch')) {
-        errorMessage = 'Problème de connexion. Vérifie ta connexion internet.';
-      } else if (error.code === 'ECONNABORTED') {
-        errorMessage = 'Connexion interrompue. Réessaye dans quelques instants.';
+        errorMessage = '🌐 Problème de connexion. Vérifie ta connexion internet.';
+      } else if (error.code) {
+        errorMessage = `🐛 Erreur Supabase (${error.code}): ${error.message}`;
+      } else {
+        errorMessage = `🚨 Erreur inconnue: ${error.message}`;
       }
       
       setMessage(`Erreur: ${errorMessage}`);
-      
-      // Log additionnel pour debug
-      console.log('🐛 Message d\'erreur affiché:', errorMessage);
+      console.log('🚨 Message d\'erreur affiché à l\'utilisateur:', errorMessage);
     } finally {
+      console.log('🏁 Fin handleAuth - Arrêt du loading');
       setLoading(false);
-      console.log('🏁 Fin handleAuth - loading: false');
     }
   };
 
