@@ -50,16 +50,27 @@ export const getUserStatsOptimized = async (userId: string): Promise<UserStats> 
  */
 export const getMissionsWithStatsOptimized = async (userId?: string): Promise<MissionWithStats[]> => {
   try {
-    // Récupérer directement depuis la table missions avec category
     const { data, error } = await supabase
       .from('missions')
       .select(`
-        *,
-        creator:profiles!creator_id (
+        id,
+        title,
+        description,
+        video_url,
+        price_per_1k_views,
+        total_budget,
+        status,
+        is_featured,
+        created_at,
+        creator_id,
+        category,
+        creator (
+          id,
           pseudo,
           avatar_url
         ),
         submissions (
+          id,
           status,
           views_count,
           earnings
