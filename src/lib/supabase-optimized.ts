@@ -35,16 +35,7 @@ setInterval(() => {
   }
 }, CACHE_TTL.SHORT)
 
-// Optimisation des requêtes utilisateur
-export const getUserStatsOptimized = async (userId: string) => {
-  return withCache(`user_stats_${userId}`, CACHE_TTL.SHORT, async () => {
-    const { data, error } = await supabase
-      .rpc('get_user_stats_optimized', { user_id: userId })
-    
-    if (error) throw error
-    return data
-  })
-}
+// Cette fonction a été déplacée plus bas dans le fichier avec une implémentation plus complète
 
 // Optimisation des requêtes de missions
 export const getMissionsWithStatsOptimized = async (creatorId?: string) => {

@@ -1,45 +1,3 @@
-import { notFound } from 'next/navigation'
-import { supabase } from '@/lib/supabase'
-
-// Générer les métadonnées dynamiques
-export async function generateMetadata({ params }: { params: { id: string } }) {
-  const { data: mission } = await supabase
-    .from('missions')
-    .select('title, description, creator_name')
-    .eq('id', params.id)
-    .single()
-
-  if (!mission) {
-    return {
-      title: 'Mission non trouvée - Cliptokk',
-      description: 'Cette mission n\'existe pas ou a été supprimée.'
-    }
-  }
-
-  return {
-    title: `${mission.title} par ${mission.creator_name} - Cliptokk`,
-    description: mission.description,
-    openGraph: {
-      title: `${mission.title} - Mission de clipping`,
-      description: mission.description,
-      type: 'article',
-      authors: [mission.creator_name]
-    }
-  }
-}
-
-// Générer les routes statiques
-export async function generateStaticParams() {
-  const { data: missions } = await supabase
-    .from('missions')
-    .select('id, slug')
-    .eq('status', 'active')
-
-  return missions?.map((mission) => ({
-    id: mission.slug || mission.id
-  })) || []
-}
-
 'use client'
 
 import { useState, useEffect } from 'react'
@@ -72,6 +30,38 @@ interface Mission {
   hashtags: string[]
   mentions: string[]
 }
+
+export async function generateMetadata({ params }: { params: { id: string } }) {
+  const { data: mission } = await cliptokkAPI.getMission(params.id)
+  
+  if (!mission) {
+    return {
+      title: 'Mission non trouvée - Cliptokk',
+      description: 'Cette mission n\'existe pas ou a été supprimée.'
+    }
+  }
+
+  return {
+    title: `${mission.title} - Mission Cliptokk`,
+    description: mission.description,
+    openGraph: {
+      title: mission.title,
+      description: mission.description,
+      type: 'article',
+      url: `https://cliptokk.com/mission/${params.id}`,
+    }
+  }
+}
+
+// Générer les routes statiques
+export async function generateStaticParams() {
+  const { data: missions } = await cliptokkAPI.getActiveMissions()
+
+  return missions?.map((mission) => ({
+    id: mission.slug || mission.id
+  })) || []
+}
+
 
 export default function MissionDetailPage() {
   const { user, profile } = useAuth()
