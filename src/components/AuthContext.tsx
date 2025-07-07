@@ -73,6 +73,63 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (userProfile?.role === 'creator' || userProfile?.role === 'clipper') {
         preloadDashboardData(session.user.id)
       }
+      
+      // REDIRECTION AUTOMATIQUE après récupération du profil
+      if (userProfile?.role && typeof window !== 'undefined') {
+        const currentPath = window.location.pathname
+        console.log('📍 Page actuelle:', currentPath)
+        
+        // Préchargement automatique ultra-rapide avant redirection
+        if (userProfile.role === 'clipper') {
+          // Précharger toutes les données du dashboard clipper
+          console.log('⚡ Préchargement dashboard clipper...')
+          const { preloadDashboardData } = await import('@/hooks/useOptimizedData')
+          preloadDashboardData(session.user.id)
+          
+          // Précharger les routes du dashboard
+          setTimeout(() => {
+            if (typeof window !== 'undefined') {
+              const routes = [
+                '/dashboard/clipper',
+                '/dashboard/clipper/clips', 
+                '/dashboard/clipper/revenus',
+                '/dashboard/clipper/leaderboard'
+              ]
+              routes.forEach(route => {
+                const link = document.createElement('link')
+                link.rel = 'prefetch'
+                link.href = route
+                document.head.appendChild(link)
+              })
+              console.log('⚡ Routes dashboard préchargées')
+            }
+          }, 100)
+        }
+        
+        // Ne rediriger que si on est sur les pages d'auth ou d'onboarding
+        // Permettre aux utilisateurs connectés de consulter la page d'accueil
+        if (currentPath.includes('/auth') || currentPath.includes('/onboarding')) {
+          let redirectUrl = ''
+          
+          if (userProfile.role === 'creator') {
+            redirectUrl = '/dashboard/creator'
+          } else if (userProfile.role === 'clipper') {
+            redirectUrl = '/dashboard/clipper'
+          } else if (userProfile.role === 'admin') {
+            redirectUrl = '/admin'
+          }
+          
+          if (redirectUrl) {
+            console.log('🔄 AuthContext: Redirection depuis auth/onboarding vers', redirectUrl)
+            // Petit délai pour permettre le préchargement
+            setTimeout(() => {
+              router.push(redirectUrl)
+            }, 200)
+          }
+        } else {
+          console.log('📍 Page autorisée pour utilisateur connecté, pas de redirection')
+        }
+      }
     } catch (error) {
       console.error('Erreur chargement données:', error)
     } finally {

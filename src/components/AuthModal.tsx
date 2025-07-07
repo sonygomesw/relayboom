@@ -26,7 +26,7 @@ export default function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthM
   const { refreshProfile } = useAuth();
 
   const handleAuth = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault(); // Empêche le rechargement de page
     setLoading(true);
     setMessage('');
 
@@ -90,66 +90,20 @@ export default function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthM
           accessToken: !!newSession.session?.access_token
         });
         
-        // Test 4: Rafraîchir le profil
-        console.log('ÉTAPE 5: Rafraîchissement du profil...');
-        await refreshProfile();
-        console.log('✅ refreshProfile() terminé');
-        
-        // Test 5: Récupérer le profil directement
-        console.log('ÉTAPE 6: Récupération directe du profil...');
-        const { data: profileData, error: profileError } = await supabase
-          .from('profiles')
-          .select('role, pseudo, email')
-          .eq('id', authResult.data.user.id)
-          .single();
-        
-        console.log('📋 Résultat profil:', {
-          hasData: !!profileData,
-          hasError: !!profileError,
-          errorMessage: profileError?.message,
-          errorCode: profileError?.code,
-          profileData: profileData
-        });
-        
-        if (profileError) {
-          console.error('❌ Erreur récupération profil:', profileError);
-          console.log('➡️ Redirection vers onboarding (erreur profil)');
-          router.push('/onboarding/role');
-        } else if (profileData?.role) {
-          console.log('✅ Profil récupéré avec succès:', profileData);
-          
-          // Redirection selon le rôle
-          let redirectUrl = '/';
-          if (profileData.role === 'creator') {
-            redirectUrl = '/dashboard/creator';
-            console.log('➡️ Redirection vers dashboard creator');
-          } else if (profileData.role === 'clipper') {
-            redirectUrl = '/dashboard/clipper';
-            console.log('➡️ Redirection vers dashboard clipper');
-          } else if (profileData.role === 'admin') {
-            redirectUrl = '/admin';
-            console.log('➡️ Redirection vers admin');
-          } else {
-            redirectUrl = '/onboarding/role';
-            console.log('➡️ Redirection vers onboarding (rôle inconnu)');
-          }
-          
-          console.log('ÉTAPE 7: Exécution router.push vers:', redirectUrl);
-          router.push(redirectUrl);
-          console.log('✅ router.push() exécuté');
-        } else {
-          console.log('➡️ Redirection vers onboarding (pas de rôle)');
-          router.push('/onboarding/role');
-        }
-        
-        console.log('ÉTAPE 8: Fermeture du modal...');
+        // SOLUTION : Fermer le modal et laisser AuthContext gérer la redirection
+        console.log('ÉTAPE 5: Fermeture du modal...');
         onClose();
         console.log('✅ Modal fermé');
+        
+        console.log('ÉTAPE 6: Déclenchement de refreshProfile pour AuthContext...');
+        // Déclencher refreshProfile pour que AuthContext détecte la nouvelle session
+        await refreshProfile();
+        console.log('✅ refreshProfile terminé - AuthContext va gérer la redirection');
         
         console.log('🎉 === PROCESSUS DE CONNEXION TERMINÉ ===');
         
       } else {
-        // Code d'inscription inchangé
+        // Code d'inscription
         console.log('📝 Tentative d\'inscription pour:', email);
         const { data, error } = await supabase.auth.signUp({
           email: email.trim(),

@@ -1,104 +1,94 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
-import { supabase } from '@/lib/supabase'
-import {
-  IconDashboard,
-  IconVideo,
-  IconTrendingUp,
-  IconCoin,
-  IconWallet,
+import { useRouter, usePathname } from 'next/navigation'
+import { useAuth } from '@/components/AuthContext'
+import { useInstantNavigation, useOptimizedTransitions } from '@/hooks/useOptimizedData'
+import { 
+  IconHome, 
+  IconVideo, 
+  IconCoin, 
   IconSettings,
+  IconTrendingUp,
   IconLogout,
-  IconPlus,
-  IconLanguage
+  IconChevronRight
 } from '@tabler/icons-react'
-import { useLanguage } from '@/components/LanguageContext'
-import { translations } from '@/lib/translations.new'
-import { Language } from '@/lib/translations.new'
-import { useState, memo } from 'react'
-
-interface SidebarLink {
-  href: string
-  icon: React.ReactNode
-  label: string
-}
-
-interface UserStats {
-  totalEarnings?: number
-  totalViews?: number
-  nextMilestone?: number
-  total_earnings?: number
-  total_views?: number
-  total_submissions?: number
-}
-
-interface Profile {
-  pseudo?: string
-  email?: string
-  role?: string
-}
 
 interface ClipperSidebarProps {
-  userStats: UserStats
-  profile: Profile
+  userStats?: {
+    totalEarnings?: number
+    totalViews?: number
+    totalSubmissions?: number
+    nextMilestone?: number
+  }
+  profile?: {
+    pseudo?: string
+    email?: string
+    role?: string
+  }
 }
 
-// Mémoriser le composant pour éviter les re-rendus inutiles
-const ClipperSidebar = memo(({ userStats, profile }: ClipperSidebarProps) => {
-  const pathname = usePathname()
+export default function ClipperSidebar({ userStats, profile }: ClipperSidebarProps) {
   const router = useRouter()
-  const { language, setLanguage } = useLanguage()
-  const [showLanguageDropdown, setShowLanguageDropdown] = useState(false)
+  const pathname = usePathname()
+  const { user } = useAuth()
+  const { preloadRoute } = useInstantNavigation()
+  const { isTransitioning, startTransition } = useOptimizedTransitions()
 
-  const t = translations[language as Language]
-
-  // Normaliser les stats pour supporter les différents formats
-  const normalizedStats = {
-    totalEarnings: userStats?.totalEarnings || userStats?.total_earnings || 0,
-    totalViews: userStats?.totalViews || userStats?.total_views || 0,
-    totalSubmissions: userStats?.total_submissions || 0,
-    nextMilestone: userStats?.nextMilestone || 1000
-  }
-
-  const languages = [
-    { code: 'en', label: 'English' },
-    { code: 'fr', label: 'Français' },
-    { code: 'es', label: 'Español' },
-    { code: 'it', label: 'Italiano' }
-  ]
-
-  const sidebarLinks: SidebarLink[] = [
+  // Routes du dashboard avec préchargement
+  const routes = [
     {
+      name: 'Dashboard',
       href: '/dashboard/clipper',
-      icon: <IconDashboard className="w-5 h-5" />,
-      label: 'Dashboard'
+      icon: IconHome,
+      description: 'Vue d\'ensemble'
     },
     {
+      name: 'Mes Clips',
       href: '/dashboard/clipper/clips',
-      icon: <IconVideo className="w-5 h-5" />,
-      label: 'Mes Clips'
+      icon: IconVideo,
+      description: 'Gérer mes soumissions'
     },
     {
-      href: '/dashboard/clipper/leaderboard',
-      icon: <IconTrendingUp className="w-5 h-5" />,
-      label: 'Leaderboard'
-    },
-    {
+      name: 'Revenus',
       href: '/dashboard/clipper/revenus',
-      icon: <IconCoin className="w-5 h-5" />,
-      label: 'Revenus'
+      icon: IconCoin,
+      description: 'Suivre mes gains'
     },
     {
+      name: 'Leaderboard',
+      href: '/dashboard/clipper/leaderboard',
+      icon: IconTrendingUp,
+      description: 'Classement des clippers'
+    },
+    {
+      name: 'Paramètres',
       href: '/dashboard/clipper/settings',
-      icon: <IconSettings className="w-5 h-5" />,
-      label: 'Paramètres'
+      icon: IconSettings,
+      description: 'Configuration du compte'
     }
   ]
 
+  // Précharger toutes les routes au premier rendu
+  useEffect(() => {
+    routes.forEach(route => {
+      if (route.href !== pathname) {
+        preloadRoute(route.href)
+      }
+    })
+  }, [pathname, preloadRoute, routes])
+
+  const handleNavigation = (href: string) => {
+    if (href === pathname) return
+    
+    startTransition()
+    router.push(href)
+  }
+
   const handleLogout = async () => {
     try {
+      const { supabase } = await import('@/lib/supabase')
       await supabase.auth.signOut()
       router.push('/')
     } catch (error) {
@@ -106,127 +96,111 @@ const ClipperSidebar = memo(({ userStats, profile }: ClipperSidebarProps) => {
     }
   }
 
-  const formatNumber = (num: number) => {
-    if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M`
-    if (num >= 1000) return `${(num / 1000).toFixed(1)}k`
-    return num.toString()
-  }
-
-  const progressPercentage = Math.min((normalizedStats.totalViews / normalizedStats.nextMilestone) * 100, 100)
-
   return (
-    <aside className="fixed top-0 left-0 h-screen w-96 bg-white border-r border-gray-200 shadow-sm pt-8">
-      <div className="flex flex-col h-full">
-        {/* Header avec profil */}
-        <div className="p-8 border-b border-gray-100">
-          <Link href="/" className="flex items-center mb-6">
-            <img src="/logo.png" alt="ClipTokk" className="h-32" />
-          </Link>
-          
-          {/* Stats utilisateur */}
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">Revenus totaux</span>
-              <span className="font-semibold text-lg">{formatNumber(normalizedStats.totalEarnings)}</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">Vues générées</span>
-              <span className="font-semibold text-lg">{formatNumber(normalizedStats.totalViews)}</span>
-            </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
-              <div 
-                className="bg-gradient-to-r from-green-400 to-blue-500 h-2 rounded-full" 
-                style={{width: `${progressPercentage}%`}}
-              ></div>
-            </div>
+    <div className="fixed left-0 top-0 h-full w-96 bg-white border-r border-gray-200 flex flex-col z-40">
+      {/* Header utilisateur */}
+      <div className="p-8 border-b border-gray-200">
+        <div className="flex items-center gap-4">
+          <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold text-xl">
+            {profile?.pseudo?.[0]?.toUpperCase() || user?.email?.[0]?.toUpperCase() || 'U'}
           </div>
-        </div>
-
-        {/* Navigation */}
-        <nav className="flex-1 px-6 py-4">
-          <ul className="space-y-2">
-            {sidebarLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className={`flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-200 ${
-                    pathname === link.href
-                      ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                  }`}
-                >
-                  {link.icon}
-                  <span className="font-medium">{link.label}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        {/* Profil utilisateur */}
-        <div className="p-6 border-t border-gray-100">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-              <span className="text-white font-semibold text-sm">
-                {profile?.pseudo?.substring(0, 2).toUpperCase() || 'CL'}
-              </span>
-            </div>
-            <div className="flex-1">
-              <p className="font-medium text-gray-900">{profile?.pseudo || 'Clipper'}</p>
-              <p className="text-sm text-gray-500">{profile?.email}</p>
-            </div>
-          </div>
-          
-          <div className="space-y-2">
-            {/* Language Selector */}
-            <div className="relative">
-              <button
-                onClick={() => setShowLanguageDropdown(!showLanguageDropdown)}
-                className="w-full flex items-center gap-3 px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-50 transition-colors"
-              >
-                <IconLanguage className="w-5 h-5" />
-                <span>{(translations as any)[language]?.nav?.language || 'Language'}</span>
-              </button>
-              
-              {showLanguageDropdown && (
-                <div className="absolute bottom-full left-0 mb-2 w-full bg-white rounded-lg border border-gray-200 shadow-lg">
-                  {languages.map((lang) => (
-                    <button
-                      key={lang.code}
-                      onClick={() => {
-                        setLanguage(lang.code as any)
-                        setShowLanguageDropdown(false)
-                      }}
-                      className={`w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors ${
-                        language === lang.code ? 'text-blue-600 font-medium' : 'text-gray-700'
-                      }`}
-                    >
-                      {lang.label}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            <Link
-              href="/dashboard/clipper/settings"
-              className="flex items-center gap-3 px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-50 transition-colors w-full"
-            >
-              <IconSettings className="w-5 h-5" />
-              <span>Paramètres</span>
-            </Link>
-            <button
-              onClick={handleLogout}
-              className="w-full flex items-center gap-3 px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-50 transition-colors"
-            >
-              <IconLogout className="w-5 h-5" />
-              <span>Déconnexion</span>
-            </button>
+          <div className="flex-1">
+            <h2 className="text-xl font-bold text-gray-900">
+              {profile?.pseudo || user?.email?.split('@')[0] || 'Utilisateur'}
+            </h2>
+            <p className="text-sm text-gray-600 capitalize">
+              {profile?.role || 'Clipper'}
+            </p>
           </div>
         </div>
       </div>
-    </aside>
-  )
-})
 
-export default ClipperSidebar 
+      {/* Stats rapides */}
+      <div className="p-6 border-b border-gray-200 bg-gray-50">
+        <div className="grid grid-cols-2 gap-4">
+          <div className="bg-white rounded-lg p-4">
+            <div className="text-2xl font-bold text-green-600">
+              {userStats?.totalEarnings?.toFixed(2) || '0.00'}€
+            </div>
+            <div className="text-xs text-gray-600">Revenus total</div>
+          </div>
+          <div className="bg-white rounded-lg p-4">
+            <div className="text-2xl font-bold text-blue-600">
+              {userStats?.totalViews?.toLocaleString() || '0'}
+            </div>
+            <div className="text-xs text-gray-600">Vues totales</div>
+          </div>
+        </div>
+        
+        {/* Progression vers prochain palier */}
+        {userStats?.nextMilestone && (
+          <div className="mt-4">
+            <div className="flex justify-between text-xs text-gray-600 mb-1">
+              <span>Prochain palier</span>
+              <span>{userStats.nextMilestone}€</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-2">
+              <div 
+                className="bg-gradient-to-r from-green-500 to-blue-500 h-2 rounded-full transition-all duration-500"
+                style={{
+                  width: `${Math.min(((userStats.totalEarnings || 0) / userStats.nextMilestone) * 100, 100)}%`
+                }}
+              />
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Navigation */}
+      <nav className="flex-1 p-6">
+        <div className="space-y-2">
+          {routes.map((route) => {
+            const Icon = route.icon
+            const isActive = pathname === route.href
+            
+            return (
+              <button
+                key={route.href}
+                onClick={() => handleNavigation(route.href)}
+                onMouseEnter={() => preloadRoute(route.href)}
+                className={`
+                  w-full flex items-center gap-4 p-4 rounded-xl text-left transition-all duration-150
+                  ${isActive 
+                    ? 'bg-blue-50 text-blue-700 shadow-sm' 
+                    : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                  }
+                  ${isTransitioning ? 'opacity-75' : ''}
+                `}
+              >
+                <Icon className={`w-6 h-6 ${isActive ? 'text-blue-600' : 'text-gray-500'}`} />
+                <div className="flex-1">
+                  <div className="font-medium">{route.name}</div>
+                  <div className="text-xs text-gray-500">{route.description}</div>
+                </div>
+                {isActive && (
+                  <IconChevronRight className="w-5 h-5 text-blue-600" />
+                )}
+              </button>
+            )
+          })}
+        </div>
+      </nav>
+
+      {/* Footer actions */}
+      <div className="p-6 border-t border-gray-200">
+        <button
+          onClick={handleLogout}
+          className="w-full flex items-center gap-3 p-4 text-red-600 hover:bg-red-50 rounded-xl transition-colors"
+        >
+          <IconLogout className="w-5 h-5" />
+          <span className="font-medium">Se déconnecter</span>
+        </button>
+      </div>
+
+      {/* Indicateur de transition */}
+      {isTransitioning && (
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-600 animate-pulse" />
+      )}
+    </div>
+  )
+} 

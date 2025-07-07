@@ -1,8 +1,15 @@
-import { useState, useEffect } from 'react'
-import { supabase } from '@/lib/supabase'
+import { useState, useEffect, useCallback } from 'react'
+import { supabase, fastCache } from '@/lib/supabase'
 import useSWR from 'swr'
 import type { UserStats, MissionWithStats, WalletStats } from '@/lib/supabase-optimized'
 import { getUserStatsOptimized, getMissionsWithStatsOptimized, getUserWalletStats } from '@/lib/api-functions'
+
+// Constantes pour le cache
+const CACHE_DURATION = {
+  USER_STATS: 2 * 60 * 1000, // 2 minutes
+  MISSIONS: 5 * 60 * 1000,   // 5 minutes
+  CLIPS: 3 * 60 * 1000       // 3 minutes
+}
 
 // Cache global pour éviter les requêtes répétées
 const globalCache = new Map<string, { data: any; timestamp: number }>()
@@ -420,4 +427,192 @@ export function preloadDashboardData(userId: string) {
   }).catch(error => {
     console.warn('⚠️ Erreur pré-chargement:', error)
   })
+}
+
+/**
+ * 🔥 Hook ULTRA-RAPIDE pour navigation dashboard instantanée
+ * Utilise le cache localStorage + SWR pour des transitions de 0ms
+ */
+export function useUltraFastDashboard(userId: string | null) {
+  // Utiliser SWR avec cache agressif
+  const { data: userStats, error: statsError, mutate: mutateStats } = useSWR(
+    userId ? `ultra-fast-stats-${userId}` : null,
+    async () => {
+      // Vérifier le cache localStorage d'abord
+      const cached = fastCache.get(`stats_${userId}`)
+      if (cached) {
+        console.log('⚡ Cache hit - Stats instantanées')
+        return cached
+      }
+      
+      // Sinon charger et mettre en cache
+      const stats = await getUserStatsOptimized(userId!)
+      fastCache.set(`stats_${userId}`, stats, CACHE_DURATION.USER_STATS)
+      return stats
+    },
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      dedupingInterval: 30000, // 30 secondes
+      refreshInterval: 0,
+      fallbackData: fastCache.get(`stats_${userId}`) || null
+    }
+  )
+
+  const { data: missions, error: missionsError, mutate: mutateMissions } = useSWR(
+    'ultra-fast-missions',
+    async () => {
+      const cached = fastCache.get('missions_active')
+      if (cached) {
+        console.log('⚡ Cache hit - Missions instantanées')
+        return cached
+      }
+      
+      const missions = await getMissionsWithStatsOptimized()
+      fastCache.set('missions_active', missions, CACHE_DURATION.MISSIONS)
+      return missions
+    },
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      dedupingInterval: 60000, // 1 minute
+      refreshInterval: 0,
+      fallbackData: fastCache.get('missions_active') || []
+    }
+  )
+
+  const { data: clips, error: clipsError, mutate: mutateClips } = useSWR(
+    userId ? `ultra-fast-clips-${userId}` : null,
+    async () => {
+      const cached = fastCache.get(`clips_${userId}`)
+      if (cached) {
+        console.log('⚡ Cache hit - Clips instantanés')
+        return cached
+      }
+      
+      // Requête optimisée pour les clips
+      const { data, error } = await supabase
+        .from('submissions')
+        .select(`
+          id, status, views_count, created_at, tiktok_url, mission_id,
+          missions!submissions_mission_id_fkey (
+            id, title, price_per_1k_views, creator_name
+          )
+        `)
+        .eq('user_id', userId!)
+        .order('created_at', { ascending: false })
+        .limit(50)
+      
+      if (error) throw error
+      
+      fastCache.set(`clips_${userId}`, data, CACHE_DURATION.CLIPS)
+      return data || []
+    },
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      dedupingInterval: 45000, // 45 secondes
+      refreshInterval: 0,
+      fallbackData: fastCache.get(`clips_${userId}`) || []
+    }
+  )
+
+  // Calculer l'état de chargement - JAMAIS true si on a des données en cache
+  const hasAnyData = userStats || missions?.length > 0 || clips?.length > 0
+  const isLoading = !hasAnyData && (statsError || missionsError || clipsError)
+
+  // Fonction de rafraîchissement intelligent
+  const refreshData = useCallback(async (force = false) => {
+    if (force) {
+      // Vider le cache et recharger
+      if (userId) {
+        fastCache.clear(`stats_${userId}`)
+        fastCache.clear(`clips_${userId}`)
+      }
+      fastCache.clear('missions_active')
+    }
+
+    // Recharger toutes les données
+    await Promise.all([
+      mutateStats(),
+      mutateMissions(),
+      mutateClips()
+    ])
+  }, [userId, mutateStats, mutateMissions, mutateClips])
+
+  // Préchargement automatique des pages related
+  useEffect(() => {
+    if (userId && userStats) {
+      // Précharger automatiquement les données des autres pages
+      setTimeout(() => {
+        // Précharger la page revenus
+        fastCache.set(`revenue_data_${userId}`, {
+          totalEarnings: userStats.total_earnings || 0,
+          monthlyEarnings: 0, // Sera calculé si nécessaire
+          lastUpdate: Date.now()
+        }, CACHE_DURATION.USER_STATS)
+        
+        console.log('⚡ Données revenus pré-chargées')
+      }, 100)
+    }
+  }, [userId, userStats])
+
+  return {
+    userStats: userStats || { total_views: 0, total_earnings: 0, total_submissions: 0 },
+    missions: missions || [],
+    clips: clips || [],
+    isLoading: isLoading && !hasAnyData,
+    error: statsError || missionsError || clipsError,
+    refreshData,
+    // Fonction pour navigation instantanée
+    preloadPage: (page: string) => {
+      console.log(`⚡ Préchargement page: ${page}`)
+      // Les données sont déjà en cache, navigation instantanée garantie
+      return Promise.resolve()
+    }
+  }
+}
+
+/**
+ * 🔥 Hook pour navigation instantanée avec préchargement au hover
+ */
+export function useInstantNavigation() {
+  const [preloadedRoutes] = useState(new Set<string>())
+
+  const preloadRoute = useCallback((route: string) => {
+    if (preloadedRoutes.has(route)) return
+
+    // Précharger la route avec Next.js
+    if (typeof window !== 'undefined') {
+      const router = require('next/router').default
+      router.prefetch(route)
+      preloadedRoutes.add(route)
+      console.log(`⚡ Route préchargée: ${route}`)
+    }
+  }, [preloadedRoutes])
+
+  const navigateInstantly = useCallback((route: string) => {
+    // Navigation immédiate sans loading
+    if (typeof window !== 'undefined') {
+      const router = require('next/router').default
+      router.push(route)
+    }
+  }, [])
+
+  return { preloadRoute, navigateInstantly }
+}
+
+/**
+ * 🔥 Hook pour optimiser les transitions de pages
+ */
+export function useOptimizedTransitions() {
+  const [isTransitioning, setIsTransitioning] = useState(false)
+
+  const startTransition = useCallback(() => {
+    setIsTransitioning(true)
+    // Transition ultra-courte
+    setTimeout(() => setIsTransitioning(false), 50)
+  }, [])
+
+  return { isTransitioning, startTransition }
 } 

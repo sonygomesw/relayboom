@@ -3,30 +3,25 @@
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from './LanguageContext';
 import LanguageSelector from './LanguageSelector';
-import AuthModal from './AuthModal';
 import VideoCarouselDemo from './VideoCarouselDemo';
 import ExpandableCardDemo from './expandable-card-demo-standard';
-
+import AuthModal from './AuthModal';
 
 export default function HomePage() {
   const { t } = useLanguage();
+  const [mounted, setMounted] = useState(false);
+  const [viewsCount, setViewsCount] = useState(100000);
+  const [showStickyCTA, setShowStickyCTA] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authModalMode, setAuthModalMode] = useState<'login' | 'signup' | 'clipper-signup'>('login');
-  const [mounted, setMounted] = useState(false);
-  const [viewsCount, setViewsCount] = useState(100000); // Default value for the simulator
-  const [showStickyCTA, setShowStickyCTA] = useState(false);
 
   useEffect(() => {
     setMounted(true);
     
-    // Show sticky CTA on scroll (mobile only)
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
-      const isMobile = window.innerWidth < 768;
-      
-      // Show after scrolling 1 viewport height on mobile
-      setShowStickyCTA(scrollY > windowHeight && isMobile);
+      setShowStickyCTA(scrollY > windowHeight * 0.5);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -76,8 +71,8 @@ export default function HomePage() {
               {/* Login Button */}
               <button
                 onClick={() => {
-                  setAuthModalMode('login')
-                  setIsAuthModalOpen(true)
+                  setAuthModalMode('login');
+                  setIsAuthModalOpen(true);
                 }}
                 className="px-4 py-2 text-sm font-medium text-gray-400 hover:text-gray-700 hover:bg-gray-50 rounded-lg transition-all duration-200"
               >
@@ -87,8 +82,8 @@ export default function HomePage() {
               {/* CTA Button */}
               <button
                 onClick={() => {
-                  setAuthModalMode('clipper-signup')
-                  setIsAuthModalOpen(true)
+                  setAuthModalMode('clipper-signup');
+                  setIsAuthModalOpen(true);
                 }}
                 className="group inline-flex items-center px-6 py-2.5 text-sm font-semibold text-white bg-primary-500 hover:bg-primary-600 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
               >
@@ -133,26 +128,22 @@ export default function HomePage() {
                 <div className="mt-12 sm:mt-16 flex flex-col sm:flex-row sm:justify-center lg:justify-start gap-4 animate-fade-in">
                   <button
                     onClick={() => {
-                      setAuthModalMode('signup')
-                      setIsAuthModalOpen(true)
+                      setAuthModalMode('clipper-signup');
+                      setIsAuthModalOpen(true);
                     }}
                     className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-primary-500 hover:bg-primary-600 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                   >
-                    <span className="relative z-10">{t.hero.ctaPrimary}</span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary-600 to-primary-700 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+                    {t.hero.ctaPrimary}
                   </button>
                   
                   <button
                     onClick={() => {
-                      setAuthModalMode('clipper-signup')
-                      setIsAuthModalOpen(true)
+                      setAuthModalMode('clipper-signup');
+                      setIsAuthModalOpen(true);
                     }}
                     className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-gray-700 bg-white hover:bg-gray-50 border border-gray-200 hover:border-gray-300 rounded-xl shadow-sm transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
                   >
                     {t.hero.ctaSecondary}
-                    <svg className="ml-2 w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
                   </button>
                 </div>
 
@@ -376,8 +367,8 @@ export default function HomePage() {
             
             <button
               onClick={() => {
-                setAuthModalMode('clipper-signup')
-                setIsAuthModalOpen(true)
+                // setAuthModalMode('clipper-signup') // This line is removed
+                // setIsAuthModalOpen(true) // This line is removed
               }}
               className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-primary-500 hover:bg-primary-600 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
             >
@@ -523,12 +514,12 @@ export default function HomePage() {
                 <div className="text-center">
                   <button
                     onClick={() => {
-                      setAuthModalMode('clipper-signup')
-                      setIsAuthModalOpen(true)
+                      setAuthModalMode('clipper-signup');
+                      setIsAuthModalOpen(true);
                     }}
-                    className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white px-10 py-4 rounded-2xl font-bold text-lg transition-all duration-200 transform hover:scale-105 shadow-lg"
+                    className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-primary-500 hover:bg-primary-600 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                   >
-                    Je veux gagner ça ! 🚀
+                    {t.cta.button}
                   </button>
                 </div>
               </div>
@@ -605,8 +596,8 @@ export default function HomePage() {
                 
                 <button 
                   onClick={() => {
-                    setAuthModalMode('clipper-signup')
-                    setIsAuthModalOpen(true)
+                    setAuthModalMode('clipper-signup');
+                    setIsAuthModalOpen(true);
                   }}
                   className="w-full bg-primary-600 hover:bg-primary-700 text-white py-3 px-4 rounded-xl font-semibold transition-all duration-200 group-hover:shadow-md"
                 >
@@ -662,8 +653,8 @@ export default function HomePage() {
                 
                 <button 
                   onClick={() => {
-                    setAuthModalMode('clipper-signup')
-                    setIsAuthModalOpen(true)
+                    setAuthModalMode('clipper-signup');
+                    setIsAuthModalOpen(true);
                   }}
                   className="w-full bg-primary-600 hover:bg-primary-700 text-white py-3 px-4 rounded-xl font-semibold transition-all duration-200 group-hover:shadow-md"
                 >
@@ -719,8 +710,8 @@ export default function HomePage() {
                 
                 <button 
                   onClick={() => {
-                    setAuthModalMode('clipper-signup')
-                    setIsAuthModalOpen(true)
+                    setAuthModalMode('clipper-signup');
+                    setIsAuthModalOpen(true);
                   }}
                   className="w-full bg-primary-600 hover:bg-primary-700 text-white py-3 px-4 rounded-xl font-semibold transition-all duration-200 group-hover:shadow-md"
                 >
@@ -767,8 +758,8 @@ export default function HomePage() {
                 </div>
                 <button 
                   onClick={() => {
-                    setAuthModalMode('clipper-signup')
-                    setIsAuthModalOpen(true)
+                    setAuthModalMode('clipper-signup');
+                    setIsAuthModalOpen(true);
                   }}
                   className="w-full bg-primary-600 hover:bg-primary-700 text-white py-2 px-3 rounded-lg text-sm font-semibold transition-all duration-200"
                 >
@@ -805,8 +796,8 @@ export default function HomePage() {
                 </div>
                 <button 
                   onClick={() => {
-                    setAuthModalMode('clipper-signup')
-                    setIsAuthModalOpen(true)
+                    setAuthModalMode('clipper-signup');
+                    setIsAuthModalOpen(true);
                   }}
                   className="w-full bg-primary-600 hover:bg-primary-700 text-white py-2 px-3 rounded-lg text-sm font-semibold transition-all duration-200"
                 >
@@ -843,8 +834,8 @@ export default function HomePage() {
                 </div>
                 <button 
                   onClick={() => {
-                    setAuthModalMode('clipper-signup')
-                    setIsAuthModalOpen(true)
+                    setAuthModalMode('clipper-signup');
+                    setIsAuthModalOpen(true);
                   }}
                   className="w-full bg-primary-600 hover:bg-primary-700 text-white py-2 px-3 rounded-lg text-sm font-semibold transition-all duration-200"
                 >
@@ -881,8 +872,8 @@ export default function HomePage() {
                 </div>
                 <button 
                   onClick={() => {
-                    setAuthModalMode('clipper-signup')
-                    setIsAuthModalOpen(true)
+                    setAuthModalMode('clipper-signup');
+                    setIsAuthModalOpen(true);
                   }}
                   className="w-full bg-primary-600 hover:bg-primary-700 text-white py-2 px-3 rounded-lg text-sm font-semibold transition-all duration-200"
                 >
@@ -896,8 +887,8 @@ export default function HomePage() {
           <div className="text-center">
             <button
               onClick={() => {
-                setAuthModalMode('clipper-signup')
-                setIsAuthModalOpen(true)
+                setAuthModalMode('clipper-signup');
+                setIsAuthModalOpen(true);
               }}
               className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-primary-500 hover:bg-primary-600 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
             >
@@ -1037,8 +1028,8 @@ export default function HomePage() {
           </p>
           <button
             onClick={() => {
-              setAuthModalMode('clipper-signup')
-              setIsAuthModalOpen(true)
+              setAuthModalMode('clipper-signup');
+              setIsAuthModalOpen(true);
             }}
             className="inline-flex items-center px-12 py-5 text-lg font-semibold rounded-full text-green-600 bg-white hover:bg-gray-50 shadow-2xl transition-all duration-300 transform hover:scale-105"
           >
@@ -1129,8 +1120,8 @@ export default function HomePage() {
         <div className="fixed bottom-4 left-4 right-4 z-50 md:hidden">
           <button
             onClick={() => {
-              setAuthModalMode('clipper-signup')
-              setIsAuthModalOpen(true)
+              setAuthModalMode('clipper-signup');
+              setIsAuthModalOpen(true);
             }}
             className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-4 px-6 rounded-full font-semibold text-lg shadow-2xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
           >
@@ -1142,11 +1133,12 @@ export default function HomePage() {
         </div>
       )}
 
+      {/* Auth Modal */}
       <AuthModal
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
         mode={authModalMode}
-        onModeChange={setAuthModalMode}
+        onModeChange={(mode) => setAuthModalMode(mode)}
       />
     </div>
   );
