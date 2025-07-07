@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
+import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import { useAuth } from './AuthContext'
 import { IconX, IconMail, IconLock, IconUser, IconBrandTiktok } from '@tabler/icons-react'
@@ -21,6 +22,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const { refreshProfile } = useAuth()
+  const router = useRouter()
 
   const handleAuth = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -57,6 +59,39 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
         await refreshProfile()
         console.log('Profil rafraîchi, fermeture du modal...')
         onClose()
+        
+        // Redirection vers le dashboard après connexion réussie
+        console.log('Redirection vers le dashboard...')
+        
+        // Petit délai pour laisser le temps au profil de se charger
+        setTimeout(async () => {
+          try {
+            // Récupérer le profil depuis le contexte pour déterminer la redirection
+            const { data: { session } } = await supabase.auth.getSession()
+            
+            if (session?.user) {
+              const { data: profile } = await supabase
+                .from('profiles')
+                .select('role')
+                .eq('id', session.user.id)
+                .single()
+              
+              if (profile?.role === 'creator') {
+                router.push('/dashboard/creator')
+              } else if (profile?.role === 'clipper') {
+                router.push('/dashboard/clipper')
+              } else if (profile?.role === 'admin') {
+                router.push('/admin')
+              } else {
+                router.push('/dashboard')
+              }
+            }
+          } catch (error) {
+            console.error('Erreur lors de la redirection:', error)
+            // Redirection par défaut si erreur
+            router.push('/dashboard')
+          }
+        }, 500)
       } else {
         console.log('Tentative d\'inscription...')
         const { data, error } = await supabase.auth.signUp({
