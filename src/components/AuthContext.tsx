@@ -106,9 +106,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           }, 100)
         }
         
-        // Ne rediriger que si on est sur les pages d'auth ou d'onboarding
-        // Permettre aux utilisateurs connectés de consulter la page d'accueil
-        if (currentPath.includes('/auth') || currentPath.includes('/onboarding')) {
+        // Rediriger vers le dashboard approprié si on n'y est pas déjà
+        if (!currentPath.includes('/dashboard') && !currentPath.includes('/admin')) {
           let redirectUrl = ''
           
           if (userProfile.role === 'creator') {
@@ -120,14 +119,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           }
           
           if (redirectUrl) {
-            console.log('🔄 AuthContext: Redirection depuis auth/onboarding vers', redirectUrl)
+            console.log('🔄 AuthContext: Redirection vers', redirectUrl)
             // Petit délai pour permettre le préchargement
             setTimeout(() => {
               router.push(redirectUrl)
             }, 200)
           }
         } else {
-          console.log('📍 Page autorisée pour utilisateur connecté, pas de redirection')
+          console.log('📍 Déjà sur le dashboard, pas de redirection')
         }
       }
     } catch (error) {
