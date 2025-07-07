@@ -124,4 +124,14 @@ export const QuickSkeleton = ({ lines = 3 }: { lines?: number }) => (
       <div key={i} className="h-4 bg-gray-200 rounded"></div>
     ))}
   </div>
-) 
+)
+
+// Default export for backward compatibility
+const SkeletonLoader = {
+  DashboardSkeleton,
+  ClipsSkeleton,
+  MissionsSkeleton,
+  QuickSkeleton
+}
+
+export default SkeletonLoader 
