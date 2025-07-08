@@ -76,13 +76,13 @@ export default function ClipperClips() {
 
   // Paliers disponibles
   const paliers = [
-    { views: 1000, label: '1K', color: 'bg-blue-100 text-blue-800 hover:bg-blue-200' },
-    { views: 5000, label: '5K', color: 'bg-green-100 text-green-800 hover:bg-green-200' },
-    { views: 10000, label: '10K', color: 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200' },
-    { views: 50000, label: '50K', color: 'bg-orange-100 text-orange-800 hover:bg-orange-200' },
-    { views: 100000, label: '100K', color: 'bg-red-100 text-red-800 hover:bg-red-200' },
-    { views: 500000, label: '500K', color: 'bg-purple-100 text-purple-800 hover:bg-purple-200' },
-    { views: 1000000, label: '1M', color: 'bg-pink-100 text-pink-800 hover:bg-pink-200' }
+    { views: 1000, label: '1K', color: 'bg-white text-black hover:bg-gray-50' },
+    { views: 5000, label: '5K', color: 'bg-white text-black hover:bg-gray-50' },
+    { views: 10000, label: '10K', color: 'bg-white text-black hover:bg-gray-50' },
+    { views: 50000, label: '50K', color: 'bg-white text-black hover:bg-gray-50' },
+    { views: 100000, label: '100K', color: 'bg-white text-black hover:bg-gray-50' },
+    { views: 500000, label: '500K', color: 'bg-white text-black hover:bg-gray-50' },
+    { views: 1000000, label: '1M', color: 'bg-white text-black hover:bg-gray-50' }
   ]
 
   // Charger les données
@@ -437,7 +437,7 @@ export default function ClipperClips() {
                             <button
                               key={palier.views}
                               onClick={() => openPalierModal(clip, palier.views)}
-                              className={`relative p-3 rounded-xl text-center transition-all duration-200 hover:scale-105 hover:shadow-md ${palier.color} border-2 border-transparent hover:border-white`}
+                              className={`relative p-3 rounded-xl text-center transition-all duration-200 hover:scale-105 hover:shadow-md ${palier.color} border-2 border-black hover:border-gray-600`}
                             >
                               <div className="font-bold text-lg">{palier.label}</div>
                               <div className="text-xs opacity-75">{formatNumber(palier.views)} vues</div>
