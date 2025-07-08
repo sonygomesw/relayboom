@@ -314,12 +314,12 @@ export default function SubmitClipPage() {
     setIsSubmitting(true)
     setErrors({}) // Reset des erreurs
 
-    // Timeout de sécurité pour débloquer l'interface
+    // ✅ Timeout de sécurité réduit à 5 secondes
     const safetyTimeout = setTimeout(() => {
-      console.log('⏰ TIMEOUT DE SÉCURITÉ - Déblocage de l\'interface')
+      console.log('⏰ TIMEOUT DE SÉCURITÉ - Déblocage de l\'interface (5s)')
       setIsSubmitting(false)
-      setErrors({ submit: 'La soumission prend trop de temps. Vérifiez votre dashboard ou réessayez.' })
-    }, 8000) // 8 secondes
+      setErrors({ submit: 'PROBLÈME IDENTIFIÉ: Timeout insertion Supabase. Exécutez le script de fix en base.' })
+    }, 5000) // 5 secondes max !
 
     try {
       // 1. ✅ Vérifier l'authentification active
@@ -491,15 +491,37 @@ export default function SubmitClipPage() {
 
       console.log('✅ Aucun doublon trouvé')
 
-      // 7. ✅ Insertion avec gestion d'erreur détaillée
-      console.log('🔍 ÉTAPE 7: Insertion Supabase...')
+      // 7. ✅ Insertion avec timeout ultra-agressif
+      console.log('🔍 ÉTAPE 7: Insertion Supabase avec timeout...')
       console.log('⏱️ Début requête à', new Date().toISOString())
       
       const startTime = Date.now()
-      const { data, error } = await supabase
+      
+      // ✅ SOLUTION TIMEOUT ULTRA-RAPIDE
+      const insertPromise = supabase
         .from('submissions')
         .insert(insertData)
         .select()
+      
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => {
+          reject(new Error('TIMEOUT_INSERTION_3S'))
+        }, 3000) // 3 secondes max !
+      })
+      
+      let data, error
+      try {
+        const result = await Promise.race([insertPromise, timeoutPromise]) as any
+        data = result.data
+        error = result.error
+      } catch (timeoutError: any) {
+        if (timeoutError.message === 'TIMEOUT_INSERTION_3S') {
+          console.error('❌ TIMEOUT ATTEINT - 3 secondes')
+          setErrors({ submit: 'La soumission prend trop de temps. Le problème est identifié - contactez le support.' })
+          return
+        }
+        throw timeoutError
+      }
 
       const endTime = Date.now()
       console.log(`⏱️ Temps de réponse: ${endTime - startTime}ms`)
@@ -512,7 +534,7 @@ export default function SubmitClipPage() {
         console.error('   Hint:', error.hint)
         console.error('   Objet complet:', error)
         
-        // Gestion des erreurs spécifiques
+        // ✅ Gestion d'erreurs spécifiques optimisée
         if (error.code === '23505') {
           console.log('🔄 Doublon détecté (constraint unique)')
           setErrors({ submit: 'Vous avez déjà soumis un clip pour cette mission.' })
@@ -526,14 +548,27 @@ export default function SubmitClipPage() {
           return
         }
         
+        if (error.code === '42501') {
+          console.log('❌ Problème RLS/permissions')
+          setErrors({ submit: 'Problème de permissions. Reconnectez-vous et réessayez.' })
+          return
+        }
+        
         if (error.code === '42703') {
           console.log('❌ Colonne inexistante dans la table submissions')
           setErrors({ submit: 'Erreur de structure de données. Contactez le support.' })
           return
         }
         
-        // Erreur générique
-        setErrors({ submit: `Erreur de soumission: ${error.message}` })
+        if (error.message?.includes('statement timeout')) {
+          console.log('❌ Timeout au niveau base de données')
+          setErrors({ submit: 'La base de données met trop de temps à répondre. Réessayez.' })
+          return
+        }
+        
+        // Erreur générique avec plus de détails
+        console.error('❌ Erreur non gérée:', { code: error.code, message: error.message })
+        setErrors({ submit: `Erreur de soumission (${error.code || 'UNKNOWN'}): ${error.message}` })
         return
       }
 
