@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from './LanguageContext';
 import LanguageSelector from './LanguageSelector';
-import AuthModal from './AuthModal';
+import AuthModalUltraSimple from './AuthModalUltraSimple';
 import VideoCarouselDemo from './VideoCarouselDemo';
 import ExpandableCardDemo from './expandable-card-demo-standard';
 
@@ -1142,11 +1142,9 @@ export default function HomePage() {
         </div>
       )}
 
-      <AuthModal
+      <AuthModalUltraSimple
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
-        mode={authModalMode}
-        onModeChange={setAuthModalMode}
       />
     </div>
   );

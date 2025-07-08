@@ -303,14 +303,31 @@ export default function SubmitClipPage() {
     console.log('🚀 DÉBUT SOUMISSION CLIP')
     console.log('========================')
     
-    if (!validateForm() || !mission) {
+    // ✅ DEBUG: Vérifier pourquoi handleSubmit n'est pas appelé
+    console.log('🔍 DEBUG AVANT VALIDATION:')
+    console.log('  - Event preventDefault appelé:', true)
+    console.log('  - formData:', formData)
+    console.log('  - mission exists:', !!mission)
+    console.log('  - isSubmitting:', isSubmitting)
+    console.log('  - errors actuels:', errors)
+    
+    // ✅ DEBUG: Test de validateForm en détail
+    console.log('🔍 TEST VALIDATION DÉTAILLÉE:')
+    const validationResult = validateForm()
+    console.log('  - validateForm() retourne:', validationResult)
+    console.log('  - errors après validation:', errors)
+    
+    if (!validationResult || !mission) {
       console.log('❌ VALIDATION ÉCHOUÉE')
-      console.log('  - validateForm():', validateForm())
+      console.log('  - validateForm():', validationResult)
       console.log('  - mission exists:', !!mission)
       console.log('  - errors:', errors)
+      console.log('  - ARRÊT DU PROCESSUS')
       return
     }
 
+    console.log('✅ VALIDATION RÉUSSIE - DÉBUT TRAITEMENT')
+    
     setIsSubmitting(true)
     setErrors({}) // Reset des erreurs
 
@@ -820,7 +837,11 @@ export default function SubmitClipPage() {
                 Soumettre ton clip
               </h3>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={(e) => {
+                console.log('🟡 FORM SUBMIT DÉCLENCHÉ - Événement:', e.type)
+                console.log('🟡 isSubmitting avant handleSubmit:', isSubmitting)
+                handleSubmit(e)
+              }} className="space-y-6">
                 {/* URL TikTok - Simplifié */}
                 <div>
                   <label className="block text-sm font-bold text-gray-700 mb-2">
