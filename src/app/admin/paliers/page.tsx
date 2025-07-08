@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import RoleProtectionOptimized from '@/components/RoleProtectionOptimized'
-import { useAuth } from '@/components/AuthContext'
+import { useAuth } from '@/components/AuthNew'
 import { useLanguage } from '@/components/LanguageContext'
 import { clipperTranslations } from '@/lib/clipper-translations'
 import { 

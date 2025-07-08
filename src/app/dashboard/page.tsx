@@ -6,7 +6,7 @@ import { supabase } from '@/lib/supabase';
 import { useLanguage } from '@/components/LanguageContext';
 import { dashboardTranslations } from '@/lib/dashboard-translations';
 import { Language } from '@/lib/types/translations';
-import { useAuth } from '@/components/AuthContext';
+import { useAuth } from '@/components/AuthNew';
 
 export default function DashboardRedirect() {
   const [loading, setLoading] = useState(true);

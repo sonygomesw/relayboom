@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
-import { useAuth } from '@/components/AuthContext'
+import { useAuth } from '@/components/AuthNew'
 import Link from 'next/link'
 import { IconDatabase, IconCheck, IconX, IconEye, IconTarget, IconUser, IconVideo } from '@tabler/icons-react'
 

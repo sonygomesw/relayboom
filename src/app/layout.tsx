@@ -2,9 +2,9 @@ import './globals.css'
 import { Suspense } from 'react'
 import { Inter } from 'next/font/google'
 import { Metadata } from 'next'
-import { AuthProvider } from '@/components/AuthContext'
+import { AuthProvider } from '@/components/AuthNew'
 import { LanguageProvider } from '@/components/LanguageContext'
-import { SWRProvider } from '@/components/SWRProvider'
+
 import { Analytics } from '@vercel/analytics/react'
 import Loading from './loading'
 
@@ -67,15 +67,13 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/favicon.svg" />
       </head>
       <body className={inter.className}>
-        <SWRProvider>
-          <LanguageProvider>
-            <AuthProvider>
-              <Suspense fallback={<Loading />}>
-                {children}
-              </Suspense>
-            </AuthProvider>
-          </LanguageProvider>
-        </SWRProvider>
+        <LanguageProvider>
+          <AuthProvider>
+            <Suspense fallback={<Loading />}>
+              {children}
+            </Suspense>
+          </AuthProvider>
+        </LanguageProvider>
         <Analytics />
       </body>
     </html>

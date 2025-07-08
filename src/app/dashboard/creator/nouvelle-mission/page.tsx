@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useAuth } from '@/components/AuthContext'
+import { useAuth } from '@/components/AuthNew'
 import RoleProtectionOptimized from '@/components/RoleProtectionOptimized'
 import { cliptokkAPI } from '@/lib/supabase'
 import { 

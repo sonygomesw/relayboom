@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useAuth } from '@/components/AuthContext'
+import { useAuth } from '@/components/AuthNew'
 import { useLanguage } from '@/components/LanguageContext'
 import RoleProtectionOptimized from '@/components/RoleProtectionOptimized'
 import { supabase } from '@/lib/supabase'

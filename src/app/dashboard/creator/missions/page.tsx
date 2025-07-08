@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import RoleProtectionOptimized from '@/components/RoleProtectionOptimized'
-import { useAuth } from '@/components/AuthContext'
+import { useAuth } from '@/components/AuthNew'
 import { usePreloadedData, useSmartPreload, useCacheOptimization } from '@/hooks/usePreloadedData'
 import { DashboardSkeleton } from '@/components/SkeletonLoader'
 import { 

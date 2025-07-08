@@ -3,7 +3,7 @@
 import { useState, useMemo, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import RoleProtectionOptimized from '@/components/RoleProtectionOptimized'
-import { useAuth } from '@/components/AuthContext'
+import { useAuth } from '@/components/AuthNew'
 import { cliptokkAPI } from '@/lib/supabase'
 import ClipperSidebar from '@/components/ClipperSidebar'
 import { DashboardSkeleton } from '@/components/SkeletonLoader'

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import Link from 'next/link'
-import { useAuth } from '@/components/AuthContext'
+import { useAuth } from '@/components/AuthNew'
 import ClipperSidebar from '@/components/ClipperSidebar'
 import { IconEye, IconCoin, IconTrendingUp, IconVideo, IconStar, IconArrowRight, IconClock, IconTarget, IconUser, IconDashboard } from '@tabler/icons-react'
 

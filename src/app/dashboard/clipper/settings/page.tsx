@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useAuth } from '@/components/AuthContext'
+import { useAuth } from '@/components/AuthNew'
 import RoleProtectionOptimized from '@/components/RoleProtectionOptimized'
 import ClipperSidebar from '@/components/ClipperSidebar'
 import IbanSetup from '@/components/IbanSetup'

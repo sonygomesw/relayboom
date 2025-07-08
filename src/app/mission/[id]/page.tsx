@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import { cliptokkAPI } from '@/lib/supabase'
-import { useAuth } from '@/components/AuthContext'
+import { useAuth } from '@/components/AuthNew'
 import { usePreloadedData } from '@/hooks/usePreloadedData'
 import RoleProtectionOptimized from '@/components/RoleProtectionOptimized'
 import ClipperSidebar from '@/components/ClipperSidebar'

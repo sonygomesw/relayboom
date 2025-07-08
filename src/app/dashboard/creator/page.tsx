@@ -1,6 +1,6 @@
 'use client'
 
-import { useAuth } from '@/components/AuthContext'
+import { useAuth } from '@/components/AuthNew'
 import { useLanguage } from '@/components/LanguageContext'
 import RoleProtectionOptimized from '@/components/RoleProtectionOptimized'
 
