@@ -50,13 +50,15 @@ export const getUserStatsOptimized = async (userId: string): Promise<UserStats> 
  */
 export const getMissionsWithStatsOptimized = async (userId?: string): Promise<MissionWithStats[]> => {
   try {
-    // Première requête : récupérer les missions simples
-    const { data: missionsData, error: missionsError } = await supabase
+    // Récupérer directement depuis la table missions avec category
+    const { data, error } = await supabase
       .from('missions')
       .select(`
         id,
         title,
         description,
+        creator_name,
+        creator_thumbnail,
         video_url,
         price_per_1k_views,
         total_budget,
@@ -65,49 +67,29 @@ export const getMissionsWithStatsOptimized = async (userId?: string): Promise<Mi
         created_at,
         creator_id,
         category,
-        creator_name,
-        creator_thumbnail
+        creator:profiles!missions_creator_id_fkey(pseudo, avatar_url),
+        submissions(
+          id,
+          status,
+          views_count,
+          earnings
+        )
       `)
-      .order('created_at', { ascending: false })
 
-    if (missionsError) {
-      console.error('Erreur getMissionsWithStatsOptimized (missions):', missionsError)
+    if (error) {
+      console.error('Erreur getMissionsWithStatsOptimized:', error)
       return []
     }
-
-    let missions = missionsData || []
+    
+    let missions = data || []
     
     // Si un userId est fourni, filtrer les missions de ce créateur
     if (userId) {
       missions = missions.filter((mission: any) => mission.creator_id === userId)
     }
-
-    // Deuxième requête : récupérer les statistiques des submissions
-    const missionIds = missions.map((m: any) => m.id)
-    let submissionsData: any[] = []
-
-    if (missionIds.length > 0) {
-      const { data: subData, error: subError } = await supabase
-        .from('submissions')
-        .select(`
-          id,
-          mission_id,
-          status,
-          views_count,
-          earnings
-        `)
-        .in('mission_id', missionIds)
-
-      if (subError) {
-        console.error('Erreur getMissionsWithStatsOptimized (submissions):', subError)
-      } else {
-        submissionsData = subData || []
-      }
-    }
-
-    // Combiner les données
+    
     return missions.map((mission: any) => {
-      const submissions = submissionsData.filter((s: any) => s.mission_id === mission.id)
+      const submissions = mission.submissions || []
       const totalSubmissions = submissions.length
       const pendingValidations = submissions.filter((s: any) => s.status === 'pending').length
       const totalViews = submissions.reduce((sum: number, s: any) => sum + (s.views_count || 0), 0)
@@ -118,8 +100,8 @@ export const getMissionsWithStatsOptimized = async (userId?: string): Promise<Mi
         id: mission.id,
         title: mission.title,
         description: mission.description,
-        creator_name: mission.creator_name || '',
-        creator_thumbnail: mission.creator_thumbnail || '',
+        creator_name: mission.creator_name,
+        creator_thumbnail: mission.creator_thumbnail,
         video_url: mission.video_url,
         price_per_1k_views: Number(mission.price_per_1k_views || 0),
         total_budget: Number(mission.total_budget || 0),
@@ -134,8 +116,8 @@ export const getMissionsWithStatsOptimized = async (userId?: string): Promise<Mi
         total_views: totalViews,
         total_earnings: totalEarnings,
         creator: {
-          pseudo: mission.creator_name || '',
-          avatar_url: mission.creator_thumbnail || ''
+          pseudo: mission.creator?.pseudo || mission.creator_name,
+          avatar_url: mission.creator?.avatar_url || mission.creator_thumbnail
         }
       }
     })

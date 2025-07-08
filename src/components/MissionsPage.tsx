@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { supabase } from '@/lib/supabase'
-import { getMissionsWithStatsOptimized } from '@/lib/api-functions'
+import { cliptokkAPI } from '@/lib/supabase'
 import RoleProtectionOptimized from '@/components/RoleProtectionOptimized'
 import { useAuth } from '@/components/AuthContext'
 import { useLanguage } from '@/components/LanguageContext'

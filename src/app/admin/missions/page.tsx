@@ -82,9 +82,9 @@ export default function AdminMissions() {
 
   const loadMissions = async () => {
     try {
-      // Utiliser la fonction depuis api-functions
-      const { getMissionsWithStatsOptimized } = await import('@/lib/api-functions')
-      const missionsData = await getMissionsWithStatsOptimized()
+      // Utiliser la même méthode que la page créateur qui fonctionne
+        const { cliptokkAPI } = await import('@/lib/supabase')
+  const missionsData = await cliptokkAPI.getActiveMissions()
       
       console.log('📊 Missions chargées (admin):', missionsData?.length || 0)
       

@@ -9,14 +9,7 @@ ADD COLUMN IF NOT EXISTS creator_id UUID REFERENCES auth.users(id) ON DELETE CAS
 ALTER TABLE missions 
 ADD COLUMN IF NOT EXISTS featured BOOLEAN DEFAULT false;
 
--- 3. Ajouter la relation explicite entre missions et profiles
-ALTER TABLE missions
-ADD CONSTRAINT missions_creator_profiles_fkey
-FOREIGN KEY (creator_id)
-REFERENCES profiles(id)
-ON DELETE CASCADE;
-
--- 4. Mettre à jour les missions existantes avec un créateur par défaut
+-- 3. Mettre à jour les missions existantes avec un créateur par défaut
 UPDATE missions 
 SET creator_id = (
   SELECT id FROM profiles 
@@ -25,11 +18,10 @@ SET creator_id = (
 )
 WHERE creator_id IS NULL;
 
--- 5. Index pour optimiser les requêtes par créateur
+-- 4. Index pour optimiser les requêtes par créateur
 CREATE INDEX IF NOT EXISTS idx_missions_creator_id ON missions(creator_id);
-CREATE INDEX IF NOT EXISTS idx_missions_created_at ON missions(created_at DESC);
 
--- 6. Politiques RLS mises à jour
+-- 5. Politiques RLS mises à jour
 DROP POLICY IF EXISTS "missions_select_policy" ON missions;
 CREATE POLICY "missions_select_policy" ON missions
 FOR SELECT USING (
@@ -45,6 +37,7 @@ DROP POLICY IF EXISTS "missions_update_policy" ON missions;
 CREATE POLICY "missions_update_policy" ON missions
 FOR UPDATE USING (auth.uid() = creator_id);
 
+-- 6. Politique pour la suppression
 DROP POLICY IF EXISTS "missions_delete_policy" ON missions;
 CREATE POLICY "missions_delete_policy" ON missions
 FOR DELETE USING (auth.uid() = creator_id);

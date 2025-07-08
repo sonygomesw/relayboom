@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
-import { supabase } from './supabase'
-import { getMissionsWithStatsOptimized } from './api-functions'
+import { supabase, cliptokkAPI } from './supabase'
 
 // Cache TTL en millisecondes
 const CACHE_TTL = {
@@ -295,7 +294,7 @@ export const useMissionsWithStats = (userId?: string) => {
       try {
         setLoading(true)
         setError(null)
-        const data = await getMissionsWithStatsOptimized(userId)
+        const data = await cliptokkAPI.getActiveMissions()
         setMissions(data)
       } catch (err) {
         console.error('Erreur useMissionsWithStats:', err)
