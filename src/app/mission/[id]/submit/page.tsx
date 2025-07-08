@@ -497,34 +497,25 @@ export default function SubmitClipPage() {
       
       const startTime = Date.now()
       
-      // ✅ SOLUTION TIMEOUT ULTRA-RAPIDE
-      const insertPromise = supabase
+      // 🔬 DEBUG ULTRA-DÉTAILLÉ
+      console.log('🚀 DÉBUT INSERTION SUPABASE')
+      console.log('📤 Données exactes:', JSON.stringify(insertData, null, 2))
+      
+      const insertStartTime = performance.now()
+      
+      const { data, error } = await supabase
         .from('submissions')
         .insert(insertData)
         .select()
       
-      const timeoutPromise = new Promise((_, reject) => {
-        setTimeout(() => {
-          reject(new Error('TIMEOUT_INSERTION_3S'))
-        }, 3000) // 3 secondes max !
-      })
+      const insertEndTime = performance.now()
+      const insertDuration = insertEndTime - insertStartTime
       
-      let data, error
-      try {
-        const result = await Promise.race([insertPromise, timeoutPromise]) as any
-        data = result.data
-        error = result.error
-      } catch (timeoutError: any) {
-        if (timeoutError.message === 'TIMEOUT_INSERTION_3S') {
-          console.error('❌ TIMEOUT ATTEINT - 3 secondes')
-          setErrors({ submit: 'La soumission prend trop de temps. Le problème est identifié - contactez le support.' })
-          return
-        }
-        throw timeoutError
-      }
+      console.log(`✅ INSERTION TERMINÉE en ${insertDuration.toFixed(2)}ms`)
+      console.log('📋 Résultat:', { data, error })
 
       const endTime = Date.now()
-      console.log(`⏱️ Temps de réponse: ${endTime - startTime}ms`)
+      console.log(`⏱️ Temps de réponse total: ${endTime - startTime}ms`)
 
       if (error) {
         console.error('❌ ERREUR SUPABASE DÉTAILLÉE:')
